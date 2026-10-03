@@ -1,6 +1,6 @@
 """Flat-colour front orthographic render of the head (atlas projection):
 eyeballs red, upper lip blue, lower lip red, for face_art feature masks."""
-import sys; sys.path.insert(0,'/home/user/voyage/scripts/character')
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import chaewon as C, mh, preview, numpy as np, bpy, math
 B=C.load_body(); V=B['V']
 # lip vertex sets from MakeHuman targets
