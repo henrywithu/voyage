@@ -9,7 +9,7 @@ export const theme = {
   /** Amber behind the gate's window and the hand. */
   amber: "#b8820f",
   /** Mid-tone of Chaewon's white lace dress. */
-  dress: "#e8e1d0",
+  dress: "#f1ece1",
 } as const;
 
 /** The three tides of the Trapnest Voyage elixir, in selection order. */

@@ -192,10 +192,10 @@ export async function setupFloatingFrames(section: SceneSection) {
             ? "#f3f1e9"
             : params.shader
               ? "#f3bc23"
-              : "#e8e1d0",
+              : "#f1ece1",
         ).convertLinearToSRGB(),
         uColor2: new THREE.Color(
-          params.shader ? "#e8e1d0" : "#a39b8a",
+          params.shader ? "#f1ece1" : "#a39b8a",
         ).convertLinearToSRGB(),
         uColor3: new THREE.Color("#3c3c3c").convertLinearToSRGB(),
         uTransition: 0,
