@@ -143,3 +143,23 @@ def boundary_loops(F):
             v = nxt[v]
         loops.append(loop)
     return loops
+
+
+def smooth_weights(W, F, iters=20, lam=0.6, mask=None):
+    """Laplacian smoothing of per-vertex weight rows over mesh edges."""
+    from scipy.sparse import coo_matrix
+    n = len(W)
+    rows = np.concatenate([F[:, 0], F[:, 1], F[:, 2], F[:, 1], F[:, 2], F[:, 0]])
+    cols = np.concatenate([F[:, 1], F[:, 2], F[:, 0], F[:, 0], F[:, 1], F[:, 2]])
+    A = coo_matrix((np.ones(len(rows)), (rows, cols)), shape=(n, n)).tocsr()
+    A.data[:] = 1
+    deg = np.asarray(A.sum(1)).ravel()
+    W = W.copy()
+    for _ in range(iters):
+        avg = (A @ W) / np.maximum(deg, 1)[:, None]
+        upd = W + lam * (avg - W)
+        if mask is not None:
+            W[mask] = upd[mask]
+        else:
+            W = upd
+    return W / np.maximum(W.sum(1, keepdims=True), 1e-9)

@@ -6,7 +6,9 @@ import chaewon as C
 import geom
 import master
 
-DEC = '/home/user/voyage/public/assets/decoded/story/'
+import os
+DEC = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../reference/saint/')
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../public/assets/decoded/story/')
 SIDES = (('L', 1), ('R', -1))
 
 

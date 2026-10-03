@@ -17,7 +17,7 @@ SKIN_WHITE = (0.80, 0.80)    # atlas: blank skin area
 CLOTH_WHITE = (0.50, 0.25)   # atlas: blank cloth area
 TRIM_WHITE_V = 0.025
 TRIM_BLACK_V = 0.075
-KEYS = ('P', 'N', 'F', 'uvT', 'uvA', 'part', 'W', 'eye')
+KEYS = ('P', 'N', 'F', 'uvT', 'uvA', 'part', 'W', 'eye', 'facew')
 
 
 def head_uv(P):
@@ -59,9 +59,10 @@ def merge(parts):
     return {k: np.concatenate(v) for k, v in out.items()}
 
 
-def part(P, N, F, uvT, uvA, kind, W, eye=None):
+def part(P, N, F, uvT, uvA, kind, W, eye=None, facew=None):
     return dict(P=P, N=N, F=F, uvT=uvT, uvA=uvA, part=np.full(len(P), kind) if np.isscalar(kind) else kind,
-                W=W, eye=np.zeros(len(P)) if eye is None else eye)
+                W=W, eye=np.zeros(len(P)) if eye is None else eye,
+                facew=np.zeros(len(P)) if facew is None else facew)
 
 
 def build(seed=5):
@@ -90,6 +91,13 @@ def build(seed=5):
     is_eye[np.unique(eyeF)] = True
     bP = V[used]
     bN = np.where(is_eye[used, None], eyeN[used], bodyN[used])
+    # anime-style face shading: bend face normals toward a soft frontal light
+    hw = W[used, sk.INDEX['head']]
+    front = np.clip((bP[:, 2] - 0.035) / 0.06, 0, 1) * np.clip((bP[:, 1] - 1.38) / 0.03, 0, 1) * (hw > 0.5)
+    soft = np.array([0.0, 0.30, 1.0]) / np.linalg.norm([0.0, 0.30, 1.0])
+    k = (0.62 * front)[:, None] * (~is_eye[used])[:, None]
+    bN = bN * (1 - k) + soft * k
+    bN /= np.linalg.norm(bN, axis=1, keepdims=True)
     bF = remap[np.concatenate([bodyF, eyeF])]
     kind = np.where(is_eye[used], C.PART_EYE, C.PART_SKIN)
     Wb = W[used].copy()
@@ -100,8 +108,9 @@ def build(seed=5):
     back[:, 0] = np.clip(front[:, 0], 0, 0.44) + 0.50
     tri_back = (bP[bF][:, :, 2].mean(1) < 0.032) | (bP[bF][:, :, 1].mean(1) < 1.30)
     idx, bF2, uvA = split_seam(bF, tri_back.astype(int), {0: front, 1: back}, len(bP))
+    facew = np.clip((bP[:, 2] - 0.02) / 0.05, 0, 1) * np.clip((bP[:, 1] - 1.37) / 0.03, 0, 1) * (hw > 0.5)
     parts = [part(bP[idx], bN[idx], bF2, np.tile([0.5, TRIM_WHITE_V], (len(idx), 1)), uvA,
-                  kind[idx], Wb[idx], eye=is_eye[used][idx].astype(float))]
+                  kind[idx], Wb[idx], eye=is_eye[used][idx].astype(float), facew=facew[idx])]
     bidx = np.unique(B['body'])
     tree = cKDTree(V[bidx])
 
@@ -118,6 +127,8 @@ def build(seed=5):
     Wd = Wd * (1 - 0.55 * blend) + hips * 0.55 * blend
     Wd[:, C.ARM_BONES] = 0
     Wd /= Wd.sum(1, keepdims=True)
+    # smooth the skirt so neighbouring folds never follow different legs abruptly
+    Wd = geom.smooth_weights(Wd, df, iters=40, mask=dv[:, 1] < hip_y + 0.08)
     parts.append(part(dv, geom.vertex_normals(dv, df), df, duv, np.tile(CLOTH_WHITE, (len(dv), 1)), C.PART_DRESS, Wd))
     Ws = nearest_weights(sv)
     Ws[:, C.ARM_BONES] = 0
@@ -148,7 +159,7 @@ def hair_mesh(draped):
     return tuple(map(np.concatenate, (hv, hn, huv, hf, hs)))
 
 
-def posed(M, H, ps, hair_rigid=0.05, hair_blend=0.12):
+def posed(M, H, ps, hair_rigid=0.05, hair_blend=0.12, wind=None, tuck=None):
     """Skin the master with pose `ps`, drape the hair, and return render data
     with master-skeleton weights (hair: head-rigid, easing onto the body)."""
     P, N = ps.skin(M['P'], M['N'])
@@ -157,7 +168,7 @@ def posed(M, H, ps, hair_rigid=0.05, hair_blend=0.12):
     body = (M['part'] == C.PART_SKIN) | (M['part'] == C.PART_DRESS)
     keepF = body[M['F']].all(1)
     draped = C.drape_hair(H['guides'], H['center'], Rw[hi], M['heads'][hi], Hw[hi],
-                          P, M['F'][keepF], P[M['part'] == C.PART_SKIN], scale=ps.scale)
+                          P, M['F'][keepF], P[M['part'] == C.PART_SKIN], scale=ps.scale, wind=wind, tuck=tuck)
     hv, hn, huv, hf, hs = hair_mesh(draped)
     # hair weights: master weights of the nearest posed body/dress vertices
     src = np.where(body & (M['W'][:, C.ARM_BONES].sum(1) < 0.2))[0]
@@ -179,6 +190,16 @@ def posed(M, H, ps, hair_rigid=0.05, hair_blend=0.12):
     merged['ao'] = np.concatenate([M['ao'], np.zeros(len(hv))])
     merged['hair_s'] = np.concatenate([np.zeros(len(P)), hs])
     return merged
+
+
+def light_face(X, light, amount=0.75):
+    """Bend face normals toward a scene light (clean, bright anime faces)."""
+    L = np.asarray(light, float)
+    L = L / np.linalg.norm(L)
+    k = (X['facew'] * amount)[:, None]
+    N = X['N'] * (1 - k) + L * k
+    X['N'] = N / np.linalg.norm(N, axis=1, keepdims=True)
+    return X
 
 
 def save(path, M, H):

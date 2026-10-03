@@ -376,10 +376,12 @@ class SmoothSDF(geom.SurfaceSDF):
         return super().__call__(P, k=k)
 
 
-def hang(start, down_len, sdf, axis_fn, z_bias, margin, rng, seg=0.022, stiff=0.99, collide_below=1.40):
+def hang(start, down_len, sdf, axis_fn, z_bias, margin, rng, seg=0.022, stiff=0.99, collide_below=1.40,
+         down=(0, -1, 0)):
     """Straight falling hair from `start`, draped outward to clear the body."""
     n = max(2, int(down_len / seg))
-    pts = np.array([start + np.array([0, -seg * k, 0]) for k in range(n + 1)])
+    dvec = np.asarray(down, float) / np.linalg.norm(down)
+    pts = np.array([start + dvec * seg * k + np.array([0, 0, 0]) for k in range(n + 1)])
     t = np.arange(n + 1) * seg
     pts[:, 2] += z_bias * np.clip(t / 0.12, 0, 1) ** 1.5
     pts[:, 0] += np.sign(start[0]) * 0.010 * np.clip(t / 0.25, 0, 1)
@@ -460,8 +462,20 @@ def hair_guides(B, collide_V, collide_F, seed=5):
     return guides, c
 
 
+def tuck_curve(scalp, center, side, amount=42.0):
+    """Sweep a scalp polyline back behind the ear (rest space)."""
+    t = np.linspace(0, 1, len(scalp)) ** 1.4
+    out = scalp.copy()
+    for k in range(len(scalp)):
+        th = np.radians(amount * t[k]) * (1 if side == 'L' else -1)
+        c, s_ = np.cos(th), np.sin(th)
+        d = scalp[k] - center
+        out[k] = center + np.array([d[0] * c + d[2] * s_, d[1], -d[0] * s_ + d[2] * c])
+    return out
+
+
 def drape_hair(guides, center, head_R, head_rest, head_world, collide_V, collide_F, axis_points,
-               scale=1.0, seed=5):
+               scale=1.0, seed=5, wind=None, tuck=None):
     """Place guides on a posed head and let the lengths fall with gravity.
 
     x' = head_R ((x - head_rest) * scale) + head_world for the head-rigid part.
@@ -482,10 +496,29 @@ def drape_hair(guides, center, head_R, head_rest, head_world, collide_V, collide
     cen = head_R @ ((center - head_rest) * scale) + head_world
     neck_y = cen[1] - 0.10 * scale
     for g in guides:
-        top = ((g['scalp'] - head_rest) * scale) @ head_R.T + head_world
+        scalp_rest = g['scalp']
+        zb = g['zb']
+        if tuck is not None:
+            sx = scalp_rest[min(len(scalp_rest) - 1, 3), 0]
+            on_side = (sx > 0) == (tuck == 'L')
+            phi = np.degrees(np.arctan2(abs(scalp_rest[-1, 0]), scalp_rest[-1, 2] - center[2]))
+            if on_side and g['kind'] == 'frame':
+                continue
+            if on_side and g['kind'] == 'long' and phi < 115:
+                scalp_rest = tuck_curve(scalp_rest, center, tuck, 48.0 * np.clip((115 - phi) / 60, 0.3, 1))
+                zb = -0.045
+        top = ((scalp_rest - head_rest) * scale) @ head_R.T + head_world
+        if tuck is not None and scalp_rest is not g['scalp']:
+            sd, nrm, _ = sdf(top)
+            push = np.clip(0.008 * scale - sd, 0, None)
+            top = top + nrm * push[:, None]
         if g['drop'] > 0:
-            low = hang(top[-1], g['drop'] * scale, sdf, axis_fn, g['zb'] * scale, g['margin'] * scale, rng,
-                       seg=0.022 * scale, collide_below=neck_y)
+            down = (0, -1, 0)
+            if wind is not None:
+                gust = np.asarray(wind, float) * (0.6 + 0.8 * rng.random())
+                down = np.array([0, -1.0, 0]) + gust
+            low = hang(top[-1], g['drop'] * scale, sdf, axis_fn, zb * scale, g['margin'] * scale, rng,
+                       seg=0.022 * scale, collide_below=neck_y, down=down)
             pts = np.concatenate([top, low[1:]])
         else:
             pts = top
