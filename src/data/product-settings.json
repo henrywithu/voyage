@@ -1,0 +1,36 @@
+{
+  "Collection": {
+    "blueColor": "#63c6f8",
+    "blueColorDark": "#0062ff",
+    "greenColor": "#84dba3",
+    "greenColorDark": "#14c251",
+    "posLerp": 0.1,
+    "posRangeX": 0.2,
+    "posRangeY": 0.2,
+    "rotRangeZ": 0.1,
+    "wobbleDecay": 0.99,
+    "wobbleMax": 5,
+    "wobblePulseFrequency": 0.4,
+    "wobblePulseSpeed": 1,
+    "wobbleVelMultiplier": 7,
+    "yellowColor": "#fdeb87",
+    "yellowColorDark": "#fdd90d"
+  },
+  "Products": {
+    "blueColor": "#6fccfb",
+    "blueColorDark": "#0362fc",
+    "greenColor": "#84dba3",
+    "greenColorDark": "#14c251",
+    "posLerp": 0.1,
+    "posRangeX": 0.4,
+    "posRangeY": 0.2,
+    "rotRangeZ": 0.1,
+    "wobbleDecay": 0.99,
+    "wobbleMax": 10,
+    "wobblePulseFrequency": 0.3,
+    "wobblePulseSpeed": 5,
+    "wobbleVelMultiplier": 10,
+    "yellowColor": "#fdeb87",
+    "yellowColorDark": "#fdd90d"
+  }
+}

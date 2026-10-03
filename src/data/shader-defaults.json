@@ -1,0 +1,2823 @@
+{
+  "AntiGravityFloorShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {},
+    "uDiscardBottom": {}
+  },
+  "AntiGravityScene": {
+    "tTrim": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/tex_clothing_trim.png",
+        "repeat": true
+      }
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#63C4F4"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 2.25
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0.1,
+          0.1,
+          0.9
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          1,
+          1,
+          2.5
+        ]
+      }
+    },
+    "uTime": {
+      "value": 0
+    },
+    "uAngle": {
+      "value": 0.5
+    },
+    "uInverse": {
+      "value": 0
+    },
+    "uWindSpeed": {
+      "value": 1
+    },
+    "uDisplacement": {
+      "value": 0
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    }
+  },
+  "ApproachBackgroundShader": {
+    "tMap": {
+      "value": null
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#3a3a3a"
+        ]
+      }
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    }
+  },
+  "BorderShader": {
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uSceneHeightWorld": {
+      "value": 1
+    },
+    "uScreenHeightWorld": {
+      "value": 1
+    },
+    "uPadX": {
+      "value": 0.3
+    },
+    "uPadY": {
+      "value": 0.3
+    },
+    "uPadTop": {
+      "value": 0
+    },
+    "uFixedWidth": {
+      "value": 0
+    },
+    "uDepthSkew": {
+      "value": 0
+    },
+    "uDepthOffset": {
+      "value": 0
+    },
+    "uFragDepth": {
+      "value": 0
+    },
+    "uSkewCorrection": {
+      "value": 0
+    },
+    "uMaxWidth": {
+      "value": 2100
+    },
+    "uDPR": {
+      "value": 1
+    },
+    "uTransition": {
+      "value": 1
+    },
+    "uFluidEdge": {
+      "value": {
+        "kind": "Vector4",
+        "args": [
+          3,
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    "uFadeTop": {
+      "value": 0
+    }
+  },
+  "BottlePBR": {
+    "tRefraction": {
+      "value": null,
+      "ignoreUIL": true
+    },
+    "tText": {
+      "value": null,
+      "ignoreUIL": true
+    },
+    "uBGColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      },
+      "ignoreUIL": false
+    },
+    "uOpacity": {
+      "value": 1,
+      "ignoreUIL": true
+    }
+  },
+  "BottleShader": {
+    "tText": {
+      "value": null
+    },
+    "tEnvDiffuse": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/fpo/diffuse-RGBM.png",
+        "repeat": true
+      },
+      "premultiplyAlpha": false
+    },
+    "tEnvSpecular": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/fpo/specular-RGBM.png",
+        "repeat": true
+      },
+      "premultiplyAlpha": false
+    }
+  },
+  "CathedralBackgroundShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#be261e"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
+  },
+  "CathedralFloorShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
+  },
+  "ColorMaterial": {
+    "color": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#FFFFFF"
+        ]
+      }
+    },
+    "uBillboard": {
+      "value": 0
+    },
+    "alpha": {
+      "value": 1
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      }
+    },
+    "uFixed": {
+      "value": 0
+    }
+  },
+  "ColosseumFloatingRockShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 0.68
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0.129,
+          0.511,
+          0.423
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0.78,
+          0.243,
+          0.97
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -2.56
+    },
+    "uAngleAccum": {
+      "value": 0
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.1,
+          0.7
+        ]
+      }
+    },
+    "uRotationAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          1,
+          1,
+          0
+        ],
+        "normalize": true
+      }
+    },
+    "uRotationParams": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          1,
+          0
+        ]
+      }
+    }
+  },
+  "ColosseumFloorShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
+  },
+  "ColosseumTitleShader": {
+    "uScreenHeightWorld": {
+      "value": 1
+    },
+    "tOpacity": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/intro/title_opacity.png",
+        "repeat": true
+      }
+    },
+    "tDistance": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/intro/title_distance.png",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      }
+    },
+    "uProgress": {
+      "value": 1
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/skylines.png",
+        "repeat": true
+      }
+    },
+    "uDPR": {
+      "value": 1
+    },
+    "uMaxWidth": {
+      "value": 2100
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    },
+    "uScale": {
+      "value": 1
+    }
+  },
+  "CopyShader": {
+    "tMap": {
+      "value": null
+    },
+    "uAlpha": {
+      "value": 1
+    },
+    "uFixed": {
+      "value": 0
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      }
+    },
+    "transparent": true
+  },
+  "CursorShader": {
+    "tText": {
+      "value": null,
+      "ignoreUIL": true
+    },
+    "uTint": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#8C0D09"
+        ]
+      }
+    },
+    "uVelocity": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "DrinkPourBackgroundShader": {
+    "tMap": {
+      "value": null
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#bc251c"
+        ]
+      }
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    }
+  },
+  "DrinkPourGlassShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uDistanceCompensation": {
+      "value": 0
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
+  },
+  "DrinkPourScene": {
+    "tAtlas": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/tex_atlas.png",
+        "repeat": true
+      }
+    },
+    "tTrim": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/tex_trim-2.png",
+        "repeat": true
+      }
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#b0976a"
+        ]
+      }
+    },
+    "uDrinkColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#63C4F4"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 3.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0.13,
+          0.3,
+          0.74
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0,
+          0
+        ]
+      }
+    },
+    "uAngle": {
+      "value": -1.53
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uColorScan": {
+      "value": 0
+    }
+  },
+  "DrinkSelectionBorderShader": {
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uSceneHeightWorld": {
+      "value": 1
+    },
+    "uScreenHeightWorld": {
+      "value": 1
+    },
+    "uPadX": {
+      "value": 0.3
+    },
+    "uPadY": {
+      "value": 0.3
+    },
+    "uFixedWidth": {
+      "value": 0
+    },
+    "uDepthSkew": {
+      "value": 0
+    },
+    "uDepthOffset": {
+      "value": 0
+    },
+    "uFragDepth": {
+      "value": 0
+    },
+    "uSkewCorrection": {
+      "value": 0
+    },
+    "uMaxWidth": {
+      "value": 2100
+    },
+    "uDPR": {
+      "value": 1
+    }
+  },
+  "DrinkSelectionBottleShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/drinkselection/merged_bottle.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uDistanceCompensation": {
+      "value": 0
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
+  },
+  "FooterShader": {
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#121212"
+        ]
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    }
+  },
+  "GLTextAnimation": {
+    "uCount": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "GlassLiquidPBR": {
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#F4E27D"
+        ]
+      }
+    },
+    "uColorDark": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#CB2C1F"
+        ]
+      }
+    },
+    "uColor2": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ff0000"
+        ]
+      }
+    },
+    "uColor2Dark": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#dd0000"
+        ]
+      }
+    },
+    "uTransition": {
+      "value": 0.5
+    },
+    "tRefraction": {
+      "value": null
+    },
+    "tNoise": {
+      "value": null
+    },
+    "uMultiplier": {
+      "value": 1
+    },
+    "uOpacity": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uFillAmount": {
+      "value": 0.5
+    },
+    "uObjectPosition": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0,
+          0
+        ]
+      },
+      "ignoreUIL": true
+    },
+    "uWobbleX": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uWobbleZ": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uRefractionStrength": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "GlassPBR": {
+    "tRefraction": {
+      "value": null
+    },
+    "tLiquid": {
+      "value": null
+    },
+    "uOpacity": {
+      "value": 1
+    },
+    "uBackFace": {
+      "value": 0
+    },
+    "tBlueNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/bluenoise/bluenoise0.png",
+        "repeat": true
+      }
+    }
+  },
+  "GlassShader": {
+    "tText": {
+      "value": null
+    },
+    "tEnvDiffuse": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/fpo/diffuse-RGBM.png",
+        "repeat": true
+      },
+      "premultiplyAlpha": false
+    },
+    "tEnvSpecular": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/fpo/specular-RGBM.png",
+        "repeat": true
+      },
+      "premultiplyAlpha": false
+    },
+    "uOpacity": {
+      "value": 0
+    }
+  },
+  "LabelPBR": {
+    "tBaseColor2": {
+      "value": null,
+      "ignoreUIL": true
+    },
+    "uTransition": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uUVOffset1": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uUVOffset2": {
+      "value": 0,
+      "ignoreUIL": true
+    }
+  },
+  "LightBeamShader": {
+    "color": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          16777215
+        ]
+      }
+    },
+    "uTime": {
+      "value": 0
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "tWindNoise": {
+      "value": null
+    },
+    "tNoise": {
+      "value": null
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uScale": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          1.8,
+          6.4,
+          1.8
+        ]
+      }
+    },
+    "uOffsetX": {
+      "value": 0.1
+    },
+    "colorB": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          16777215
+        ]
+      }
+    },
+    "uMask": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.3,
+          0.05
+        ]
+      }
+    },
+    "uNoise": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          1,
+          0.4,
+          0.15
+        ]
+      }
+    },
+    "uRotation": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          360,
+          5
+        ]
+      }
+    },
+    "uXZScale": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          1.3
+        ]
+      }
+    },
+    "uSmoothstep": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0,
+          0.05
+        ]
+      }
+    },
+    "uTimeUp": {
+      "value": 0
+    },
+    "uDraw": {
+      "value": 0
+    },
+    "uParabolaK": {
+      "value": 1
+    },
+    "uAnimateInMask": {
+      "value": 0
+    },
+    "uAnimateNoise": {
+      "value": 0
+    },
+    "uEndNoise": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1.62,
+          10
+        ]
+      }
+    },
+    "uEndsMask": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.2,
+          1
+        ]
+      }
+    },
+    "uNoiseUVTimeSpeed": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.05,
+          0.05
+        ]
+      }
+    },
+    "uNoiseUVScaleA": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.4
+        ]
+      }
+    },
+    "uNoiseUVScaleB": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.3,
+          0.3
+        ]
+      }
+    },
+    "uWindNoiseThreshold": {
+      "value": 0.3
+    }
+  },
+  "NearBackgroundShader": {
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/cell_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#3c3c3c"
+        ]
+      }
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    }
+  },
+  "NearGroundShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
+  },
+  "NearShadowShader": {
+    "tMap": {
+      "value": null
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uSpeed": {
+      "value": 0
+    }
+  },
+  "PillarFractureShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uDistanceCompensation": {
+      "value": 0
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uFractureThreshold": {
+      "value": 1
+    },
+    "uTimeOffset": {
+      "value": 1
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    },
+    "uMouse": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "PortalShader": {
+    "tMap": {
+      "value": null
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uSteppedTime": {
+      "value": 8
+    },
+    "uLinesTile": {
+      "value": 1
+    },
+    "uStep": {
+      "value": 0
+    },
+    "uColor1": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uColor2": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    }
+  },
+  "ProfileBackgroundShader": {
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/cell_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#f4f2ea"
+        ]
+      }
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    }
+  },
+  "ScreenQuadColor": {
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#C82924"
+        ]
+      }
+    }
+  },
+  "ShadowShader": {
+    "tMap": {
+      "value": null
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLinesAngle": {
+      "value": -0.5
+    },
+    "uLinesSpeed": {
+      "value": 0
+    },
+    "uLinesStrength": {
+      "value": 0
+    },
+    "uGradient": {
+      "value": 0
+    },
+    "uGradientAngle": {
+      "value": 0
+    }
+  },
+  "StaticCharacterBaseShader": {
+    "tMap": {
+      "value": null
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "tAtlas": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/tex_atlas.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tTrim": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/tex_clothing_trim.png",
+        "repeat": true
+      }
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLinesAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          1,
+          0,
+          0.3
+        ],
+        "normalize": true
+      }
+    },
+    "uLinesAngle": {
+      "value": -0.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uBreathe": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.2,
+          0.3,
+          1
+        ]
+      }
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.9
+        ]
+      }
+    },
+    "uWindAxisAngle": {
+      "value": {
+        "kind": "Vector4",
+        "args": [
+          0,
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    "uWindParams": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          1,
+          1
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#b59f73"
+        ]
+      }
+    },
+    "uBend": {
+      "value": 0
+    }
+  },
+  "StaticObjectBaseShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uDistanceCompensation": {
+      "value": 0
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
+  },
+  "StaticObjectBaseShaderInverse": {
+    "uLineWidth": {
+      "value": 0.05
+    }
+  },
+  "StaticObjectNoDiscard": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    }
+  },
+  "TargetBorderShader": {
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uSceneHeightWorld": {
+      "value": 1
+    },
+    "uScreenHeightWorld": {
+      "value": 1
+    },
+    "uPadX": {
+      "value": 0.3
+    },
+    "uPadY": {
+      "value": 0.3
+    },
+    "uMaxWidth": {
+      "value": 2100
+    },
+    "uDPR": {
+      "value": 1
+    },
+    "uProgress": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardBottom": {
+      "value": 1,
+      "ignoreUIL": true
+    }
+  },
+  "TargetCharacterShader": {
+    "tMap": {
+      "value": null
+    },
+    "tTrim": {
+      "value": null
+    },
+    "tLines": {
+      "value": null
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uSteppedTime": {
+      "value": 8
+    },
+    "uColor1": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uColor2": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#bc241b"
+        ]
+      }
+    },
+    "uCutout": {
+      "value": 0.45
+    }
+  },
+  "TargetPortalShader": {
+    "tMap": {
+      "value": null
+    },
+    "tLines": {
+      "value": null
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uSteppedTime": {
+      "value": 8
+    },
+    "uColor1": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uColor2": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uCutout": {
+      "value": 0.45
+    }
+  },
+  "TextAnimatedShader": {
+    "tMSDF": {
+      "value": null
+    },
+    "uTranslateIn": {
+      "value": 0
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uBoundsX": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          -1000,
+          1000
+        ]
+      }
+    },
+    "uFixed": {
+      "value": 0
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      }
+    },
+    "uWhiteBits": {
+      "value": 0
+    },
+    "uRowCount": {
+      "value": 1
+    },
+    "uOffset": {
+      "value": 1
+    },
+    "uStaggerAmount": {
+      "value": 0.25
+    }
+  },
+  "TextBox": {
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#c82924"
+        ]
+      }
+    },
+    "uKaraokeTime": {
+      "value": 0
+    },
+    "uKaraokeInfluence": {
+      "value": 1
+    }
+  },
+  "TextCarouselShader": {
+    "tMSDF": {
+      "value": null
+    },
+    "uTranslateIn": {
+      "value": 0
+    },
+    "uDirection": {
+      "value": 0
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uBoundsX": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          -1000,
+          1000
+        ]
+      }
+    },
+    "uFixed": {
+      "value": 0
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      }
+    }
+  },
+  "TextShaderMasked": {
+    "tMSDF": {
+      "value": null
+    },
+    "uTranslateIn": {
+      "value": 0
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uBoundsX": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          -1000,
+          1000
+        ]
+      }
+    },
+    "uFixed": {
+      "value": 0
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      }
+    },
+    "uRowCount": {
+      "value": 1
+    },
+    "uOffset": {
+      "value": 0
+    },
+    "uStaggerAmount": {
+      "value": 0.1
+    }
+  },
+  "TextureMaterial": {
+    "color": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#FFFFFF"
+        ]
+      }
+    },
+    "uBillboard": {
+      "value": 0
+    },
+    "uAlpha": {
+      "value": 1
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      }
+    },
+    "uFixed": {
+      "value": 0
+    }
+  },
+  "TransitionLineShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uScroll": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uRepeat": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uFixed": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      },
+      "ignoreUIL": true
+    }
+  },
+  "WanderBackgroundShader": {
+    "tMap": {
+      "value": null
+    },
+    "tNoise": {
+      "value": null
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uCloudColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uScroll": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uHeightWorld": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uProgress": {
+      "value": 0,
+      "ignoreUIL": true
+    }
+  },
+  "WanderBorderShader": {
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uSceneHeightWorld": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uScreenHeightWorld": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uPadX": {
+      "value": 0.3
+    },
+    "uPadY": {
+      "value": 0.3
+    },
+    "uFixedWidth": {
+      "value": 0
+    },
+    "uScroll": {
+      "value": 0
+    },
+    "uProgress": {
+      "value": 0
+    },
+    "uMaxWidth": {
+      "value": 2100
+    },
+    "uDPR": {
+      "value": 1
+    }
+  },
+  "WanderScene": {
+    "tTrim": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/tex_trim-2.png",
+        "repeat": true
+      }
+    },
+    "tAtlas": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/tex_atlas.png",
+        "repeat": true
+      }
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/skylines.png",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 1.3
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0.1,
+          0.1,
+          0.5
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          1,
+          0,
+          2.5
+        ]
+      }
+    },
+    "uAngle": {
+      "value": 0.5
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/wander/shadow1.png",
+        "repeat": false
+      }
+    },
+    "uScreenHeightWorld": {
+      "value": 1
+    },
+    "tOpacity": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/intro/title_opacity.png",
+        "repeat": true
+      }
+    },
+    "tDistance": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/intro/title_distance.png",
+        "repeat": true
+      }
+    },
+    "uProgress": {
+      "value": 0
+    },
+    "uDPR": {
+      "value": 1
+    },
+    "uMaxWidth": {
+      "value": 2100
+    },
+    "uScale": {
+      "value": 1
+    }
+  },
+  "WanderShadow": {
+    "tMap": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/wander/shadow1.png",
+        "repeat": false
+      }
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uLinesTile": {
+      "value": 0.75
+    }
+  },
+  "WanderSkyShader": {
+    "tCloudsNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/skylines.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uLinesTile": {
+      "value": 4,
+      "ignoreUIL": true
+    },
+    "uScroll": {
+      "value": 4,
+      "ignoreUIL": true
+    },
+    "uDiscardBottom": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uDiscardTop": {
+      "value": 1,
+      "ignoreUIL": true
+    },
+    "uProgress": {
+      "value": 0,
+      "ignoreUIL": true
+    },
+    "uColor1": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#2c2c2e"
+        ]
+      }
+    },
+    "uColor2": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#1d1d1d"
+        ]
+      }
+    }
+  },
+  "WanderTitleShader": {
+    "uScreenHeightWorld": {
+      "value": 1
+    },
+    "tOpacity": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/intro/title_opacity.png",
+        "repeat": true
+      }
+    },
+    "tDistance": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/intro/title_distance.png",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      }
+    },
+    "uProgress": {
+      "value": 1
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/skylines.png",
+        "repeat": true
+      }
+    },
+    "uDPR": {
+      "value": 1
+    },
+    "uMaxWidth": {
+      "value": 2100
+    },
+    "uScale": {
+      "value": 1
+    }
+  },
+  "WaterHandShader": {
+    "tHand": {
+      "value": null
+    },
+    "uColor1": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#000000"
+        ]
+      }
+    },
+    "uColor2": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor3": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ff0000"
+        ]
+      }
+    },
+    "uColor4": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#C82924"
+        ]
+      }
+    },
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/clouds_noise.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "tBlueNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/bluenoise/bluenoise0.png",
+        "repeat": true
+      },
+      "ignoreUIL": true
+    },
+    "uFixed": {
+      "value": 0
+    },
+    "uFixedCameraMatrix": {
+      "value": {
+        "kind": "Matrix4",
+        "args": []
+      }
+    },
+    "uScroll": {
+      "value": 0
+    },
+    "uPageScroll": {
+      "value": 0
+    }
+  }
+}

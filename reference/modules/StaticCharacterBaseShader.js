@@ -1,0 +1,81 @@
+function StaticCharacterBaseShader(_mesh, _shader, _input, _group) {
+    const _this = this;
+    if (
+      (Inherit(_this, Component),
+      Inherit(_this, XComponent),
+      (_this.fragName = "StaticCharacterBaseShader"),
+      (_this.contexts = "Component"),
+      (_this.mesh = _mesh),
+      (_this.shader = _shader),
+      (_this.uilInput = _input),
+      (_this.uilFolder = _group),
+      _this.uilFolder?.addButton)
+    ) {
+      let a = _this.uilFolder;
+      ((_this.uilFolder = _this.uilInput), (_this.uilInput = a));
+    }
+    this.isFragment = !0;
+    var _promises = [];
+    !(async function () {
+      (_this.element &&
+        (_this.element.onMountedHook = (_) => _this.onMounted?.()),
+        _this.layout?.getAllLayers &&
+          (_this.layers = await _this.layout.getAllLayers()));
+      let onInit = _this.onInit;
+      _this.shader.addUniforms({
+        tMap: { value: null },
+        uDiscardBottom: { value: 0, ignoreUIL: !0 },
+        uDiscardTop: { value: 1, ignoreUIL: !0 },
+        tAtlas: {
+          value: Utils3D.getRepeatTexture("assets/images/story/tex_atlas.png"),
+          ignoreUIL: !0,
+        },
+        tTrim: {
+          value: Utils3D.getRepeatTexture(
+            "assets/images/story/tex_clothing_trim.png",
+          ),
+        },
+        tLines: {
+          value: Utils3D.getRepeatTexture("assets/images/story/lines.jpg"),
+          ignoreUIL: !0,
+        },
+        tNoise: {
+          value: Utils3D.getRepeatTexture("assets/images/story/perlin.png"),
+          ignoreUIL: !0,
+        },
+        uLinesTile: { value: 4.5 },
+        uLinesAxis: { value: new Vector3(1, 0, 0.3).normalize() },
+        uLinesAngle: { value: -0.5 },
+        uLightDir: { value: new Vector3(0, 0.5, 2).normalize() },
+        uBreathe: { value: new Vector3(-0.2, 0.3, 1) },
+        uThreshold: { value: new Vector2(0.4, 0.9) },
+        uWindAxisAngle: { value: new Vector4(0, 1, 0, 0) },
+        uWindParams: { value: new Vector3(0, 1, 1) },
+        uColor: { value: new Color("#b59f73") },
+        uBend: { value: 0 },
+      });
+      const scene = _this.mesh._parent.classRef.parent;
+      (_this.bind("Story/scrollY", (value) => {
+        ((_this.shader.uniforms.uDiscardTop.value =
+          (scene.worldTop + value) / _this.get("Story/screenHeightWorld")),
+          (_this.shader.uniforms.uDiscardBottom.value =
+            (scene.worldBottom + value) /
+            _this.get("Story/screenHeightWorld")));
+      }),
+        (onInit = _this.onInit === onInit ? null : _this.onInit));
+      for (let key in _this)
+        if (_this[key]?.then) {
+          let store = _this[key];
+          (store.then((val) => (_this[key] = val)), _promises.push(store));
+        }
+      (_promises.length && (await Promise.all(_promises)),
+        (_promises = null),
+        _this.flag?.("__ready", !0),
+        onInit ||
+          "StaticCharacterBaseShader" !== _this.fragName ||
+          !_this.onInit ||
+          _this.onInit.calledInit ||
+          (onInit = _this.onInit),
+        onInit && (onInit.calledInit || ((onInit.calledInit = !0), onInit())));
+    })();
+  }

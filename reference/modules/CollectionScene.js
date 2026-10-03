@@ -1,0 +1,511 @@
+function CollectionScene(_params, ...restArgs) {
+    const _this = this;
+    (Inherit(_this, BaseView, "CollectionScene"),
+      Inherit(_this, XComponent),
+      (_this.fragName = "CollectionScene"),
+      (_this.contexts = "BaseView, 'CollectionScene'"),
+      (_this.params = _params),
+      (_this.args = arguments),
+      (this.isFragment = !0));
+    var _promises = [];
+    !(async function () {
+      (_this.element &&
+        (_this.element.onMountedHook = (_) => _this.onMounted?.()),
+        _this.layout?.getAllLayers &&
+          (_this.layers = await _this.layout.getAllLayers()));
+      let onInit = _this.onInit;
+      TweenManager.addCustomEase({
+        name: "collectionEase",
+        curve: "cubic-bezier(0.30,0.09,0.00,1.05)",
+      });
+      let _camera,
+        [input, inputState] = _this.createUIL("Collection Scene Config");
+      (input.addNumber("wobbleMax", 5),
+        input.addNumber("wobbleVelMultiplier", 10),
+        input.addNumber("wobblePulseFrequency", 0.1),
+        input.addNumber("wobblePulseSpeed", 0.001),
+        input.addNumber("wobbleDecay", 10),
+        input.addNumber("posLerp", 0.1),
+        input.addNumber("posRangeX", 0.4),
+        input.addNumber("posRangeY", 0.2),
+        input.addNumber("rotRangeZ", 0.1),
+        input.addColor("blueColor", new Color("#63c6f8")),
+        input.addColor("blueColorDark", new Color("#0062ff")),
+        input.addColor("greenColor", new Color("#6DD993")),
+        input.addColor("greenColorDark", new Color("#07cf4d")),
+        input.addColor("yellowColor", new Color("#FDEB87")),
+        input.addColor("yellowColorDark", new Color("#fdd90d")));
+      let _objectPosition = new Vector3(0, -0.5, 0),
+        _wobbleAmountToAddX = 0,
+        _wobbleAmountToAddZ = 0,
+        wobbleAmountX = 0,
+        wobbleAmountZ = 0,
+        _interactPosition = new Vector3(0, 0, 0);
+      const glassRootScale_desktop = 3,
+        glassRootScale_mobile = 2;
+      ((_this.unitsPerPixelY = 0),
+        (_this.unitsPerPixelX = 0),
+        (_this.screenHeight = 1),
+        (_this.screenWidth = 1),
+        (_this.init = async () => {
+          _this.handleResize = handleResize;
+          const layers = await _this.layout.getAllLayers(),
+            {
+              title: title,
+              glass: glass,
+              mainCamera: mainCamera,
+              root: root,
+              liquid: liquid,
+              textQuad: textQuad,
+              bg: bg,
+              lineRoot: lineRoot,
+              line: line,
+              endRight: endRight,
+              endLeft: endLeft,
+              cardBottomText: cardBottomText,
+              cardLeftText: cardLeftText,
+              cardRightText: cardRightText,
+              glassInteraction: glassInteraction,
+              cardTopText: cardTopText,
+              cardBottomGlyph: cardBottomGlyph,
+            } = layers;
+          ((liquid.visible = !1),
+            (bg.renderOrder = -1),
+            (cardBottomText.uilName = "cardBottomText"),
+            (cardTopText.uilName = "cardTopText"),
+            (cardLeftText.uilName = "cardLeftText"),
+            (cardRightText.uilName = "cardRightText"));
+          const cardTextLayers = [
+            cardBottomText,
+            cardTopText,
+            cardLeftText,
+            cardRightText,
+          ];
+          (textQuad.add(title),
+            textQuad.add(cardBottomText.group),
+            textQuad.add(cardTopText.group),
+            textQuad.add(cardLeftText.group),
+            textQuad.add(cardRightText.group),
+            textQuad.add(cardBottomGlyph));
+          function updateColors(key) {
+            const color = input.get(key),
+              darkColor = input.get(`${key}Dark`);
+            (liquid.shader.uniforms.uColor.value.set(color),
+              liquid.shader.uniforms.uColor2.value.set(color),
+              liquid.shader.uniforms.uColorDark.value.set(darkColor),
+              liquid.shader.uniforms.uColor2Dark.value.set(darkColor));
+          }
+          (title.scale.set(0.532, 0.532 * 0.8, 0.532 * 0.8),
+            (liquid._startScale = liquid.scale.clone()),
+            (liquid._startFillAmount = liquid.shader.get("uFillAmount")),
+            inputState.bind("blueColor", () => updateColors("blueColor")),
+            inputState.bind("blueColorDark", () => updateColors("blueColor")),
+            inputState.bind("greenColor", () => updateColors("greenColor")),
+            inputState.bind("greenColorDark", () => updateColors("greenColor")),
+            inputState.bind("yellowColor", () => updateColors("yellowColor")),
+            inputState.bind("yellowColorDark", () =>
+              updateColors("yellowColor"),
+            ),
+            updateColors("blueColor"),
+            _this.bind("Global/selectedBottle", (value) => {
+              switch (value) {
+                case 1:
+                  updateColors("blueColor");
+                  break;
+                case 2:
+                  updateColors("greenColor");
+                  break;
+                case 3:
+                  updateColors("yellowColor");
+              }
+            }),
+            await Promise.all(cardTextLayers.map((layer) => layer.ready())),
+            cardTextLayers.forEach((layer) => {
+              (layer.shader.set(
+                "uTranslate",
+                new Vector3(
+                  0,
+                  "cardBottomText" === layer.uilName ? 0.025 : -0.025,
+                  0,
+                ),
+              ),
+                layer.shader.set("uTransition", 0.001));
+            }),
+            (cardBottomText.shader.depthWrite = !1),
+            (cardTopText.shader.depthWrite = !1),
+            (line.renderOrder = -1),
+            (endRight.renderOrder = -1),
+            (endLeft.renderOrder = -1),
+            line.shader.set("uBillboard", 1),
+            _this.isPlayground()
+              ? (_camera = mainCamera)
+              : (await _this.wait(() => !!Global.CAMERA),
+                (_camera = Global.CAMERA)));
+          const centerQuadParent = new Group();
+          (centerQuadParent.add(textQuad),
+            (centerQuadParent.scale.x = 0),
+            (centerQuadParent.position.z = 0.002),
+            _this.add(centerQuadParent),
+            (lineRoot.scale.x = 0));
+          const interactionGroup = glassInteraction;
+          (interactionGroup.add(root), _this.add(interactionGroup));
+          let _positionVelocity = new VelocityTracker(
+              interactionGroup.position,
+            ),
+            _rotationVelocity = new VelocityTracker(interactionGroup.rotation);
+          function animateSet() {
+            (cardTextLayers.forEach((layer) => {
+              layer.shader.set("uTransition", 0.001);
+            }),
+              (lineRoot.scale.x = 0),
+              line.shader.set("alpha", 0),
+              (root.position.y = -_this.screenHeight),
+              (centerQuadParent.scale.x = 0),
+              textQuad.shader.set("alpha", 0),
+              title.shader.set("uTranslateIn", 0),
+              endRight.shader.set("uAlpha", 0),
+              endLeft.shader.set("uAlpha", 0),
+              cardBottomGlyph.shader.set("uAlpha", 0));
+          }
+          async function animateIn() {
+            const isLandscape = Stage.width > Stage.height;
+            (_this.ui.leftText.element.transform({
+              x: isLandscape ? "33vw" : 0,
+              y: isLandscape ? 0 : "33vh",
+            }),
+              _this.ui.rightText.element.transform({
+                x: isLandscape ? "-33vw" : 0,
+                y: isLandscape ? 0 : "-33vh",
+              }),
+              _this.ui.leftText.element.tween(
+                { x: 0, y: 0, opacity: 1, clear: !0 },
+                2e3,
+                "collectionEase",
+              ),
+              _this.ui.rightText.element.tween(
+                { x: 0, y: 0, opacity: 1, clear: !0 },
+                2e3,
+                "collectionEase",
+              ),
+              line.shader.tween("alpha", 1, 2e3, "collectionEase"),
+              endRight.shader.tween("uAlpha", 1, 2e3, "collectionEase"),
+              endLeft.shader.tween("uAlpha", 1, 2e3, "collectionEase"),
+              tween(
+                lineRoot.scale,
+                { x: _this.lineRootScale },
+                2e3,
+                "collectionEase",
+              ));
+            (cardBottomGlyph.shader.tween(
+              "uAlpha",
+              1,
+              2e3,
+              "collectionEase",
+              2050,
+            ),
+              tween(
+                centerQuadParent.scale,
+                { x: 1 },
+                667,
+                "collectionEase",
+                550,
+              ),
+              textQuad.shader.tween("alpha", 1, 167, "linear", 550),
+              title.shader.tween("uTranslateIn", 1, 2e3, "linear", 550),
+              cardTextLayers.forEach((layer) => {
+                const delay = "cardTopText" === layer.uilName ? 550 : 1050;
+                layer.shader.tween(
+                  "uTransition",
+                  1,
+                  3e3,
+                  "collectionEase",
+                  delay,
+                );
+              }),
+              await tween(root.position, { y: -0.7 }, 3e3, "collectionEase")
+                .promise,
+              _this.flag("animatedIn", !0));
+          }
+          (TweenManager.addCustomEase({
+            name: "textBoxEase",
+            curve: "cubic-bezier(0.14, 1.00, 0.34, 1.00)",
+          }),
+            title.shader.set("uTranslateIn", 0),
+            (_this.textrt = new RenderTarget(Stage.width, Stage.height, {
+              generateMipmaps: !0,
+              minFilter: Texture.LINEAR_MIPMAP,
+              magFilter: Texture.LINEAR,
+              format: Texture.RGBFormat,
+            })),
+            (_this.textrt.texture.generateMipmaps = !0),
+            _this.textrt.texture.upload(),
+            _this.textrt.upload(),
+            (_this.liquidRT = new RenderTarget(Stage.width, Stage.height, {
+              generateMipmaps: !0,
+              minFilter: Texture.LINEAR_MIPMAP,
+              magFilter: Texture.LINEAR,
+              format: Texture.RGBFormat,
+            })),
+            (_this.liquidRT.texture.generateMipmaps = !0),
+            _this.liquidRT.texture.upload(),
+            _this.liquidRT.upload(),
+            glass.shader.set("tLiquid", _this.liquidRT.texture),
+            liquid.shader.set("uColor", new Color("#63C4F4")),
+            input.addButton("Play Text Animation", {
+              label: "Play Animation",
+              actions: [
+                {
+                  title: "Play",
+                  callback: () => {
+                    (animateSet(), animateIn());
+                  },
+                },
+              ],
+            }),
+            _this.bind("Global/selectedBottle", (value) => {}),
+            (_this.onInView = () => {
+              (animateSet(), animateIn());
+            }));
+          const geo = World.QUAD,
+            blurShader = _this.initClass(Shader, "kawaseblur", {
+              tMap: { value: null },
+              uStep: { value: 0 },
+              uBlit: { value: 0 },
+              uBlurAmount: { value: 0.15 },
+              tNoise: {
+                value: Utils3D.getRepeatTexture(
+                  "assets/images/bluenoise/bluenoise0.png",
+                ),
+              },
+              transparent: !1,
+              depthTest: !1,
+              depthWrite: !1,
+            });
+          let _blurProgram = new Mesh(geo, blurShader);
+          _blurProgram.upload();
+          let _buffer = {
+            read: null,
+            write: null,
+            swap: () => {
+              const tmp = _buffer.write;
+              ((_buffer.write = _buffer.read), (_buffer.read = tmp));
+            },
+          };
+          function handleResize() {
+            if (!_camera || !_this.textrt) return;
+            const dist = _camera.camera.position.length();
+            ((_this.unitsPerPixelY = _this.getUnitsPerPixelY(
+              _camera.camera.fov,
+              _camera.camera.position.z,
+              Stage.width,
+            )),
+              (_this.unitsPerPixelX =
+                _this.unitsPerPixelY * _camera.camera.aspect),
+              _this.textrt.setSize(Stage.width, Stage.height),
+              _buffer.read.setSize(
+                0.8 * _this.textrt.width,
+                0.8 * _this.textrt.height,
+              ),
+              _buffer.write.setSize(
+                0.8 * _this.textrt.width,
+                0.8 * _this.textrt.height,
+              ),
+              _this.liquidRT.setSize(Stage.width, Stage.height));
+            const transforms = _this.domToWebGL({
+              element: _this.ui.textQuadProxy.div,
+              camera: _camera.camera,
+              dist: dist,
+            });
+            (textQuad.position.set(transforms.position.x, 0),
+              textQuad.scale.set(transforms.scale.x, transforms.scale.y),
+              (_this.screenHeight = Utils3D.getHeightFromCamera(
+                _camera.camera,
+                dist,
+              )),
+              (_this.screenWidth = _this.screenHeight * _camera.camera.aspect),
+              Stage.width < 1280 && Stage.width > Stage.height
+                ? (lineRoot.visible = !1)
+                : (lineRoot.visible = !0));
+            const left = _this.ui.leftText.element.div.getBoundingClientRect(),
+              right = _this.ui.rightText.element.div.getBoundingClientRect(),
+              gap = Stage.width > Stage.height ? 120 : 80,
+              lineRootScale =
+                ((Stage.width > Stage.height
+                  ? right.left - left.right
+                  : right.top - left.bottom) -
+                  gap) *
+                _this.unitsPerPixelX;
+            ((lineRoot.rotation.z =
+              Stage.width > Stage.height ? 0 : Math.PI / 2),
+              (endRight.scale.x = 0.08 / lineRootScale),
+              (endLeft.scale.x = 0.08 / lineRootScale),
+              _this.flag("animatedIn")
+                ? (lineRoot.scale.x = lineRootScale)
+                : (root.position.y = -_this.screenHeight),
+              (_this.lineRootScale = lineRootScale));
+            const glassRootScaleValue = Math.range(
+              Stage.width,
+              320,
+              1728,
+              glassRootScale_mobile,
+              glassRootScale_desktop,
+            );
+            root.scale.setScalar(glassRootScaleValue);
+            const diff = glassRootScale_desktop / root.scale.x;
+            let fillAmount = liquid._startFillAmount / diff;
+            (liquid.shader.set("uFillAmount", fillAmount),
+              bg.scale.set(
+                3 * _this.screenWidth,
+                _this.screenHeight * _this.baseHeight,
+                1,
+              ),
+              (function calculateClipBounds() {
+                title.shader.set(
+                  "uBoundsX",
+                  new Vector2(-0.5 * textQuad.scale.x, 0.5 * textQuad.scale.x),
+                );
+              })(),
+              _this.set("CollectionScene/yPixel", _this.worldBottomPx));
+          }
+          ((_buffer.read = new RenderTarget(
+            0.8 * _this.textrt.width,
+            0.8 * _this.textrt.height,
+            {
+              minFilter: Texture.LINEAR,
+              magFilter: Texture.LINEAR,
+              format: Texture.RGBFormat,
+            },
+          )),
+            (_buffer.write = new RenderTarget(
+              0.8 * _this.textrt.width,
+              0.8 * _this.textrt.height,
+              {
+                minFilter: Texture.LINEAR,
+                magFilter: Texture.LINEAR,
+                format: Texture.RGBFormat,
+              },
+            )),
+            glass.shader.set("tRefraction", _this.textrt.texture),
+            liquid.shader.set("tRefraction", _buffer.read.texture),
+            Dev.expose("fill", (v) => liquid.shader.set("uFillAmount", v)));
+          let pulse = 0,
+            _t = 0;
+          (_this.startRender(() => {
+            if (!_camera) return;
+            (_positionVelocity.update(),
+              _rotationVelocity.update(),
+              Device.mobile
+                ? ((interactionGroup.position.y =
+                    0.17 + 0.1 * Math.sin(7e-4 * Render.TIME)),
+                  (interactionGroup.position.x =
+                    0.11 * Math.sin(54e-5 * Render.TIME)),
+                  (interactionGroup.rotation.z =
+                    0.13 * Math.cos(4e-4 * Render.TIME)))
+                : ((_interactPosition.x = Math.lerp(
+                    2 * Mouse.tilt.x,
+                    _interactPosition.x,
+                    input.getNumber("posLerp"),
+                  )),
+                  (interactionGroup.position.x = -Math.range(
+                    _interactPosition.x,
+                    -1,
+                    1,
+                    -input.getNumber("posRangeX"),
+                    input.getNumber("posRangeX"),
+                  )),
+                  (interactionGroup.position.y = 0.1 * Math.sin(0.15 * _t)),
+                  (interactionGroup.rotation.z =
+                    0.1 * Math.cos(0.1 * _t) +
+                    Math.range(
+                      _interactPosition.x,
+                      -1,
+                      1,
+                      -input.getNumber("rotRangeZ"),
+                      input.getNumber("rotRangeZ"),
+                    ))));
+            const delta = 0.01 * Render.DELTA;
+            ((_t += delta),
+              (_wobbleAmountToAddX = Math.lerp(
+                0,
+                _wobbleAmountToAddX,
+                delta * input.getNumber("wobbleDecay"),
+              )),
+              (_wobbleAmountToAddZ = Math.lerp(
+                0,
+                _wobbleAmountToAddZ,
+                delta * input.getNumber("wobbleDecay"),
+              )),
+              (pulse = 2 * Math.PI * input.getNumber("wobblePulseFrequency")),
+              (wobbleAmountX = _wobbleAmountToAddX * Math.sin(pulse * _t)),
+              (wobbleAmountZ = _wobbleAmountToAddZ * Math.sin(pulse * _t)),
+              liquid.shader.set("uWobbleX", wobbleAmountX),
+              liquid.shader.set("uWobbleZ", wobbleAmountZ),
+              (_objectPosition = root.position
+                .clone()
+                .add(interactionGroup.position)),
+              liquid.shader.set(
+                "uObjectPosition",
+                _objectPosition.add(_this.group.position),
+              ),
+              title.shader.set("uColor", new Color("#FFFFFF")),
+              World.RENDERER.renderSingle(title, _camera.camera, _this.textrt),
+              (liquid.visible = !1),
+              World.RENDERER.renderSingle(
+                liquid,
+                _camera.camera,
+                _this.liquidRT,
+              ),
+              (liquid.visible = !0),
+              title.shader.set("uColor", new Color("#000000")),
+              (function renderBlur() {
+                for (let i = 0; i < 8; i++)
+                  (_blurProgram.shader.set(
+                    "tMap",
+                    0 === i ? _this.textrt.texture : _buffer.read.texture,
+                  ),
+                    _blurProgram.shader.set("uStep", i),
+                    _blurProgram.shader.set("uBlit", 0 === i ? 1 : 0),
+                    World.RENDERER.renderSingle(
+                      _blurProgram,
+                      World.CAMERA,
+                      _buffer.write,
+                    ),
+                    _buffer.swap());
+              })(),
+              (_wobbleAmountToAddX += Math.clamp(
+                (_positionVelocity.value.x + _rotationVelocity.value.x) *
+                  input.getNumber("wobbleVelMultiplier"),
+                -input.get("wobbleMax"),
+                input.get("wobbleMax"),
+              )),
+              (_wobbleAmountToAddZ += Math.clamp(
+                (_positionVelocity.value.z + _rotationVelocity.value.z) *
+                  input.getNumber("wobbleVelMultiplier"),
+                -input.get("wobbleMax"),
+                input.get("wobbleMax"),
+              )));
+          }, Render.BEFORE_RENDER),
+            _this.isPlayground() &&
+              (handleResize(),
+              _camera.lock(),
+              await _this.wait(1e3),
+              _this.onInView(),
+              _this.onResize(handleResize, !1)));
+        }),
+        (onInit = _this.onInit === onInit ? null : _this.onInit));
+      for (let key in _this)
+        if (_this[key]?.then) {
+          let store = _this[key];
+          (store.then((val) => (_this[key] = val)), _promises.push(store));
+        }
+      (_promises.length && (await Promise.all(_promises)),
+        (_promises = null),
+        _this.flag?.("__ready", !0),
+        onInit ||
+          "CollectionScene" !== _this.fragName ||
+          !_this.onInit ||
+          _this.onInit.calledInit ||
+          (onInit = _this.onInit),
+        onInit && (onInit.calledInit || ((onInit.calledInit = !0), onInit())));
+    })();
+  }

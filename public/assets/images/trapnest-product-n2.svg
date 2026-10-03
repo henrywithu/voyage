@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="532" height="95" viewBox="0 0 532 95">
+  <g fill="#121212" font-family="Arial Black, Arial, sans-serif" font-weight="900">
+    <text x="166" y="37" font-size="20" text-anchor="middle">TRAPNEST SPIRIT</text>
+    <text x="166" y="62" font-size="20" text-anchor="middle">N.02</text>
+    <text x="428" y="39" font-size="20">13% ABV</text>
+    <text x="428" y="64" font-size="20">700 ML</text>
+  </g>
+  <g fill="none" stroke="#121212" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="376" cy="47" r="27"/>
+    <path d="M376 14v66M344 47h64M353 24l46 46M399 24l-46 46"/>
+    <path d="M359 58c10-16 24-18 35-4-10 17-26 19-35 4Z"/>
+  </g>
+</svg>

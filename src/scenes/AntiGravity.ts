@@ -1,0 +1,241 @@
+import * as THREE from "three";
+import gsap from "gsap";
+import { CustomEase } from "gsap/CustomEase";
+import { SceneSection } from "../engine/SceneSection";
+import { SkeletalMesh } from "../engine/SkeletalMesh";
+import { loadGeometry, texture } from "../engine/assets";
+import { CurveParticles } from "../engine/CurveParticles";
+import { windLines } from "../engine/WindLines";
+import { worldHeight } from "../data/sections";
+gsap.registerPlugin(CustomEase);
+const speedUpEase = CustomEase.create("source-speed-up", "0.52,0.02,0.02,1");
+const reveal = new WeakMap<SceneSection, () => void>();
+export function openAntiGravity(section: SceneSection) {
+  reveal.get(section)?.();
+}
+export async function setupAntiGravity(section: SceneSection) {
+  if (section.name !== "AntiGravityScene") return;
+  const outer = new THREE.Group(),
+    root = new THREE.Group();
+  root.position.set(0, -1, -1);
+  outer.add(root);
+  section.group.add(outer);
+  const character = section.layers.characterRoot,
+    light = section.mesh("lightbeam"),
+    floor = section.mesh("floor");
+  for (const name of [
+    "characterRoot",
+    "lightbeam",
+    "particleRoot",
+    "curveLeaves",
+    "curveLines",
+  ])
+    root.add(section.layers[name]);
+  outer.add(floor);
+  // This cylinder is an interaction surface, not a visible object in the production scene.
+  section.layers.cyclinderProjection.visible = false;
+  const skin = new SkeletalMesh(
+    await loadGeometry(
+      "assets/geometry/story/antigravity/saint-antigravity.bin",
+    ),
+    "AntiGravSkinShader",
+    {
+      tTrim: texture("assets/images/story/tex_clothing_trim.png"),
+      tLines: texture("assets/images/story/lines.jpg"),
+      tNoise: texture("assets/images/story/perlin.png"),
+      uColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
+      uLinesTile: 2.25,
+      uLightDir: new THREE.Vector3(0.1, 0.1, 0.9).normalize(),
+      uAxis: new THREE.Vector3(1, 1, 2.5),
+      uTime: 0,
+      uAngle: 0.5,
+      uInverse: 0,
+      uWindSpeed: 1,
+      uDisplacement: 0,
+    },
+    "AntiGravSkinShader",
+  );
+  await skin.loadAnimation(
+    "assets/geometry/story/antigravity/saint-antigravity-idle.bin",
+  );
+  character.add(skin.mesh, skin.outline);
+  skin.mesh.renderOrder = 3;
+  skin.outline.renderOrder = 4;
+  character.rotation.y = 0.3 * Math.PI;
+  const skinMaterial = skin.mesh.material as THREE.RawShaderMaterial,
+    inverse = skin.outline.material as THREE.RawShaderMaterial;
+  inverse.uniforms = {
+    ...skinMaterial.uniforms,
+    uInverse: { value: 1 },
+    uDisplacement: { value: 1 },
+  };
+  inverse.side = THREE.BackSide;
+  section.meshes.push(skin.mesh as any, skin.outline as any);
+  light.renderOrder = 2;
+  light.material.uniforms.uDraw ??= { value: 0 };
+  light.material.transparent = true;
+  section.mesh("bg").renderOrder = 0;
+  section.group.updateMatrixWorld(true);
+  const points = section.layers.curveLines.children.map((child) =>
+    child.getWorldPosition(new THREE.Vector3()),
+  );
+  const curve = new THREE.CatmullRomCurve3(points);
+  const path = {
+    curves: [{ position: curve.getPoints(256).flatMap((p) => p.toArray()) }],
+  };
+  const winds = await Promise.all(
+    [0, 1, 2].map(async (i) => {
+      const mesh = await windLines(
+        section,
+        path,
+        {
+          uAnimatePosition: 0,
+          uThreshold: i === 0 ? 0.55 : 0.5,
+          uScroll: 0.4,
+          uTile: i === 0 ? 10 : 5,
+          uSpeed: 0.8,
+          uTime: 0,
+        },
+        "WindLinesSketchShader",
+      );
+      mesh.material.transparent = true;
+      mesh.position.set(0, i === 1 ? -0.1 : i === 2 ? 0.3 : 0, 1);
+      root.add(mesh);
+      return mesh;
+    }),
+  );
+  const leaves = new CurveParticles(
+    "LeafParticles",
+    section,
+    section.layers.particleRoot,
+    5,
+  );
+  leaves.group.position.y = 1;
+  leaves.setCurve(
+    new THREE.CatmullRomCurve3(
+      section.layers.curveLeaves.children.map((child) =>
+        child.getWorldPosition(new THREE.Vector3()),
+      ),
+    ),
+  );
+  const drawn = new CurveParticles("DrawnParticles", section, section.group, 1),
+    flavor = new THREE.Color();
+  const originalScale = light.scale.clone(),
+    originalPosition = light.position.clone(),
+    floorPosition = floor.position.clone();
+  const speed = { light: 1, wind: 1, skin: 1, shake: 0 };
+  let lastStep = 0,
+    beamTime = 0,
+    held = false,
+    revealed = false;
+  section.disposables.push(()=>gsap.killTweensOf(speed));
+  reveal.set(section, () => {
+    if (revealed) return;
+    revealed = true;
+    gsap.to(light.material.uniforms.uAnimateInMask, {
+      value: 1,
+      duration: 4,
+      ease: "power4.out",
+    });
+    gsap.to(light.material.uniforms.uAnimateNoise, {
+      value: 1,
+      duration: 5,
+      ease: "power4.out",
+    });
+    gsap.to(character.position, {
+      y: -1.45,
+      duration: 3,
+      delay: 0.4,
+      ease: "power4.out",
+    });
+  });
+  section.animate = (frame) => {
+    const t = frame.time,
+      dt = frame.delta * 60;
+    flavor
+      .set(["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected])
+      .convertLinearToSRGB();
+    drawn.setColor(flavor);
+    leaves.setHeld(frame.pressed);
+    drawn.setHeld(frame.pressed);
+    skin.update(frame.delta);
+    skinMaterial.uniforms.uColor.value
+      .set(["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected])
+      .convertLinearToSRGB();
+    character.rotation.y +=
+      (0.1 * Math.PI - 0.2 * frame.pointer.x - character.rotation.y) *
+      (1 - Math.pow(0.95, dt));
+    if (held !== frame.pressed) {
+      if (held) section.onAudio("antigravity_release");
+      held = frame.pressed;
+      gsap.to(speed, {
+        light: held ? 8 : 1,
+        wind: held ? 4 : 1,
+        skin: held ? 3.5 : 1,
+        shake: held ? 1 : 0,
+        duration: 3,
+        ease: speedUpEase,
+        overwrite: true,
+      });
+      gsap.to(character.rotation, {
+        z: held ? 0.045 * Math.PI : 0,
+        duration: 6,
+        ease: speedUpEase,
+        overwrite: true,
+      });
+      gsap.to(character.position, {
+        x: held ? 0.4 : 0,
+        y: -1.45,
+        duration: 6,
+        ease: speedUpEase,
+        overwrite: true,
+      });
+      gsap.to(frame.camera, {
+        zoom: held ? 1.1 : 1,
+        duration: 6,
+        ease: speedUpEase,
+        overwrite: true,
+        onUpdate: () => frame.camera.updateProjectionMatrix(),
+      });
+      gsap.to(light.material.uniforms.uDraw, {
+        value: held ? 1 : 0,
+        duration: 6,
+        ease: speedUpEase,
+        overwrite: true,
+      });
+    }
+    if (t - lastStep >= 1 / 24) {
+      lastStep = t;
+      beamTime += 5 * frame.delta * speed.light;
+      light.material.uniforms.uTime.value = beamTime;
+      light.material.uniforms.uTimeUp.value = 4 * beamTime;
+      for (const wind of winds)
+        wind.material.uniforms.uTime.value += 5 * frame.delta * speed.wind;
+      skinMaterial.uniforms.uTime.value += 5 * frame.delta * speed.skin;
+      const shake = speed.shake < 0.1 ? 0 : speed.shake,
+        x = 0.0035 * Math.sin(10000 * t) * shake,
+        y = 0.0035 * Math.cos(10000 * (t + 0.01)) * shake;
+      root.position.set(x, y - 1, -1);
+      floor.position.set(
+        floorPosition.x + x,
+        floorPosition.y + y,
+        floorPosition.z,
+      );
+    }
+    section.audioState.shake = speed.shake;
+    for (const wind of winds) wind.material.uniforms.uScroll.value = 0.4;
+  };
+  section.onResize = (w, h) => {
+    const mobile = w / h < 1;
+    drawn.behavior.uniforms.uPullValue.value = mobile ? 0.01 : 0.005;
+    section
+      .mesh("bg")
+      .scale.set(((worldHeight * w) / h) * 3, section.height, 1);
+    outer.position.set(0, mobile ? 0.2 : 0, mobile ? -1 : 0);
+    outer.rotation.x = 0;
+    light.scale.copy(originalScale);
+    light.position.copy(originalPosition);
+    light.scale.x = mobile ? 1.1 : 2.75;
+    light.scale.y = mobile ? 0.9 : 0.85;
+  };
+}

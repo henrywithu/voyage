@@ -1,0 +1,72 @@
+function NearBackgroundShader(_mesh, _shader, _input, _group) {
+    const _this = this;
+    if (
+      (Inherit(_this, Component),
+      Inherit(_this, XComponent),
+      (_this.fragName = "NearBackgroundShader"),
+      (_this.contexts = "Component"),
+      (_this.mesh = _mesh),
+      (_this.shader = _shader),
+      (_this.uilInput = _input),
+      (_this.uilFolder = _group),
+      _this.uilFolder?.addButton)
+    ) {
+      let a = _this.uilFolder;
+      ((_this.uilFolder = _this.uilInput), (_this.uilInput = a));
+    }
+    this.isFragment = !0;
+    var _promises = [];
+    !(async function () {
+      (_this.element &&
+        (_this.element.onMountedHook = (_) => _this.onMounted?.()),
+        _this.layout?.getAllLayers &&
+          (_this.layers = await _this.layout.getAllLayers()));
+      let onInit = _this.onInit;
+      (_this.shader.addUniforms({
+        tNoise: {
+          value: Utils3D.getRepeatTexture(
+            "assets/images/story/clouds_noise.png",
+          ),
+          ignoreUIL: !0,
+        },
+        tMap: {
+          value: Utils3D.getRepeatTexture("assets/images/story/cell_noise.png"),
+          ignoreUIL: !0,
+        },
+        uColor: { value: new Color("#3c3c3c") },
+        uDiscardBottom: { value: 0, ignoreUIL: !0 },
+        uDiscardTop: { value: 1, ignoreUIL: !0 },
+      }),
+        _this.shader.set(
+          "tNoise",
+          Utils3D.getRepeatTexture("assets/images/story/clouds_noise.png"),
+        ),
+        _this.shader.set(
+          "tMap",
+          Utils3D.getRepeatTexture("assets/images/story/cell_noise.png"),
+        ));
+      const scene = _this.mesh._parent.classRef.parent;
+      (_this.bind("Story/scrollY", (value) => {
+        const screenHeightWorld = _this.get("Story/screenHeightWorld");
+        ((_this.shader.uniforms.uDiscardTop.value =
+          (scene.worldTop + value) / screenHeightWorld),
+          (_this.shader.uniforms.uDiscardBottom.value =
+            (scene.worldBottom + value) / screenHeightWorld));
+      }),
+        (onInit = _this.onInit === onInit ? null : _this.onInit));
+      for (let key in _this)
+        if (_this[key]?.then) {
+          let store = _this[key];
+          (store.then((val) => (_this[key] = val)), _promises.push(store));
+        }
+      (_promises.length && (await Promise.all(_promises)),
+        (_promises = null),
+        _this.flag?.("__ready", !0),
+        onInit ||
+          "NearBackgroundShader" !== _this.fragName ||
+          !_this.onInit ||
+          _this.onInit.calledInit ||
+          (onInit = _this.onInit),
+        onInit && (onInit.calledInit || ((onInit.calledInit = !0), onInit())));
+    })();
+  }

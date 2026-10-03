@@ -1,0 +1,352 @@
+{
+  "AntiGravityScene": {
+    "sl_AntiGravityScene_group_0": {
+      "name": "characterRoot",
+      "position": [
+        0,
+        -2.5,
+        0.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_AntiGravityScene_group_1": {
+      "name": "curveLeaves",
+      "position": [
+        0,
+        -2,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.1,
+        1,
+        1.05
+      ]
+    },
+    "sl_AntiGravityScene_group_2": {
+      "name": "particleRoot",
+      "position": [
+        0,
+        0,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_AntiGravityScene_group_5": {
+      "name": "curveLines",
+      "position": [
+        -0.75,
+        -2.25,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "ApproachScene": {
+    "sl_ApproachScene_group_0": {
+      "name": "moonRoot",
+      "position": [
+        0.43,
+        2.2,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "CollectionScene": {
+    "sl_CollectionScene_group_0": {
+      "name": "root",
+      "position": [
+        0,
+        -0.67,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        3,
+        3,
+        3
+      ]
+    },
+    "sl_CollectionScene_group_1": {
+      "name": "lineRoot",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_CollectionScene_group_3": {
+      "name": "glassInteraction",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "DrinkSelectionScene": {
+    "sl_DrinkSelectionScene_group_0": {
+      "name": "bottle1Group",
+      "position": [
+        -0.8,
+        -3.284,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_DrinkSelectionScene_group_1": {
+      "name": "bottle2Group",
+      "position": [
+        0,
+        -3.284,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_DrinkSelectionScene_group_2": {
+      "name": "bottle3Group",
+      "position": [
+        0.8,
+        -3.284,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "GlassPlayground": {
+    "sl_GlassPlayground_group_0": {
+      "name": "lightgroup",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_GlassPlayground_group_1": {
+      "name": "glassRoot",
+      "position": [
+        0,
+        -0.4,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "ProductsScene": {
+    "sl_ProductsScene_group_0": {
+      "name": "bottleRoot",
+      "position": [
+        0,
+        -1.15,
+        -0.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.9,
+        1.9,
+        1.85
+      ]
+    },
+    "sl_ProductsScene_group_1": {
+      "name": "group1",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_ProductsScene_group_2": {
+      "name": "group3",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "sl_ProductsScene_group_3": {
+      "name": "group2",
+      "position": null,
+      "rotation": null,
+      "scale": null
+    },
+    "sl_ProductsScene_group_4": {
+      "name": "cursor",
+      "position": null,
+      "rotation": null,
+      "scale": null
+    }
+  },
+  "Products": {
+    "sl_Products_group_0": {
+      "name": "group_0",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.82,
+        1,
+        1
+      ]
+    },
+    "sl_Products_group_1": {
+      "name": "group_1",
+      "position": [
+        0,
+        -0.133,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        -15
+      ],
+      "scale": [
+        7,
+        7,
+        7
+      ]
+    }
+  }
+}

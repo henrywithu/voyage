@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+button:focus-visible {
+  outline: 2px solid #c82924;
+  outline-offset: 5px;
+}
+#root,
+#Stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#Stage {
+  background: #fff;
+}
+.experience-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.pages {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  will-change: transform;
+}
+.pages > section {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.pages button,
+.pages a,
+.pages .ProductsUI {
+  pointer-events: auto;
+}
+.pages .CollectionUI,
+.pages .ProductsUI,
+.pages .RetailUI,
+.pages .TasteUI,
+.pages .FooterUI {
+  height: auto;
+}
+.pages .TargetUI {
+  height: max(100vw, 75dvh);
+}
+.brand {
+  position: fixed;
+  top: 18px;
+  left: 22px;
+  z-index: 90;
+  width: 132px;
+  height: 56px;
+  padding: 0;
+}
+.brand img {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.sound-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 95;
+  width: 46px;
+  height: 44px;
+  padding: 0;
+}
+.LoaderView {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+.LoaderView .logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.LoaderView .logo {
+  width: clamp(112px, 7vw, 136px);
+}
+.load-error {
+  font: 12px sans-serif;
+  max-width: 80%;
+}
+.ProductsUI .left-text,
+.ProductsUI .right-text {
+  font-size: 12px;
+  line-height: 1;
+  white-space: pre-line;
+  color: transparent;
+  position: relative;
+  z-index: 5;
+}
+.RetailUI header > svg {
+  width: 21px;
+  height: 72px;
+}
+.RetailUI .header-row .header-copy .heading3 {
+  opacity: 1;
+}
+.RetailUI .header-copy {
+  width: 100%;
+}
+.FooterUI {
+  background: transparent;
+}
+.FooterUI .footer-logo {
+  pointer-events: auto;
+}
+.FooterUI .footer-links {
+  line-height: 1.5;
+}
+.TasteUI .gl-bounds {
+  position: relative;
+}
+.HeaderMenu .header__link {
+  text-transform: uppercase;
+  padding: 0 2px;
+}
+.AgeGate {
+  inset: 0;
+  perspective: 1000px;
+}
+.AgeGate .action {
+  pointer-events: auto;
+  padding: 0;
+}
+.AgeGate .decor,
+.AgeGate .decor svg {
+  width: 21px;
+  height: 72px;
+}
+.cookie-banner-content {
+  position: relative;
+}
+.notice-clip {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.notice-word,
+.notice-char,
+.RotatePrompt .notice-clip > span {
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  .brand {
+    left: 20px;
+    top: 20px;
+    width: 96px;
+    height: 40px;
+  }
+}

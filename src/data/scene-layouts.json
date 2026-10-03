@@ -1,0 +1,7035 @@
+{
+  "AntiGravityScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "mainCamera",
+      "renderOrder": 0,
+      "side": "shader_double_side",
+      "sortIndex": 0,
+      "visible": true
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point1Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5,
+      "sortIndex": 0,
+      "visible": true,
+      "position": [
+        -3.172,
+        -0.037,
+        -2.073
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "5": {
+      "id": 5,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point2Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.0825,
+      "sortIndex": 1,
+      "visible": true,
+      "position": [
+        -1.136,
+        0.743,
+        1.242
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "6": {
+      "id": 6,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point3Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.165,
+      "sortIndex": 3,
+      "visible": true,
+      "position": [
+        1.004,
+        1.304,
+        1.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "10": {
+      "id": 10,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point4Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.2475,
+      "sortIndex": 4,
+      "visible": true,
+      "position": [
+        2.171,
+        1.973,
+        -0.705
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "11": {
+      "id": 11,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point5Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.33,
+      "sortIndex": 4,
+      "visible": true,
+      "position": [
+        2.101,
+        2.365,
+        -1.705
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "12": {
+      "id": 12,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point6Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.4125,
+      "sortIndex": 4,
+      "visible": true,
+      "position": [
+        0.55,
+        2.772,
+        -3.11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "13": {
+      "id": 13,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point7Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.495,
+      "sortIndex": 4,
+      "visible": true,
+      "position": [
+        -1.132,
+        3.015,
+        -3.399
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "14": {
+      "id": 14,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point8Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.5775,
+      "sortIndex": 4,
+      "visible": true,
+      "position": [
+        -3.05,
+        2.61,
+        -2.203
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "15": {
+      "id": 15,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point9Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.66,
+      "sortIndex": 5,
+      "visible": true,
+      "position": [
+        -2.48,
+        3.059,
+        -0.193
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "16": {
+      "id": 16,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point10Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.7425,
+      "sortIndex": 5,
+      "visible": true,
+      "position": [
+        -0.622,
+        3.586,
+        0.769
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "17": {
+      "id": 17,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point11Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.825,
+      "sortIndex": 6,
+      "visible": true,
+      "position": [
+        0.914,
+        4.18,
+        0.338
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "18": {
+      "id": 18,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point12Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.9075,
+      "sortIndex": 7,
+      "visible": true,
+      "position": [
+        2.479,
+        5.136,
+        -0.202
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "20": {
+      "id": 20,
+      "uniforms": {},
+      "custom": "LeafParticles",
+      "name": "leaves",
+      "parent": "sl_AntiGravityScene_group_2",
+      "renderOrder": 5,
+      "sortIndex": 0,
+      "visible": true,
+      "position": [
+        0,
+        1,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "22": {
+      "id": 22,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point13Leaf",
+      "parent": "sl_AntiGravityScene_group_1",
+      "renderOrder": 5.99,
+      "sortIndex": 8,
+      "visible": true,
+      "position": [
+        2.738,
+        4.709,
+        -2.238
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "47": {
+      "id": 47,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point1",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8,
+      "sortIndex": 0,
+      "position": [
+        2.704,
+        -0.432,
+        -0.006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "48": {
+      "id": 48,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point2",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.0825,
+      "sortIndex": 2,
+      "position": [
+        0.749,
+        0.144,
+        -2.603
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "49": {
+      "id": 49,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point3",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.165,
+      "sortIndex": 3,
+      "position": [
+        -1.617,
+        1.174,
+        -1.069
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "50": {
+      "id": 50,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point4",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.2475,
+      "sortIndex": 4,
+      "position": [
+        -0.728,
+        1.263,
+        1.637
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "51": {
+      "id": 51,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point5",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.33,
+      "sortIndex": 5,
+      "position": [
+        1.464,
+        1.575,
+        1.57
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "52": {
+      "id": 52,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point6",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.4125,
+      "sortIndex": 6,
+      "position": [
+        2.851,
+        2.039,
+        0.255
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "53": {
+      "id": 53,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point7",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.495,
+      "sortIndex": 7,
+      "position": [
+        1.406,
+        2.523,
+        -2.092
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "54": {
+      "id": 54,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point8",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.5775,
+      "sortIndex": 8,
+      "position": [
+        -1.683,
+        3.782,
+        -1.691
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "55": {
+      "id": 55,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point9",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.66,
+      "sortIndex": 9,
+      "position": [
+        -2.677,
+        4.689,
+        0.647
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "56": {
+      "id": 56,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point10",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.7425,
+      "sortIndex": 10,
+      "position": [
+        0.034,
+        4.705,
+        2.438
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "57": {
+      "id": 57,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point11",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.825,
+      "sortIndex": 11,
+      "position": [
+        3.043,
+        4.326,
+        0.208
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "58": {
+      "id": 58,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point12",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.9075,
+      "sortIndex": 11,
+      "position": [
+        0.244,
+        5.066,
+        -3.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "59": {
+      "id": 59,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.SPHERE",
+        "prefix": "",
+        "relative": "World.SPHERE",
+        "src": "World.SPHERE"
+      },
+      "name": "point13",
+      "parent": "sl_AntiGravityScene_group_5",
+      "renderOrder": 8.99,
+      "sortIndex": 12,
+      "position": [
+        -2.451,
+        6.478,
+        -1.302
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ]
+    },
+    "61": {
+      "id": 61,
+      "uniforms": {
+        "_txtNoise": {
+          "filename": "assets/images/story/noise.png",
+          "prefix": "",
+          "relative": "assets/images/story/noise.png",
+          "src": "assets/images/story/noise.png"
+        },
+        "_txtWindNoise": {
+          "filename": "assets/images/story/wind_noise.png",
+          "prefix": "",
+          "relative": "assets/images/story/wind_noise.png",
+          "src": "assets/images/story/wind_noise.png"
+        },
+        "color": "#ffffff",
+        "colorB": "#121212",
+        "uEndNoise": [
+          1.62,
+          10
+        ],
+        "uEndsMask": [
+          0.2,
+          1
+        ],
+        "uMask": [
+          0.3,
+          0.02
+        ],
+        "uNoise": [
+          1.15,
+          0,
+          0.05
+        ],
+        "uNoiseUVScaleA": [
+          0.04,
+          0.1
+        ],
+        "uNoiseUVScaleB": [
+          0.2,
+          0.1
+        ],
+        "uNoiseUVTimeSpeed": [
+          0.1,
+          0.05
+        ],
+        "uParabolaK": 1,
+        "uRotation": [
+          360,
+          5
+        ],
+        "uScale": [
+          1.2,
+          7.5,
+          1.05
+        ],
+        "uSmoothstep": [
+          0.05,
+          0.45
+        ],
+        "uWindNoiseThreshold": 0.45,
+        "uXZScale": [
+          0.7,
+          1.2
+        ]
+      },
+      "blending": "shader_additive_blending",
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "World.LIGHT_BEAM",
+        "prefix": "",
+        "relative": "World.LIGHT_BEAM",
+        "src": "World.LIGHT_BEAM"
+      },
+      "name": "lightbeam",
+      "renderOrder": 2,
+      "shader": "LightBeamShader",
+      "side": "shader_front_side",
+      "sortIndex": 2,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        -0.2,
+        0.5,
+        -2.2
+      ],
+      "rotation": [
+        1.75,
+        -1,
+        0
+      ],
+      "scale": [
+        2.75,
+        0.85,
+        1.25
+      ]
+    },
+    "62": {
+      "id": 62,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "empty_normal-1Qg4XGDW.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_normal-1Qg4XGDW.png",
+          "useCompressed": false
+        },
+        "alpha": 0,
+        "color": "#5900ff",
+        "uAlpha": 0.4
+      },
+      "depthTest": false,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "World.CYLINDER",
+        "prefix": "",
+        "relative": "World.CYLINDER",
+        "src": "World.CYLINDER"
+      },
+      "name": "cyclinderProjection",
+      "parent": "sl_AntiGravityScene_group_0",
+      "renderOrder": 3.99,
+      "shader": "ColorMaterial",
+      "side": "shader_double_side",
+      "sortIndex": 0,
+      "transparent": true,
+      "visible": false,
+      "position": [
+        0,
+        2,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.9,
+        3,
+        1
+      ]
+    },
+    "63": {
+      "id": 63,
+      "uniforms": {},
+      "custom": "DrawnParticles",
+      "name": "drawnParticles",
+      "renderOrder": 1,
+      "sortIndex": 1,
+      "visible": true
+    },
+    "66": {
+      "id": 66,
+      "uniforms": {
+        "uColor": "#121212"
+      },
+      "custom": "",
+      "depthTest": false,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "World.PLANE",
+        "prefix": "",
+        "relative": "World.PLANE",
+        "src": "World.PLANE"
+      },
+      "name": "bg",
+      "renderOrder": 7,
+      "shader": "ScreenQuadColor",
+      "sortIndex": 7,
+      "transparent": false,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        -0.001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "68": {
+      "id": 68,
+      "uniforms": {
+        "uAlpha": 0
+      },
+      "billboard": true,
+      "depthTest": false,
+      "depthWrite": false,
+      "name": "dragMarker",
+      "renderOrder": 3,
+      "sortIndex": 3,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        -0.1,
+        -1.5,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "69": {
+      "id": 69,
+      "uniforms": {
+        "uLinesTile": 10,
+        "uThreshold": [
+          0.4,
+          0.7
+        ]
+      },
+      "name": "floor",
+      "renderOrder": 10,
+      "shader": "AntiGravityFloorShader",
+      "sortIndex": 10,
+      "transparent": true,
+      "position": [
+        0,
+        -2.7,
+        -5.5
+      ],
+      "rotation": [
+        -85,
+        0,
+        0
+      ],
+      "scale": [
+        15,
+        11,
+        1
+      ]
+    },
+    "73": {
+      "id": 73,
+      "uniforms": {
+        "uPadTop": 0,
+        "uPadX": -1,
+        "uPadY": 0.05
+      },
+      "depthTest": true,
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/half-border-bottom.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/half-border-bottom.json",
+        "src": "assets/geometry/story/colosseum/half-border-bottom.json"
+      },
+      "name": "border",
+      "renderOrder": 9,
+      "shader": "BorderShader",
+      "sortIndex": 9,
+      "transparent": true
+    }
+  },
+  "ApproachScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uDepthOffset": 0,
+        "uFluidEdge": [
+          2,
+          2.85,
+          2,
+          0.3
+        ],
+        "uPadX": 0.3,
+        "uPadY": 0.3,
+        "uSkewCorrection": 0
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 1,
+      "shader": "BorderShader",
+      "sortIndex": 1
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/cell_noise.png?1770350663115"
+        },
+        "_txtNoise": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769576237265"
+        }
+      },
+      "name": "background",
+      "renderOrder": 2,
+      "shader": "ApproachBackgroundShader",
+      "sortIndex": 2,
+      "position": [
+        0,
+        -6.53,
+        -120
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        580,
+        170,
+        1
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtNoise": {
+          "hotreload": true,
+          "src": "assets/images/story/perlin.png?1769143042613"
+        },
+        "uLinesTile": 0.934,
+        "uThreshold": [
+          -0.488,
+          -0.977
+        ],
+        "uAngle": -3.684,
+        "uAxis": [
+          0,
+          -0.007,
+          0.97
+        ],
+        "uColor": "#ffffff",
+        "uLightDir": [
+          -0.331,
+          0.221,
+          0.753
+        ]
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/story/approach/moon.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/moon.bin",
+        "src": "assets/geometry/story/approach/moon.bin"
+      },
+      "name": "moon",
+      "parent": "sl_ApproachScene_group_0",
+      "renderOrder": 8,
+      "shader": "StaticObjectNoDiscard",
+      "sortIndex": 0,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.62,
+        0.62,
+        -0.007
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/nearblack.png?1768964173219"
+        },
+        "uLineWidth": 0.003
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/story/approach/moon.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/moon.bin",
+        "src": "assets/geometry/story/approach/moon.bin"
+      },
+      "name": "mooninverse",
+      "parent": "sl_ApproachScene_group_0",
+      "renderOrder": 8.99,
+      "shader": "",
+      "side": "shader_back_side",
+      "sortIndex": 0,
+      "transparent": false,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.63,
+        0.63,
+        0.052
+      ]
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {
+        "uAngle": -3.56,
+        "uAxis": [
+          1.03,
+          1,
+          0
+        ],
+        "uColor": "#f3f1e9",
+        "uColorHighlight": "#f3f1e9",
+        "uDistanceCompensation": 0.252,
+        "uLightDir": [
+          -0.08,
+          0.326,
+          0.703
+        ],
+        "uLinesTile": 0.5,
+        "uThreshold": [
+          -0.239,
+          1.38
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/approach/landscape.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/landscape.bin",
+        "src": "assets/geometry/story/approach/landscape.bin"
+      },
+      "name": "landscape",
+      "renderOrder": 3,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 3,
+      "position": [
+        0,
+        -2.732,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "6": {
+      "id": 6,
+      "uniforms": {
+        "uAngle": -9.023,
+        "uAxis": [
+          -12.44,
+          -12.617,
+          -1.42
+        ],
+        "uColor": "#f3f1e9",
+        "uColorHighlight": "#f3f1e9",
+        "uDistanceCompensation": 1,
+        "uLightDir": [
+          0.169,
+          0.883,
+          0.323
+        ],
+        "uLinesTile": 0.676,
+        "uThreshold": [
+          -1.42,
+          0
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/approach/steps.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/steps.bin",
+        "src": "assets/geometry/story/approach/steps.bin"
+      },
+      "name": "steps",
+      "renderOrder": 4,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 4,
+      "position": [
+        0,
+        -2.732,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "7": {
+      "id": 7,
+      "uniforms": {
+        "uAngle": -1.577,
+        "uAxis": [
+          1,
+          0,
+          -4.34
+        ],
+        "uColor": "#f3f1e9",
+        "uColorHighlight": "#f3f1e9",
+        "uLightDir": [
+          0.669,
+          1.813,
+          0.483
+        ],
+        "uLinesTile": 0.196,
+        "uThreshold": [
+          -1.08,
+          -0.33
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/approach/portal.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/portal.bin",
+        "src": "assets/geometry/story/approach/portal.bin"
+      },
+      "name": "structure",
+      "renderOrder": 5,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 5,
+      "position": [
+        13.25,
+        0.811,
+        -50.28
+      ],
+      "rotation": [
+        0,
+        -19.32,
+        0
+      ],
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    "8": {
+      "id": 8,
+      "uniforms": {
+        "uAngle": -9.723,
+        "uAxis": [
+          -4.282,
+          -4.097,
+          0.63
+        ],
+        "uColor": "#f3f1e9",
+        "uLightDir": [
+          0.039,
+          1.213,
+          -0.057
+        ],
+        "uLinesTile": 0.8,
+        "uThreshold": [
+          -0.73,
+          0.7
+        ],
+        "uColorHighlight": "#f3f1e9"
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/approach/steps-close.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/steps-close.bin",
+        "src": "assets/geometry/story/approach/steps-close.bin"
+      },
+      "name": "stepsclose",
+      "renderOrder": 6,
+      "shader": "StaticObjectNoDiscard",
+      "sortIndex": 6,
+      "visible": true,
+      "position": [
+        -0.437,
+        -2.493,
+        0.138
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.768,
+        1
+      ]
+    },
+    "9": {
+      "id": 9,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        },
+        "_txtNoise": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        },
+        "uColor1": "#592223",
+        "uColor2": "#000000",
+        "uLinesTile": 1,
+        "uStep": 0.127,
+        "uSteppedTime": 8
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/circle.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/circle.bin",
+        "src": "assets/geometry/story/common/circle.bin"
+      },
+      "name": "portal",
+      "renderOrder": 0,
+      "shader": "PortalShader",
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        12.605,
+        2.956,
+        -48.23
+      ],
+      "rotation": [
+        90,
+        0,
+        17.98
+      ],
+      "scale": [
+        2.666,
+        1.221,
+        2.464
+      ]
+    },
+    "10": {
+      "id": 10,
+      "uniforms": {
+        "_txtTrim": {
+          "filename": "assets/images/story/tex_trim-2.png",
+          "prefix": "",
+          "relative": "assets/images/story/tex_trim-2.png",
+          "src": "assets/images/story/tex_trim-2.png"
+        },
+        "uBreathe": [
+          0.738,
+          1.97,
+          0.4
+        ],
+        "uColor": "#b29a6e",
+        "uLightDir": [
+          0.31,
+          1.38,
+          0.398
+        ],
+        "uLinesAngle": -2.99,
+        "uLinesAxis": [
+          3.12,
+          -1.29,
+          -1.013
+        ],
+        "uLinesTile": -1.507,
+        "uThreshold": [
+          -0.896,
+          2.112
+        ],
+        "uWindAxisAngle": [
+          1.2,
+          0,
+          1,
+          -2
+        ],
+        "uWindParams": [
+          0.034,
+          14.159,
+          1.94
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/saint-pose-2.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/saint-pose-2.bin",
+        "src": "assets/geometry/story/common/saint-pose-2.bin"
+      },
+      "name": "character",
+      "renderOrder": 7,
+      "shader": "StaticCharacterBaseShader",
+      "side": "shader_double_side",
+      "sortIndex": 7,
+      "position": [
+        -1.54,
+        -1.553,
+        -5.768
+      ],
+      "rotation": [
+        0,
+        158.53,
+        0
+      ],
+      "scale": [
+        1.85,
+        1.85,
+        1.85
+      ]
+    },
+    "12": {
+      "id": 12,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/windswept-shadow.png?1769577009757"
+        },
+        "uGradient": -0.22,
+        "uGradientAngle": -1.14,
+        "uLinesAngle": -3.15,
+        "uLinesStrength": 0.961,
+        "uLinesTile": 2.543
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/approach/steps-shadow-mesh.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/steps-shadow-mesh.bin",
+        "src": "assets/geometry/story/approach/steps-shadow-mesh.bin"
+      },
+      "name": "charshadow",
+      "renderOrder": 9,
+      "shader": "ShadowShader",
+      "sortIndex": 9,
+      "transparent": true,
+      "position": [
+        0,
+        -2.732,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "CathedralScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uDPR": 1.5,
+        "uDepthOffset": 0,
+        "uDepthSkew": 0,
+        "uFadeTop": 1,
+        "uFixedWidth": 0,
+        "uFluidEdge": [
+          3,
+          3,
+          1.7,
+          0
+        ],
+        "uFragDepth": 0,
+        "uMaxWidth": 2100,
+        "uPadX": -0.2,
+        "uPadY": 0.1,
+        "uSceneHeightWorld": 1,
+        "uSkewCorrection": 0,
+        "uTransition": 1
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 0,
+      "shader": "BorderShader",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        },
+        "uAngle": 1.57,
+        "uAxis": [
+          -7.45,
+          8.682,
+          90
+        ],
+        "uColor": "#be261e",
+        "uColorHighlight": "#be261e",
+        "uDistanceCompensation": 0,
+        "uLightDir": [
+          0,
+          0.486,
+          0.59
+        ],
+        "uLinesTile": 0.205,
+        "uThreshold": [
+          0.15,
+          0.46
+        ],
+        "uVerticalGrad": [
+          20.78,
+          33.43
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/cathedral/environment.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/cathedral/environment.bin",
+        "src": "assets/geometry/story/cathedral/environment.bin"
+      },
+      "name": "structure",
+      "renderOrder": 1,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 1,
+      "position": [
+        0,
+        -5.92,
+        -1.68
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.424,
+        0.424,
+        0.35
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/nearblack.png?1770350663118"
+        },
+        "uColor": "#be261e",
+        "uColorHighlight": "#be261e",
+        "uLightDir": [
+          -0.331,
+          1.131,
+          0.293
+        ],
+        "uLinesTile": 6.374,
+        "uThreshold": [
+          1.26,
+          0.11
+        ]
+      },
+      "name": "background",
+      "renderOrder": 2,
+      "shader": "CathedralBackgroundShader",
+      "sortIndex": 2,
+      "position": [
+        0,
+        2.09,
+        -22.123
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        35,
+        16.356,
+        1
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "uColor": "#ae9c74",
+        "uColorHighlight": "#be261e",
+        "uLinesTile": 8.39,
+        "uThreshold": [
+          1.99,
+          1.77
+        ]
+      },
+      "name": "floor",
+      "renderOrder": 3,
+      "shader": "CathedralFloorShader",
+      "sortIndex": 3,
+      "position": [
+        -0.23,
+        -6.237,
+        -12.063
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        19.9,
+        17.59,
+        28.17
+      ]
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        },
+        "uAngle": 1.57,
+        "uAxis": [
+          -7.48,
+          8.682,
+          90
+        ],
+        "uColor": "#be261e",
+        "uColorHighlight": "#be261e",
+        "uDistanceCompensation": 1,
+        "uLightDir": [
+          0,
+          0.696,
+          0.57
+        ],
+        "uLinesTile": 1.018,
+        "uThreshold": [
+          -0.042,
+          0.26
+        ],
+        "uVerticalGrad": [
+          0.02,
+          -0.85
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/cathedral/table.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/cathedral/table.bin",
+        "src": "assets/geometry/story/cathedral/table.bin"
+      },
+      "name": "table",
+      "renderOrder": 4,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 4,
+      "position": [
+        0,
+        -5.92,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.683,
+        0.286,
+        0.35
+      ]
+    },
+    "5": {
+      "id": 5,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#72c5f6",
+        "uLightDir": [
+          -0.061,
+          0.331,
+          0.883
+        ],
+        "uLinesTile": 1.05,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "bottle1",
+      "renderOrder": 5,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 5,
+      "position": [
+        -0.5,
+        -5.8,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ]
+    },
+    "6": {
+      "id": 6,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#97f3ad",
+        "uLightDir": [
+          -0.061,
+          0.331,
+          0.883
+        ],
+        "uLinesTile": 1.05,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "bottle2",
+      "renderOrder": 6,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 6,
+      "position": [
+        0,
+        -5.8,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ]
+    },
+    "7": {
+      "id": 7,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#fbeb7f",
+        "uLightDir": [
+          -0.061,
+          0.331,
+          0.883
+        ],
+        "uLinesTile": 1.05,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "bottle3",
+      "renderOrder": 7,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 7,
+      "position": [
+        0.5,
+        -5.8,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ]
+    },
+    "8": {
+      "id": 8,
+      "uniforms": {
+        "_txtTrim": {
+          "hotreload": true,
+          "src": "assets/images/story/tex_trim-2.png?1770350663367"
+        },
+        "uBreathe": [
+          0.7,
+          0.61,
+          1
+        ],
+        "uColor": "#b39b70",
+        "uLightDir": [
+          -0.09,
+          0.313,
+          -0.53
+        ],
+        "uLinesAngle": 1.865,
+        "uLinesAxis": [
+          0.37,
+          -0.32,
+          0.51
+        ],
+        "uLinesTile": 1.854,
+        "uThreshold": [
+          0.4,
+          0.9
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/cathedral/saint-idle-3-clipped.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/cathedral/saint-idle-3-clipped.bin",
+        "src": "assets/geometry/story/cathedral/saint-idle-3-clipped.bin"
+      },
+      "name": "character",
+      "renderOrder": 8,
+      "shader": "StaticCharacterBaseShader",
+      "side": "shader_double_side",
+      "sortIndex": 8,
+      "position": [
+        -1.37,
+        -7.412,
+        -0.635
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "9": {
+      "id": 9,
+      "uniforms": {
+        "color": "#121212"
+      },
+      "name": "background_floor",
+      "renderOrder": 9,
+      "shader": "ColorMaterial",
+      "sortIndex": 9,
+      "position": [
+        0,
+        -6.27,
+        -25.56
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        50,
+        50,
+        50
+      ]
+    },
+    "10": {
+      "id": 10,
+      "uniforms": {
+        "_txtMap": {
+          "filename": "assets/images/story/square-shadow.png",
+          "prefix": "",
+          "relative": "assets/images/story/square-shadow.png",
+          "src": "assets/images/story/square-shadow.png"
+        },
+        "uGradient": 0.142,
+        "uGradientAngle": -0.125,
+        "uLinesAngle": 3.15,
+        "uLinesStrength": 0.517,
+        "uLinesTile": 1.27
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/cathedral/environment-shadow.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/cathedral/environment-shadow.bin",
+        "src": "assets/geometry/story/cathedral/environment-shadow.bin"
+      },
+      "name": "structure_shadow",
+      "renderOrder": 10,
+      "shader": "ShadowShader",
+      "sortIndex": 10,
+      "transparent": true,
+      "position": [
+        0,
+        -5.962,
+        -1.46
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.422,
+        0.4,
+        0.35
+      ]
+    }
+  },
+  "ColosseumScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uFluidEdge": [
+          3,
+          3,
+          4,
+          0
+        ],
+        "uMaxWidth": 2100,
+        "uPadTop": 0,
+        "uPadX": -1,
+        "uPadY": 0.009
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/half-border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/half-border.json",
+        "src": "assets/geometry/story/colosseum/half-border.json"
+      },
+      "name": "border",
+      "renderOrder": 1,
+      "shader": "BorderShader",
+      "sortIndex": 1
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "uAngle": 1.572,
+        "uAxis": [
+          0,
+          0,
+          1
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uDistanceCompensation": 1,
+        "uLightDir": [
+          0,
+          0.37,
+          0.68
+        ],
+        "uLinesTile": 0.326,
+        "uThreshold": [
+          0.291,
+          0
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/structure.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/structure.bin",
+        "src": "assets/geometry/story/colosseum/structure.bin"
+      },
+      "name": "structure",
+      "renderOrder": 2,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 2,
+      "position": [
+        0,
+        -3.631,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.508,
+        0.4,
+        0.3
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {},
+      "billboard": true,
+      "depthTest": true,
+      "depthWrite": true,
+      "name": "background",
+      "renderOrder": 3,
+      "shader": "DrinkPourBackgroundShader",
+      "sortIndex": 3,
+      "position": [
+        0,
+        0.44,
+        -35.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        200,
+        45,
+        1
+      ]
+    },
+    "5": {
+      "id": 5,
+      "uniforms": {
+        "_txtTrim": {
+          "filename": "assets/images/story/tex_trim-2.png",
+          "prefix": "",
+          "relative": "assets/images/story/tex_trim-2.png",
+          "src": "assets/images/story/tex_trim-2.png"
+        },
+        "uBreathe": [
+          0.738,
+          1.97,
+          0.4
+        ],
+        "uColor": "#71c3f4",
+        "uLightDir": [
+          0,
+          0.203,
+          -0.25
+        ],
+        "uLinesAngle": 1.865,
+        "uLinesAxis": [
+          0.37,
+          -0.32,
+          0.51
+        ],
+        "uLinesTile": 1.141,
+        "uThreshold": [
+          -0.643,
+          1.336
+        ],
+        "uWindAxisAngle": [
+          1.2,
+          0,
+          1,
+          -2
+        ],
+        "uWindParams": [
+          0.034,
+          14.159,
+          1.94
+        ],
+        "uAngle": -1.609,
+        "uAxis": [
+          -0.47,
+          -0.577,
+          2.84
+        ],
+        "uColorHighlight": "#ffffff"
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/saint-pose-2.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/saint-pose-2.bin",
+        "src": "assets/geometry/story/common/saint-pose-2.bin"
+      },
+      "name": "character",
+      "renderOrder": 4,
+      "shader": "StaticCharacterBaseShader",
+      "side": "shader_front_side",
+      "sortIndex": 4,
+      "position": [
+        0,
+        -4.133,
+        -0.194
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "6": {
+      "id": 6,
+      "uniforms": {
+        "uProgress": 0
+      },
+      "depthTest": true,
+      "geometry": {
+        "filename": "assets/geometry/story/intro/title.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/intro/title.json",
+        "src": "assets/geometry/story/intro/title.json"
+      },
+      "name": "title",
+      "renderOrder": 0,
+      "shader": "ColosseumTitleShader",
+      "sortIndex": 0,
+      "position": [
+        0,
+        3.88,
+        -7.69
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        7,
+        7,
+        7
+      ]
+    },
+    "7": {
+      "id": 7,
+      "uniforms": {
+        "uLinesTile": 16.58,
+        "uColor": "#f3f1e9",
+        "uColorHighlight": "#f3f1e9"
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/steps.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/steps.bin",
+        "src": "assets/geometry/story/colosseum/steps.bin"
+      },
+      "name": "steps",
+      "renderOrder": 5,
+      "shader": "ColosseumFloorShader",
+      "sortIndex": 5,
+      "position": [
+        0,
+        -3.663,
+        -3.044
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.579,
+        0.9,
+        0.3
+      ]
+    },
+    "8": {
+      "id": 8,
+      "uniforms": {
+        "uAngle": 1.49,
+        "uAxis": [
+          0,
+          0,
+          1
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uLightDir": [
+          0,
+          0.22,
+          0.463
+        ],
+        "uLinesTile": 0.358,
+        "uThreshold": [
+          -0.9,
+          0.7
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/floating-rocks.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/floating-rocks.bin",
+        "src": "assets/geometry/story/colosseum/floating-rocks.bin"
+      },
+      "name": "floatingrocks",
+      "renderOrder": 6,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 6,
+      "visible": false,
+      "position": [
+        -0.053,
+        -3.76,
+        -0.69
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "10": {
+      "id": 10,
+      "uniforms": {
+        "uLightDir": [
+          0.149,
+          1.301,
+          0.593
+        ],
+        "uLinesTile": 30,
+        "uThreshold": [
+          0.63,
+          0.7
+        ],
+        "uAngle": 1.51,
+        "uAxis": [
+          5.8,
+          10.55,
+          -8.48
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff"
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/foreground-rock.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/foreground-rock.bin",
+        "src": "assets/geometry/story/colosseum/foreground-rock.bin"
+      },
+      "name": "foregroundrock",
+      "renderOrder": 7,
+      "shader": "ColosseumFloorShader",
+      "sortIndex": 7,
+      "position": [
+        0,
+        -3.552,
+        -11.01
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.57,
+        1.124,
+        0.775
+      ]
+    },
+    "11": {
+      "id": 11,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/windswept-shadow.png?1770350663117"
+        },
+        "uGradient": 0.19,
+        "uGradientAngle": 4.67,
+        "uLinesAngle": -3.137,
+        "uLinesStrength": 0.391,
+        "uLinesTile": 1.79
+      },
+      "name": "shadow",
+      "renderOrder": 8,
+      "shader": "ShadowShader",
+      "sortIndex": 8,
+      "transparent": true,
+      "position": [
+        0.622,
+        -4.124,
+        0.49
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        2.24,
+        2.47,
+        2.33
+      ]
+    },
+    "12": {
+      "id": 12,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtMap": {
+          "filename": "assets/images/story/clouds_noise.png",
+          "prefix": "",
+          "relative": "assets/images/story/clouds_noise.png",
+          "src": "assets/images/story/clouds_noise.png"
+        },
+        "_txtNoise": {
+          "filename": "assets/images/story/perlin.png",
+          "prefix": "",
+          "relative": "assets/images/story/perlin.png",
+          "src": "assets/images/story/perlin.png"
+        }
+      },
+      "custom": "",
+      "name": "rockshadow",
+      "renderOrder": 9,
+      "shader": "ColosseumRockShadowShader",
+      "sortIndex": 9,
+      "transparent": true,
+      "position": [
+        0,
+        -4.837,
+        0.008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        20,
+        1.259,
+        0.5
+      ]
+    },
+    "13": {
+      "id": 13,
+      "uniforms": {
+        "uAngle": -3.66,
+        "uAxis": [
+          1.285,
+          0.452,
+          -0.685
+        ],
+        "uLightDir": [
+          0,
+          -0.22,
+          0.446
+        ],
+        "uLinesTile": 0.496,
+        "uRotationParams": [
+          0.2,
+          2.66,
+          0
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uThreshold": [
+          0.1,
+          0.7
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "src": "assets/geometry/story/colosseum/floating-rock-single.bin"
+      },
+      "name": "floatingrock1",
+      "renderOrder": 10,
+      "shader": "ColosseumFloatingRockShader",
+      "sortIndex": 10,
+      "position": [
+        1.253,
+        5.844,
+        -3.789
+      ],
+      "rotation": [
+        63.33,
+        0,
+        0
+      ],
+      "scale": [
+        0.401,
+        0.401,
+        0.401
+      ]
+    },
+    "14": {
+      "id": 14,
+      "uniforms": {
+        "uAngle": -3.66,
+        "uAxis": [
+          1.285,
+          0.452,
+          -0.685
+        ],
+        "uLightDir": [
+          0,
+          -0.22,
+          0.446
+        ],
+        "uLinesTile": 0.631,
+        "uRotationAxis": [
+          2.057,
+          0.707,
+          -6.43
+        ],
+        "uRotationParams": [
+          0.28,
+          4.01,
+          0
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "src": "assets/geometry/story/colosseum/floating-rock-single.bin"
+      },
+      "name": "floatingrock2",
+      "renderOrder": 11,
+      "shader": "ColosseumFloatingRockShader",
+      "sortIndex": 11,
+      "position": [
+        1.533,
+        3.924,
+        -0.509
+      ],
+      "rotation": [
+        63.33,
+        0,
+        0
+      ],
+      "scale": [
+        0.401,
+        0.401,
+        0.401
+      ]
+    },
+    "15": {
+      "id": 15,
+      "uniforms": {
+        "uAngle": -3.66,
+        "uAxis": [
+          1.285,
+          0.452,
+          -0.685
+        ],
+        "uLightDir": [
+          0,
+          -0.22,
+          0.326
+        ],
+        "uLinesTile": 0.401,
+        "uRotationAxis": [
+          1,
+          0.27,
+          -1
+        ],
+        "uRotationParams": [
+          0.35,
+          8,
+          0
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "src": "assets/geometry/story/colosseum/floating-rock-single.bin"
+      },
+      "name": "floatingrock3",
+      "renderOrder": 12,
+      "shader": "ColosseumFloatingRockShader",
+      "sortIndex": 12,
+      "position": [
+        -1.377,
+        4.694,
+        -1.499
+      ],
+      "rotation": [
+        63.33,
+        0,
+        0
+      ],
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    },
+    "16": {
+      "id": 16,
+      "uniforms": {
+        "uAngle": -3.66,
+        "uAxis": [
+          1.285,
+          0.452,
+          -0.685
+        ],
+        "uLightDir": [
+          0,
+          0.1,
+          0.336
+        ],
+        "uLinesTile": 0.338,
+        "uRotationAxis": [
+          -1,
+          -2.99,
+          0
+        ],
+        "uRotationParams": [
+          -0.3,
+          8,
+          0
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "src": "assets/geometry/story/colosseum/floating-rock-single.bin"
+      },
+      "name": "floatingrock4",
+      "renderOrder": 13,
+      "shader": "ColosseumFloatingRockShader",
+      "sortIndex": 13,
+      "position": [
+        1.703,
+        1.714,
+        -3.859
+      ],
+      "rotation": [
+        63.33,
+        0,
+        0
+      ],
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    },
+    "17": {
+      "id": 17,
+      "uniforms": {
+        "uAngle": -3.66,
+        "uAxis": [
+          1.285,
+          0.452,
+          -0.685
+        ],
+        "uLightDir": [
+          0.51,
+          0.1,
+          0.306
+        ],
+        "uLinesTile": 0.888,
+        "uRotationAxis": [
+          -4.55,
+          -1.77,
+          -6.37
+        ],
+        "uRotationParams": [
+          -0.2,
+          8,
+          0
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "src": "assets/geometry/story/colosseum/floating-rock-single.bin"
+      },
+      "name": "floatingrock5",
+      "renderOrder": 14,
+      "shader": "ColosseumFloatingRockShader",
+      "sortIndex": 14,
+      "position": [
+        -1.427,
+        4.784,
+        1.69
+      ],
+      "rotation": [
+        63.33,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "18": {
+      "id": 18,
+      "uniforms": {
+        "uAngle": -3.66,
+        "uAxis": [
+          1.285,
+          0.452,
+          -0.685
+        ],
+        "uLightDir": [
+          0,
+          -0.22,
+          0.446
+        ],
+        "uLinesTile": 0.341,
+        "uRotationAxis": [
+          -1.993,
+          0.707,
+          -6.43
+        ],
+        "uRotationParams": [
+          -0.547,
+          4.01,
+          0
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/colosseum/floating-rock-single.bin",
+        "src": "assets/geometry/story/colosseum/floating-rock-single.bin"
+      },
+      "name": "floatingrock6",
+      "renderOrder": 15,
+      "shader": "ColosseumFloatingRockShader",
+      "sortIndex": 15,
+      "position": [
+        -1.597,
+        0.712,
+        -1.549
+      ],
+      "rotation": [
+        63.33,
+        0,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  },
+  "CubeScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "name": "layer_0",
+      "renderOrder": 0,
+      "sortIndex": 0
+    }
+  },
+  "DrinkPourScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uColor": "#000000",
+        "uFluidEdge": [
+          3,
+          3,
+          1,
+          0.5
+        ]
+      },
+      "depthTest": true,
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 3,
+      "shader": "BorderShader",
+      "sortIndex": 3,
+      "visible": true
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "color": "#bc251c"
+      },
+      "depthTest": false,
+      "geometry": {
+        "filename": "World.PLANE",
+        "prefix": "",
+        "relative": "World.PLANE",
+        "src": "World.PLANE"
+      },
+      "name": "background",
+      "renderOrder": 0,
+      "shader": "DrinkPourBackgroundShader",
+      "side": "shader_front_side",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0.35,
+        -1.698
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        50,
+        14.074,
+        1
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "uAngle": -0.79,
+        "uAxis": [
+          -1.22,
+          9.463,
+          0.68
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uLightDir": [
+          -0.01,
+          -0.49,
+          -1.977
+        ],
+        "uLinesTile": 12.08,
+        "uThreshold": [
+          -2.71,
+          1.028
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkpour/glass.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkpour/glass.bin",
+        "src": "assets/geometry/story/drinkpour/glass.bin"
+      },
+      "name": "glass",
+      "renderOrder": 5,
+      "shader": "StaticObjectBaseShader",
+      "side": "shader_back_side",
+      "sortIndex": 5,
+      "visible": true,
+      "position": [
+        0.076,
+        1.009,
+        -2.591
+      ],
+      "rotation": [
+        0,
+        0,
+        1.535
+      ],
+      "scale": [
+        13.569,
+        13.569,
+        5.688
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "uAngle": -1.68,
+        "uAxis": [
+          0,
+          0,
+          1
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uLightDir": [
+          -0.111,
+          0.331,
+          1.513
+        ],
+        "uLinesTile": 11.67,
+        "uThreshold": [
+          -1.43,
+          0.278
+        ]
+      },
+      "depthTest": true,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "assets/geometry/story/drinkpour/glass.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkpour/glass.bin",
+        "src": "assets/geometry/story/drinkpour/glass.bin"
+      },
+      "name": "glass_front",
+      "renderOrder": 1,
+      "shader": "DrinkPourGlassShader",
+      "side": "shader_front_side",
+      "sortIndex": 1,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0.074,
+        1.014,
+        -2.628
+      ],
+      "rotation": [
+        0,
+        0,
+        1.535
+      ],
+      "scale": [
+        13.962,
+        13.505,
+        7.678
+      ]
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {
+        "uAngle": 1.63,
+        "uAxis": [
+          0,
+          0.243,
+          0.97
+        ],
+        "uColor": "#ffffff",
+        "uLightDir": [
+          0,
+          1.08,
+          0.883
+        ],
+        "uLinesTile": 1.734,
+        "uThreshold": [
+          0,
+          0.7
+        ]
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/story/drinkpour/background_plinth.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkpour/background_plinth.bin",
+        "src": "assets/geometry/story/drinkpour/background_plinth.bin"
+      },
+      "name": "background_plinth",
+      "renderOrder": 6,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 6,
+      "position": [
+        -3.51,
+        -8.511,
+        -2.689
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        3,
+        2.401,
+        0.356
+      ]
+    },
+    "6": {
+      "id": 6,
+      "uniforms": {
+        "uAngle": 1.628,
+        "uAxis": [
+          -4.072,
+          1.25,
+          3.81
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uDistanceCompensation": 10,
+        "uLightDir": [
+          0,
+          0.339,
+          0.383
+        ],
+        "uLinesTile": 3.72,
+        "uThreshold": [
+          0.05,
+          0.24
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/foreground_plinth.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/foreground_plinth.bin",
+        "src": "assets/geometry/story/drinkselection/foreground_plinth.bin"
+      },
+      "name": "foreground_plinth",
+      "renderOrder": 7,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 7,
+      "visible": true,
+      "position": [
+        0,
+        -4.943,
+        -0.191
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        2.44,
+        0.6,
+        0.17
+      ]
+    },
+    "8": {
+      "id": 8,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/bottle-arm-shadow.png?1770350663120"
+        },
+        "uGradient": 0.211,
+        "uGradientAngle": -4.73,
+        "uLinesAngle": 8.768,
+        "uLinesStrength": 0.543,
+        "uLinesTile": 3.434
+      },
+      "depthTest": false,
+      "depthWrite": true,
+      "name": "armshadow",
+      "renderOrder": 4,
+      "shader": "ShadowShader",
+      "sortIndex": 4,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        -4.381,
+        1.015,
+        -2.1
+      ],
+      "rotation": [
+        -90,
+        0,
+        175
+      ],
+      "scale": [
+        8,
+        2.5,
+        7
+      ]
+    },
+    "9": {
+      "id": 9,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-shadow.png?1770350663119"
+        },
+        "uGradient": 0.136,
+        "uGradientAngle": -4.73,
+        "uLinesAngle": 5.418,
+        "uLinesStrength": 0.493,
+        "uLinesTile": 0.3
+      },
+      "name": "glassshadow",
+      "renderOrder": 2,
+      "shader": "ShadowShader",
+      "sortIndex": 2,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0.099,
+        1.016,
+        -2.622
+      ],
+      "rotation": [
+        -90,
+        0,
+        186.83
+      ],
+      "scale": [
+        1.272,
+        0.86,
+        0.86
+      ]
+    }
+  },
+  "DrinkSelectionScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uDepthSkew": 0,
+        "uPadX": 0.15,
+        "uPadY": 0.05,
+        "uSceneHeightWorld": 1
+      },
+      "animates": false,
+      "depthTest": true,
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 1,
+      "shader": "DrinkSelectionBorderShader",
+      "sortIndex": 1,
+      "transparent": false,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "color": "#c0261d"
+      },
+      "depthTest": false,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "World.BOX",
+        "prefix": "",
+        "relative": "World.BOX",
+        "src": "World.BOX"
+      },
+      "name": "background",
+      "renderOrder": 0,
+      "shader": "ColorMaterial",
+      "side": "shader_back_side",
+      "sortIndex": 0,
+      "visible": true,
+      "position": [
+        0,
+        1.217,
+        0.439
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        30,
+        5.984,
+        1
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "uAngle": -3.093,
+        "uAxis": [
+          -0.02,
+          -0.047,
+          -1.15
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uDistanceCompensation": 1,
+        "uLightDir": [
+          -0.601,
+          0.461,
+          0.933
+        ],
+        "uLinesTile": 0.468,
+        "uThreshold": [
+          0.371,
+          0.7
+        ]
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/landscape.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/landscape.bin",
+        "src": "assets/geometry/story/drinkselection/landscape.bin"
+      },
+      "name": "landscape",
+      "renderOrder": 2,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 2,
+      "position": [
+        0,
+        -2,
+        -5.83
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        0.245
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "uAngle": 3.184,
+        "uAxis": [
+          0.575,
+          -0.069,
+          3.61
+        ],
+        "uColor": "#ffffff",
+        "uDistanceCompensation": 1,
+        "uLightDir": [
+          0.02,
+          0.7,
+          0.563
+        ],
+        "uLinesTile": 0.738,
+        "uThreshold": [
+          0.87,
+          -0.04
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/background_plinth.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/background_plinth.bin",
+        "src": "assets/geometry/story/drinkselection/background_plinth.bin"
+      },
+      "name": "backgroundplinth",
+      "renderOrder": 3,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 3,
+      "position": [
+        4.05,
+        -2,
+        -0.7
+      ],
+      "rotation": [
+        0,
+        66,
+        0
+      ],
+      "scale": [
+        0.895,
+        1,
+        1
+      ]
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {
+        "uAngle": -4.656,
+        "uAxis": [
+          -0.392,
+          0.463,
+          2.99
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uDistanceCompensation": 1,
+        "uLightDir": [
+          -0.411,
+          0.921,
+          0.293
+        ],
+        "uLinesTile": 0.554,
+        "uThreshold": [
+          -0.12,
+          -0.43
+        ],
+        "uVerticalGrad": [
+          25.4,
+          -13.67
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/structure.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/structure.bin",
+        "src": "assets/geometry/story/drinkselection/structure.bin"
+      },
+      "name": "structure",
+      "renderOrder": 4,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 4,
+      "position": [
+        0,
+        -2,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "5": {
+      "id": 5,
+      "uniforms": {
+        "uAngle": -3.288,
+        "uAxis": [
+          1.188,
+          0.443,
+          2.57
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uLightDir": [
+          0,
+          0.841,
+          -0.049
+        ],
+        "uLinesTile": 0.974,
+        "uThreshold": [
+          0.1,
+          -0.05
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/foreground_plinth.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/foreground_plinth.bin",
+        "src": "assets/geometry/story/drinkselection/foreground_plinth.bin"
+      },
+      "name": "foregroundplinth",
+      "renderOrder": 4,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 4,
+      "position": [
+        0,
+        -2.165,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.25,
+        1,
+        1
+      ]
+    },
+    "6": {
+      "id": 6,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#97f3ad",
+        "uLightDir": [
+          -0.061,
+          0.331,
+          0.883
+        ],
+        "uLinesTile": 1.05,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "bottle2",
+      "parent": "sl_DrinkSelectionScene_group_1",
+      "renderOrder": 12,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "7": {
+      "id": 7,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#72c5f6",
+        "uLightDir": [
+          -0.061,
+          0.331,
+          0.883
+        ],
+        "uLinesTile": 1.05,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "bottle1",
+      "parent": "sl_DrinkSelectionScene_group_0",
+      "renderOrder": 11,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "8": {
+      "id": 8,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#fbeb7f",
+        "uLightDir": [
+          -0.061,
+          0.331,
+          0.883
+        ],
+        "uLinesTile": 1.05,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "bottle3",
+      "parent": "sl_DrinkSelectionScene_group_2",
+      "renderOrder": 13,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "9": {
+      "id": 9,
+      "uniforms": {
+        "_txtTrim": {
+          "hotreload": true,
+          "src": "assets/images/story/tex_trim-2.png?1770190931833"
+        },
+        "uBreathe": [
+          0.02,
+          2.03,
+          0.2
+        ],
+        "uColor": "#b39b70",
+        "uLightDir": [
+          3,
+          -1.75,
+          0.4
+        ],
+        "uLinesAngle": 2.4,
+        "uLinesAxis": [
+          -1.25,
+          -3.45,
+          0.45
+        ],
+        "uLinesTile": 1.5,
+        "uThreshold": [
+          0.09,
+          2
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/saint-idle-selection.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/saint-idle-selection.bin",
+        "src": "assets/geometry/story/drinkselection/saint-idle-selection.bin"
+      },
+      "name": "character",
+      "renderOrder": 5,
+      "shader": "StaticCharacterBaseShader",
+      "sortIndex": 5,
+      "position": [
+        -1.2,
+        -0.8,
+        -4.75
+      ],
+      "rotation": [
+        0,
+        13,
+        0
+      ],
+      "scale": [
+        1.7,
+        1.7,
+        1.65
+      ]
+    },
+    "10": {
+      "id": 10,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#72c5f6",
+        "uLightDir": [
+          0,
+          0.841,
+          0.9
+        ],
+        "uLinesTile": 0.5,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "plinth_bottle1",
+      "renderOrder": 6,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 6,
+      "position": [
+        -0.35,
+        0.6,
+        -3.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "11": {
+      "id": 11,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#97f3ad",
+        "uLightDir": [
+          0,
+          0.841,
+          0.9
+        ],
+        "uLinesTile": 0.5,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "plinth_bottle2",
+      "renderOrder": 7,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 7,
+      "position": [
+        -0.15,
+        0.6,
+        -3.95
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "12": {
+      "id": 12,
+      "uniforms": {
+        "uAngle": -0.666,
+        "uAxis": [
+          -0.72,
+          -3.947,
+          -0.07
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#fbeb7f",
+        "uLightDir": [
+          0,
+          0.331,
+          0.9
+        ],
+        "uLinesTile": 0.5,
+        "uThreshold": [
+          0.38,
+          0.61
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+      },
+      "name": "plinth_bottle3",
+      "renderOrder": 8,
+      "shader": "DrinkSelectionBottleShader",
+      "sortIndex": 8,
+      "position": [
+        0.05,
+        0.6,
+        -4.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "13": {
+      "id": 13,
+      "uniforms": {},
+      "name": "hit1",
+      "parent": "sl_DrinkSelectionScene_group_0",
+      "renderOrder": 11.2475,
+      "sortIndex": 1,
+      "position": [
+        0,
+        0.85,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.6,
+        1.8,
+        1
+      ]
+    },
+    "14": {
+      "id": 14,
+      "uniforms": {},
+      "name": "hit2",
+      "parent": "sl_DrinkSelectionScene_group_1",
+      "renderOrder": 12.2475,
+      "sortIndex": 1,
+      "position": [
+        0,
+        0.85,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.6,
+        1.8,
+        1
+      ]
+    },
+    "15": {
+      "id": 15,
+      "uniforms": {},
+      "name": "hit3",
+      "parent": "sl_DrinkSelectionScene_group_2",
+      "renderOrder": 13.2475,
+      "sortIndex": 1,
+      "position": [
+        0,
+        0.8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.6,
+        1.8,
+        1
+      ]
+    },
+    "21": {
+      "id": 21,
+      "uniforms": {},
+      "custom": "DrinkLineParticles",
+      "depthWrite": true,
+      "name": "lines1",
+      "parent": "sl_DrinkSelectionScene_group_0",
+      "renderOrder": 11.495,
+      "sortIndex": 2,
+      "transparent": true,
+      "visible": false
+    },
+    "23": {
+      "id": 23,
+      "uniforms": {},
+      "custom": "DrinkLineParticles",
+      "name": "lines2",
+      "parent": "sl_DrinkSelectionScene_group_1",
+      "renderOrder": 12.495,
+      "sortIndex": 2,
+      "transparent": true,
+      "visible": false
+    },
+    "24": {
+      "id": 24,
+      "uniforms": {},
+      "custom": "DrinkLineParticles",
+      "name": "lines3",
+      "parent": "sl_DrinkSelectionScene_group_2",
+      "renderOrder": 13.495,
+      "sortIndex": 2,
+      "transparent": true,
+      "visible": false
+    },
+    "25": {
+      "id": 25,
+      "uniforms": {},
+      "custom": "DrinkBlobParticles",
+      "depthWrite": true,
+      "name": "blobs1",
+      "parent": "sl_DrinkSelectionScene_group_0",
+      "renderOrder": 11.7425,
+      "sortIndex": 3,
+      "transparent": true,
+      "visible": true
+    },
+    "26": {
+      "id": 26,
+      "uniforms": {},
+      "custom": "DrinkBlobParticles",
+      "depthWrite": true,
+      "name": "blobs2",
+      "parent": "sl_DrinkSelectionScene_group_1",
+      "renderOrder": 12.7425,
+      "sortIndex": 3,
+      "transparent": true,
+      "visible": true
+    },
+    "27": {
+      "id": 27,
+      "uniforms": {},
+      "custom": "DrinkBlobParticles",
+      "depthWrite": true,
+      "name": "blobs3",
+      "parent": "sl_DrinkSelectionScene_group_2",
+      "renderOrder": 13.7425,
+      "sortIndex": 3,
+      "transparent": true,
+      "visible": true
+    },
+    "29": {
+      "id": 29,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-shadow.png?1770350663119"
+        },
+        "uGradient": 0.05,
+        "uGradientAngle": -0.15,
+        "uLinesAngle": -2.5,
+        "uLinesSpeed": 0,
+        "uLinesStrength": 0.6,
+        "uLinesTile": 4.4
+      },
+      "name": "shadow1",
+      "parent": "sl_DrinkSelectionScene_group_0",
+      "renderOrder": 11.99,
+      "shader": "ShadowShader",
+      "side": "shader_front_side",
+      "sortIndex": 4,
+      "transparent": true,
+      "position": [
+        0.025,
+        0,
+        0
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "32": {
+      "id": 32,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-shadow.png?1770350663119"
+        },
+        "uGradient": 0.05,
+        "uGradientAngle": -0.15,
+        "uLinesAngle": -2.5,
+        "uLinesStrength": 0.6,
+        "uLinesTile": 4.4
+      },
+      "name": "shadow2",
+      "parent": "sl_DrinkSelectionScene_group_1",
+      "renderOrder": 12.99,
+      "shader": "ShadowShader",
+      "side": "shader_front_side",
+      "sortIndex": 26,
+      "transparent": true,
+      "position": [
+        0.025,
+        0,
+        0
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "33": {
+      "id": 33,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-shadow.png?1770350663119"
+        },
+        "uGradient": 0.05,
+        "uGradientAngle": -0.15,
+        "uLinesAngle": -2.5,
+        "uLinesStrength": 0.6,
+        "uLinesTile": 4.4
+      },
+      "name": "shadow3",
+      "parent": "sl_DrinkSelectionScene_group_2",
+      "renderOrder": 13.99,
+      "shader": "ShadowShader",
+      "side": "shader_front_side",
+      "sortIndex": 27,
+      "transparent": true,
+      "position": [
+        0.025,
+        0,
+        0
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "34": {
+      "id": 34,
+      "uniforms": {
+        "_txtMap": {
+          "filename": "assets/images/story/idle-shadow.png",
+          "prefix": "",
+          "relative": "assets/images/story/idle-shadow.png",
+          "src": "assets/images/story/idle-shadow.png"
+        },
+        "uGradient": 0.6,
+        "uGradientAngle": 3.65,
+        "uLinesAngle": -0.7,
+        "uLinesSpeed": 0.25,
+        "uLinesStrength": 0.25,
+        "uLinesTile": 1.05
+      },
+      "animates": true,
+      "name": "saintShadow",
+      "receiveLight": false,
+      "renderOrder": 9,
+      "shader": "ShadowShader",
+      "side": "shader_front_side",
+      "sortIndex": 9,
+      "transparent": true,
+      "position": [
+        -1.55,
+        -0.8,
+        -5.7
+      ],
+      "rotation": [
+        -90,
+        0,
+        -164
+      ],
+      "scale": [
+        4,
+        4,
+        4
+      ]
+    },
+    "35": {
+      "id": 35,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "glass-shadow-rArconJQ.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/glass-shadow-rArconJQ.png",
+          "useCompressed": false
+        },
+        "uGradient": 0.5,
+        "uGradientAngle": 2.8,
+        "uLinesAngle": -0.6,
+        "uLinesSpeed": 0.25,
+        "uLinesStrength": 0.35,
+        "uLinesTile": 0.55
+      },
+      "animates": true,
+      "name": "plinthShadow",
+      "renderOrder": 10,
+      "shader": "ShadowShader",
+      "side": "shader_front_side",
+      "sortIndex": 10,
+      "transparent": true,
+      "position": [
+        -0.1,
+        -0.78,
+        -3.85
+      ],
+      "rotation": [
+        -90,
+        0,
+        -164
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.4
+      ]
+    }
+  },
+  "EyesOpenScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uColor": "#bc251c"
+      },
+      "depthTest": false,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "World.PLANE",
+        "prefix": "",
+        "relative": "World.PLANE",
+        "src": "World.PLANE"
+      },
+      "name": "bg",
+      "renderOrder": 0,
+      "shader": "ScreenQuadColor",
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        0,
+        0,
+        -0.001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "FooterScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "name": "bg",
+      "renderOrder": 0,
+      "shader": "FooterShader",
+      "sortIndex": 0
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "mainCamera",
+      "renderOrder": 1,
+      "sortIndex": 1,
+      "position": [
+        0,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "HandFXScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "mainCamera",
+      "renderOrder": 0,
+      "sortIndex": 0
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "sideCamera",
+      "renderOrder": 1,
+      "sortIndex": 1
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "frontCamera",
+      "renderOrder": 2,
+      "sortIndex": 2,
+      "position": [
+        0,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "NearScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uDepthOffset": 0,
+        "uDepthSkew": 0,
+        "uFixedWidth": 1,
+        "uFluidEdge": [
+          3,
+          3,
+          1,
+          0.35
+        ],
+        "uFragDepth": 0.41,
+        "uPadX": 1.94,
+        "uPadY": 1.002,
+        "uSkewCorrection": -0.389
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 3,
+      "shader": "BorderShader",
+      "sortIndex": 3
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "uAngle": 1.548,
+        "uAxis": [
+          -0.54,
+          0,
+          1
+        ],
+        "uColor": "#f3f1e9",
+        "uColorHighlight": "#f3f1e9",
+        "uLightDir": [
+          0,
+          1.162,
+          0.419
+        ],
+        "uLinesTile": 0.708,
+        "uThreshold": [
+          -1.785,
+          -0.02
+        ]
+      },
+      "animates": false,
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/story/approach/portal.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/approach/portal.bin",
+        "src": "assets/geometry/story/approach/portal.bin"
+      },
+      "name": "structure",
+      "renderOrder": 4,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 4,
+      "transparent": false,
+      "position": [
+        0,
+        -3.138,
+        -25.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        3,
+        3,
+        3
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        },
+        "_txtNoise": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        },
+        "uColor1": "#592223",
+        "uColor2": "#000000",
+        "uLinesTile": 0.983
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/circle.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/circle.bin",
+        "src": "assets/geometry/story/common/circle.bin"
+      },
+      "name": "portal",
+      "renderOrder": 2,
+      "shader": "PortalShader",
+      "sortIndex": 2,
+      "transparent": true,
+      "position": [
+        -0.178,
+        1.486,
+        -20.179
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        5.613,
+        3.59,
+        5.613
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "_txtMap": {
+          "filename": "assets/images/story/cell_noise.png",
+          "prefix": "",
+          "relative": "assets/images/story/cell_noise.png",
+          "src": "assets/images/story/cell_noise.png"
+        },
+        "_txtNoise": {
+          "filename": "assets/images/story/clouds_noise.png",
+          "prefix": "",
+          "relative": "assets/images/story/clouds_noise.png",
+          "src": "assets/images/story/clouds_noise.png"
+        }
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "name": "background",
+      "renderOrder": 5,
+      "shader": "NearBackgroundShader",
+      "sortIndex": 5,
+      "position": [
+        0,
+        -0.015,
+        -35.46
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        280,
+        35,
+        10
+      ]
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {
+        "_txtTrim": {
+          "filename": "assets/images/story/tex_trim-2.png",
+          "prefix": "",
+          "relative": "assets/images/story/tex_trim-2.png",
+          "src": "assets/images/story/tex_trim-2.png"
+        },
+        "uBreathe": [
+          1,
+          1.86,
+          0.2
+        ],
+        "uColor": "#4c422f",
+        "uLightDir": [
+          -0.18,
+          0.42,
+          -0.374
+        ],
+        "uLinesAngle": 1.58,
+        "uLinesAxis": [
+          0,
+          0,
+          1
+        ],
+        "uLinesTile": 0.517,
+        "uThreshold": [
+          -0.171,
+          2.514
+        ],
+        "uWindAxisAngle": [
+          1.2,
+          1,
+          1,
+          -2
+        ],
+        "uWindParams": [
+          0.034,
+          14.159,
+          1.94
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/saint-pose-2.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/saint-pose-2.bin",
+        "src": "assets/geometry/story/common/saint-pose-2.bin"
+      },
+      "name": "character",
+      "renderOrder": 6,
+      "shader": "StaticCharacterBaseShader",
+      "sortIndex": 6,
+      "position": [
+        -0.197,
+        -3.843,
+        -14.991
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ]
+    },
+    "7": {
+      "id": 7,
+      "uniforms": {
+        "uAngle": -0.28,
+        "uAxis": [
+          -0.95,
+          0.243,
+          0.97
+        ],
+        "uColor": "#f3f1e9",
+        "uColorHighlight": "#f3f1e9",
+        "uLightDir": [
+          -0.331,
+          -0.689,
+          0.883
+        ],
+        "uLinesTile": 9.387,
+        "uThreshold": [
+          0.44,
+          0.85
+        ],
+        "_txtMap": {
+          "filename": "assets/images/story/near/shadow2.png",
+          "prefix": "",
+          "relative": "assets/images/story/near/shadow2.png",
+          "src": "assets/images/story/near/shadow2.png"
+        }
+      },
+      "geometry": {
+        "filename": "World.PLANE_MID_RES",
+        "prefix": "",
+        "relative": "World.PLANE_MID_RES",
+        "src": "World.PLANE_MID_RES"
+      },
+      "name": "newfloor",
+      "renderOrder": 7,
+      "shader": "NearGroundShader",
+      "sortIndex": 7,
+      "visible": true,
+      "position": [
+        0.309,
+        -3.925,
+        -20.049
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        120,
+        40,
+        1
+      ]
+    },
+    "11": {
+      "id": 11,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/windswept-shadow.png?1770350663117"
+        },
+        "uGradient": -0.178,
+        "uGradientAngle": 3.14,
+        "uLinesAngle": -3.142,
+        "uLinesStrength": 0.892,
+        "uLinesTile": 1.7
+      },
+      "name": "shadow",
+      "renderOrder": 8,
+      "shader": "ShadowShader",
+      "sortIndex": 8,
+      "transparent": true,
+      "position": [
+        0.673,
+        -3.85,
+        -13.56
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        3.194,
+        4,
+        4
+      ]
+    },
+    "12": {
+      "id": 12,
+      "uniforms": {
+        "_txtMap": {
+          "filename": "assets/images/story/square-shadow.png",
+          "prefix": "",
+          "relative": "assets/images/story/square-shadow.png",
+          "src": "assets/images/story/square-shadow.png"
+        },
+        "uGradient": -0.968,
+        "uGradientAngle": -6.12,
+        "uLinesAngle": -6.312,
+        "uLinesStrength": 1.542,
+        "uLinesTile": 3.91
+      },
+      "name": "structure_shadow1",
+      "renderOrder": 0,
+      "shader": "ShadowShader",
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        -4.859,
+        -3.84,
+        -22.64
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        9.64,
+        9.29,
+        5.69
+      ]
+    },
+    "13": {
+      "id": 13,
+      "uniforms": {
+        "_txtMap": {
+          "filename": "assets/images/story/square-shadow.png",
+          "prefix": "",
+          "relative": "assets/images/story/square-shadow.png",
+          "src": "assets/images/story/square-shadow.png"
+        },
+        "uGradient": -0.788,
+        "uGradientAngle": -6.58,
+        "uLinesAngle": -6.312,
+        "uLinesStrength": 1.462,
+        "uLinesTile": 3.91
+      },
+      "name": "structure_shadow2",
+      "renderOrder": 1,
+      "shader": "ShadowShader",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        4.801,
+        -3.84,
+        -22.64
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        9.57,
+        9.29,
+        5.69
+      ]
+    }
+  },
+  "PillarCrumbleScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uFluidEdge": [
+          3,
+          3,
+          2,
+          0.2
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 0,
+      "shader": "BorderShader",
+      "sortIndex": 0,
+      "visible": true
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "uAngle": 1.57,
+        "uAxis": [
+          -24.34,
+          -6.748,
+          91.21
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uDistanceCompensation": 1,
+        "uFractureThreshold": -0.48,
+        "uLightDir": [
+          -0.12,
+          0.536,
+          0.68
+        ],
+        "uLinesTile": 6,
+        "uThreshold": [
+          0.32,
+          0.4
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/pillarcrumble/pillar_fracture.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/pillarcrumble/pillar_fracture.bin",
+        "src": "assets/geometry/story/pillarcrumble/pillar_fracture.bin"
+      },
+      "name": "column1",
+      "renderOrder": 1,
+      "shader": "PillarFractureShader",
+      "sortIndex": 1,
+      "visible": true,
+      "position": [
+        -0.31,
+        -3.43,
+        -2.75
+      ],
+      "rotation": [
+        -7.63,
+        25,
+        15
+      ],
+      "scale": [
+        6,
+        6,
+        6
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "uAngle": 1.586,
+        "uAxis": [
+          -24.69,
+          -21.988,
+          58.64
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uDistanceCompensation": 1,
+        "uFractureThreshold": 0.81,
+        "uLightDir": [
+          -0.12,
+          0.536,
+          0.68
+        ],
+        "uLinesTile": 7.036,
+        "uThreshold": [
+          0.32,
+          0.4
+        ],
+        "uTimeOffset": 15
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/pillarcrumble/pillar_fracture.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/pillarcrumble/pillar_fracture.bin",
+        "src": "assets/geometry/story/pillarcrumble/pillar_fracture.bin"
+      },
+      "name": "column2",
+      "renderOrder": 2,
+      "shader": "PillarFractureShader",
+      "sortIndex": 2,
+      "visible": true,
+      "position": [
+        1.25,
+        -2.424,
+        -1.078
+      ],
+      "rotation": [
+        -13.71,
+        -145.07,
+        -14.16
+      ],
+      "scale": [
+        6,
+        6,
+        6
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {},
+      "billboard": true,
+      "name": "background",
+      "renderOrder": 3,
+      "shader": "DrinkPourBackgroundShader",
+      "sortIndex": 3,
+      "position": [
+        0,
+        0,
+        -5.29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        50,
+        7.933,
+        1
+      ]
+    }
+  },
+  "ProductsScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "mainCamera",
+      "renderOrder": 1,
+      "sortIndex": 1
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "_txtEnvDiffuse": {
+          "compressed": false,
+          "filename": "glass-diffuse-4aRQD46t.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/glass-diffuse-4aRQD46t.png",
+          "useCompressed": false
+        },
+        "_txtEnvSpecular": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-specular.png?1770787347244"
+        },
+        "_txtMRO": {
+          "compressed": false,
+          "filename": "empty_mro-7UPNyD6z.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_mro-7UPNyD6z.jpg",
+          "useCompressed": false
+        },
+        "_txtNormal": {
+          "compressed": false,
+          "filename": "empty_normal-1Qg4XGDW.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_normal-1Qg4XGDW.png",
+          "useCompressed": false
+        },
+        "uColor": "#63c6f8",
+        "uColor2": "#6DD993",
+        "uColor2Dark": "#07cf4d",
+        "uColorDark": "#345bf9",
+        "uEnv": [
+          1,
+          20,
+          0
+        ],
+        "uFillAmount": 1.6,
+        "uMultiplier": 1,
+        "uRefractionStrength": [
+          0,
+          1.1
+        ],
+        "uTransition": 0.05
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fpo/bottle_liquid.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fpo/bottle_liquid.bin",
+        "src": "assets/geometry/fpo/bottle_liquid.bin"
+      },
+      "name": "liquid",
+      "parent": "sl_ProductsScene_group_0",
+      "renderOrder": 7,
+      "shader": "GlassLiquidPBR",
+      "side": "shader_double_side",
+      "sortIndex": 0,
+      "transparent": false,
+      "visible": true,
+      "position": [
+        0,
+        0.02,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.92,
+        1,
+        0.92
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "_txtBaseColor": {
+          "compressed": false,
+          "filename": "mask-7AetCBPc.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/mask-7AetCBPc.jpg",
+          "useCompressed": false
+        },
+        "_txtEnvDiffuse": {
+          "compressed": false,
+          "filename": "glass-diffuse-4aRQD46t.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/glass-diffuse-4aRQD46t.png",
+          "useCompressed": false
+        },
+        "_txtEnvSpecular": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-specular.png?1770787347244"
+        },
+        "_txtMRO": {
+          "compressed": false,
+          "filename": "empty_mro-7UPNyD6z.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_mro-7UPNyD6z.jpg",
+          "useCompressed": false
+        },
+        "_txtNormal": {
+          "compressed": false,
+          "filename": "empty_normal-1Qg4XGDW.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_normal-1Qg4XGDW.png",
+          "useCompressed": false
+        },
+        "uBGColor": "#c82924",
+        "uEnv": [
+          0.5,
+          100,
+          1
+        ],
+        "uMRON": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "uOffset": [
+          0,
+          0
+        ],
+        "uTiling": [
+          1,
+          1
+        ],
+        "uUseLightmap": 0,
+        "uUseLinearOutput": 0
+      },
+      "blending": "shader_normal_blending",
+      "depthTest": true,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "assets/geometry/fpo/bottle.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fpo/bottle.bin",
+        "src": "assets/geometry/fpo/bottle.bin"
+      },
+      "name": "bottle",
+      "parent": "sl_ProductsScene_group_0",
+      "renderOrder": 7.2475,
+      "script": "",
+      "shader": "BottlePBR",
+      "side": "shader_double_side_trasparency",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "6": {
+      "id": 6,
+      "uniforms": {
+        "uColor": "#c82924"
+      },
+      "depthTest": true,
+      "name": "bg",
+      "renderOrder": 0,
+      "shader": "ScreenQuadColor",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        -0.001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "9": {
+      "id": 9,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "orange-chocolate-and-cream-ygkMV-R5.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/orange-chocolate-and-cream-ygkMV-R5.png",
+          "useCompressed": false
+        },
+        "_txtSDF": {
+          "compressed": false,
+          "filename": "orange-chocolate-and-cream-sdf-_jB5_P3k.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/orange-chocolate-and-cream-sdf-_jB5_P3k.png",
+          "useCompressed": false
+        },
+        "uColor": "#ffffff",
+        "uDissolveOut": 1,
+        "uTranslateIn": 0,
+        "_txtMSDF": {
+          "hotreload": true,
+          "src": "assets/images/msdf/orange-chocolate-and-cream-msdf.png?1770695480272"
+        }
+      },
+      "depthTest": true,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin",
+        "src": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin"
+      },
+      "name": "text1",
+      "parent": "sl_ProductsScene_group_1",
+      "renderOrder": 2,
+      "shader": "TextCarouselShader",
+      "sortIndex": 0,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        1.45,
+        1.45,
+        1.45
+      ]
+    },
+    "10": {
+      "id": 10,
+      "uniforms": {
+        "_txtBaseColor": {
+          "compressed": false,
+          "filename": "LABEL_color-843I_GwQ.png",
+          "hotreload": true,
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/LABEL_color-843I_GwQ.png",
+          "useCompressed": false
+        },
+        "_txtEnvDiffuse": {
+          "compressed": false,
+          "filename": "ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+          "useCompressed": false
+        },
+        "_txtEnvSpecular": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-specular.png?1770787347244"
+        },
+        "_txtMRO": {
+          "compressed": false,
+          "filename": "LABEL_mro-jiLMzwfd.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/LABEL_mro-jiLMzwfd.png",
+          "useCompressed": false
+        },
+        "_txtNormal": {
+          "compressed": false,
+          "filename": "LABEL_nrm-EjgTZ6RQ.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/LABEL_nrm-EjgTZ6RQ.png",
+          "useCompressed": false
+        },
+        "uEnv": [
+          10,
+          0,
+          1
+        ],
+        "uEnvOffset": [
+          0,
+          0
+        ],
+        "uLightmapIntensity": 0,
+        "uMRON": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "uOffset": [
+          0,
+          0
+        ],
+        "uTiling": [
+          1,
+          1
+        ],
+        "uTint": "#ffffff",
+        "uUseLightmap": 0,
+        "uUseLinearOutput": 0
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fpo/bottle_label.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fpo/bottle_label.bin",
+        "src": "assets/geometry/fpo/bottle_label.bin"
+      },
+      "name": "label",
+      "parent": "sl_ProductsScene_group_0",
+      "renderOrder": 7.495,
+      "shader": "LabelPBR",
+      "sortIndex": 2,
+      "transparent": false,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "11": {
+      "id": 11,
+      "uniforms": {
+        "_txtBaseColor": {
+          "hotreload": true,
+          "src": "assets/images/fpo/cap_basecolor.jpg?1770792031497-compressedKtx2"
+        },
+        "_txtEnvDiffuse": {
+          "compressed": false,
+          "filename": "ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+          "useCompressed": false
+        },
+        "_txtEnvSpecular": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-specular.png?1770787347244"
+        },
+        "_txtMRO": {
+          "compressed": false,
+          "filename": "r-U3e-tg23.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/r-U3e-tg23.jpg",
+          "useCompressed": false
+        },
+        "_txtNormal": {
+          "compressed": false,
+          "filename": "empty_normal-1Qg4XGDW.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_normal-1Qg4XGDW.png",
+          "useCompressed": false
+        },
+        "uEnv": [
+          10,
+          0,
+          0
+        ],
+        "uLightmapIntensity": 0,
+        "uMRON": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "uOffset": [
+          0,
+          0
+        ],
+        "uUseLightmap": 0,
+        "uUseLinearOutput": 0
+      },
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fpo/bottle_cap.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fpo/bottle_cap.bin",
+        "src": "assets/geometry/fpo/bottle_cap.bin"
+      },
+      "name": "cap",
+      "parent": "sl_ProductsScene_group_0",
+      "renderOrder": 7.7425,
+      "shader": "PBR",
+      "sortIndex": 3,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "14": {
+      "id": 14,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "notturno_n3-CNikATeO.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/notturno_n3-CNikATeO.png",
+          "useCompressed": false
+        }
+      },
+      "depthWrite": false,
+      "name": "copy3",
+      "parent": "sl_ProductsScene_group_2",
+      "renderOrder": 3.99,
+      "shader": "CopyShader",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        0,
+        -1.1,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.145,
+        1
+      ]
+    },
+    "15": {
+      "id": 15,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "notturno_n1-IySVgyQi.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/notturno_n1-IySVgyQi.png",
+          "useCompressed": false
+        }
+      },
+      "depthWrite": false,
+      "name": "copy2",
+      "parent": "sl_ProductsScene_group_3",
+      "renderOrder": 4.99,
+      "shader": "CopyShader",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        0,
+        -1.1,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.145,
+        1
+      ]
+    },
+    "16": {
+      "id": 16,
+      "uniforms": {
+        "_txtMSDF": {
+          "filename": "assets/images/msdf/marshmellow-coffee-and-cream.png",
+          "prefix": "",
+          "relative": "assets/images/msdf/marshmellow-coffee-and-cream.png",
+          "src": "assets/images/msdf/marshmellow-coffee-and-cream.png"
+        },
+        "_txtMap": {
+          "compressed": false,
+          "filename": "marshmellow-coffee-and-cream-UR_MhHB7.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/marshmellow-coffee-and-cream-UR_MhHB7.png",
+          "useCompressed": false
+        },
+        "_txtSDF": {
+          "compressed": false,
+          "filename": "marshmellow-coffee-and-cream-sdf-wL4QBllP.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/marshmellow-coffee-and-cream-sdf-wL4QBllP.png",
+          "useCompressed": false
+        },
+        "uColor": "#ffffff"
+      },
+      "depthTest": true,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin",
+        "src": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin"
+      },
+      "name": "text3",
+      "parent": "sl_ProductsScene_group_2",
+      "renderOrder": 3,
+      "shader": "TextCarouselShader",
+      "sortIndex": 0,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        1.45,
+        1.45,
+        1.45
+      ]
+    },
+    "17": {
+      "id": 17,
+      "uniforms": {
+        "_txtMSDF": {
+          "hotreload": true,
+          "src": "assets/images/msdf/mint-chocolate-and-cream.png?1770695480277"
+        },
+        "_txtMap": {
+          "compressed": false,
+          "filename": "mint-chocolate-and-cream-pOH5RCTG.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/mint-chocolate-and-cream-pOH5RCTG.png",
+          "useCompressed": false
+        },
+        "_txtSDF": {
+          "compressed": false,
+          "filename": "mint-chocolate-and-cream-sdf-Uset9WAj.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/mint-chocolate-and-cream-sdf-Uset9WAj.png",
+          "useCompressed": false
+        },
+        "uColor": "#ffffff"
+      },
+      "depthTest": true,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin",
+        "src": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin"
+      },
+      "name": "text2",
+      "parent": "sl_ProductsScene_group_3",
+      "renderOrder": 4,
+      "shader": "TextCarouselShader",
+      "sortIndex": 0,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        1.45,
+        1.45,
+        1.45
+      ]
+    },
+    "18": {
+      "id": 18,
+      "uniforms": {},
+      "depthTest": true,
+      "depthWrite": false,
+      "name": "cursorBg",
+      "parent": "sl_ProductsScene_group_4",
+      "renderOrder": 8,
+      "shader": "CursorShader",
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        1
+      ]
+    },
+    "20": {
+      "id": 20,
+      "uniforms": {},
+      "custom": "Text3D",
+      "depthTest": true,
+      "depthWrite": false,
+      "name": "carouselTextLeft",
+      "renderOrder": 5,
+      "sortIndex": 5,
+      "transparent": true,
+      "position": [
+        0,
+        0.065,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "21": {
+      "id": 21,
+      "uniforms": {},
+      "custom": "Text3D",
+      "depthTest": true,
+      "depthWrite": false,
+      "name": "carouselTextRight",
+      "renderOrder": 6,
+      "sortIndex": 6,
+      "transparent": true,
+      "position": [
+        0.6,
+        0.065,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "22": {
+      "id": 22,
+      "uniforms": {
+        "_txtBaseColor": {
+          "hotreload": true,
+          "src": "assets/images/story/products/cap_label.png?1770792026024-compressedKtx2"
+        },
+        "_txtEnvDiffuse": {
+          "compressed": false,
+          "filename": "ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+          "useCompressed": false
+        },
+        "_txtEnvSpecular": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-specular.png?1770787347244"
+        },
+        "_txtMRO": {
+          "compressed": false,
+          "filename": "r-U3e-tg23.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/r-U3e-tg23.jpg",
+          "useCompressed": false
+        },
+        "_txtNormal": {
+          "compressed": false,
+          "filename": "empty_normal-1Qg4XGDW.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_normal-1Qg4XGDW.png",
+          "useCompressed": false
+        },
+        "uEnv": [
+          10,
+          0.1,
+          0
+        ],
+        "uEnvOffset": [
+          0,
+          0
+        ],
+        "uLightmapIntensity": 0,
+        "uMRON": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "uOffset": [
+          0,
+          0
+        ],
+        "uTiling": [
+          1,
+          1
+        ],
+        "uUseLinearOutput": 0
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fpo/bottle_sticker.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fpo/bottle_sticker.bin",
+        "src": "assets/geometry/fpo/bottle_sticker.bin"
+      },
+      "name": "sticker",
+      "parent": "sl_ProductsScene_group_0",
+      "renderOrder": 7.99,
+      "shader": "PBR",
+      "side": "shader_front_side",
+      "sortIndex": 4,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "24": {
+      "id": 24,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "notturno_n2-eKwEsiGo.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/notturno_n2-eKwEsiGo.png",
+          "useCompressed": false
+        }
+      },
+      "depthWrite": false,
+      "name": "copy1",
+      "parent": "sl_ProductsScene_group_1",
+      "renderOrder": 2.99,
+      "shader": "CopyShader",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        0,
+        -1.1,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.145,
+        1
+      ]
+    },
+    "25": {
+      "id": 25,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "arrow-C23GEuxK.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/arrow-C23GEuxK.png",
+          "useCompressed": false
+        }
+      },
+      "name": "cursorIndicator",
+      "parent": "sl_ProductsScene_group_4",
+      "renderOrder": 8.99,
+      "sortIndex": 1,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.1,
+        0.1,
+        1
+      ]
+    }
+  },
+  "Products": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "_txtMap": {
+          "filename": "assets/images/fpo/text.png",
+          "prefix": "",
+          "relative": "assets/images/fpo/text.png",
+          "src": "assets/images/fpo/text.png"
+        }
+      },
+      "name": "text",
+      "parent": "sl_Products_group_0",
+      "renderOrder": 1,
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        0,
+        0,
+        -0.63
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.8,
+        1.8,
+        1.8
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {},
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fpo/bottle.json",
+        "prefix": "",
+        "relative": "assets/geometry/fpo/bottle.json",
+        "src": "assets/geometry/fpo/bottle.json"
+      },
+      "name": "bottle",
+      "parent": "sl_Products_group_1",
+      "renderOrder": 2.99,
+      "script": "",
+      "shader": "BottleShader",
+      "side": "shader_double_side_trasparency",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "camera",
+      "renderOrder": 1,
+      "sortIndex": 1
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {},
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fpo/bottle.json",
+        "prefix": "",
+        "relative": "assets/geometry/fpo/bottle.json",
+        "src": "assets/geometry/fpo/bottle.json"
+      },
+      "name": "liquid",
+      "parent": "sl_Products_group_1",
+      "renderOrder": 2,
+      "shader": "LiquidShader",
+      "side": "shader_front_side",
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        0,
+        -0.002,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.9,
+        0.964,
+        0.8
+      ]
+    }
+  },
+  "ProfileScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uDepthSkew": 1.38,
+        "uFixedWidth": 1,
+        "uFluidEdge": [
+          3,
+          3,
+          0.25,
+          0.1
+        ],
+        "uPadX": 0.75,
+        "uPadY": 0.75,
+        "uPadYBot": 0.1,
+        "uPadYTop": 0.46,
+        "uSceneHeightWorld": 1.25,
+        "uScreenHeightWorld": 1,
+        "uSkewCorrection": 0.12
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 0,
+      "shader": "BorderShader",
+      "sortIndex": 0
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "_txtMap": {
+          "filename": "assets/images/_scenelayout/uv.jpg",
+          "prefix": "",
+          "relative": "assets/images/_scenelayout/uv.jpg",
+          "src": "assets/images/_scenelayout/uv.jpg"
+        }
+      },
+      "billboard": true,
+      "name": "background",
+      "renderOrder": 1,
+      "script": "",
+      "shader": "ProfileBackgroundShader",
+      "sortIndex": 1,
+      "position": [
+        0,
+        0,
+        -4.645
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        12,
+        12,
+        1
+      ]
+    }
+  },
+  "TargetScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uColor": "#ffffff",
+        "uColorHighlight": "#971d16",
+        "uLinesTile": 7.53,
+        "_txtMap": {
+          "filename": "assets/images/story/nearblack.png",
+          "prefix": "",
+          "relative": "assets/images/story/nearblack.png",
+          "src": "assets/images/story/nearblack.png"
+        }
+      },
+      "name": "background",
+      "renderOrder": 0,
+      "shader": "CathedralBackgroundShader",
+      "sortIndex": 0,
+      "visible": true,
+      "position": [
+        0,
+        2.27,
+        -15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        25,
+        11.34,
+        0.6
+      ]
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "uPadX": 0.3
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/target/target-border.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/target/target-border.bin",
+        "src": "assets/geometry/story/target/target-border.bin"
+      },
+      "name": "border",
+      "renderOrder": 1,
+      "shader": "TargetBorderShader",
+      "sortIndex": 1
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "uAngle": 1.57,
+        "uAxis": [
+          0,
+          0,
+          1
+        ],
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uDistanceCompensation": 1,
+        "uLightDir": [
+          0,
+          1.11,
+          1.18
+        ],
+        "uLinesTile": 0.29,
+        "uThreshold": [
+          1.73,
+          -0.264
+        ],
+        "uVerticalGrad": [
+          11.29,
+          12.52
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/target/environment.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/target/environment.bin",
+        "src": "assets/geometry/story/target/environment.bin"
+      },
+      "name": "structure",
+      "renderOrder": 2,
+      "shader": "StaticObjectBaseShader",
+      "sortIndex": 2,
+      "position": [
+        0,
+        -3.128,
+        -3.33
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.64,
+        0.5
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        },
+        "uColor1": "#c1271f",
+        "uColor2": "#121212",
+        "uSteppedTime": 12,
+        "_txtNoise": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769143042614"
+        }
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/circle.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/circle.bin",
+        "src": "assets/geometry/story/common/circle.bin"
+      },
+      "name": "portal",
+      "renderOrder": 3,
+      "shader": "TargetPortalShader",
+      "sortIndex": 3,
+      "position": [
+        0,
+        0,
+        -3.137
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        3.7,
+        3.7,
+        3.7
+      ]
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {
+        "uColor": "#ffffff",
+        "uColorHighlight": "#ffffff",
+        "uLinesTile": 8.34
+      },
+      "name": "floor",
+      "renderOrder": 4,
+      "shader": "CathedralFloorShader",
+      "sortIndex": 4,
+      "position": [
+        0,
+        -3.211,
+        -7.57
+      ],
+      "rotation": [
+        -90,
+        0,
+        0
+      ],
+      "scale": [
+        12,
+        12,
+        1
+      ]
+    },
+    "5": {
+      "id": 5,
+      "uniforms": {
+        "_txtLines": {
+          "filename": "assets/images/story/lines.jpg",
+          "prefix": "",
+          "relative": "assets/images/story/lines.jpg",
+          "src": "assets/images/story/lines.jpg"
+        },
+        "_txtMap": {
+          "filename": "assets/images/story/tex_atlas.png",
+          "prefix": "",
+          "relative": "assets/images/story/tex_atlas.png",
+          "src": "assets/images/story/tex_atlas.png"
+        },
+        "_txtTrim": {
+          "hotreload": true,
+          "src": "assets/images/story/tex_trim-2.png?1769134533566"
+        },
+        "uCutout": 0.45
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/saint-pose-4.bin",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/saint-pose-4.bin",
+        "src": "assets/geometry/story/common/saint-pose-4.bin"
+      },
+      "name": "character",
+      "renderOrder": 5,
+      "shader": "TargetCharacterShader",
+      "side": "shader_double_side",
+      "sortIndex": 5,
+      "transparent": false,
+      "position": [
+        0,
+        -2.842,
+        -1.357
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1.8,
+        1.8,
+        1.032
+      ]
+    }
+  },
+  "TasteScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uColor": "#c82924"
+      },
+      "depthTest": true,
+      "name": "bg",
+      "renderOrder": 0,
+      "shader": "ScreenQuadColor",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        -0.001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "_txtMSDF": {
+          "filename": "assets/images/msdf/indulge-now-atone-later.png",
+          "prefix": "",
+          "relative": "assets/images/msdf/indulge-now-atone-later.png",
+          "src": "assets/images/msdf/indulge-now-atone-later.png"
+        },
+        "_txtMap": {
+          "compressed": false,
+          "filename": "indulge-now-atone-later-2w3QN_Ic.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/indulge-now-atone-later-2w3QN_Ic.png",
+          "useCompressed": false
+        },
+        "_txtSDF": {
+          "compressed": false,
+          "filename": "indulge-now-atone-later-sdf-mhn3XOfP.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/indulge-now-atone-later-sdf-mhn3XOfP.png",
+          "useCompressed": false
+        },
+        "uBoundsX": [
+          -1000,
+          1000
+        ],
+        "uColor": "#000000",
+        "uDissolveOut": 0,
+        "uTranslateIn": 1
+      },
+      "depthTest": false,
+      "depthWrite": false,
+      "geometry": {
+        "filename": "indulgenowatonelater-2BYplWLB.json",
+        "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+        "relative": "",
+        "src": "assets/geometry/indulgenowatonelater-2BYplWLB.json"
+      },
+      "name": "title",
+      "renderOrder": 1,
+      "shader": "TextAnimatedShader",
+      "sortIndex": 1,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        -0.4
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ]
+    }
+  },
+  "TestInsetScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "name": "layer_0",
+      "renderOrder": 0,
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    }
+  },
+  "TestScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "geometry": {
+        "filename": "assets/geometry/story/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/border.json",
+        "src": "assets/geometry/story/border.json"
+      },
+      "name": "border",
+      "renderOrder": 0,
+      "shader": "BorderShader",
+      "sortIndex": 0
+    },
+    "1": {
+      "id": 1,
+      "uniforms": {},
+      "custom": "Proton",
+      "name": "layer_1",
+      "renderOrder": 1,
+      "sortIndex": 1
+    }
+  },
+  "TransitionScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.PLANE",
+        "prefix": "",
+        "relative": "World.PLANE",
+        "src": "World.PLANE"
+      },
+      "name": "background",
+      "renderOrder": 0,
+      "shader": "TransitionLineShader",
+      "sortIndex": 0
+    }
+  },
+  "WanderScene": {
+    "0": {
+      "id": 0,
+      "uniforms": {
+        "uPadX": 0.3,
+        "uPadY": 0.3
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/intro/intro-border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/intro/intro-border.json",
+        "src": "assets/geometry/story/intro/intro-border.json"
+      },
+      "name": "border",
+      "renderOrder": 0,
+      "script": "",
+      "shader": "WanderBorderShader",
+      "sortIndex": 0,
+      "transparent": false
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "_txtMap": {
+          "hotreload": true,
+          "src": "assets/images/story/cell_noise.png?1770350663115"
+        },
+        "_txtNoise": {
+          "hotreload": true,
+          "src": "assets/images/story/clouds_noise.png?1769576237265"
+        }
+      },
+      "billboard": true,
+      "name": "background",
+      "renderOrder": 1,
+      "shader": "WanderBackgroundShader",
+      "sortIndex": 1,
+      "position": [
+        0,
+        -1.5,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        12,
+        12,
+        1
+      ]
+    },
+    "5": {
+      "id": 5,
+      "uniforms": {},
+      "billboard": true,
+      "depthTest": true,
+      "depthWrite": true,
+      "name": "sky",
+      "renderOrder": 2,
+      "shader": "WanderSkyShader",
+      "sortIndex": 2,
+      "transparent": false,
+      "position": [
+        0,
+        0,
+        -18.36
+      ],
+      "rotation": [
+        -10.659,
+        0,
+        0
+      ],
+      "scale": [
+        90,
+        45,
+        40
+      ]
+    }
+  },
+  "HandScene": {
+    "1": {
+      "id": 1,
+      "uniforms": {
+        "uFluidEdge": [
+          3,
+          3,
+          3,
+          1
+        ]
+      },
+      "geometry": {
+        "filename": "assets/geometry/story/common/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/common/border.json",
+        "src": "assets/geometry/story/common/border.json"
+      },
+      "name": "border",
+      "renderOrder": 0,
+      "shader": "BorderShader",
+      "sortIndex": 0
+    },
+    "10": {
+      "id": 10,
+      "uniforms": {},
+      "custom": "ParentLayer",
+      "name": "pivotGroup",
+      "renderOrder": 1,
+      "sortIndex": 1,
+      "wildcard": "hand_test, characterGroup",
+      "position": [
+        0.5,
+        0.1,
+        3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "11": {
+      "id": 11,
+      "uniforms": {},
+      "custom": "ParentLayer",
+      "name": "characterGroup",
+      "renderOrder": 2,
+      "sortIndex": 2,
+      "wildcard": "",
+      "position": [
+        -1.2,
+        0.6,
+        0.75
+      ],
+      "rotation": [
+        0,
+        -50,
+        0
+      ],
+      "scale": [
+        5.6,
+        5.6,
+        5.6
+      ]
+    },
+    "12": {
+      "id": 12,
+      "uniforms": {},
+      "geometry": {
+        "filename": "World.BOX",
+        "prefix": "",
+        "relative": "World.BOX",
+        "src": "World.BOX"
+      },
+      "name": "hand_test",
+      "renderOrder": 3,
+      "sortIndex": 3,
+      "visible": false,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    "13": {
+      "id": 13,
+      "uniforms": {},
+      "custom": "InteractiveWater",
+      "name": "water",
+      "renderOrder": 4,
+      "shader": "WaterHandShader",
+      "sortIndex": 4,
+      "position": [
+        0,
+        0,
+        1.4
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        3.361,
+        1,
+        2.046
+      ]
+    }
+  },
+  "CollectionScene": {
+    "2": {
+      "id": 2,
+      "uniforms": {
+        "_txtMSDF": {
+          "compressed": false,
+          "filename": "chill-your-spirit-miy68ZWn.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/chill-your-spirit-miy68ZWn.png",
+          "useCompressed": false
+        },
+        "_txtMap": {
+          "compressed": false,
+          "filename": "chillYourSpirit-8vxI0jU-.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/chillYourSpirit-8vxI0jU-.png",
+          "useCompressed": false
+        },
+        "_txtSDF": {
+          "compressed": false,
+          "filename": "chillYourSpirit-sdf-dbIZjxxR.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/chillYourSpirit-sdf-dbIZjxxR.jpg",
+          "useCompressed": false
+        },
+        "uColor": "#000000",
+        "uDissolveOut": 1,
+        "uBoundsX": [
+          -1000,
+          1000
+        ],
+        "uFixed": 0,
+        "uOffset": 0.5,
+        "uRowCount": 4,
+        "uTranslateIn": 0.1
+      },
+      "depthTest": false,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin",
+        "src": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin"
+      },
+      "name": "title",
+      "renderOrder": 6,
+      "shader": "TextShaderMasked",
+      "sortIndex": 6,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        0.037,
+        0
+      ],
+      "rotation": [
+        90,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "3": {
+      "id": 3,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "mask-7AetCBPc.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/mask-7AetCBPc.jpg",
+          "useCompressed": false
+        }
+      },
+      "billboard": false,
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "World.PLANE",
+        "prefix": "",
+        "relative": "World.PLANE",
+        "src": "World.PLANE"
+      },
+      "name": "bg",
+      "renderOrder": 0,
+      "shader": "ScreenQuadColor",
+      "sortIndex": 0,
+      "transparent": false,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        -0.001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "4": {
+      "id": 4,
+      "uniforms": {
+        "_txtBaseColor": {
+          "compressed": false,
+          "filename": "mask-7AetCBPc.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/mask-7AetCBPc.jpg",
+          "useCompressed": false
+        },
+        "_txtEnvDiffuse": {
+          "compressed": false,
+          "filename": "glass-diffuse-4aRQD46t.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/glass-diffuse-4aRQD46t.png",
+          "useCompressed": false
+        },
+        "_txtEnvSpecular": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-specular.png?1770787347244"
+        },
+        "_txtMRO": {
+          "compressed": false,
+          "filename": "empty_mro-7UPNyD6z.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_mro-7UPNyD6z.jpg",
+          "useCompressed": false
+        },
+        "_txtNormal": {
+          "compressed": false,
+          "filename": "empty_normal-1Qg4XGDW.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_normal-1Qg4XGDW.png",
+          "useCompressed": false
+        },
+        "uBackFace": 0,
+        "uEnv": [
+          1,
+          20,
+          0
+        ],
+        "uMRON": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fromuil/martiniGlass_nobackfaces-sm27N97c.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fromuil/martiniGlass_nobackfaces-sm27N97c.bin",
+        "src": "assets/geometry/fromuil/martiniGlass_nobackfaces-sm27N97c.bin"
+      },
+      "name": "glass",
+      "parent": "sl_CollectionScene_group_0",
+      "renderOrder": 8.99,
+      "shader": "GlassPBR",
+      "side": "shader_double_side_trasparency",
+      "sortIndex": 1,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "5": {
+      "id": 5,
+      "uniforms": {
+        "_txtEnvDiffuse": {
+          "compressed": false,
+          "filename": "glass-diffuse-4aRQD46t.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/glass-diffuse-4aRQD46t.png",
+          "useCompressed": false
+        },
+        "_txtEnvSpecular": {
+          "hotreload": true,
+          "src": "assets/images/story/glass-specular.png?1770787347244"
+        },
+        "_txtMRO": {
+          "compressed": false,
+          "filename": "empty_mro-7UPNyD6z.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_mro-7UPNyD6z.jpg",
+          "useCompressed": false
+        },
+        "_txtNoise": {
+          "compressed": false,
+          "filename": "bluenoise-jmk8NIaI.jpg",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/bluenoise-jmk8NIaI.jpg",
+          "useCompressed": false
+        },
+        "_txtNormal": {
+          "compressed": false,
+          "filename": "empty_normal-1Qg4XGDW.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/empty_normal-1Qg4XGDW.png",
+          "useCompressed": false
+        },
+        "uColor": "#2fb5f9",
+        "uColor2": "#2fb5f9",
+        "uColor2Dark": "#00378f",
+        "uColorDark": "#00378f",
+        "uEnv": [
+          1,
+          20,
+          0
+        ],
+        "uFillAmount": 1.5,
+        "uMultiplier": 1
+      },
+      "depthTest": true,
+      "depthWrite": true,
+      "geometry": {
+        "filename": "assets/geometry/fromuil/liquid-iJSfjP-6.bin",
+        "prefix": "",
+        "relative": "assets/geometry/fromuil/liquid-iJSfjP-6.bin",
+        "src": "assets/geometry/fromuil/liquid-iJSfjP-6.bin"
+      },
+      "name": "liquid",
+      "parent": "sl_CollectionScene_group_0",
+      "renderOrder": 8,
+      "shader": "GlassLiquidPBR",
+      "side": "shader_double_side_trasparency",
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        0,
+        0.45,
+        0
+      ],
+      "rotation": [
+        0,
+        2,
+        0
+      ],
+      "scale": [
+        0.9,
+        1.05,
+        1
+      ]
+    },
+    "7": {
+      "id": 7,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "mainCamera",
+      "renderOrder": 9,
+      "sortIndex": 9
+    },
+    "8": {
+      "id": 8,
+      "uniforms": {
+        "color": "#ffffff"
+      },
+      "depthTest": false,
+      "name": "textQuad",
+      "renderOrder": 1,
+      "shader": "ColorMaterial",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        0,
+        0,
+        0.002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "9": {
+      "id": 9,
+      "uniforms": {
+        "billboard": 1,
+        "color": "#990B06",
+        "uFixed": 1
+      },
+      "billboard": false,
+      "depthTest": false,
+      "depthWrite": false,
+      "name": "line",
+      "parent": "sl_CollectionScene_group_1",
+      "renderOrder": 7,
+      "shader": "ColorMaterial",
+      "side": "shader_double_side",
+      "sortIndex": 0,
+      "transparent": true,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.005,
+        1
+      ]
+    },
+    "11": {
+      "id": 11,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "line-end-SlemWpZj.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/line-end-SlemWpZj.png",
+          "useCompressed": false
+        },
+        "alpha": 1,
+        "uBillboard": 0,
+        "uFixed": 1
+      },
+      "depthTest": false,
+      "depthWrite": false,
+      "name": "endLeft",
+      "parent": "sl_CollectionScene_group_1",
+      "renderOrder": 7.495,
+      "shader": "TextureMaterial",
+      "side": "shader_double_side",
+      "sortIndex": 1,
+      "transparent": true,
+      "position": [
+        -0.5,
+        0.01,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.02,
+        0.03,
+        1
+      ]
+    },
+    "12": {
+      "id": 12,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "line-end-OGKMOvXx.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/line-end-OGKMOvXx.png",
+          "useCompressed": false
+        },
+        "uFixed": 1
+      },
+      "depthTest": false,
+      "depthWrite": false,
+      "name": "endRight",
+      "parent": "sl_CollectionScene_group_1",
+      "renderOrder": 7.99,
+      "shader": "TextureMaterial",
+      "side": "shader_double_side",
+      "sortIndex": 2,
+      "transparent": true,
+      "position": [
+        0.5,
+        0.01,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.02,
+        0.03,
+        1
+      ]
+    },
+    "13": {
+      "id": 13,
+      "uniforms": {},
+      "custom": "Text3D",
+      "depthTest": true,
+      "depthWrite": true,
+      "name": "cardBottomText",
+      "renderOrder": 2,
+      "sortIndex": 2,
+      "transparent": true,
+      "position": [
+        0,
+        -0.447,
+        0.002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.85,
+        1
+      ]
+    },
+    "14": {
+      "id": 14,
+      "uniforms": {},
+      "custom": "Text3D",
+      "depthTest": true,
+      "name": "cardTopText",
+      "renderOrder": 3,
+      "sortIndex": 3,
+      "transparent": true,
+      "position": [
+        0,
+        0.445,
+        0.002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.9,
+        1
+      ]
+    },
+    "18": {
+      "id": 18,
+      "uniforms": {},
+      "custom": "Text3D",
+      "depthTest": true,
+      "name": "cardLeftText",
+      "renderOrder": 4,
+      "sortIndex": 4,
+      "transparent": true,
+      "position": [
+        -0.446,
+        0.445,
+        0.002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.9,
+        1
+      ]
+    },
+    "19": {
+      "id": 19,
+      "uniforms": {},
+      "custom": "Text3D",
+      "depthTest": true,
+      "name": "cardRightText",
+      "renderOrder": 5,
+      "sortIndex": 5,
+      "transparent": true,
+      "position": [
+        0.447,
+        0.445,
+        0.002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        0.9,
+        1
+      ]
+    },
+    "21": {
+      "id": 21,
+      "uniforms": {
+        "_txtMap": {
+          "compressed": false,
+          "filename": "glyph-BCWGDxsx.png",
+          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
+          "relative": "",
+          "src": "assets/images/glyph-BCWGDxsx.png",
+          "useCompressed": false
+        }
+      },
+      "custom": "",
+      "name": "cardBottomGlyph",
+      "renderOrder": 11,
+      "shader": "TextureMaterial",
+      "sortIndex": 11,
+      "transparent": true,
+      "visible": true,
+      "position": [
+        0,
+        -0.393,
+        0.02
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.033,
+        0.069,
+        0.1
+      ]
+    }
+  },
+  "IntroScene": {
+    "1": {
+      "id": 1,
+      "uniforms": {},
+      "name": "background",
+      "renderOrder": 0,
+      "shader": "IntroBackgroundShader",
+      "sortIndex": 0,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "2": {
+      "id": 2,
+      "uniforms": {},
+      "geometry": {
+        "filename": "assets/geometry/story/border.json",
+        "prefix": "",
+        "relative": "assets/geometry/story/border.json",
+        "src": "assets/geometry/story/border.json"
+      },
+      "name": "border",
+      "renderOrder": 1,
+      "shader": "IntroBorderShader",
+      "sortIndex": 1
+    }
+  },
+  "RetailScene": {
+    "3": {
+      "id": 3,
+      "uniforms": {},
+      "custom": "GazeCamera",
+      "name": "mainCamera",
+      "renderOrder": 0,
+      "sortIndex": 0
+    }
+  }
+}

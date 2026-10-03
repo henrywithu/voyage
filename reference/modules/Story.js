@@ -1,0 +1,708 @@
+function Story(_params, ...restArgs) {
+      const _this = this;
+      (Inherit(_this, Frag3D, _params?.sceneLayoutName || "Story"),
+        Inherit(_this, Element),
+        Inherit(_this, XComponent),
+        (_this.fragName = "Story"),
+        (_this.contexts =
+          'Frag3D, _params?.sceneLayoutName || "Story",Element'),
+        (_this.params = _params),
+        (_this.args = arguments),
+        (this.isFragment = !0));
+      var _promises = [];
+      !(async function () {
+        (_this.element &&
+          (_this.element.onMountedHook = (_) => _this.onMounted?.()),
+          (_this.header = _this.initClass(Header)),
+          _this.header.isFragment &&
+            _promises.push(_this.wait(_this.header, "__ready")),
+          (_this.wanderScene = _this.initClass(
+            WanderScene,
+            AppState.createLocal({ order: 0 }),
+          )),
+          _this.wanderScene.isFragment &&
+            _promises.push(_this.wait(_this.wanderScene, "__ready")),
+          (_this.profileScene = _this.initClass(
+            ProfileScene,
+            AppState.createLocal({ order: 1 }),
+          )),
+          _this.profileScene.isFragment &&
+            _promises.push(_this.wait(_this.profileScene, "__ready")),
+          (_this.approachScene = _this.initClass(
+            ApproachScene,
+            AppState.createLocal({ order: 2 }),
+          )),
+          _this.approachScene.isFragment &&
+            _promises.push(_this.wait(_this.approachScene, "__ready")),
+          (_this.nearScene = _this.initClass(
+            NearScene,
+            AppState.createLocal({ order: 3 }),
+          )),
+          _this.nearScene.isFragment &&
+            _promises.push(_this.wait(_this.nearScene, "__ready")),
+          (_this.handScene = _this.initClass(
+            HandScene,
+            AppState.createLocal({ order: 4 }),
+          )),
+          _this.handScene.isFragment &&
+            _promises.push(_this.wait(_this.handScene, "__ready")),
+          (_this.targetScene = _this.initClass(
+            TargetScene,
+            AppState.createLocal({ order: 5 }),
+          )),
+          _this.targetScene.isFragment &&
+            _promises.push(_this.wait(_this.targetScene, "__ready")),
+          (_this.transitionScene = _this.initClass(
+            TransitionScene,
+            AppState.createLocal({ order: 6 }),
+          )),
+          _this.transitionScene.isFragment &&
+            _promises.push(_this.wait(_this.transitionScene, "__ready")),
+          (_this.cathedralScene = _this.initClass(
+            CathedralScene,
+            AppState.createLocal({ order: 7 }),
+          )),
+          _this.cathedralScene.isFragment &&
+            _promises.push(_this.wait(_this.cathedralScene, "__ready")),
+          (_this.drinkSelectionScene = _this.initClass(
+            DrinkSelectionScene,
+            AppState.createLocal({ order: 8 }),
+          )),
+          _this.drinkSelectionScene.isFragment &&
+            _promises.push(_this.wait(_this.drinkSelectionScene, "__ready")),
+          (_this.drinkPourScene = _this.initClass(
+            DrinkPourScene,
+            AppState.createLocal({ order: 9 }),
+          )),
+          _this.drinkPourScene.isFragment &&
+            _promises.push(_this.wait(_this.drinkPourScene, "__ready")),
+          (_this.antiGravityScene = _this.initClass(
+            AntiGravityScene,
+            AppState.createLocal({ order: 10 }),
+          )),
+          _this.antiGravityScene.isFragment &&
+            _promises.push(_this.wait(_this.antiGravityScene, "__ready")),
+          (_this.pillarCrumbleScene = _this.initClass(
+            PillarCrumbleScene,
+            AppState.createLocal({ order: 11 }),
+          )),
+          _this.pillarCrumbleScene.isFragment &&
+            _promises.push(_this.wait(_this.pillarCrumbleScene, "__ready")),
+          (_this.colosseumScene = _this.initClass(
+            ColosseumScene,
+            AppState.createLocal({ order: 12 }),
+          )),
+          _this.colosseumScene.isFragment &&
+            _promises.push(_this.wait(_this.colosseumScene, "__ready")),
+          (_this.tasteScene = _this.initClass(
+            TasteScene,
+            AppState.createLocal({ order: 13 }),
+          )),
+          _this.tasteScene.isFragment &&
+            _promises.push(_this.wait(_this.tasteScene, "__ready")),
+          (_this.collectionScene = _this.initClass(
+            CollectionScene,
+            AppState.createLocal({ order: 14 }),
+          )),
+          _this.collectionScene.isFragment &&
+            _promises.push(_this.wait(_this.collectionScene, "__ready")),
+          (_this.productsScene = _this.initClass(
+            ProductsScene,
+            AppState.createLocal({ order: 15 }),
+          )),
+          _this.productsScene.isFragment &&
+            _promises.push(_this.wait(_this.productsScene, "__ready")),
+          (_this.retailScene = _this.initClass(
+            RetailScene,
+            AppState.createLocal({ order: 16 }),
+          )),
+          _this.retailScene.isFragment &&
+            _promises.push(_this.wait(_this.retailScene, "__ready")),
+          (_this.footerScene = _this.initClass(
+            FooterScene,
+            AppState.createLocal({ order: 17 }),
+          )),
+          _this.footerScene.isFragment &&
+            _promises.push(_this.wait(_this.footerScene, "__ready")),
+          (_this.scrollbar = _this.initClass(Scrollbar)),
+          _this.scrollbar.isFragment &&
+            _promises.push(_this.wait(_this.scrollbar, "__ready")),
+          (_this.audioToggle = _this.initClass(AudioToggleGl)),
+          _this.audioToggle.isFragment &&
+            _promises.push(_this.wait(_this.audioToggle, "__ready")),
+          _this.initClass(FragUIHelper, {
+            inert: !0,
+            _type: "UI",
+            refName: "storyRoot",
+            children: [
+              {
+                className: "cookieBannerRoot",
+                _type: "div",
+                refName: "cookieBannerRoot",
+                children: [],
+              },
+              { _type: "RotatePrompt", refName: "unnamed", children: [] },
+              { _type: "HeaderMenu", refName: "unnamed", children: [] },
+            ],
+          }),
+          _this.layout?.getAllLayers &&
+            (_this.layers = await _this.layout.getAllLayers()));
+        let onInit = _this.onInit;
+        const AUDIO_MANAGER = AudioManager.instance();
+        ((_this.showDroneDebug = Config.DEBUG_AUDIO),
+          _this.set("dronesReady", !1),
+          _this.set("suppressTransitionAudio", !1),
+          _this.state.set("visibleScenes", []),
+          _this.state.set("scrollDirection", 0),
+          (_this.lerpDelta = Device.mobile ? 0.9 : 0.08),
+          (_this.onInit = () => {
+            Config.NO_COOKIE_NOTICE ||
+              CookieNotice.ready().then(() => {
+                CookieNotice.displayNotice() &&
+                  _this.createFragment(CookieBanner, [_this.cookieBannerRoot]);
+              });
+            const composite = _this.createFragment(
+              NukePass,
+              "CompositeShader",
+              {
+                tLines: {
+                  value: Utils3D.getRepeatTexture(
+                    "assets/images/story/lines.jpg",
+                  ),
+                  ignoreUIL: !0,
+                },
+                tNoise: {
+                  value: Utils3D.getRepeatTexture(
+                    "assets/images/story/clouds_noise.png",
+                  ),
+                  ignoreUIL: !0,
+                },
+                tBlueNoise: {
+                  value: Utils3D.getRepeatTexture(
+                    "assets/images/bluenoise/bluenoise0.png",
+                  ),
+                  ignoreUIL: !0,
+                },
+                uAgeGate: { value: 0 },
+                uLoaderFinished: { value: 0 },
+                uMenuHover: { value: 0 },
+                uDPR: { value: Tests.getDPR() },
+                uScrollY: { value: 0 },
+              },
+            );
+            (Tests.useFluid() && MouseFluid.instance().applyTo(composite),
+              World.NUKE.add(composite),
+              (World.NUKE.enabled = !0),
+              Hydra.LOCAL &&
+                !Config.SHOW_AGE_GATE &&
+                _this.storyRoot.div.removeAttribute("inert"),
+              _this.bind("AgeGate/ageGateConsent", (consentGiven) => {
+                consentGiven && _this.storyRoot.div.removeAttribute("inert");
+              }),
+              (_this.composite = composite),
+              _this.set("Story/composite", composite),
+              _this.startRender(() => {
+                const ageGate = _this.getSync("AgeGate/visible");
+                composite.uniforms.uAgeGate.value = Math.lerp(
+                  ageGate ? 1 : 0,
+                  composite.uniforms.uAgeGate.value,
+                  0.02,
+                );
+              }),
+              _this.set("Story/composite", composite),
+              _this.isPlayground() || World.SCENE.add(_this.group),
+              (async function init() {
+                Story.scrollToTop = () => {
+                  const scroll = Global.SCROLL,
+                    diff = Math.abs(scroll.y);
+                  let time = Math.range(
+                    diff,
+                    Stage.height,
+                    10 * Stage.height,
+                    800,
+                    3e3,
+                    !0,
+                  );
+                  ((scroll.enabled = !1),
+                    scroll.scrollTo(0, "y", time, "easeOutCubic"),
+                    _this.delayedCall(() => (scroll.enabled = !0), 200),
+                    AudioUtils.playClick(),
+                    _this.fire("Footer/outView"),
+                    VOManager.reset(time));
+                };
+                let scroll = _this.initClass(Scroll, {
+                  drag: Device.mobile,
+                  mouseWheel: !0,
+                  limit: !0,
+                  keyboard: !0,
+                  scale: 1,
+                  touchScale: 1,
+                });
+                ((scroll.multiTouch = !0),
+                  _this.set("scroll", scroll),
+                  (_this.camera = Story.createCamera()),
+                  (Global.CAMERA = _this.camera),
+                  (_this.totalHeight = 0),
+                  (_this.scrollY = 0),
+                  (_this.lerpedScrollY = -1e-4),
+                  (_this.screenHeightWorld = Utils3D.getHeightFromCamera(
+                    _this.camera,
+                    _this.camera.position.z,
+                  )),
+                  (_this.screenWidthWorld = Utils3D.getWidthFromCamera(
+                    _this.camera,
+                    _this.camera.position.z,
+                  )),
+                  _this.set("screenHeightWorld", _this.screenHeightWorld),
+                  _this.set("screenWidthWorld", _this.screenWidthWorld),
+                  (_this.unitsPerPixelY = Story.calcUnitsPerPixelY(
+                    _this.camera,
+                  )),
+                  _this.set("scrollY", 0));
+                const scenes = [],
+                  sceneConfigs = [
+                    { scene: _this.wanderScene, height: 2.5 },
+                    { scene: _this.profileScene, height: 1.25 },
+                    {
+                      scene: _this.approachScene,
+                      height: 2,
+                      mobileHeight: 1.25,
+                    },
+                    { scene: _this.nearScene, height: 3, mobileHeight: 1.25 },
+                    { scene: _this.handScene, height: 1.5 },
+                    { scene: _this.targetScene, height: "auto" },
+                    {
+                      scene: _this.transitionScene,
+                      height: 2,
+                      mobileHeight: 1.5,
+                      marginTop: -0.1,
+                    },
+                    {
+                      scene: _this.cathedralScene,
+                      height: 4,
+                      mobileHeight: 4,
+                      marginTop: -0.5,
+                    },
+                    { scene: _this.drinkSelectionScene, height: 2.5 },
+                    { scene: _this.drinkPourScene, height: 4 },
+                    {
+                      scene: _this.antiGravityScene,
+                      height: 2,
+                      mobileHeight: 1.8,
+                    },
+                    { scene: _this.pillarCrumbleScene, height: 1.25 },
+                    { scene: _this.colosseumScene, height: 3.25 },
+                    { scene: _this.tasteScene, height: "auto" },
+                    { scene: _this.collectionScene, height: "auto" },
+                    { scene: _this.productsScene, height: "auto" },
+                    { scene: _this.retailScene, height: "auto" },
+                    { scene: _this.footerScene, height: "auto" },
+                  ];
+                let sceneReadyPromises = [];
+                for (let index = 0; index < sceneConfigs.length; index++) {
+                  const config = sceneConfigs[index],
+                    {
+                      scene: scene,
+                      height: height,
+                      mobileHeight: mobileHeight,
+                      staticHeight: staticHeight,
+                      marginTop: marginTop = 0,
+                      marginBottom: marginBottom = 0,
+                    } = config,
+                    marginTopWorld = marginTop * _this.screenHeightWorld,
+                    marginBottomWorld = marginBottom * _this.screenHeightWorld;
+                  if ((await defer(), 0 === height))
+                    return void console.warn("Scene height is 0", scene);
+                  if (0 === _this.screenHeightWorld)
+                    return void console.warn("Screen height world is 0", scene);
+                  ((_this.totalHeight += marginTopWorld),
+                    await scene.setLayout?.({
+                      screenHeightWorld: _this.screenHeightWorld,
+                      height: mobileHeight
+                        ? Math.range(
+                            Stage.width,
+                            1600,
+                            393,
+                            height,
+                            mobileHeight,
+                            !0,
+                          )
+                        : height,
+                      totalHeight: _this.totalHeight,
+                      marginTop: marginTop,
+                      marginBottom: marginBottom,
+                    }),
+                    (scene._initialHeight = height),
+                    (scene._initialMobileHeight = mobileHeight),
+                    (scene._isStaticHeight = staticHeight || !1),
+                    (scene._marginTop = marginTop),
+                    (scene._marginBottom = marginBottom),
+                    (scene.visible = 0 === index),
+                    scenes.push(scene),
+                    (_this.totalHeight +=
+                      scene.heightWorld + marginBottomWorld),
+                    sceneReadyPromises.push(scene?.onready?.()));
+                }
+                if (
+                  (await Promise.all(sceneReadyPromises),
+                  _this.fire("Global/scenesReady"),
+                  Config.JUMP_TO_SCENE)
+                ) {
+                  const scene = scenes.find(
+                      (s) => s.fragName === Config.JUMP_TO_SCENE,
+                    ),
+                    ui = scene?.ui;
+                  ui &&
+                    _this.delayedCall(() => {
+                      scroll.setTarget(ui.element.div.offsetTop);
+                    }, 1e3);
+                }
+                (_this.listen(
+                  "UILPanel/hover",
+                  ({
+                    panelId: panelId,
+                    isHovered: isHovered,
+                    action: action,
+                  }) => {
+                    isHovered
+                      ? (_this.set("UILPanel/hovered", !0),
+                        (scroll.enabled = !1))
+                      : (_this.set("UILPanel/hovered", !1),
+                        (scroll.enabled = !0));
+                  },
+                ),
+                  (Global.SCROLL = scroll));
+                function handleResizeObserver(entries) {
+                  for (const entry of entries)
+                    scroll.max.y =
+                      _this.storyRoot.div.clientHeight - Stage.height;
+                }
+                function loop() {
+                  _this.lerpedScrollY = Math.lerp(
+                    -scroll.y,
+                    _this.lerpedScrollY,
+                    _this.lerpDelta,
+                  );
+                  const finalScrollY =
+                    _this.lerpedScrollY * _this.unitsPerPixelY;
+                  (_this.set(
+                    "scrollDirection",
+                    Math.sign(finalScrollY - _this.getSync("scrollY")),
+                  ),
+                    _this.set("scrollY", finalScrollY),
+                    (_this.composite.uniforms.uScrollY.value = finalScrollY),
+                    (_this.camera.group.position.y = finalScrollY),
+                    (_this.camera._fixedCamera.group.position.y = finalScrollY),
+                    _this.camera._fixedCamera.update(),
+                    (_this.lerpedScrollDeltaY = Math.lerp(
+                      scroll.delta.y || 0,
+                      _this.lerpedScrollDeltaY || 0,
+                      _this.lerpDelta,
+                    )),
+                    (_this.camera.group.rotation.x = Math.clamp(
+                      Math.lerp(
+                        0.002 * _this.lerpedScrollDeltaY,
+                        _this.camera.group.rotation.x,
+                        0.05,
+                      ),
+                      -0.2,
+                      0.2,
+                    )),
+                    _this.camera.update());
+                  const defVisibility = 0.1;
+                  scenes.forEach((scene) => {
+                    (scene.toggleVisibility?.({
+                      lerpedScrollY: _this.lerpedScrollY * _this.unitsPerPixelY,
+                      screenHeightWorld: _this.screenHeightWorld,
+                      visibilityPaddingTop:
+                        scene.customVisibilityPaddingBottom ??
+                        scene.customVisibilityPaddingBottom ??
+                        defVisibility,
+                      visibilityPaddingBottom:
+                        scene.customVisibilityPaddingTop ??
+                        scene.customVisibilityPaddingTop ??
+                        defVisibility,
+                    }),
+                      scene.updateAudio?.(),
+                      scene.scrollUI?.({ scrollY: _this.lerpedScrollY }));
+                  });
+                  const visibleScenes = scenes
+                    .filter((scene) => scene.visible)
+                    .map((scene) =>
+                      (function lowerCaseFirstChar(input) {
+                        return input.charAt(0).toLowerCase() + input.slice(1);
+                      })(scene.fragName),
+                    );
+                  (_this.state.set("visibleScenes", [...visibleScenes]),
+                    Config.NO_AUDIO ||
+                      (function updateScrollBasedAudio() {
+                        ((function updateDroneAudio() {
+                          const skippedAgeGate =
+                            Hydra.LOCAL && !Config.SHOW_AGE_GATE;
+                          if (!_this.get("dronesReady") && !skippedAgeGate)
+                            return;
+                          if (_this.get("suppressTransitionAudio"))
+                            return void (_wasSuppressed = !0);
+                          const config = AudioConfig.DRONE_TRANSITION_CONFIG,
+                            mixes = {
+                              oneToTwo: AudioUtils.getMixForScene(
+                                _this.approachScene.scrollProgress,
+                                config.approach,
+                              ),
+                              twoToThree: AudioUtils.getMixForScene(
+                                _this.cathedralScene.scrollProgress,
+                                config.cathedral,
+                              ),
+                              threeToFour: AudioUtils.getMixForScene(
+                                _this.antiGravityScene.scrollProgress,
+                                config.antiGravity,
+                              ),
+                              fourToFive: AudioUtils.getMixForScene(
+                                _this.tasteScene.scrollProgress,
+                                config.taste,
+                              ),
+                            },
+                            mixValues = Object.values(mixes),
+                            now = AUDIO_MANAGER.ctx.currentTime;
+                          if (_wasSuppressed) {
+                            _droneSmoothing = 0.6;
+                            setTimeout(
+                              () => {
+                                _droneSmoothing = AudioConfig.SMOOTHING_TIME;
+                              },
+                              1 * _droneSmoothing * 1e3,
+                            );
+                          }
+                          for (let i = 0; i <= mixValues.length - 1; i++) {
+                            const mix = mixValues[i],
+                              lastMix = mixValues[i - 1] ?? 1 / 0,
+                              nextMix = mixValues[i + 1] ?? -1 / 0,
+                              fromId = `drone_${i + 1}`,
+                              toId = `drone_${i + 2}`,
+                              from = AUDIO_MANAGER.getAudio(fromId),
+                              to = AUDIO_MANAGER.getAudio(toId);
+                            mix < 0
+                              ? (to.gain.gain.setTargetAtTime(
+                                  0,
+                                  now,
+                                  _droneSmoothing,
+                                ),
+                                lastMix >= 1 &&
+                                  from.gain.gain.setTargetAtTime(
+                                    from.baseGain,
+                                    now,
+                                    _droneSmoothing,
+                                  ))
+                              : mix >= 0 && mix <= 1
+                                ? AUDIO_MANAGER.blend(fromId, toId, mix)
+                                : mix > 1 &&
+                                  (from.gain.gain.setTargetAtTime(
+                                    0,
+                                    now,
+                                    _droneSmoothing,
+                                  ),
+                                  nextMix < 0 &&
+                                    to.gain.gain.setTargetAtTime(
+                                      to.baseGain,
+                                      now,
+                                      _droneSmoothing,
+                                    ));
+                          }
+                          _wasSuppressed && (_wasSuppressed = !1);
+                        })(),
+                          (function updateJazzAudio() {
+                            const jazz = AUDIO_MANAGER.getAudio("jazz"),
+                              volume = Math.range(
+                                _this.tasteScene.scrollProgress,
+                                0,
+                                1.25,
+                                0,
+                                1,
+                                !0,
+                              );
+                            jazz.gain.gain.value = volume * jazz.baseGain;
+                          })(),
+                          (function updateWindAudio() {
+                            const wind = AUDIO_MANAGER.getAudio("wind"),
+                              scroll = -_this.getSync("scrollY");
+                            let volume = 0;
+                            scroll <= 10 &&
+                              (volume = Math.range(scroll, 0, 1.5, 0, 1, !0));
+                            scroll > 10 &&
+                              (volume = Math.range(scroll, 22, 30, 1, 0, !0));
+                            wind.gain.gain.value = volume * wind.baseGain;
+                          })());
+                      })(),
+                    _this.fire("update", _this.camera.camera));
+                }
+                async function handleResize() {
+                  const isMobile = Device.mobile || Stage.width < 768,
+                    gazeMovement = isMobile ? 0 : 0.5;
+                  (_this.camera.moveXY.set(gazeMovement, gazeMovement),
+                    (_this.screenHeightWorld = Utils3D.getHeightFromCamera(
+                      _this.camera,
+                      _this.camera.position.z,
+                    )),
+                    (_this.screenWidthWorld = Utils3D.getWidthFromCamera(
+                      _this.camera,
+                      _this.camera.position.z,
+                    )),
+                    _this.set("screenHeightWorld", _this.screenHeightWorld),
+                    _this.set("screenWidthWorld", _this.screenWidthWorld),
+                    (_this.unitsPerPixelY = Story.calcUnitsPerPixelY(
+                      _this.camera,
+                    )),
+                    (_this.totalHeight = 0));
+                  for (const scene of scenes) {
+                    const marginTop = scene._marginTop || 0,
+                      marginBottom = scene._marginBottom || 0,
+                      marginTopWorld = marginTop * _this.screenHeightWorld,
+                      marginBottomWorld =
+                        marginBottom * _this.screenHeightWorld;
+                    _this.totalHeight += marginTopWorld;
+                    let mappedHeight = Math.range(
+                      Stage.width,
+                      1600,
+                      393,
+                      scene._initialHeight,
+                      scene._initialMobileHeight,
+                      !0,
+                    );
+                    (scene._isStaticHeight &&
+                      (mappedHeight = isMobile
+                        ? scene._initialMobileHeight
+                        : scene._initialHeight),
+                      await scene.setLayout?.({
+                        screenHeightWorld: _this.screenHeightWorld,
+                        height: scene._initialMobileHeight
+                          ? mappedHeight
+                          : scene._initialHeight,
+                        totalHeight: _this.totalHeight,
+                        marginTop: marginTop,
+                        marginBottom: marginBottom,
+                      }),
+                      (_this.totalHeight +=
+                        scene.heightWorld + marginBottomWorld),
+                      await scene.handleViewResize?.());
+                  }
+                  scroll.max.y =
+                    _this.storyRoot.div.clientHeight - Stage.height;
+                }
+                if (
+                  (new ResizeObserver(handleResizeObserver).observe(
+                    _this.storyRoot.div,
+                  ),
+                  __window.bind("wheel", () => {
+                    _this.fire("Global/wheel");
+                  }),
+                  (scroll.max.y =
+                    _this.storyRoot.div.clientHeight - Stage.height),
+                  (scroll.enabled = !1),
+                  loop(),
+                  await defer(),
+                  loop(),
+                  _this.listen("Global/loaderFinished", () => {
+                    (_this.composite.tween(
+                      "uLoaderFinished",
+                      1,
+                      1200,
+                      "easeOutSine",
+                      3e3,
+                    ),
+                      _this.delayedCall(() => {
+                        scroll.enabled = !0;
+                      }, 1500),
+                      _this.startRender(loop, RenderManager.AFTER_LOOPS));
+                  }),
+                  _this.bindState(
+                    _this.state,
+                    "visibleScenes",
+                    (current, old) =>
+                      (function handleSceneTransitionAudio(
+                        visibleScenes,
+                        prevVisibleScenes,
+                      ) {
+                        if (_this.getSync("suppressTransitionAudio")) return;
+                        if (!prevVisibleScenes) return;
+                        const addedScenes = visibleScenes.filter(
+                          (scene) => !prevVisibleScenes.includes(scene),
+                        );
+                        if (!addedScenes.length) return;
+                        const addedScenesWithTransitionFX = addedScenes.filter(
+                          (scene) =>
+                            Object.keys(
+                              AudioConfig.SCENE_TRANSITION_AUDIO,
+                            ).includes(scene),
+                        );
+                        if (!addedScenesWithTransitionFX.length) return;
+                        const scene = addedScenesWithTransitionFX[0],
+                          sceneFrag = _this[scene],
+                          directionStr =
+                            _this.getSync("scrollDirection") < 0 ? "in" : "out",
+                          transition =
+                            AudioConfig.SCENE_TRANSITION_AUDIO[scene],
+                          transitionId =
+                            "default" === transition
+                              ? `transition_default_${directionStr}`
+                              : transition[directionStr];
+                        AUDIO_MANAGER.getAudio(transitionId) &&
+                          (sceneFrag.state.needsToPlayTransition =
+                            transitionId);
+                      })(current, old),
+                  ),
+                  (_this.lerpedScrollDeltaY = 0),
+                  _this.fn("loop", () => loop()),
+                  _this.onResize(() => Utils.debounce(handleResize, 200), !1),
+                  await handleResize(),
+                  Config.ANCHOR)
+                ) {
+                  const scene = scenes.find(
+                    (s) => s.fragName === Config.ANCHOR,
+                  );
+                  if (scene) {
+                    const y = scene.ui.element.div.offsetTop;
+                    (console.log("y", y),
+                      scroll.setTarget(y, "y"),
+                      (_this.lerpedScrollY = -y));
+                  }
+                }
+                Global?.loader?.trigger(3);
+              })());
+          }));
+        let _wasSuppressed = !1,
+          _droneSmoothing = AudioConfig.SMOOTHING_TIME;
+        (_this.fn("tweenInDrones", async () => {
+          (await tween({ value: 0 }, { value: 1 }, 1200, "easeOutSine")
+            .onUpdate((v) => {
+              AUDIO_MANAGER.setVolume("drone_1", v);
+            })
+            .promise(),
+            _this.set("dronesReady", !0));
+        }),
+          (onInit = _this.onInit === onInit ? null : _this.onInit));
+        for (let key in _this)
+          if (_this[key]?.then) {
+            let store = _this[key];
+            (store.then((val) => (_this[key] = val)), _promises.push(store));
+          }
+        (_promises.length && (await Promise.all(_promises)),
+          (_this.ref_XIf0290 = _this.initClass(
+            XIf,
+            AppState.createLocal({
+              conditionState: _this.showDroneDebug,
+              fragment: "DebugDroneGains",
+            }),
+          )),
+          _this.ref_XIf0290.isFragment &&
+            _promises.push(_this.wait(_this.ref_XIf0290, "__ready")),
+          (_promises = null),
+          _this.flag?.("__ready", !0),
+          onInit ||
+            "Story" !== _this.fragName ||
+            !_this.onInit ||
+            _this.onInit.calledInit ||
+            (onInit = _this.onInit),
+          onInit &&
+            (onInit.calledInit || ((onInit.calledInit = !0), onInit())));
+      })();
+    }

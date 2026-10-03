@@ -1,0 +1,53 @@
+{
+  "DrinkLineShader": {
+    "uAnimate": 2,
+    "uFrameRate": 60,
+    "uScroll": 1.6,
+    "uSpeed": 2,
+    "uThickness": 0.005,
+    "uThreshold": 0.4,
+    "uTile": 10
+  },
+  "ProtonTube": {
+    "taper": 0,
+    "thickness": 0.2
+  },
+  "SkinHandShader": {
+    "uHighlight": "#c1271f",
+    "uPortalFeather": 0.005
+  },
+  "SkinShaderMRT": {
+    "depthNear": 0.95,
+    "uAngle": 1.5,
+    "uAxis": [
+      0.1,
+      -0.5,
+      0
+    ],
+    "uColor": "#968a83",
+    "uLightDir": [
+      0,
+      0,
+      1
+    ],
+    "uLinesTile": 12,
+    "uPortalFeather": 0.002,
+    "uPortalPlane": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "uTilt": [
+      0,
+      -0.297,
+      -0.25
+    ]
+  },
+  "WaterHandShader": {
+    "uColor1": "#592223",
+    "uColor2": "#000",
+    "uColor3": "#d05355",
+    "uColor4": "#C82924"
+  }
+}

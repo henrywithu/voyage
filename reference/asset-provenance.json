@@ -1,0 +1,2138 @@
+[
+  {
+    "path": "assets/audio/ambient/jazz.mp3",
+    "url": "https://santionispirits.com/assets/audio/ambient/jazz.mp3",
+    "status": "downloaded",
+    "bytes": 275158,
+    "sha256": "93ad0f17d56d625683157a25476a69393b27721f0100a52d62bd7c66f83be1c5"
+  },
+  {
+    "path": "assets/audio/ambient/jazz.ogg",
+    "url": "https://santionispirits.com/assets/audio/ambient/jazz.ogg",
+    "status": "downloaded",
+    "bytes": 215002,
+    "sha256": "5e4711b665065785e0c47680d12761636dabeff107e0262470dede58dd1a8ccb"
+  },
+  {
+    "path": "assets/audio/ambient/wind.mp3",
+    "url": "https://santionispirits.com/assets/audio/ambient/wind.mp3",
+    "status": "downloaded",
+    "bytes": 240960,
+    "sha256": "715880ef3e93be8b9c53c8621c2037d041bce35e0658e647ee26bd78cbc8968b"
+  },
+  {
+    "path": "assets/audio/ambient/wind.ogg",
+    "url": "https://santionispirits.com/assets/audio/ambient/wind.ogg",
+    "status": "downloaded",
+    "bytes": 102812,
+    "sha256": "daf86fbc8f9cfcc00d5ced27fe73626f7088e3a7e3bf7bbc0574f63bba399f40"
+  },
+  {
+    "path": "assets/audio/drones/1.mp3",
+    "url": "https://santionispirits.com/assets/audio/drones/1.mp3",
+    "status": "downloaded",
+    "bytes": 3162240,
+    "sha256": "144ec22322d26d04ea828397c2a6fc21f15929120cd9162d0b0885eec25b4849"
+  },
+  {
+    "path": "assets/audio/drones/1.ogg",
+    "url": "https://santionispirits.com/assets/audio/drones/1.ogg",
+    "status": "downloaded",
+    "bytes": 1310996,
+    "sha256": "12da86c3d2996d2d3e322892daeb1d375c7a02503909b436cc7b46119f305a47"
+  },
+  {
+    "path": "assets/audio/drones/2.mp3",
+    "url": "https://santionispirits.com/assets/audio/drones/2.mp3",
+    "status": "downloaded",
+    "bytes": 1722240,
+    "sha256": "73f3ff54b7059c8184eacadea45e5412ed038c8077f9083c7ee2ef24f4fe5b53"
+  },
+  {
+    "path": "assets/audio/drones/2.ogg",
+    "url": "https://santionispirits.com/assets/audio/drones/2.ogg",
+    "status": "downloaded",
+    "bytes": 677335,
+    "sha256": "d06c7c5f39e2855f6d75aba3dcf429d021805743523f2000aa5f318b48e4bfba"
+  },
+  {
+    "path": "assets/audio/drones/3.mp3",
+    "url": "https://santionispirits.com/assets/audio/drones/3.mp3",
+    "status": "downloaded",
+    "bytes": 2602560,
+    "sha256": "f34606a21caaa6cbec74f0fd3f9a9131be12eacaa832028779c93236ff39e9fc"
+  },
+  {
+    "path": "assets/audio/drones/3.ogg",
+    "url": "https://santionispirits.com/assets/audio/drones/3.ogg",
+    "status": "downloaded",
+    "bytes": 1074380,
+    "sha256": "f2a49ab40aebc8740a4ace2b01b11eef88981daec0b37235427662e1914e6199"
+  },
+  {
+    "path": "assets/audio/drones/4.mp3",
+    "url": "https://santionispirits.com/assets/audio/drones/4.mp3",
+    "status": "downloaded",
+    "bytes": 1842240,
+    "sha256": "496f03974babe54072a7d1bc59cd5f16aec278f601773547cb784f45781712fc"
+  },
+  {
+    "path": "assets/audio/drones/4.ogg",
+    "url": "https://santionispirits.com/assets/audio/drones/4.ogg",
+    "status": "downloaded",
+    "bytes": 811171,
+    "sha256": "fbebca5fd070d11361ba218c3e48bdc698defc60703753a7ee309c400991a20a"
+  },
+  {
+    "path": "assets/audio/drones/5.mp3",
+    "url": "https://santionispirits.com/assets/audio/drones/5.mp3",
+    "status": "downloaded",
+    "bytes": 1445760,
+    "sha256": "7af1aa3f71657ccafdaf8db54b1c146e83c5a943c746740f195183594ebc9700"
+  },
+  {
+    "path": "assets/audio/drones/5.ogg",
+    "url": "https://santionispirits.com/assets/audio/drones/5.ogg",
+    "status": "downloaded",
+    "bytes": 630975,
+    "sha256": "6da8af7dc01cc244f7dba7acc2d86d171dad07c8c28bdc11a4f6e34015b92071"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/beam.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/beam.mp3",
+    "status": "downloaded",
+    "bytes": 467520,
+    "sha256": "a19ecab1d4d7e220a3b50151eaf140b954b504b03c6b9fc2f835ae68d5140bdd"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/beam.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/beam.ogg",
+    "status": "downloaded",
+    "bytes": 185823,
+    "sha256": "2f60fccceb234f6d87fb2ce0369352306f39ef93c43bae523e32c6e8311042dc"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/release.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/release.mp3",
+    "status": "downloaded",
+    "bytes": 196800,
+    "sha256": "9d162e66ffe22c326ebea257023b696e863101069d73bf02dd0bbfb17398a3a6"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/release.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/release.ogg",
+    "status": "downloaded",
+    "bytes": 70997,
+    "sha256": "c10bffa1b1482a53349801e8600d2eb2e39918db3aa81c43f44ee5693e4e89d2"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/spawn.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/spawn.mp3",
+    "status": "downloaded",
+    "bytes": 211200,
+    "sha256": "9258375dfbd4c344798223d780608e1a185002ead11fa5a002f45873cad30d09"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/spawn.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/spawn.ogg",
+    "status": "downloaded",
+    "bytes": 83736,
+    "sha256": "db2559687633a48b5946053dfa79bf4a56c6ca94079bad2b73babf1f40c5cbbb"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/speedUp.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/speedUp.mp3",
+    "status": "downloaded",
+    "bytes": 190080,
+    "sha256": "df4059774e9786ea9a431fd648c8a91a3eb40d8344a075fcb97d0d242ffb64b8"
+  },
+  {
+    "path": "assets/audio/interactions/antigravity/speedUp.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/antigravity/speedUp.ogg",
+    "status": "downloaded",
+    "bytes": 94339,
+    "sha256": "2c07f52222fd2b57c85057a785389c7a931215a1e167e6e42ac499fbdcfcd59b"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/hovers/1.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/hovers/1.mp3",
+    "status": "downloaded",
+    "bytes": 125760,
+    "sha256": "e41355e8e76864036da31b3e37f4f336bdfff4d4cd100af4265783517a4008ab"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/hovers/1.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/hovers/1.ogg",
+    "status": "downloaded",
+    "bytes": 48489,
+    "sha256": "e480c979855fe8651cb28211c1ad74d7bc253ccc9fac52c186aa45c6e5e25450"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/hovers/2.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/hovers/2.mp3",
+    "status": "downloaded",
+    "bytes": 99840,
+    "sha256": "f02384b4bbb3594277ee1303906a77031f2be3cbfee606b13d94d3ebf8347057"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/hovers/2.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/hovers/2.ogg",
+    "status": "downloaded",
+    "bytes": 39223,
+    "sha256": "fe66d53c47928ebdb6c9884f56546ed9429b0ea4831b88a7283b0cd5cbdb4ec6"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/hovers/3.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/hovers/3.mp3",
+    "status": "downloaded",
+    "bytes": 88320,
+    "sha256": "08239e19abc574929e643380eb82c6c44ea94f565dbf0a3f494aece0bf1af17f"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/hovers/3.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/hovers/3.ogg",
+    "status": "downloaded",
+    "bytes": 39695,
+    "sha256": "eefd01070e9c9f13e1e6b1ac60e62db2c4a6c161b0da695038962583caf4a073"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/interact.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/interact.mp3",
+    "status": "downloaded",
+    "bytes": 114240,
+    "sha256": "13a5c852d811cd7238a3d19c320cf5832386f5d1ae46b3a9b9acf8afa8b2e167"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/interact.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/interact.ogg",
+    "status": "downloaded",
+    "bytes": 45033,
+    "sha256": "5c56440078b5a777611ff25bf89b09606eeb7b3ab1201b7145ce784fa3e9ec99"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/levitate.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/levitate.mp3",
+    "status": "downloaded",
+    "bytes": 170880,
+    "sha256": "2b6dff455a30f5d827f465a0745068a36926d6c874a81e9b545c97bdf73b6ac7"
+  },
+  {
+    "path": "assets/audio/interactions/bottle/levitate.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/bottle/levitate.ogg",
+    "status": "downloaded",
+    "bytes": 91648,
+    "sha256": "24a043350fa99c0662e7024887cf39ed033704e1bd2440caba542a0d7c8c6d8f"
+  },
+  {
+    "path": "assets/audio/interactions/carousel/1.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/carousel/1.mp3",
+    "status": "downloaded",
+    "bytes": 82560,
+    "sha256": "f2ab6afb6e2ee83a43e2eac14e11b384451a7337854828d301074b8eb4435e30"
+  },
+  {
+    "path": "assets/audio/interactions/carousel/1.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/carousel/1.ogg",
+    "status": "downloaded",
+    "bytes": 43718,
+    "sha256": "0427aba695185fee65123f2fa0e5947147499f6f02f0681585c630a324fd2ba9"
+  },
+  {
+    "path": "assets/audio/interactions/carousel/2.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/carousel/2.mp3",
+    "status": "downloaded",
+    "bytes": 78720,
+    "sha256": "2a94f1db5759c3a744444a33959dbd8a78d719d517ee05bf759971941cdc7b84"
+  },
+  {
+    "path": "assets/audio/interactions/carousel/2.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/carousel/2.ogg",
+    "status": "downloaded",
+    "bytes": 35225,
+    "sha256": "7b7750d88ec5e03b66ac233a15e3eadecd9dbda2acf919c9a0459a1a11f5c8b8"
+  },
+  {
+    "path": "assets/audio/interactions/carousel/3.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/carousel/3.mp3",
+    "status": "downloaded",
+    "bytes": 61440,
+    "sha256": "1c0cc987c47d119b8a3ce1380b68c21f57fcca386b45c1e0b4b314aea38eff21"
+  },
+  {
+    "path": "assets/audio/interactions/carousel/3.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/carousel/3.ogg",
+    "status": "downloaded",
+    "bytes": 32093,
+    "sha256": "9303de3d68d7e86a938057c28f5edb42459d78deb3d453b2238518bbf18c5a48"
+  },
+  {
+    "path": "assets/audio/interactions/portal/base.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/portal/base.mp3",
+    "status": "downloaded",
+    "bytes": 502080,
+    "sha256": "56fb6a7902303e3338631e04632425dc3469d1acbe68de9e611b119d37488e71"
+  },
+  {
+    "path": "assets/audio/interactions/portal/base.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/portal/base.ogg",
+    "status": "downloaded",
+    "bytes": 177883,
+    "sha256": "d8c317ed9812139f23b13c711fb2f99d60de2e03ef2b1fda4ff2990394d57587"
+  },
+  {
+    "path": "assets/audio/interactions/portal/contact.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/portal/contact.mp3",
+    "status": "downloaded",
+    "bytes": 400320,
+    "sha256": "eb555bd19b6c52eb7cf9a58a96809c4b0c7a8f66fbcf445240eb601749659cd2"
+  },
+  {
+    "path": "assets/audio/interactions/portal/contact.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/portal/contact.ogg",
+    "status": "downloaded",
+    "bytes": 170261,
+    "sha256": "285ddced36352ecbf9d5f8479fe4daf96e1bf3f42285f2c1361a3c7fffa20dcc"
+  },
+  {
+    "path": "assets/audio/interactions/portal/move.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/portal/move.mp3",
+    "status": "downloaded",
+    "bytes": 312000,
+    "sha256": "e46ded30cc9351cea6c1587a485c45ed91686bae69c8cec5bbfacf5de082ea68"
+  },
+  {
+    "path": "assets/audio/interactions/portal/move.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/portal/move.ogg",
+    "status": "downloaded",
+    "bytes": 161779,
+    "sha256": "594f5b479c037ee141b3418aa72035170950f1be59a4f75beb97c0cb431f7be3"
+  },
+  {
+    "path": "assets/audio/interactions/pouring/hold.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/pouring/hold.mp3",
+    "status": "downloaded",
+    "bytes": 229440,
+    "sha256": "8b1c66248a4c869b9b331f7b83e3b4dff070e187b79acf91d26e92d4f08d5f3e"
+  },
+  {
+    "path": "assets/audio/interactions/pouring/hold.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/pouring/hold.ogg",
+    "status": "downloaded",
+    "bytes": 155471,
+    "sha256": "fb4142fe1789d299aba1638d8498ae92355096dbaeb96cc3a2a422e83e62ab24"
+  },
+  {
+    "path": "assets/audio/interactions/pouring/start.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/pouring/start.mp3",
+    "status": "downloaded",
+    "bytes": 168960,
+    "sha256": "dee291a230551ff7e618876378afb0629ebbc2b5c2e8628da579f0df40d7fd4a"
+  },
+  {
+    "path": "assets/audio/interactions/pouring/start.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/pouring/start.ogg",
+    "status": "downloaded",
+    "bytes": 81822,
+    "sha256": "e0b287ee6f42bfa5a712f10d234e98f74a5223fb16f28705f39c40c288a1cc86"
+  },
+  {
+    "path": "assets/audio/interactions/pouring/stop.mp3",
+    "url": "https://santionispirits.com/assets/audio/interactions/pouring/stop.mp3",
+    "status": "downloaded",
+    "bytes": 110400,
+    "sha256": "f61663de10958d6abd5924c838eba14fe7140d4ccb6c89d750ebea6034f20eeb"
+  },
+  {
+    "path": "assets/audio/interactions/pouring/stop.ogg",
+    "url": "https://santionispirits.com/assets/audio/interactions/pouring/stop.ogg",
+    "status": "downloaded",
+    "bytes": 55921,
+    "sha256": "aec54a839287dce43894c3fd5c7580a050c30ed3c83cc8fae9972045c5aed251"
+  },
+  {
+    "path": "assets/audio/one-shots/drinking.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/drinking.mp3",
+    "status": "downloaded",
+    "bytes": 119040,
+    "sha256": "94ea12157d50f688a7349fa6b807b84b23b3a9dba2948028f021921d69594f5a"
+  },
+  {
+    "path": "assets/audio/one-shots/drinking.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/drinking.ogg",
+    "status": "downloaded",
+    "bytes": 52578,
+    "sha256": "a46a4bbced75d0e22a4b42ef3ab1dc4a30430b4e666d498b9d1adb9e64bb51c0"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/1.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/1.mp3",
+    "status": "downloaded",
+    "bytes": 80640,
+    "sha256": "852d5e440743382c51d9d04fe126a66dbd457dc3abb7414af697ab0605de2281"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/1.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/1.ogg",
+    "status": "downloaded",
+    "bytes": 30662,
+    "sha256": "a502b4e9c6994e9e516088f357d1baeab614e396fd0d81a5374a86045368f330"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/2.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/2.mp3",
+    "status": "downloaded",
+    "bytes": 87360,
+    "sha256": "e9e9c7b5c33a3e2dd5972475b08e509f747eed6b3be51c7a8a04439ff3542473"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/2.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/2.ogg",
+    "status": "downloaded",
+    "bytes": 32405,
+    "sha256": "d4374dd4436201436b2dd6b6ca124161f28cc59e142e1ef6ebce78db3fcf7e0b"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/3.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/3.mp3",
+    "status": "downloaded",
+    "bytes": 87360,
+    "sha256": "18c9a2e48b2774c06b9b24bc3c63a11fe04badf883d815ce95cd164d62c1b307"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/3.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/3.ogg",
+    "status": "downloaded",
+    "bytes": 32460,
+    "sha256": "8a4818b88f1656907dea5d4ab31888dad55cdf4202dd01e709039fed42666bb9"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/4.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/4.mp3",
+    "status": "downloaded",
+    "bytes": 84480,
+    "sha256": "fa29029e11c878bb98f932d715769ac6a0b2b6322e7a8ed3d9d0f6683f8c1e7f"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/4.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/4.ogg",
+    "status": "downloaded",
+    "bytes": 31256,
+    "sha256": "48e22fd6a951d0a18ce19cba2a96518d9418556486fb31bbac307af1ac0ecc42"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/5.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/5.mp3",
+    "status": "downloaded",
+    "bytes": 88320,
+    "sha256": "e9ef30c45100e284b0583fb83e4dc38406e8888a1f21642343b0eafd73864711"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/5.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/5.ogg",
+    "status": "downloaded",
+    "bytes": 32787,
+    "sha256": "fc18f969aa127e643b4f65916b241630002b01d905dd9c819f53b0adab503cc4"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/6.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/6.mp3",
+    "status": "downloaded",
+    "bytes": 88320,
+    "sha256": "f0fd098ff06008ac2e98236b53b46d3875afeacae0aa3aa5a02a17a965e030cf"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/6.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/6.ogg",
+    "status": "downloaded",
+    "bytes": 32444,
+    "sha256": "e2034d7a415efbcee008e93f03e995feab7e99854608ac2df99613b5e3571fd5"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/7.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/7.mp3",
+    "status": "downloaded",
+    "bytes": 81600,
+    "sha256": "a454676cf39638ed0b5a60122e416758fb1972be2d610fbc5ef93d7a0d56d5d2"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/inside/7.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/inside/7.ogg",
+    "status": "downloaded",
+    "bytes": 30370,
+    "sha256": "80c2b91c43c15d239c25b246c58a3e549650868372ed29cf1adc3036c1fc7fe8"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/1.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/1.mp3",
+    "status": "downloaded",
+    "bytes": 40320,
+    "sha256": "21c69a55f3fb1a2fb0f63a97e118027cafb0b8cf9a195a334ccd9b38b1b80b02"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/1.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/1.ogg",
+    "status": "downloaded",
+    "bytes": 12505,
+    "sha256": "d994b80abd6d0633ad9904be80659e64ff952302e69afef06c07bba877bbd298"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/2.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/2.mp3",
+    "status": "downloaded",
+    "bytes": 43200,
+    "sha256": "31da734b44ae1562466c36a17f7a6435fa58d4930d10fd0d44d9f07418493dbe"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/2.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/2.ogg",
+    "status": "downloaded",
+    "bytes": 11480,
+    "sha256": "b603ec138943c024a137763a7673148a34556ff40f624b5b0216221e66bdd85f"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/3.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/3.mp3",
+    "status": "downloaded",
+    "bytes": 45120,
+    "sha256": "dd1d708fa473261a61582f4e5e5e410dd0a75c019af8522f5e716569a856d387"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/3.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/3.ogg",
+    "status": "downloaded",
+    "bytes": 11380,
+    "sha256": "daf8a8b9f25fa157ad2941ec7cc11dd971d1fb7416881dab012d050f56103593"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/4.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/4.mp3",
+    "status": "downloaded",
+    "bytes": 44160,
+    "sha256": "13764719c51faa2b013ed87cf67a636e34a87f8567770d06e97f7bae1a2e1583"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/4.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/4.ogg",
+    "status": "downloaded",
+    "bytes": 11085,
+    "sha256": "9bec4efa5b21f4aa62d6b489b5f0775dfa7928c64fc2cdef4862edbdebf29b54"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/5.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/5.mp3",
+    "status": "downloaded",
+    "bytes": 43200,
+    "sha256": "5eb89d7c48421a71172a134c2543adc175f6b17698e24f2c5b044db615e390b8"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/5.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/5.ogg",
+    "status": "downloaded",
+    "bytes": 11561,
+    "sha256": "81c3a9f7e78f70f4fe1fb0be8ee5f6a0948b382cc1906aae32e4c905d69c662c"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/6.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/6.mp3",
+    "status": "downloaded",
+    "bytes": 46080,
+    "sha256": "e734107be8a98b5a108c93e2f25ec94c76fc6042e8cba1e6e3fa959b026b030c"
+  },
+  {
+    "path": "assets/audio/one-shots/footsteps/outside/6.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/footsteps/outside/6.ogg",
+    "status": "downloaded",
+    "bytes": 11567,
+    "sha256": "4103f2582489e41fdf61c4f7a8d992f8754a1e04c5ef62de835cbfa5890bf4a0"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/1.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/1.mp3",
+    "status": "downloaded",
+    "bytes": 68160,
+    "sha256": "c8bbe7dd7194337dda7f9e5cd12a939a0b7bf4c234800bdeec2ef0f141aa848c"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/1.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/1.ogg",
+    "status": "downloaded",
+    "bytes": 30753,
+    "sha256": "00c21b930c5ca650e7bce468cba7863d39d815abbb69a7b44d1e765138b4b276"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/2.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/2.mp3",
+    "status": "downloaded",
+    "bytes": 65280,
+    "sha256": "698355f464ebf6279e899b21f865f9d66e534ef164f489fc824858e6a2676333"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/2.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/2.ogg",
+    "status": "downloaded",
+    "bytes": 27463,
+    "sha256": "1643db5b0c32a98d4de4cc139108b57c18122e7f3a76145dfc536c06fe6c9a9d"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/3.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/3.mp3",
+    "status": "downloaded",
+    "bytes": 65280,
+    "sha256": "94b554d19ee383c5290b0a93b97b483477c6991e519fb3bd61f1b0580aebd498"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/3.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/3.ogg",
+    "status": "downloaded",
+    "bytes": 29291,
+    "sha256": "0c0e358bf460fe0b72f700eca68008c0c79bce602e2fc945ccd7068c98dcf7c7"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/4.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/4.mp3",
+    "status": "downloaded",
+    "bytes": 71040,
+    "sha256": "5be7117d2a2f610ab1b4ec40be36278f7e1735392354be4b8989c326c9d71361"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/4.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/4.ogg",
+    "status": "downloaded",
+    "bytes": 30800,
+    "sha256": "a481f708ead0c5e45f8708d2790fc251feed587aa52f091f19b9dc6d6b63038b"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/5.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/5.mp3",
+    "status": "downloaded",
+    "bytes": 67200,
+    "sha256": "bed513a2d24d823a0ea04f825e7ec95d0e2cc342aa6a031fb5b944acc89ab049"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/5.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/5.ogg",
+    "status": "downloaded",
+    "bytes": 31864,
+    "sha256": "b58fac6d0dbafff2882336f0b1d7a33c88ac7e02c4917d891ddd7997202e318a"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/6.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/6.mp3",
+    "status": "downloaded",
+    "bytes": 64320,
+    "sha256": "3e64323818a9ea53c5b1d660f402bfa74ea193ab8a4625a7040d806cf0e6b4a2"
+  },
+  {
+    "path": "assets/audio/one-shots/textbox/6.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/textbox/6.ogg",
+    "status": "downloaded",
+    "bytes": 29396,
+    "sha256": "12cf8d73fd14cb0eed397ba09790333c2def21f067308a5ee4f1a5fed0f86448"
+  },
+  {
+    "path": "assets/audio/one-shots/uiClick.mp3",
+    "url": "https://santionispirits.com/assets/audio/one-shots/uiClick.mp3",
+    "status": "downloaded",
+    "bytes": 85440,
+    "sha256": "74ccfe99fa9d5fa2dbfce23cc60c9fc36a5e0898a7d9baedc3ac5a5442d082f9"
+  },
+  {
+    "path": "assets/audio/one-shots/uiClick.ogg",
+    "url": "https://santionispirits.com/assets/audio/one-shots/uiClick.ogg",
+    "status": "downloaded",
+    "bytes": 19347,
+    "sha256": "c76ae8c4772eaccd9305857d8c5dc418c62ff6e5413ecb548dc956740321a11d"
+  },
+  {
+    "path": "assets/audio/transitions/crack.mp3",
+    "url": "https://santionispirits.com/assets/audio/transitions/crack.mp3",
+    "status": "downloaded",
+    "bytes": 214080,
+    "sha256": "6c70394a5d50a1205ca53155c349339cdf4e65817a74b13fcff723852ab11739"
+  },
+  {
+    "path": "assets/audio/transitions/crack.ogg",
+    "url": "https://santionispirits.com/assets/audio/transitions/crack.ogg",
+    "status": "downloaded",
+    "bytes": 110544,
+    "sha256": "2b2886e7d8db7707b73a8ab3250939c19b9619ad5b5a197c892db00cb182a135"
+  },
+  {
+    "path": "assets/audio/vo/1.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/1.mp3",
+    "status": "downloaded",
+    "bytes": 79341,
+    "sha256": "ce3d90afc03a3f2ae011785b624c9f1b4687f8bfb85989f273ac6e929a0aabac"
+  },
+  {
+    "path": "assets/audio/vo/10.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/10.mp3",
+    "status": "downloaded",
+    "bytes": 44548,
+    "sha256": "82452cb5260736bdc301e7601f3ba925b53abc3c23fb855f7993da48332b8365"
+  },
+  {
+    "path": "assets/audio/vo/11.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/11.mp3",
+    "status": "downloaded",
+    "bytes": 148307,
+    "sha256": "88f1d6fcff71f7fc885403f86ee7f1ffdca4ae396735ad46f6b8b0246ea6f146"
+  },
+  {
+    "path": "assets/audio/vo/12.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/12.mp3",
+    "status": "downloaded",
+    "bytes": 53325,
+    "sha256": "1d937a8d1f46b1c83bf25b2a816b78c8b7b6356819fb8986f6b1baa92c4798a8"
+  },
+  {
+    "path": "assets/audio/vo/13.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/13.mp3",
+    "status": "downloaded",
+    "bytes": 171817,
+    "sha256": "f8126d59de82286ab8868063b7baa64a9e4b55aaf8153d592e4990a4bbfd5927"
+  },
+  {
+    "path": "assets/audio/vo/14.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/14.mp3",
+    "status": "downloaded",
+    "bytes": 168996,
+    "sha256": "72d32ff3f3d749cb9124816c26a6c423c6a5dbf19356c323f433d483029a45be"
+  },
+  {
+    "path": "assets/audio/vo/15.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/15.mp3",
+    "status": "downloaded",
+    "bytes": 120721,
+    "sha256": "3eadb4445f30c548382599c9f97d201d3a6e9d9ce1e03eb738d91ce6be6a90f3"
+  },
+  {
+    "path": "assets/audio/vo/16.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/16.mp3",
+    "status": "downloaded",
+    "bytes": 131379,
+    "sha256": "686275a1a5e7914baba92b093bc73927cb8f5192b73cf437e591e5f2fabd477b"
+  },
+  {
+    "path": "assets/audio/vo/2.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/2.mp3",
+    "status": "downloaded",
+    "bytes": 114450,
+    "sha256": "4ef764255d5af0534557d4707e120e04b1d9aab83d77d13a0bb9e5c4b270875d"
+  },
+  {
+    "path": "assets/audio/vo/3.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/3.mp3",
+    "status": "downloaded",
+    "bytes": 75275,
+    "sha256": "59732c6af51e4c598223cfd9e1ce2420e251445be03a45010ec62253fac14b03"
+  },
+  {
+    "path": "assets/audio/vo/4.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/4.mp3",
+    "status": "downloaded",
+    "bytes": 99717,
+    "sha256": "b60e8238aa9b99aeb7f41e5259a3b7021cbc0b3b1286b6455d3b08a848c78af5"
+  },
+  {
+    "path": "assets/audio/vo/5.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/5.mp3",
+    "status": "downloaded",
+    "bytes": 250182,
+    "sha256": "ccefcfe017867c1c60b2ff09f3513a0b8d2f5e81aa3cd7386dc1bb5e7f65fe91"
+  },
+  {
+    "path": "assets/audio/vo/6.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/6.mp3",
+    "status": "downloaded",
+    "bytes": 50502,
+    "sha256": "0bd5be615938720d7f865e624ad23128c96c6547a29c5935f97ff7696710fc58"
+  },
+  {
+    "path": "assets/audio/vo/7.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/7.mp3",
+    "status": "downloaded",
+    "bytes": 142976,
+    "sha256": "553d8417a4be6749f3a4dbdcb39370137a56b4cc09d1fb896f88f58d5c405e29"
+  },
+  {
+    "path": "assets/audio/vo/8.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/8.mp3",
+    "status": "downloaded",
+    "bytes": 123854,
+    "sha256": "38b4c4eda85573b269cdb671a31aed52d137b2baede7095da559fa2cc696f53d"
+  },
+  {
+    "path": "assets/audio/vo/9.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/9.mp3",
+    "status": "downloaded",
+    "bytes": 42038,
+    "sha256": "2f926eb0a8a2f855be88cf8828d44ce5b62ff4e3655bd6bfae8de70482b10353"
+  },
+  {
+    "path": "assets/audio/vo/marshmallow.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/marshmallow.mp3",
+    "status": "downloaded",
+    "bytes": 174951,
+    "sha256": "69d8e85ac4b8d78958e0edb5a23dddaca00ad54cc35f8f833f610de2fc7eae5e"
+  },
+  {
+    "path": "assets/audio/vo/orange.mp3",
+    "url": "https://santionispirits.com/assets/audio/vo/orange.mp3",
+    "status": "downloaded",
+    "bytes": 175578,
+    "sha256": "640d750ef4c295474aa6408c5d2d67d19fd465ce86a4f3ec0c3749dcf5676612"
+  },
+  {
+    "path": "assets/data/cms.json",
+    "url": "https://santionispirits.com/assets/data/cms.json",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/data/vo/all_timestamps.json",
+    "url": "https://santionispirits.com/assets/data/vo/all_timestamps.json",
+    "status": "downloaded",
+    "bytes": 102900,
+    "sha256": "470191028ce45fc13e2bc1125418b492e24e92494e416111d66134dbdcd34f7d"
+  },
+  {
+    "path": "assets/favicon/favicon.svg",
+    "url": "https://santionispirits.com/assets/favicon/favicon.svg",
+    "status": "downloaded",
+    "bytes": 1463,
+    "sha256": "49b6265f6f2a1c8a1bd1a994c5dbe6a8bb78631fe6f5bf9d70d3eb7e69022c60"
+  },
+  {
+    "path": "assets/fonts/CharlesRosie.json",
+    "url": "https://santionispirits.com/assets/fonts/CharlesRosie.json",
+    "status": "downloaded",
+    "bytes": 46108,
+    "sha256": "fa541cddba3d5a05a02340510f3937b029f016622adac7236909155f99a7b1d2"
+  },
+  {
+    "path": "assets/fonts/CharlesRosie.png",
+    "url": "https://santionispirits.com/assets/fonts/CharlesRosie.png",
+    "status": "downloaded",
+    "bytes": 64102,
+    "sha256": "9ebaa371162176297e0f7cb37594c0a406de049a7f05dbf43e4435566348fb01"
+  },
+  {
+    "path": "assets/fonts/CharlesRosie.woff",
+    "url": "https://santionispirits.com/assets/fonts/CharlesRosie.woff",
+    "status": "downloaded",
+    "bytes": 40580,
+    "sha256": "a8c0a705a2268c8773ebc5d44ac30a4df19ec8c19d277765d4a24dc071784f05"
+  },
+  {
+    "path": "assets/fonts/CharlesRosie.woff2",
+    "url": "https://santionispirits.com/assets/fonts/CharlesRosie.woff2",
+    "status": "downloaded",
+    "bytes": 31960,
+    "sha256": "b2ff07cefc0928d1ac7bec07cff8efa2367f765b7827a8d543769c3c79d97227"
+  },
+  {
+    "path": "assets/fonts/GT-Era-Text-Light-Oblique.woff",
+    "url": "https://santionispirits.com/assets/fonts/GT-Era-Text-Light-Oblique.woff",
+    "status": "downloaded",
+    "bytes": 53236,
+    "sha256": "b83d536763cd8655d7b025f2156f1ec320bd730dc3d913eb8585da62f349677b"
+  },
+  {
+    "path": "assets/fonts/GT-Era-Text-Light-Oblique.woff2",
+    "url": "https://santionispirits.com/assets/fonts/GT-Era-Text-Light-Oblique.woff2",
+    "status": "downloaded",
+    "bytes": 47892,
+    "sha256": "b12e86b2060fc1736278ad794651b4a313fddf93385ff2f4187467b34397215b"
+  },
+  {
+    "path": "assets/fonts/GT-Era-Text-Light.woff",
+    "url": "https://santionispirits.com/assets/fonts/GT-Era-Text-Light.woff",
+    "status": "downloaded",
+    "bytes": 51964,
+    "sha256": "7591b0e9d3856107a4dbce973f1871284a6f275db4559adbd96316a8bee54af2"
+  },
+  {
+    "path": "assets/fonts/GT-Era-Text-Light.woff2",
+    "url": "https://santionispirits.com/assets/fonts/GT-Era-Text-Light.woff2",
+    "status": "downloaded",
+    "bytes": 46712,
+    "sha256": "100edfe64e07808ede1c2b9ea462068e977dff81fe68f99f484caaf0f475a5e1"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Regular.json",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Regular.json",
+    "status": "downloaded",
+    "bytes": 31998,
+    "sha256": "dda32340aae577cb4acb55adf524c484d96bc3a8d642ce8dae933e22f22bfba2"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Regular.png",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Regular.png",
+    "status": "downloaded",
+    "bytes": 63302,
+    "sha256": "058815c79eb3a882123b328a17358b031b02e6348d8bd1c402c2207c26f6ea7e"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Regular.woff",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Regular.woff",
+    "status": "downloaded",
+    "bytes": 47972,
+    "sha256": "64eec9b9fdbceb1ab7bd3d863bc475e5c3acd258b11fc59cf1081e2d175f6a16"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Regular.woff2",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Regular.woff2",
+    "status": "downloaded",
+    "bytes": 43888,
+    "sha256": "7b024d86e168fc0c31210d040a2009bf08249729c8bd3ede9355b3b6054f7a4a"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Ultrabold.json",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Ultrabold.json",
+    "status": "downloaded",
+    "bytes": 12214,
+    "sha256": "0aec6d27be5bdbef8bb39baf14a8b6e2c00999f563fbd6add552e0c2e8b21e27"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Ultrabold.png",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Ultrabold.png",
+    "status": "downloaded",
+    "bytes": 57120,
+    "sha256": "60e0a830ed1fb37ac993dde52115cc981b0cc6f7ea8b31327d6c1a03d0974040"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Ultrabold.woff",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Ultrabold.woff",
+    "status": "downloaded",
+    "bytes": 49036,
+    "sha256": "9bb95ce352cf5df1301ee9afeecd1f8aba42bf8c0ea8d1ace95c2902cbb016b7"
+  },
+  {
+    "path": "assets/fonts/PPNikkeiMaru-Ultrabold.woff2",
+    "url": "https://santionispirits.com/assets/fonts/PPNikkeiMaru-Ultrabold.woff2",
+    "status": "downloaded",
+    "bytes": 44896,
+    "sha256": "29832713632236816f8a87cc0938cac4667c160cb924997018a9f9e9ae9d653a"
+  },
+  {
+    "path": "assets/geometry/fpo/bottle.bin",
+    "url": "https://santionispirits.com/assets/geometry/fpo/bottle.bin",
+    "status": "downloaded",
+    "bytes": 73579,
+    "sha256": "34efd8b53411d03d5f83e21ed3ea6f9c26c356d2641fc1a48bb6b7bbc9af3df9"
+  },
+  {
+    "path": "assets/geometry/fpo/bottle.json",
+    "url": "https://santionispirits.com/assets/geometry/fpo/bottle.json",
+    "status": "downloaded",
+    "bytes": 1620675,
+    "sha256": "ca6dce51534dfbde9dbb5432ededde5fd712f27ba50fdc4d17582452cba4435e"
+  },
+  {
+    "path": "assets/geometry/fpo/bottle_cap.bin",
+    "url": "https://santionispirits.com/assets/geometry/fpo/bottle_cap.bin",
+    "status": "downloaded",
+    "bytes": 2750,
+    "sha256": "b90371fb9f4b2cd9bb19860077bd031c3daecb54487239bfa7a65527ba968fa2"
+  },
+  {
+    "path": "assets/geometry/fpo/bottle_label.bin",
+    "url": "https://santionispirits.com/assets/geometry/fpo/bottle_label.bin",
+    "status": "downloaded",
+    "bytes": 1107,
+    "sha256": "694defe88b285b3c7041867ba0d9906bf76e29e94c49ef76c575b171872fef48"
+  },
+  {
+    "path": "assets/geometry/fpo/bottle_liquid.bin",
+    "url": "https://santionispirits.com/assets/geometry/fpo/bottle_liquid.bin",
+    "status": "downloaded",
+    "bytes": 24484,
+    "sha256": "e326c3793ef3ce9379f4c4ae4201e04d98a3fb8148496bd36afe2dba515ae597"
+  },
+  {
+    "path": "assets/geometry/fpo/bottle_sticker.bin",
+    "url": "https://santionispirits.com/assets/geometry/fpo/bottle_sticker.bin",
+    "status": "downloaded",
+    "bytes": 2625,
+    "sha256": "a9d8ec66d810c4e2485694ac2d9d7f0ce23384f22615c1b15a67290b84a07e16"
+  },
+  {
+    "path": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin",
+    "url": "https://santionispirits.com/assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin",
+    "status": "downloaded",
+    "bytes": 5388,
+    "sha256": "c0abd9c6fe08d1f8cf72f75f95aee85474ab7e0c8de9b3636865b95cc8288135"
+  },
+  {
+    "path": "assets/geometry/fromuil/liquid-iJSfjP-6.bin",
+    "url": "https://santionispirits.com/assets/geometry/fromuil/liquid-iJSfjP-6.bin",
+    "status": "downloaded",
+    "bytes": 5694,
+    "sha256": "32e5cd877861eb08c0f9ff3df56546dc4ba3837497056ed9542c272efab43b15"
+  },
+  {
+    "path": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin",
+    "url": "https://santionispirits.com/assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin",
+    "status": "downloaded",
+    "bytes": 1358,
+    "sha256": "797d249480b9f99f6116807a75c33d9785863089a5b3f72124f7e84b827f98aa"
+  },
+  {
+    "path": "assets/geometry/fromuil/martiniGlass_nobackfaces-sm27N97c.bin",
+    "url": "https://santionispirits.com/assets/geometry/fromuil/martiniGlass_nobackfaces-sm27N97c.bin",
+    "status": "downloaded",
+    "bytes": 15483,
+    "sha256": "d9b7384d7301a182278ffe2768d6d61c74752bc33acacb35991e9af8734d3029"
+  },
+  {
+    "path": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin",
+    "url": "https://santionispirits.com/assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin",
+    "status": "downloaded",
+    "bytes": 1317,
+    "sha256": "114ebbabb9f3f42f6f0184c0786d1e268c059772a1483d75fbd5b6f811f318fb"
+  },
+  {
+    "path": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin",
+    "url": "https://santionispirits.com/assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin",
+    "status": "downloaded",
+    "bytes": 1468,
+    "sha256": "4b333c2c240c07d2fc97d6039c77a799e663421b14bee31ff4a0fdc507d268b8"
+  },
+  {
+    "path": "assets/geometry/glass-Mw6oKmFS.bin",
+    "url": "https://santionispirits.com/assets/geometry/glass-Mw6oKmFS.bin",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/geometry/glass-Mw6oKmFS.json",
+    "url": "https://santionispirits.com/assets/geometry/glass-Mw6oKmFS.json",
+    "status": "downloaded",
+    "bytes": 1338541,
+    "sha256": "1fc465e0a6c7b91e5d74793c9932c15e261e8408fc650dceee2db92e34df2176"
+  },
+  {
+    "path": "assets/geometry/glass-PjkIdL6V.bin",
+    "url": "https://santionispirits.com/assets/geometry/glass-PjkIdL6V.bin",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/geometry/glass-PjkIdL6V.json",
+    "url": "https://santionispirits.com/assets/geometry/glass-PjkIdL6V.json",
+    "status": "downloaded",
+    "bytes": 1327233,
+    "sha256": "e06c89bdd2c1c4ef8378bb930fd20f2d19d1b2cc64d8d6a307f8e366e2227bfc"
+  },
+  {
+    "path": "assets/geometry/indulgenowatonelater-2BYplWLB.bin",
+    "url": "https://santionispirits.com/assets/geometry/indulgenowatonelater-2BYplWLB.bin",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/geometry/indulgenowatonelater-2BYplWLB.json",
+    "url": "https://santionispirits.com/assets/geometry/indulgenowatonelater-2BYplWLB.json",
+    "status": "downloaded",
+    "bytes": 46265,
+    "sha256": "ca7149623c13876d8274b6dc52945b8d137a97cf266d29cefc183af6c259f3cd"
+  },
+  {
+    "path": "assets/geometry/liquid-32Difjrb.bin",
+    "url": "https://santionispirits.com/assets/geometry/liquid-32Difjrb.bin",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/geometry/liquid-32Difjrb.json",
+    "url": "https://santionispirits.com/assets/geometry/liquid-32Difjrb.json",
+    "status": "downloaded",
+    "bytes": 307633,
+    "sha256": "33c46115ef2331ed69b612df4706ebc81eb09c1e2cc7be80580104d22d39972e"
+  },
+  {
+    "path": "assets/geometry/saint-idle-3-sPqtI0bz.bin",
+    "url": "https://santionispirits.com/assets/geometry/saint-idle-3-sPqtI0bz.bin",
+    "status": "downloaded",
+    "bytes": 71314,
+    "sha256": "454a7f0727895ce6f9533739427d08f00b23cb16ff4678b30756bfd833df7de6"
+  },
+  {
+    "path": "assets/geometry/story/antigravity/eyes-widen.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/antigravity/eyes-widen.bin",
+    "status": "downloaded",
+    "bytes": 73490,
+    "sha256": "64d7f2d20a8f6bab7dac05d21babd637d46583ec12f505af67b54bcd3af989a3"
+  },
+  {
+    "path": "assets/geometry/story/antigravity/saint-antigravity-idle.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/antigravity/saint-antigravity-idle.bin",
+    "status": "downloaded",
+    "bytes": 63215,
+    "sha256": "4b959583d58b12c2b3d586f156a155d870681afb3ce2bfe1b419b42246011937"
+  },
+  {
+    "path": "assets/geometry/story/antigravity/saint-antigravity.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/antigravity/saint-antigravity.bin",
+    "status": "downloaded",
+    "bytes": 112908,
+    "sha256": "fef14f4534ae1fafc7418f54ea0657e75855db894902ea9fd4ddeb0e6c335b26"
+  },
+  {
+    "path": "assets/geometry/story/antigravity/test2-animation.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/antigravity/test2-animation.bin",
+    "status": "downloaded",
+    "bytes": 20701,
+    "sha256": "865cda2a18d931b2d32d1de922f99794b381c3c46b987175c40c275941fd12ea"
+  },
+  {
+    "path": "assets/geometry/story/approach/floating-frame-walk.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/floating-frame-walk.bin",
+    "status": "downloaded",
+    "bytes": 30557,
+    "sha256": "d1b82f88b410debcf9f7df9d35b3a0f2b0e83ddfaca2a504b02cd5b00d4246a6"
+  },
+  {
+    "path": "assets/geometry/story/approach/landscape.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/landscape.bin",
+    "status": "downloaded",
+    "bytes": 14332,
+    "sha256": "8e8bf4b467eb89a8f5b38ba743eb8e20f904c1f326474af7bbd86316c7d735d4"
+  },
+  {
+    "path": "assets/geometry/story/approach/moon.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/moon.bin",
+    "status": "downloaded",
+    "bytes": 11931,
+    "sha256": "ce0b37d4a0bc65353e76d2753da78ca143b7e441cc9c3898897b8b45f2c5855c"
+  },
+  {
+    "path": "assets/geometry/story/approach/portal-wind-curves.json",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/portal-wind-curves.json",
+    "status": "downloaded",
+    "bytes": 190348,
+    "sha256": "9b74f6c2363366d9ec91c65297b033b6ca08f99334c9160083c2c08a68ba5720"
+  },
+  {
+    "path": "assets/geometry/story/approach/portal.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/portal.bin",
+    "status": "downloaded",
+    "bytes": 36699,
+    "sha256": "b3ab43a222c6bb47f8a9d80b79e18c3381f891fe3b7ef00196fa4b561a0877b6"
+  },
+  {
+    "path": "assets/geometry/story/approach/steps-close.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/steps-close.bin",
+    "status": "downloaded",
+    "bytes": 11610,
+    "sha256": "b0f37103c31686af62ac01be3cb0c6d14d7b331c05700fe0c3999da96e490a95"
+  },
+  {
+    "path": "assets/geometry/story/approach/steps-shadow-mesh.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/steps-shadow-mesh.bin",
+    "status": "downloaded",
+    "bytes": 2364,
+    "sha256": "6b145d6c44f7a0fba4d468e2269ae48174f6708958f38ce9c018f53949d5a89b"
+  },
+  {
+    "path": "assets/geometry/story/approach/steps.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/approach/steps.bin",
+    "status": "downloaded",
+    "bytes": 70215,
+    "sha256": "919ae21d70eb02423d1af98caf82184c5052956dc55e67a9ced03ac376fce6dd"
+  },
+  {
+    "path": "assets/geometry/story/border.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/border.bin",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/geometry/story/border.json",
+    "url": "https://santionispirits.com/assets/geometry/story/border.json",
+    "status": "downloaded",
+    "bytes": 811,
+    "sha256": "5fa75cda0a1058061dda55ec987cf8e3d2abbeb0c7abf1c13c2a44d53cae92e6"
+  },
+  {
+    "path": "assets/geometry/story/cathedral/environment-shadow.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/cathedral/environment-shadow.bin",
+    "status": "downloaded",
+    "bytes": 639,
+    "sha256": "04aa8a5473a2f9a4e419471cce7085bc72092831315262362cbc929f77a95126"
+  },
+  {
+    "path": "assets/geometry/story/cathedral/environment.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/cathedral/environment.bin",
+    "status": "downloaded",
+    "bytes": 67748,
+    "sha256": "97dc196e2ff02a32d20dcd7cf3ba316f6c40381636a819a51d81cc63ba04738d"
+  },
+  {
+    "path": "assets/geometry/story/cathedral/saint-eyes.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/cathedral/saint-eyes.bin",
+    "status": "downloaded",
+    "bytes": 18732,
+    "sha256": "af8852d274762a553d2374e3bf7b3e464069b872ceff3bf9b689f61e56397766"
+  },
+  {
+    "path": "assets/geometry/story/cathedral/saint-idle-3-clipped.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/cathedral/saint-idle-3-clipped.bin",
+    "status": "downloaded",
+    "bytes": 46240,
+    "sha256": "1e8df2cbd4ddfee2bdeabc8140acf102dc867f8450a7076838966e3dd79270d8"
+  },
+  {
+    "path": "assets/geometry/story/cathedral/table.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/cathedral/table.bin",
+    "status": "downloaded",
+    "bytes": 462,
+    "sha256": "ba2122d533ff1a8f75015993d12c2478ad32907c552d93c04932c0266e5390aa"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/floating-rock-single.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/floating-rock-single.bin",
+    "status": "downloaded",
+    "bytes": 3308,
+    "sha256": "b9c449fb744176bebecfa7168d14db4385c91d4a90c4dd31eae95aec01545de1"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/floating-rocks.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/floating-rocks.bin",
+    "status": "downloaded",
+    "bytes": 1431,
+    "sha256": "f5ac388e4ff08ea127767b7f86e7e8d55609e4423c78e65ac09adefdcfb9c40c"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/foreground-rock.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/foreground-rock.bin",
+    "status": "downloaded",
+    "bytes": 22571,
+    "sha256": "a2033a1965aeae5854158155437f10c606e9d91a53772ffb43f5db72ba459729"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/half-border-bottom.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/half-border-bottom.bin",
+    "status": "downloaded",
+    "bytes": 411,
+    "sha256": "e760cd4fecd76ef69297165ebb841900404b1bf9810e89ea66481c34acecd31d"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/half-border-bottom.json",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/half-border-bottom.json",
+    "status": "downloaded",
+    "bytes": 784,
+    "sha256": "79f22c5f5588340acc99585296280f837033c6ad189f247f5185aa97e27fb67f"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/half-border.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/half-border.bin",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/half-border.json",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/half-border.json",
+    "status": "downloaded",
+    "bytes": 784,
+    "sha256": "6b09dfbceda879807fbac6ff4f475f439a3e34e5e79ddb7e9c3ff5edfdeb25a1"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/steps.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/steps.bin",
+    "status": "downloaded",
+    "bytes": 2119,
+    "sha256": "e9608eda8a76abca13b39474aa186ed0e0e550001df38376a2cc8c044be33362"
+  },
+  {
+    "path": "assets/geometry/story/colosseum/structure.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/colosseum/structure.bin",
+    "status": "downloaded",
+    "bytes": 68299,
+    "sha256": "f9642b3b3219db5ebc7a3b4ae4e052ff2a58c3708ddc1f83a7667b1415ac3448"
+  },
+  {
+    "path": "assets/geometry/story/common/border.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/common/border.bin",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/geometry/story/common/border.json",
+    "url": "https://santionispirits.com/assets/geometry/story/common/border.json",
+    "status": "downloaded",
+    "bytes": 811,
+    "sha256": "5fa75cda0a1058061dda55ec987cf8e3d2abbeb0c7abf1c13c2a44d53cae92e6"
+  },
+  {
+    "path": "assets/geometry/story/common/circle.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/common/circle.bin",
+    "status": "downloaded",
+    "bytes": 9257,
+    "sha256": "14bd56a3fb0930a21a81e40b8e2c718d57da63d8fa04a18f29530e8dc7bc9543"
+  },
+  {
+    "path": "assets/geometry/story/common/floating-frame-walk-anim.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/common/floating-frame-walk-anim.bin",
+    "status": "downloaded",
+    "bytes": 26546,
+    "sha256": "e566441ec34670d0930ed0bce38c91491b66d37387ff73821065ba5c1237501e"
+  },
+  {
+    "path": "assets/geometry/story/common/saint-pose-2.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/common/saint-pose-2.bin",
+    "status": "downloaded",
+    "bytes": 64023,
+    "sha256": "1167ed3b45a7bf4bc4aa2514f233a3cfb6cdbb704c7119110fc8fe41e1865325"
+  },
+  {
+    "path": "assets/geometry/story/common/saint-pose-4.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/common/saint-pose-4.bin",
+    "status": "downloaded",
+    "bytes": 50484,
+    "sha256": "15125e6670ddd920a91bf39b348456afdea776f65e9cfd18ea0c546317298b6c"
+  },
+  {
+    "path": "assets/geometry/story/common/wind-curves-3.json",
+    "url": "https://santionispirits.com/assets/geometry/story/common/wind-curves-3.json",
+    "status": "downloaded",
+    "bytes": 57795,
+    "sha256": "f50dd3aa539b5f2b658f359caa796327be23a9f0e1a54fb3d97b548459472ecb"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/background_plinth.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/background_plinth.bin",
+    "status": "downloaded",
+    "bytes": 4205,
+    "sha256": "a312304ceeb3e386656d8da82f8a3104eeb0842e424c536cd19c73a1d84d239f"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/floating-frame-drink.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/floating-frame-drink.bin",
+    "status": "downloaded",
+    "bytes": 75285,
+    "sha256": "38762d30845036a544cb8d2257497d4103a8d98795593e0c35ce331a46cc45ef"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/glass.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/glass.bin",
+    "status": "downloaded",
+    "bytes": 3207,
+    "sha256": "060092de6958063ae618364f8c3b1200cae63feea1cab34417e671e9fd25671e"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/saint-drink-animation.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/saint-drink-animation.bin",
+    "status": "downloaded",
+    "bytes": 143137,
+    "sha256": "2ff7370ba0bf341932db097e592b906176d09cdbfba4325eb66dc61502c222fe"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/saint-drink.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/saint-drink.bin",
+    "status": "downloaded",
+    "bytes": 103882,
+    "sha256": "4f69ceb34a5df33f9e15080bc38abf58d50516987099c63b0bcead34fb2d04f5"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/saint-pour-arm-animation.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/saint-pour-arm-animation.bin",
+    "status": "downloaded",
+    "bytes": 41759,
+    "sha256": "f13a5965183719109ee32f0dc2e523d1addfb4ee07ddabd8c266317e18bd0165"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/saint-pour-arm.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/saint-pour-arm.bin",
+    "status": "downloaded",
+    "bytes": 41754,
+    "sha256": "b4909c4d168742e9d9f8ecc1755284ee72d64ac88db9871925e36733059a59bd"
+  },
+  {
+    "path": "assets/geometry/story/drinkpour/saint-pour-bottle2.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkpour/saint-pour-bottle2.bin",
+    "status": "downloaded",
+    "bytes": 29386,
+    "sha256": "fd94d93482ba8b9bc55c68905123b29aedbfc11ac6c86abd84a2b648aa3da382"
+  },
+  {
+    "path": "assets/geometry/story/drinkselection/background_plinth.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkselection/background_plinth.bin",
+    "status": "downloaded",
+    "bytes": 1611,
+    "sha256": "2819d4770b952a17e9105b1ec3efdc0d77ed4c2dcecb4c6290051ecb56dbf057"
+  },
+  {
+    "path": "assets/geometry/story/drinkselection/bottle_low.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkselection/bottle_low.bin",
+    "status": "downloaded",
+    "bytes": 6693,
+    "sha256": "d5131c176956d3621246161b7dc5b5300e6b0a37a83030235332540bcf5883b6"
+  },
+  {
+    "path": "assets/geometry/story/drinkselection/foreground_plinth.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkselection/foreground_plinth.bin",
+    "status": "downloaded",
+    "bytes": 2181,
+    "sha256": "e12d792c0cdb2d6213b379b64e5bd73a773337ebdd29f11662adc37b52636a83"
+  },
+  {
+    "path": "assets/geometry/story/drinkselection/landscape.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkselection/landscape.bin",
+    "status": "downloaded",
+    "bytes": 22974,
+    "sha256": "effca044c8f0843e7798342cd03c0ac722fc9dc8a06eddb308baeb1d33c17797"
+  },
+  {
+    "path": "assets/geometry/story/drinkselection/saint-idle-selection.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkselection/saint-idle-selection.bin",
+    "status": "downloaded",
+    "bytes": 72282,
+    "sha256": "74714d28fcc145158a1b9cd7246fcbb2576857d203fcb5a3ccab9ec3fc39fe1c"
+  },
+  {
+    "path": "assets/geometry/story/drinkselection/structure.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/drinkselection/structure.bin",
+    "status": "downloaded",
+    "bytes": 581,
+    "sha256": "d28ed00d38ee56e68a2ff6c7c0be9e3c0d7a9aafe68f6782b430e35720aae387"
+  },
+  {
+    "path": "assets/geometry/story/hand/arm-skin.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/hand/arm-skin.bin",
+    "status": "downloaded",
+    "bytes": 43545,
+    "sha256": "a80153bdb392bf8847cc3e39004a2cdc775d0180cfe9a9d4e2e155fb3bbdefc0"
+  },
+  {
+    "path": "assets/geometry/story/hand/arm.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/hand/arm.bin",
+    "status": "downloaded",
+    "bytes": 121927,
+    "sha256": "f2c4eddcab092ab1ff1bda901c890db935eb79762b85f6f0f7ba613d527d6616"
+  },
+  {
+    "path": "assets/geometry/story/intro/intro-border.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/intro/intro-border.bin",
+    "status": "downloaded",
+    "bytes": 1958,
+    "sha256": "f11407a7af3c98b15fdffc05d2aab20448b407804881e14635af353d4254a826"
+  },
+  {
+    "path": "assets/geometry/story/intro/intro-border.json",
+    "url": "https://santionispirits.com/assets/geometry/story/intro/intro-border.json",
+    "status": "downloaded",
+    "bytes": 47055,
+    "sha256": "f6a477fd0766b4ad2e183c1579c1a992568b88ad38350d5fe02c13b759a380bd"
+  },
+  {
+    "path": "assets/geometry/story/intro/title.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/intro/title.bin",
+    "status": "downloaded",
+    "bytes": 1475,
+    "sha256": "4004d466e6f51abf0a42362c412197cbec107f1ed16f5ce845b79d031705377a"
+  },
+  {
+    "path": "assets/geometry/story/intro/title.json",
+    "url": "https://santionispirits.com/assets/geometry/story/intro/title.json",
+    "status": "downloaded",
+    "bytes": 12358,
+    "sha256": "22185540afb6a30da3cafe727755897385205c354008cdc4addf2faf3e14039c"
+  },
+  {
+    "path": "assets/geometry/story/pillarcrumble/floating-frame-profile.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/pillarcrumble/floating-frame-profile.bin",
+    "status": "downloaded",
+    "bytes": 58908,
+    "sha256": "86823a570811d114430906c3e720a0cef69d994c8a955d80e486197f1942c835"
+  },
+  {
+    "path": "assets/geometry/story/pillarcrumble/pillar_fracture.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/pillarcrumble/pillar_fracture.bin",
+    "status": "downloaded",
+    "bytes": 51391,
+    "sha256": "7d1555ddb1c1adb2447ac35ee1a3bcac37cce7a87969dbf9f7e66522012caaa7"
+  },
+  {
+    "path": "assets/geometry/story/pillarcrumble/wind-curves.json",
+    "url": "https://santionispirits.com/assets/geometry/story/pillarcrumble/wind-curves.json",
+    "status": "downloaded",
+    "bytes": 17793,
+    "sha256": "c2849105321f28d6a323a05d7ffee45b4f4896ddcd73460796b152b4b5cdd57b"
+  },
+  {
+    "path": "assets/geometry/story/profile/outward-curves.json",
+    "url": "https://santionispirits.com/assets/geometry/story/profile/outward-curves.json",
+    "status": "downloaded",
+    "bytes": 1148,
+    "sha256": "23cdd533d377709e070980b61ce53a03f4787238ccaf1310d04cc5bb1bb17bc7"
+  },
+  {
+    "path": "assets/geometry/story/target/environment.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/target/environment.bin",
+    "status": "downloaded",
+    "bytes": 33214,
+    "sha256": "12e4240ffdaacb4ea802d62c76a3a9867ce5fc5bf127978e280323db2b0e0fa5"
+  },
+  {
+    "path": "assets/geometry/story/target/target-border.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/target/target-border.bin",
+    "status": "downloaded",
+    "bytes": 4398,
+    "sha256": "e96f91ae0e477fc9399feb49d6bab89208e0b9d8f227003116936d99f0c837d8"
+  },
+  {
+    "path": "assets/geometry/story/wander/ground-curves-vertical.json",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/ground-curves-vertical.json",
+    "status": "downloaded",
+    "bytes": 34708,
+    "sha256": "9320b2171b062ab0cc65457b87a769e45836a5b6ffdc88be593aff1384f9e42d"
+  },
+  {
+    "path": "assets/geometry/story/wander/ground-curves.json",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/ground-curves.json",
+    "status": "downloaded",
+    "bytes": 30046,
+    "sha256": "20bede391b7f997d26e3a77ed4e5928be4451070998551db4af11e9e166ca5f0"
+  },
+  {
+    "path": "assets/geometry/story/wander/saint-hood-2.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/saint-hood-2.bin",
+    "status": "downloaded",
+    "bytes": 50484,
+    "sha256": "f04a22cdbe236dafe9b0adf1e2ec4776d21245e3e9f1f67ad5c0e12f041d023e"
+  },
+  {
+    "path": "assets/geometry/story/wander/saint-hood.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/saint-hood.bin",
+    "status": "downloaded",
+    "bytes": 31396,
+    "sha256": "defb08aaf3831510182d9304f67793db8166920aea74003eca77cf2808a60920"
+  },
+  {
+    "path": "assets/geometry/story/wander/saint-pose-3-hair.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/saint-pose-3-hair.bin",
+    "status": "downloaded",
+    "bytes": 31814,
+    "sha256": "c35645db63e28a0ea609cf95717ef39c18d6aa23e5768e6001c8cb1a5145464f"
+  },
+  {
+    "path": "assets/geometry/story/wander/saint-pose-3.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/saint-pose-3.bin",
+    "status": "downloaded",
+    "bytes": 39216,
+    "sha256": "d16f2977ca9d48b627ff0c2786810705ca10057ae5601c5a81107c96d53c9bca"
+  },
+  {
+    "path": "assets/geometry/story/wander/saint-walk-2-anim.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/saint-walk-2-anim.bin",
+    "status": "downloaded",
+    "bytes": 29650,
+    "sha256": "9663d5693b8ca9ac985fbebfe3cae2d489b78e34ba9cab035705cf725643a2aa"
+  },
+  {
+    "path": "assets/geometry/story/wander/saint-walk-2.bin",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/saint-walk-2.bin",
+    "status": "downloaded",
+    "bytes": 124323,
+    "sha256": "0ebdc74fee749b5b962f773bc7a75205a19ee69c58bbc42fcb8178ca611bcf9b"
+  },
+  {
+    "path": "assets/geometry/story/wander/wind-curves.json",
+    "url": "https://santionispirits.com/assets/geometry/story/wander/wind-curves.json",
+    "status": "downloaded",
+    "bytes": 25524,
+    "sha256": "b540c63d0510eacca07e855f9343242052f28f6084e2ce367d2024a7005734af"
+  },
+  {
+    "path": "assets/images/LABEL_color-843I_GwQ.png",
+    "url": "https://santionispirits.com/assets/images/LABEL_color-843I_GwQ.png",
+    "status": "downloaded",
+    "bytes": 47587,
+    "sha256": "7c4faed2a36ca2b7e90b6ab369096f24482c873b37562fe51b98ff6226bf726c"
+  },
+  {
+    "path": "assets/images/LABEL_mro-jiLMzwfd.png",
+    "url": "https://santionispirits.com/assets/images/LABEL_mro-jiLMzwfd.png",
+    "status": "downloaded",
+    "bytes": 27621,
+    "sha256": "cab6eb43ab180b89195e8174180da9abe7ad93cf9700577fe7c60e5d069fb064"
+  },
+  {
+    "path": "assets/images/LABEL_nrm-EjgTZ6RQ.png",
+    "url": "https://santionispirits.com/assets/images/LABEL_nrm-EjgTZ6RQ.png",
+    "status": "downloaded",
+    "bytes": 70695,
+    "sha256": "899cd7634925289c4d5fe2a8f9edc69a9e6b64c8d7497fc839e111dc19ff6fa7"
+  },
+  {
+    "path": "assets/images/_scenelayout/mask.jpg",
+    "url": "https://santionispirits.com/assets/images/_scenelayout/mask.jpg",
+    "status": "downloaded",
+    "bytes": 1129,
+    "sha256": "d2ed0871140e1cbd74cb9bc420d6fbe2bdeb67e5882d70330ca8ee41f4bf2579"
+  },
+  {
+    "path": "assets/images/_scenelayout/uv.jpg",
+    "url": "https://santionispirits.com/assets/images/_scenelayout/uv.jpg",
+    "status": "downloaded",
+    "bytes": 3206,
+    "sha256": "60aa417cbedd4840c8918ec918f074d334f63111da34d1f6f5f668138ff07f93"
+  },
+  {
+    "path": "assets/images/arrow-C23GEuxK.png",
+    "url": "https://santionispirits.com/assets/images/arrow-C23GEuxK.png",
+    "status": "downloaded",
+    "bytes": 1068,
+    "sha256": "b90303217e546c837e0ffe3d9e31f02ef142025e5a0138ba9b02cd002d898230"
+  },
+  {
+    "path": "assets/images/bluenoise-jmk8NIaI.jpg",
+    "url": "https://santionispirits.com/assets/images/bluenoise-jmk8NIaI.jpg",
+    "status": "downloaded",
+    "bytes": 179816,
+    "sha256": "1f92b5e64d76b5b3260bf2a97fa51807016619d3d87e6070dfadca20fee1361c"
+  },
+  {
+    "path": "assets/images/bluenoise/bluenoise0.png",
+    "url": "https://santionispirits.com/assets/images/bluenoise/bluenoise0.png",
+    "status": "downloaded",
+    "bytes": 262548,
+    "sha256": "953c204ff541801e1fc3f09a2d13a079219c58bfae3d7f56198d2df4be847277"
+  },
+  {
+    "path": "assets/images/carousel1-jNRhqXcM.png",
+    "url": "https://santionispirits.com/assets/images/carousel1-jNRhqXcM.png",
+    "status": "downloaded",
+    "bytes": 35724,
+    "sha256": "847fa804e794d3159e5644f225f90046940cad6a40a5706f138a1191ca4ca3c8"
+  },
+  {
+    "path": "assets/images/carousel1-sdf-SMGNch8S.png",
+    "url": "https://santionispirits.com/assets/images/carousel1-sdf-SMGNch8S.png",
+    "status": "downloaded",
+    "bytes": 163254,
+    "sha256": "98eb1324a9265a138236597b7f29621d268937e60c68b678da877fa105005c78"
+  },
+  {
+    "path": "assets/images/chill-your-spirit-miy68ZWn.png",
+    "url": "https://santionispirits.com/assets/images/chill-your-spirit-miy68ZWn.png",
+    "status": "downloaded",
+    "bytes": 195316,
+    "sha256": "d07584cad7206c2f515e0826dbef30db1dc556ff3290a535f6241605854992b6"
+  },
+  {
+    "path": "assets/images/chillYourSpirit-8vxI0jU-.png",
+    "url": "https://santionispirits.com/assets/images/chillYourSpirit-8vxI0jU-.png",
+    "status": "downloaded",
+    "bytes": 220500,
+    "sha256": "303d8dbfb5d32393f4f81b39d3c63727deb9711218b35bfa3bcbbdcc9eaf5f9d"
+  },
+  {
+    "path": "assets/images/chillYourSpirit-sdf-dbIZjxxR.jpg",
+    "url": "https://santionispirits.com/assets/images/chillYourSpirit-sdf-dbIZjxxR.jpg",
+    "status": "downloaded",
+    "bytes": 286598,
+    "sha256": "7206171e98ab8327d79bd27aa25ce013bfb11f09361539d7b03b4132bf2afeb1"
+  },
+  {
+    "path": "assets/images/empty_mro-7UPNyD6z.jpg",
+    "url": "https://santionispirits.com/assets/images/empty_mro-7UPNyD6z.jpg",
+    "status": "downloaded",
+    "bytes": 1110,
+    "sha256": "3eb5373cc8905f54f6221dd1839ffb3a6d0a8358d04572417ca4e7f301622492"
+  },
+  {
+    "path": "assets/images/empty_normal-1Qg4XGDW.png",
+    "url": "https://santionispirits.com/assets/images/empty_normal-1Qg4XGDW.png",
+    "status": "downloaded",
+    "bytes": 95,
+    "sha256": "15e1dba26aa192fd875d393c25f2d56f030110fe71351092845764d05b74c0c7"
+  },
+  {
+    "path": "assets/images/footer_logo.svg",
+    "url": "https://santionispirits.com/assets/images/footer_logo.svg",
+    "status": "downloaded",
+    "bytes": 49998,
+    "sha256": "ee1321bf98cd24c9862597090c4338c90244d97402ef9b613432354b6a71058a"
+  },
+  {
+    "path": "assets/images/fpo/LABEL_MARSHMALLOW_COFFEE_CREAM.png",
+    "url": "https://santionispirits.com/assets/images/fpo/LABEL_MARSHMALLOW_COFFEE_CREAM.png",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/images/fpo/LABEL_ORANGE_CHOCOLATE_CREAM.png",
+    "url": "https://santionispirits.com/assets/images/fpo/LABEL_ORANGE_CHOCOLATE_CREAM.png",
+    "status": "html-fallback"
+  },
+  {
+    "path": "assets/images/fpo/cap_basecolor.jpg",
+    "url": "https://santionispirits.com/assets/images/fpo/cap_basecolor.jpg",
+    "status": "downloaded",
+    "bytes": 111609,
+    "sha256": "26fcdf144353e98a002c7da3526f698ad441ac31eb62dedbee1e2861165389cf"
+  },
+  {
+    "path": "assets/images/fpo/diffuse-RGBM.png",
+    "url": "https://santionispirits.com/assets/images/fpo/diffuse-RGBM.png",
+    "status": "downloaded",
+    "bytes": 3613,
+    "sha256": "77d5efb5006478c2be7b537a7039724308d4c7a9f0d769042bd0d171be362087"
+  },
+  {
+    "path": "assets/images/fpo/specular-RGBM.png",
+    "url": "https://santionispirits.com/assets/images/fpo/specular-RGBM.png",
+    "status": "downloaded",
+    "bytes": 93991,
+    "sha256": "1a45a5f1b953838e0361abcb2bd973a880d01dc08c04ea5a973ce46ab58e9222"
+  },
+  {
+    "path": "assets/images/fpo/text.png",
+    "url": "https://santionispirits.com/assets/images/fpo/text.png",
+    "status": "downloaded",
+    "bytes": 71876,
+    "sha256": "c19de1cc85df1584d34a8345459d9a8ba4427ff0b5463d6a1cfd7d3f91345610"
+  },
+  {
+    "path": "assets/images/glass-diffuse-4aRQD46t.png",
+    "url": "https://santionispirits.com/assets/images/glass-diffuse-4aRQD46t.png",
+    "status": "downloaded",
+    "bytes": 8292,
+    "sha256": "7d485c8ff51f8482224bd756a01749d41872179b5dfc773bb8a548957b0b7357"
+  },
+  {
+    "path": "assets/images/glass-shadow-rArconJQ.png",
+    "url": "https://santionispirits.com/assets/images/glass-shadow-rArconJQ.png",
+    "status": "downloaded",
+    "bytes": 2918,
+    "sha256": "8c57637df2af244524352c39c760d72a21ce4815b85d5227bdd44d1e143d89d0"
+  },
+  {
+    "path": "assets/images/glass-specular-vm03TBna.png",
+    "url": "https://santionispirits.com/assets/images/glass-specular-vm03TBna.png",
+    "status": "downloaded",
+    "bytes": 1049236,
+    "sha256": "d94b6446b557d639d5908df786205d9c256ee7227bbb6705170fdc6cd7c59a7d"
+  },
+  {
+    "path": "assets/images/glyph-BCWGDxsx.png",
+    "url": "https://santionispirits.com/assets/images/glyph-BCWGDxsx.png",
+    "status": "downloaded",
+    "bytes": 6094,
+    "sha256": "b2c76dcc1e0d52f883cb6e79c5dfe5dd27b434e9491124e4495e24bbc8e1931e"
+  },
+  {
+    "path": "assets/images/glyph-b5G0odvF.png",
+    "url": "https://santionispirits.com/assets/images/glyph-b5G0odvF.png",
+    "status": "downloaded",
+    "bytes": 1832,
+    "sha256": "46e9fe460d096be39a2e41b8b0f41b6bd8b065744c4c7cb3ab711d65596b9a7b"
+  },
+  {
+    "path": "assets/images/ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+    "url": "https://santionispirits.com/assets/images/ibl_generator_Element_1_GlassPlayground_diffuse-srgb-4aRQD46t.png",
+    "status": "downloaded",
+    "bytes": 8292,
+    "sha256": "7d485c8ff51f8482224bd756a01749d41872179b5dfc773bb8a548957b0b7357"
+  },
+  {
+    "path": "assets/images/ibl_generator_Element_1_GlassPlayground_specular-srgb-vm03TBna.png",
+    "url": "https://santionispirits.com/assets/images/ibl_generator_Element_1_GlassPlayground_specular-srgb-vm03TBna.png",
+    "status": "downloaded",
+    "bytes": 1049236,
+    "sha256": "d94b6446b557d639d5908df786205d9c256ee7227bbb6705170fdc6cd7c59a7d"
+  },
+  {
+    "path": "assets/images/idle-shadow-87UL4fdH.png",
+    "url": "https://santionispirits.com/assets/images/idle-shadow-87UL4fdH.png",
+    "status": "downloaded",
+    "bytes": 35619,
+    "sha256": "607e5f12c6b6847487efc694391e4fef13297b250dcf5bb35f6689725e5290bd"
+  },
+  {
+    "path": "assets/images/indulge-now-atone-later-2w3QN_Ic.png",
+    "url": "https://santionispirits.com/assets/images/indulge-now-atone-later-2w3QN_Ic.png",
+    "status": "downloaded",
+    "bytes": 120508,
+    "sha256": "f3de43abd161c82ab5d9a68535830898c054980006b37f894dd55be0f97312b9"
+  },
+  {
+    "path": "assets/images/indulge-now-atone-later-sdf-mhn3XOfP.png",
+    "url": "https://santionispirits.com/assets/images/indulge-now-atone-later-sdf-mhn3XOfP.png",
+    "status": "downloaded",
+    "bytes": 1142502,
+    "sha256": "c1626301ac4fd6fbf0708074e33950a76dcc57263594543746a1d5589a4698f8"
+  },
+  {
+    "path": "assets/images/line-end-OGKMOvXx.png",
+    "url": "https://santionispirits.com/assets/images/line-end-OGKMOvXx.png",
+    "status": "downloaded",
+    "bytes": 934,
+    "sha256": "2812bb31a96325ef98c59be6273c975071a276c4de7fbdd2b6fe8c3dd3148f9a"
+  },
+  {
+    "path": "assets/images/line-end-SlemWpZj.png",
+    "url": "https://santionispirits.com/assets/images/line-end-SlemWpZj.png",
+    "status": "downloaded",
+    "bytes": 479,
+    "sha256": "fd340d386619a3517ade8b3ac83ad90e2ed2572ca4e5c51728007012907d074e"
+  },
+  {
+    "path": "assets/images/logo.png",
+    "url": "https://santionispirits.com/assets/images/logo.png",
+    "status": "downloaded",
+    "bytes": 12022,
+    "sha256": "953043f8d70f87cdedc345cc2d9c7d463264f506dc7736728f778683ffde0ebb"
+  },
+  {
+    "path": "assets/images/logo_mobile.png",
+    "url": "https://santionispirits.com/assets/images/logo_mobile.png",
+    "status": "downloaded",
+    "bytes": 4175,
+    "sha256": "50bd995880d5081930167d13afc98fdcf582f5d2d0374afa83d1653c6ca29522"
+  },
+  {
+    "path": "assets/images/lut-39N1lGS2.png",
+    "url": "https://santionispirits.com/assets/images/lut-39N1lGS2.png",
+    "status": "downloaded",
+    "bytes": 16623,
+    "sha256": "0e34e9d9b573ac90bc40ac0492d76b97eed0c5c591923c4fd75fc92a2628c5ac"
+  },
+  {
+    "path": "assets/images/marshmellow-coffee-and-cream-UR_MhHB7.png",
+    "url": "https://santionispirits.com/assets/images/marshmellow-coffee-and-cream-UR_MhHB7.png",
+    "status": "downloaded",
+    "bytes": 168555,
+    "sha256": "48e8d6bdd8de4396d34e1fa0c6632753b9ac78d4f2b34012c1e8d9a5f73928f0"
+  },
+  {
+    "path": "assets/images/marshmellow-coffee-and-cream-sdf-wL4QBllP.png",
+    "url": "https://santionispirits.com/assets/images/marshmellow-coffee-and-cream-sdf-wL4QBllP.png",
+    "status": "downloaded",
+    "bytes": 1544940,
+    "sha256": "56bfed5a6e9d40372be72cf37311bba6dc78594dd83fc02a25473b30b5ce6420"
+  },
+  {
+    "path": "assets/images/mask-7AetCBPc.jpg",
+    "url": "https://santionispirits.com/assets/images/mask-7AetCBPc.jpg",
+    "status": "downloaded",
+    "bytes": 1129,
+    "sha256": "d2ed0871140e1cbd74cb9bc420d6fbe2bdeb67e5882d70330ca8ee41f4bf2579"
+  },
+  {
+    "path": "assets/images/mint-chocolate-and-cream-pOH5RCTG.png",
+    "url": "https://santionispirits.com/assets/images/mint-chocolate-and-cream-pOH5RCTG.png",
+    "status": "downloaded",
+    "bytes": 127631,
+    "sha256": "9396f1426b92a933f277d8d85bf8ca49b0ba87c828248afb21c5244b60202da8"
+  },
+  {
+    "path": "assets/images/mint-chocolate-and-cream-sdf-Uset9WAj.png",
+    "url": "https://santionispirits.com/assets/images/mint-chocolate-and-cream-sdf-Uset9WAj.png",
+    "status": "downloaded",
+    "bytes": 1262202,
+    "sha256": "25729abbf35f7caecee6977f2b9d957354cb43206b795cf3dcda88e262b294c0"
+  },
+  {
+    "path": "assets/images/msdf/chill-your-spirit.png",
+    "url": "https://santionispirits.com/assets/images/msdf/chill-your-spirit.png",
+    "status": "downloaded",
+    "bytes": 195316,
+    "sha256": "d07584cad7206c2f515e0826dbef30db1dc556ff3290a535f6241605854992b6"
+  },
+  {
+    "path": "assets/images/msdf/indulge-now-atone-later.png",
+    "url": "https://santionispirits.com/assets/images/msdf/indulge-now-atone-later.png",
+    "status": "downloaded",
+    "bytes": 52846,
+    "sha256": "63f88aa5f878f70a3d1996a5a0f98dac20990e4bbc101bce4fcd80d9b3959c9b"
+  },
+  {
+    "path": "assets/images/msdf/marshmellow-coffee-and-cream.png",
+    "url": "https://santionispirits.com/assets/images/msdf/marshmellow-coffee-and-cream.png",
+    "status": "downloaded",
+    "bytes": 81442,
+    "sha256": "87ab7b4d520f8a549f7819bb576babbcdcb86ac2b3c9d4cf57c600ed186ae044"
+  },
+  {
+    "path": "assets/images/msdf/mint-chocolate-and-cream.png",
+    "url": "https://santionispirits.com/assets/images/msdf/mint-chocolate-and-cream.png",
+    "status": "downloaded",
+    "bytes": 68752,
+    "sha256": "842535a94112a14f3bd38dae624da8cddc9c1856c2d16f5d6850e751c52af665"
+  },
+  {
+    "path": "assets/images/msdf/orange-chocolate-and-cream-msdf.png",
+    "url": "https://santionispirits.com/assets/images/msdf/orange-chocolate-and-cream-msdf.png",
+    "status": "downloaded",
+    "bytes": 81386,
+    "sha256": "2c7a6ee27ca36cf3fcb5a53ad6a41d7f263c6ca5a721437350e1789bc2b7c7ca"
+  },
+  {
+    "path": "assets/images/notturno_n1-IySVgyQi.png",
+    "url": "https://santionispirits.com/assets/images/notturno_n1-IySVgyQi.png",
+    "status": "downloaded",
+    "bytes": 8702,
+    "sha256": "92aec17fb7b85f95ad66c87595e9c2f9d47ccce321d988a1a878ebc9a3adaa81"
+  },
+  {
+    "path": "assets/images/notturno_n2-eKwEsiGo.png",
+    "url": "https://santionispirits.com/assets/images/notturno_n2-eKwEsiGo.png",
+    "status": "downloaded",
+    "bytes": 8878,
+    "sha256": "126995ba43a3424674ae221464ab3deab464f864a993819ad6b4ad0120af6c1d"
+  },
+  {
+    "path": "assets/images/notturno_n3-CNikATeO.png",
+    "url": "https://santionispirits.com/assets/images/notturno_n3-CNikATeO.png",
+    "status": "downloaded",
+    "bytes": 8812,
+    "sha256": "8e139f5cb34550da6cb9c98307326c6202b3018669c9e53cbecc75d44f454af7"
+  },
+  {
+    "path": "assets/images/orange-chocolate-and-cream-sdf-_jB5_P3k.png",
+    "url": "https://santionispirits.com/assets/images/orange-chocolate-and-cream-sdf-_jB5_P3k.png",
+    "status": "downloaded",
+    "bytes": 1529155,
+    "sha256": "3cc7c25ef8316724df632c78b7c4db172701d6e8a30f32aa9f622b2fa620f221"
+  },
+  {
+    "path": "assets/images/orange-chocolate-and-cream-ygkMV-R5.png",
+    "url": "https://santionispirits.com/assets/images/orange-chocolate-and-cream-ygkMV-R5.png",
+    "status": "downloaded",
+    "bytes": 141829,
+    "sha256": "5a60552efd51903b3c3696b50040f9df0d15150a38b2bc0fa3242a749438b32c"
+  },
+  {
+    "path": "assets/images/pbr/lut.png",
+    "url": "https://santionispirits.com/assets/images/pbr/lut.png",
+    "status": "downloaded",
+    "bytes": 16623,
+    "sha256": "0e34e9d9b573ac90bc40ac0492d76b97eed0c5c591923c4fd75fc92a2628c5ac"
+  },
+  {
+    "path": "assets/images/product_copy--w5MQW8z.png",
+    "url": "https://santionispirits.com/assets/images/product_copy--w5MQW8z.png",
+    "status": "downloaded",
+    "bytes": 3831,
+    "sha256": "a26cdc69cba747262acf934576bef2e6cbb59cd5b3ed1af8d3f4d22cd943ddba"
+  },
+  {
+    "path": "assets/images/product_copy-KBzueo87.png",
+    "url": "https://santionispirits.com/assets/images/product_copy-KBzueo87.png",
+    "status": "downloaded",
+    "bytes": 11348,
+    "sha256": "6a4426a0381c2389c1b8891aacb8a99452d076f3e57dbebac42d735ec4f69290"
+  },
+  {
+    "path": "assets/images/r-U3e-tg23.jpg",
+    "url": "https://santionispirits.com/assets/images/r-U3e-tg23.jpg",
+    "status": "downloaded",
+    "bytes": 634,
+    "sha256": "3055eee966497fcf3488cc684b17324832ec8a2af240fadb6d54beae86a638cf"
+  },
+  {
+    "path": "assets/images/story/antigrav/leaf-outline.png",
+    "url": "https://santionispirits.com/assets/images/story/antigrav/leaf-outline.png",
+    "status": "downloaded",
+    "bytes": 21781,
+    "sha256": "ceb5c99c02291d663d76c9f44ff59b04a006742e162d8a8f7583ec7b7b267581"
+  },
+  {
+    "path": "assets/images/story/antigrav/leaf.png",
+    "url": "https://santionispirits.com/assets/images/story/antigrav/leaf.png",
+    "status": "downloaded",
+    "bytes": 2249,
+    "sha256": "8bb994029b9b6253719f43abf119f097648014ea512513c332f5256e3a1578a3"
+  },
+  {
+    "path": "assets/images/story/bottle-arm-shadow.png",
+    "url": "https://santionispirits.com/assets/images/story/bottle-arm-shadow.png",
+    "status": "downloaded",
+    "bytes": 3011,
+    "sha256": "a00a601e3536f0dea1a3fb0138524dc968a8eb462db4662b24bbccd7829fb457"
+  },
+  {
+    "path": "assets/images/story/cell_noise.png",
+    "url": "https://santionispirits.com/assets/images/story/cell_noise.png",
+    "status": "downloaded",
+    "bytes": 82236,
+    "sha256": "36880393b4929b18c86135d90386e62773be66ed6d5761f994067ed130793043"
+  },
+  {
+    "path": "assets/images/story/clouds_noise.png",
+    "url": "https://santionispirits.com/assets/images/story/clouds_noise.png",
+    "status": "downloaded",
+    "bytes": 115682,
+    "sha256": "967d4f9c6b62bff91ad3f87506fac370bc6a8e3f08fc1cc1e7587c3a9b815450"
+  },
+  {
+    "path": "assets/images/story/drinkpour/T_Noise15.png",
+    "url": "https://santionispirits.com/assets/images/story/drinkpour/T_Noise15.png",
+    "status": "downloaded",
+    "bytes": 55712,
+    "sha256": "c76025df4344f3d83171de680e584608b80d653bf5246f05debc6d4973a2f60a"
+  },
+  {
+    "path": "assets/images/story/drinkselection/merged_bottle.png",
+    "url": "https://santionispirits.com/assets/images/story/drinkselection/merged_bottle.png",
+    "status": "downloaded",
+    "bytes": 122766,
+    "sha256": "ea16f1c29b81ebb6db9cde8aabeea5b32d7874623714825a4c11d1f375fad336"
+  },
+  {
+    "path": "assets/images/story/glass-shadow.png",
+    "url": "https://santionispirits.com/assets/images/story/glass-shadow.png",
+    "status": "downloaded",
+    "bytes": 2918,
+    "sha256": "8c57637df2af244524352c39c760d72a21ce4815b85d5227bdd44d1e143d89d0"
+  },
+  {
+    "path": "assets/images/story/glass-specular.png",
+    "url": "https://santionispirits.com/assets/images/story/glass-specular.png",
+    "status": "downloaded",
+    "bytes": 1049236,
+    "sha256": "d94b6446b557d639d5908df786205d9c256ee7227bbb6705170fdc6cd7c59a7d"
+  },
+  {
+    "path": "assets/images/story/hair_card.png",
+    "url": "https://santionispirits.com/assets/images/story/hair_card.png",
+    "status": "downloaded",
+    "bytes": 18548,
+    "sha256": "6adbc5fd34cf5a8cea14fb7a86b95127385ff41dca6987565475c82a666cee8f"
+  },
+  {
+    "path": "assets/images/story/idle-shadow.png",
+    "url": "https://santionispirits.com/assets/images/story/idle-shadow.png",
+    "status": "downloaded",
+    "bytes": 3018,
+    "sha256": "300e18dc12b5cd40e0fc3b08ea73a7830594c8089665230f6b2448f2eb4aa97a"
+  },
+  {
+    "path": "assets/images/story/intro/title_distance.png",
+    "url": "https://santionispirits.com/assets/images/story/intro/title_distance.png",
+    "status": "downloaded",
+    "bytes": 99690,
+    "sha256": "ce31c77279bba01c931a5fb85411734b8df94d728faab6dcea41b83e76683c47"
+  },
+  {
+    "path": "assets/images/story/intro/title_opacity.png",
+    "url": "https://santionispirits.com/assets/images/story/intro/title_opacity.png",
+    "status": "downloaded",
+    "bytes": 104698,
+    "sha256": "c326854b30b2cb47960cd769dcbea207b6fdc2b1dba189de077e53a0018a6575"
+  },
+  {
+    "path": "assets/images/story/lines.jpg",
+    "url": "https://santionispirits.com/assets/images/story/lines.jpg",
+    "status": "downloaded",
+    "bytes": 94451,
+    "sha256": "425e56355c347cbee2091bd709c70c5af8ec8ef6af044cacc222c09d14e9f0c1"
+  },
+  {
+    "path": "assets/images/story/lines.png",
+    "url": "https://santionispirits.com/assets/images/story/lines.png",
+    "status": "downloaded",
+    "bytes": 357998,
+    "sha256": "02c601a1e4022f41e6f8cb5fcfbeaeb3aabe8ae0775c82330e62c341f0fc2416"
+  },
+  {
+    "path": "assets/images/story/near/shadow2.png",
+    "url": "https://santionispirits.com/assets/images/story/near/shadow2.png",
+    "status": "downloaded",
+    "bytes": 33957,
+    "sha256": "9df8b201e71c58d44d168a1cbef15513bd165d13eaeb6b2e342f32146c943e50"
+  },
+  {
+    "path": "assets/images/story/nearblack.png",
+    "url": "https://santionispirits.com/assets/images/story/nearblack.png",
+    "status": "downloaded",
+    "bytes": 934,
+    "sha256": "eee3c1cce5d55e8da59aeb7a9488e7f35260ba4e431fcc1a92ba6db9cf5487e9"
+  },
+  {
+    "path": "assets/images/story/noise.png",
+    "url": "https://santionispirits.com/assets/images/story/noise.png",
+    "status": "downloaded",
+    "bytes": 26132,
+    "sha256": "895c7bff3af4d9f517256ced93e77a5fb2459d8b3b56749718eaf10f95fbf72d"
+  },
+  {
+    "path": "assets/images/story/perlin.png",
+    "url": "https://santionispirits.com/assets/images/story/perlin.png",
+    "status": "downloaded",
+    "bytes": 6917,
+    "sha256": "522150e934cce442063fa07980af10042ef536254ee1f82d95265f6c0f629dce"
+  },
+  {
+    "path": "assets/images/story/products/cap_label.png",
+    "url": "https://santionispirits.com/assets/images/story/products/cap_label.png",
+    "status": "downloaded",
+    "bytes": 210336,
+    "sha256": "ec0c335d9465a5acb572389e6433e0b62b265064aa8095091de88c872a813d97"
+  },
+  {
+    "path": "assets/images/story/skylines.png",
+    "url": "https://santionispirits.com/assets/images/story/skylines.png",
+    "status": "downloaded",
+    "bytes": 143411,
+    "sha256": "be5e77b127c512c4faa984721eadef2684af16a45f67931367eff09b4abd43e7"
+  },
+  {
+    "path": "assets/images/story/square-shadow.png",
+    "url": "https://santionispirits.com/assets/images/story/square-shadow.png",
+    "status": "downloaded",
+    "bytes": 1312,
+    "sha256": "5b391bddcb8b56cbfc65b8f7047c368d28ea8bb31314ffc72892bac5fb9cfcc8"
+  },
+  {
+    "path": "assets/images/story/tex_atlas.png",
+    "url": "https://santionispirits.com/assets/images/story/tex_atlas.png",
+    "status": "downloaded",
+    "bytes": 63342,
+    "sha256": "84a682ed0d3b02f7b7b753543a88d30f3faa1ab902930c22ad09e6a56b842a1e"
+  },
+  {
+    "path": "assets/images/story/tex_clothing_trim.png",
+    "url": "https://santionispirits.com/assets/images/story/tex_clothing_trim.png",
+    "status": "downloaded",
+    "bytes": 4130,
+    "sha256": "139800de5f2e2e5056c521c987dee65a17ddcad454fbf8c20ec6cda6bdf3e255"
+  },
+  {
+    "path": "assets/images/story/tex_trim-2.png",
+    "url": "https://santionispirits.com/assets/images/story/tex_trim-2.png",
+    "status": "downloaded",
+    "bytes": 34084,
+    "sha256": "b78fca2974d331cd7764f1a59a677af8827e11437955f09da85d2f18e7f705f2"
+  },
+  {
+    "path": "assets/images/story/wander/shadow1.png",
+    "url": "https://santionispirits.com/assets/images/story/wander/shadow1.png",
+    "status": "downloaded",
+    "bytes": 19237,
+    "sha256": "43ddf7ee65d8d645c33e4c0b758687fab7eb7ae00468ffe74af626e1a59fa8e9"
+  },
+  {
+    "path": "assets/images/story/wind_noise.png",
+    "url": "https://santionispirits.com/assets/images/story/wind_noise.png",
+    "status": "downloaded",
+    "bytes": 38832,
+    "sha256": "b65455708928cbf4d898033060f398e6120c94e2b73132d4c6ad52c5589354b4"
+  },
+  {
+    "path": "assets/images/story/windswept-shadow.png",
+    "url": "https://santionispirits.com/assets/images/story/windswept-shadow.png",
+    "status": "downloaded",
+    "bytes": 5184,
+    "sha256": "bac5a950ad4df68613ba12785725b25db902106f70d627a88c3b58a3e57de9c0"
+  },
+  {
+    "path": "assets/images/text-jJ-I51Zq.png",
+    "url": "https://santionispirits.com/assets/images/text-jJ-I51Zq.png",
+    "status": "downloaded",
+    "bytes": 71876,
+    "sha256": "c19de1cc85df1584d34a8345459d9a8ba4427ff0b5463d6a1cfd7d3f91345610"
+  },
+  {
+    "path": "assets/lottie/loader.json",
+    "url": "https://santionispirits.com/assets/lottie/loader.json",
+    "status": "downloaded",
+    "bytes": 96847,
+    "sha256": "9d6834b999880a5ae204c672b7cd619bc9598629c32b0ccb3f131198a9b69649"
+  }
+]

@@ -1,0 +1,98 @@
+{
+  "DrinkBlobParticles": {
+    "sourcePrefix": "INPUT_P_Element_0_DrinkBlobParticles",
+    "active": [
+      "code_1"
+    ],
+    "count": "200",
+    "decay": 3,
+    "decayRandom": [
+      1,
+      2
+    ],
+    "uniforms": {
+      "tCurvePos": null,
+      "tCurveTangent": null,
+      "uForceDir": [
+        0,
+        1,
+        0
+      ],
+      "uForceScale": [
+        0.1,
+        1,
+        0.1
+      ],
+      "uCurveCount": 256,
+      "uProgress": 0
+    }
+  },
+  "LeafParticles": {
+    "sourcePrefix": "INPUT_P_Element_2_LeafParticles",
+    "active": [
+      "code_3",
+      "code_7"
+    ],
+    "count": "500",
+    "decay": 0.11,
+    "decayRandom": [
+      1,
+      4
+    ],
+    "uniforms": {
+      "tCurvePos": null,
+      "tCurveTangent": null,
+      "uForceDir": [
+        0,
+        1,
+        0
+      ],
+      "uForceScale": [
+        0.1,
+        1,
+        0.1
+      ],
+      "uCurveCount": 256,
+      "uProgress": 0,
+      "uProjMatrix": null,
+      "uProjNormalMatrix": null,
+      "uModelMatrix": null,
+      "tFluidMask": null,
+      "tFluid": null,
+      "uMouseStrength": 4
+    }
+  },
+  "DrawnParticles": {
+    "sourcePrefix": "INPUT_P_Element_0_DrawnParticles",
+    "active": [
+      "code_1",
+      "code_2"
+    ],
+    "count": "200",
+    "decay": 1,
+    "decayRandom": [
+      1,
+      2
+    ],
+    "uniforms": {
+      "tCurvePos": null,
+      "tCurveTangent": null,
+      "uForceDir": [
+        0,
+        1,
+        0
+      ],
+      "uForceScale": [
+        0.1,
+        1,
+        0.1
+      ],
+      "uCurveCount": 256,
+      "uSpeedUp": 0,
+      "uPullValue": 0.005,
+      "uCurlNoiseScale": 5,
+      "uCurlTimeScale": 1,
+      "uCurlNoiseSpeed": 3
+    }
+  }
+}

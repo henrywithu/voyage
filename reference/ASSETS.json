@@ -1,0 +1,16 @@
+[
+  "assets/js/lib/automerge.js",
+  "assets/js/lib/basis_transcoder.js",
+  "assets/js/lib/basis_transcoder.wasm",
+  "assets/js/lib/cbor-x.js",
+  "assets/js/lib/firebase-app.js",
+  "assets/js/lib/firebase-auth.js",
+  "assets/js/lib/firebase-database.js",
+  "assets/js/lib/firebase-storage.js",
+  "assets/js/lib/lottie.min.js",
+  "assets/js/lib/xxhash-wasm.js",
+  "assets/data/cssError.json",
+  "assets/data/uil.1782836328290.json",
+  "assets/data/vo/all_timestamps.json",
+  "assets/shaders/compiled.vs"
+]
