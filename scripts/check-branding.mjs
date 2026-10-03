@@ -32,8 +32,8 @@ await requireText("src/components/Loader.tsx", [
   "trapnest-voyage-logo-footer.svg",
 ]);
 await requireText("src/engine/shaders.ts", [
-  "trapnest-merged-bottle-upright.png",
-  "trapnest-label-color.png",
+  "trapnest-voyage-flask.png",
+  "trapnest-voyage-label.png",
 ]);
 await requireText("src/scenes/ProductShowcase.ts", [
   "trapnest-product-n${i + 1}.svg",
@@ -63,8 +63,8 @@ if (width !== 1200 || height !== 630)
   throw new Error(`OG image: expected 1200x630, received ${width}x${height}`);
 
 for (const path of [
-  "public/assets/images/trapnest-label-color.png",
-  "public/assets/images/story/drinkselection/trapnest-merged-bottle-upright.png",
+  "public/assets/images/trapnest-voyage-label.png",
+  "public/assets/images/story/drinkselection/trapnest-voyage-flask.png",
   "public/assets/images/trapnest-voyage-logo-footer.svg",
   "public/assets/favicon/trapnest-voyage.svg",
   "public/assets/images/trapnest-product-n1.svg",
@@ -76,5 +76,5 @@ for (const path of [
 }
 
 console.log(
-  "Verified Trapnest Voyage metadata, L.A.S.T. gate, footer destination, bottle assets, Workers SPA routing and 1200x630 OG image.",
+  "Verified Trapnest Voyage metadata, L.A.S.T. gate, footer destination, flask assets, Workers SPA routing and 1200x630 OG image.",
 );

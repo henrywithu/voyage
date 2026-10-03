@@ -1,0 +1,395 @@
+{
+  "about": "Spirit source assets that Trapnest Voyage replaces or removes. scripts/check-assets.mjs verifies every other original by SHA-256, checks that replaced files still exist (decoded meshes must parse), and that removed files are gone.",
+  "replaced": [
+    {
+      "path": "assets/audio/ambient/jazz.mp3",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/ambient/jazz.ogg",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/ambient/wind.mp3",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/ambient/wind.ogg",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/1.mp3",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/1.ogg",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/2.mp3",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/2.ogg",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/3.mp3",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/3.ogg",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/4.mp3",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/4.ogg",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/5.mp3",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/drones/5.ogg",
+      "reason": "Voyage soundtrack"
+    },
+    {
+      "path": "assets/audio/vo/1.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/10.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/11.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/12.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/13.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/15.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/16.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/2.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/3.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/4.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/5.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/6.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/7.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/8.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/9.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/data/vo/all_timestamps.json",
+      "reason": "narration timings"
+    },
+    {
+      "path": "assets/decoded/story/antigravity/eyes-widen.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/antigravity/saint-antigravity.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/approach/floating-frame-walk.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/cathedral/saint-eyes.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/cathedral/saint-idle-3-clipped.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/common/saint-pose-2.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/common/saint-pose-4.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/drinkpour/floating-frame-drink.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/drinkpour/saint-drink.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/drinkpour/saint-pour-arm.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/drinkselection/saint-idle-selection.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/hand/arm-skin.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/pillarcrumble/floating-frame-profile.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/wander/saint-hood-2.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/wander/saint-hood.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/wander/saint-pose-3-hair.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/wander/saint-pose-3.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/wander/saint-walk-2.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/lottie/loader.json",
+      "reason": "yellow theme and Chaewon emblem"
+    }
+  ],
+  "removed": [
+    {
+      "path": "assets/audio/vo/14.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/marshmallow.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/audio/vo/orange.mp3",
+      "reason": "narration re-voiced for Voyage"
+    },
+    {
+      "path": "assets/decoded/fpo/bottle.bin.mesh",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/decoded/fpo/bottle_cap.bin.mesh",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/decoded/fpo/bottle_label.bin.mesh",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/decoded/fpo/bottle_liquid.bin.mesh",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/decoded/fpo/bottle_sticker.bin.mesh",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/decoded/fromuil/chillYourSpirit-i8BR1e_v.bin.mesh",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/decoded/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin.mesh",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/decoded/fromuil/mintChocolateAndCream-A6WKV2d8.bin.mesh",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/decoded/fromuil/orangeChocolateAndCream-yPhJqrfB.bin.mesh",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/decoded/story/drinkpour/saint-pour-bottle2.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/decoded/story/drinkselection/bottle_low.bin.mesh",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/geometry/fpo/bottle.bin",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/geometry/fpo/bottle_cap.bin",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/geometry/fpo/bottle_label.bin",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/geometry/fpo/bottle_liquid.bin",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/geometry/fpo/bottle_sticker.bin",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/geometry/indulgenowatonelater-2BYplWLB.json",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/geometry/story/drinkpour/saint-pour-bottle2.bin",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/geometry/story/drinkselection/bottle_low.bin",
+      "reason": "Chaewon character and flask meshes"
+    },
+    {
+      "path": "assets/images/LABEL_color-843I_GwQ.png",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/images/LABEL_mro-jiLMzwfd.png",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/images/LABEL_nrm-EjgTZ6RQ.png",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/images/chill-your-spirit-miy68ZWn.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/chillYourSpirit-8vxI0jU-.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/chillYourSpirit-sdf-dbIZjxxR.jpg",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/fpo/cap_basecolor.jpg",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/images/indulge-now-atone-later-2w3QN_Ic.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/indulge-now-atone-later-sdf-mhn3XOfP.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/marshmellow-coffee-and-cream-UR_MhHB7.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/marshmellow-coffee-and-cream-sdf-wL4QBllP.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/mint-chocolate-and-cream-pOH5RCTG.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/mint-chocolate-and-cream-sdf-Uset9WAj.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/msdf/chill-your-spirit.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/msdf/indulge-now-atone-later.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/msdf/marshmellow-coffee-and-cream.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/msdf/mint-chocolate-and-cream.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/msdf/orange-chocolate-and-cream-msdf.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/orange-chocolate-and-cream-sdf-_jB5_P3k.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/orange-chocolate-and-cream-ygkMV-R5.png",
+      "reason": "Voyage display lettering"
+    },
+    {
+      "path": "assets/images/story/drinkselection/merged_bottle.png",
+      "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/images/story/products/cap_label.png",
+      "reason": "flask replaces the bottle"
+    }
+  ]
+}

@@ -74,6 +74,20 @@ The narration is read by a warm female voice (Kokoro TTS, `af_heart`). Each text
 15. Chaewon drifts gently back to the floor, one bare foot after the other, her lace dress now dyed with the color of the elixir.
 16. A rumble of breaking stone fills the air. The columns crack and float away, opening onto an endless golden sky.
 
+## Music
+
+The soundtrack is in D major, against Spirit's E minor, and follows the same scroll crossfades. `scripts/music/compose.py` renders it.
+
+| Track | Plays during | Character |
+| --- | --- | --- |
+| Golden Shore | Wander to Approach | Warm Lydian pads, slow strings and a celesta that glints over the sea haze |
+| The Gate | Approach to the hall | A deep D pedal, low strings and horns swelling toward the gate |
+| Golden Hall | The hall to Antigravity | Choir and strings swelling chord by chord, harp rolls, no low end |
+| Lift | Antigravity | Harp arpeggios, pulsing synth, tremolo strings, choir and a horn melody at about 125 BPM |
+| Open Sky | Pillar crumble to the editorial | Sparse guitar harmonics and kalimba over air, a flute phrase |
+| Bossa | The editorial | Nylon guitar, upright bass, brushes, Rhodes and a vibraphone melody at 123 BPM |
+| Sea breeze | The shore | Wind and two slow waves |
+
 ## Palette
 
-Spirit's red is replaced by sunflower yellow. The values live in `src/data/theme.ts`.
+Spirit's red is replaced by sunflower yellow (`#f4bd28`), with `#c88e00` for yellow text on white paper and a warm amber behind the gate's window. The tides are Lagoon `#63c4f4`, Jade `#97f3ad` and Coral `#ff9b8a`. The values live in `src/data/theme.ts`.

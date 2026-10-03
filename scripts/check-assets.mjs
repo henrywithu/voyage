@@ -8,7 +8,30 @@ const json = async (file) =>
   JSON.parse(await readFile(path.join(root, file), "utf8"));
 const errors = [];
 const inventory = await json("reference/asset-provenance.json");
-const originals = inventory.filter((item) => item.status === "downloaded");
+// Trapnest Voyage replaces or removes some of the Spirit sources; those are
+// checked for presence (or absence) instead of their original hashes.
+const voyage = await json("reference/voyage-assets.json");
+const replaced = new Set(voyage.replaced.map((item) => item.path));
+const removed = new Set(voyage.removed.map((item) => item.path));
+for (const file of removed) {
+  try {
+    await readFile(path.join(root, "public", file));
+    errors.push(`${file}: listed as removed but still present`);
+  } catch {}
+}
+const originals = inventory.filter(
+  (item) =>
+    item.status === "downloaded" &&
+    !replaced.has(item.path) &&
+    !removed.has(item.path),
+);
+for (const file of replaced)
+  if (!file.startsWith("assets/decoded/"))
+    try {
+      await readFile(path.join(root, "public", file));
+    } catch (error) {
+      errors.push(`${file}: replacement missing (${error.message})`);
+    }
 for (const item of originals) {
   try {
     const bytes = await readFile(path.join(root, "public", item.path));
@@ -21,11 +44,14 @@ for (const item of originals) {
   }
 }
 
-const meshes = await json("reference/geometry-inventory.json");
+const meshes = (await json("reference/geometry-inventory.json")).filter(
+  (mesh) => !removed.has(mesh.output),
+);
 for (const mesh of meshes) {
+  const rebuilt = replaced.has(mesh.output);
   try {
     const bytes = await readFile(path.join(root, "public", mesh.output));
-    if (bytes.length !== mesh.bytes)
+    if (!rebuilt && bytes.length !== mesh.bytes)
       errors.push(`${mesh.output}: byte count changed`);
     const size = bytes.readUInt32LE(0),
       base = size + 4;
@@ -40,11 +66,15 @@ for (const mesh of meshes) {
       )
         errors.push(`${mesh.output}: invalid ${name} payload`);
     }
-    for (const name of mesh.attributes)
-      if (!header.attributes[name])
-        errors.push(`${mesh.output}: missing ${name}`);
-    if ((header.bones?.length ?? 0) !== mesh.bones)
-      errors.push(`${mesh.output}: bone count changed`);
+    // Rebuilt meshes keep the payload layout but may change attributes and rigs.
+    if (!rebuilt) {
+      for (const name of mesh.attributes)
+        if (!header.attributes[name])
+          errors.push(`${mesh.output}: missing ${name}`);
+      if ((header.bones?.length ?? 0) !== mesh.bones)
+        errors.push(`${mesh.output}: bone count changed`);
+    } else if (!header.attributes.position)
+      errors.push(`${mesh.output}: missing position`);
   } catch (error) {
     errors.push(`${mesh.output}: ${error.message}`);
   }
@@ -83,7 +113,7 @@ if (errors.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Verified ${originals.length} original SHA-256 hashes and ${meshes.length} decoded geometry payloads; application imports exclude production evidence.`,
+    `Verified ${originals.length} original SHA-256 hashes and ${meshes.length} decoded geometry payloads (${replaced.size} Voyage replacements, ${removed.size} removals); application imports exclude production evidence.`,
   );
   console.log(
     `${inventory.length - originals.length} historical HTML-fallback candidates remain recorded as unavailable.`,
