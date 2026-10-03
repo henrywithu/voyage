@@ -1,0 +1,25 @@
+{
+  "voice": "af_heart",
+  "speed": 0.9,
+  "speak_replace": {"Chaewon": "Chaywon"},
+  "lines": {
+    "1": "On an endless shore of golden sand, a lone figure drifts barefoot through the haze.",
+    "2": "A warm breeze whispers her name. Chaewon sweeps the hair from her eyes and looks around, curious and unafraid.",
+    "3": "Chaewon finally catches a glimpse of what she has been chasing since she first set sail.",
+    "4": "At the sight of it, she stands taller, chin raised, a playful smile tugging at her lips.",
+    "5": "A great stone gate rises before Chaewon, and the humming seems to pour straight from it. The last light of summer burns through the round window at its heart. Not quite believing her eyes, she pauses on the steps and lets the warm air steady her racing pulse.",
+    "6": "No time to waste. She means to see it through.",
+    "7": "As she climbs toward the gate, the melody swells, sweet and reckless, and shakes her to the core. The light begins to pulse, beckoning her closer.",
+    "8": "A warm wind rushes past, playful and expectant. Standing at the threshold, she lifts her hand.",
+    "9": "Slowly, her fingertips reach for the light.",
+    "10": "Taking a deep breath, she steps through.",
+    "11": "For one heartbeat the world goes quiet. Her mind races to catch up. Then she wakes in a golden hall of columns, warm as a late summer afternoon.",
+    "12": "Before her, a pedestal glows like a small sun.",
+    "13": "Three Trapnest Voyage elixirs gleam on the pedestal, each one holding a different sea. Chaewon tilts her head and smiles. Somehow they are calling to her, daring her to choose.",
+    "lagoon": "Chaewon sips, and in an instant a beam of light lifts her off her feet, swirling with yuzu, sea salt and blue lagoon, a tide that carries her past the horizon.",
+    "jade": "Chaewon sips, and in an instant a beam of light lifts her off her feet, swirling with lime, matcha and fresh mint, a tide that carries her past the horizon.",
+    "coral": "Chaewon sips, and in an instant a beam of light lifts her off her feet, swirling with white peach, hibiscus and coral, a tide that carries her past the horizon.",
+    "15": "Chaewon drifts gently back to the floor, one bare foot after the other, her lace dress now dyed with the color of the elixir.",
+    "16": "A rumble of breaking stone fills the air. The columns crack and float away, opening onto an endless golden sky."
+  }
+}

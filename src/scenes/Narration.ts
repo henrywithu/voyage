@@ -108,40 +108,8 @@ export class NarrativeBox {
       size = p.fontSize ?? 0.044,
       screenHeight = (worldHeight * (5 - z)) / 5,
       screenWidth = (screenHeight * w) / h;
-    const sourceTimings = this.data[this.id]?.words;
-    const omittedBrandIndex =
-      this.id === "13"
-        ? (sourceTimings?.findIndex((word) => /Santioni/i.test(word.text)) ?? -1)
-        : -1;
-    const nextWordIndex =
-      omittedBrandIndex < 0
-        ? -1
-        : (sourceTimings?.findIndex(
-            (word, index) => index > omittedBrandIndex && word.type === "word",
-          ) ?? -1);
-    const omittedDuration =
-      omittedBrandIndex < 0 || nextWordIndex < 0
-        ? 0
-        : sourceTimings![nextWordIndex].start -
-          sourceTimings![omittedBrandIndex].start;
-    const timings = sourceTimings?.flatMap((word, index) => {
-      if (index === omittedBrandIndex || index === omittedBrandIndex + 1)
-        return [];
-      const shifted = index > omittedBrandIndex + 1 && omittedDuration > 0;
-      return [
-        {
-          ...word,
-          start: shifted ? word.start - omittedDuration : word.start,
-          end: shifted ? word.end - omittedDuration : word.end,
-          text: word.text
-            .replace(/Santioni/gi, "Trapnest")
-            .replace(/Spirits/gi, "Spirit"),
-        },
-      ];
-    });
-    const text = (timings?.map((word) => word.text).join("") ?? p.body)
-      .replace(/Santioni Spirits/gi, "Trapnest Spirit")
-      .toUpperCase();
+    const timings = this.data[this.id]?.words;
+    const text = (timings?.map((word) => word.text).join("") ?? p.body).toUpperCase();
     let layout = this.font.layout(
       text,
       size,
@@ -221,7 +189,7 @@ export class NarrativeBox {
         );
     this.group.visible =
       this.scene.name !== "AntiGravityScene" ||
-      this.id === ["orange", "14", "marshmallow"][frame.selected];
+      this.id === ["lagoon", "jade", "coral"][frame.selected];
     this.group.getWorldPosition(this.world);
     const distance = this.world.y + (frame.scroll / frame.height) * worldHeight;
     this.inView =

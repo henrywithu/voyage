@@ -46,7 +46,7 @@ export const narrativeLayouts: Record<
         body: "",
         color: "black",
         width: state.text1Width,
-        id: "orange",
+        id: "lagoon",
       },
       {
         padx: state.text1PadX,
@@ -57,7 +57,7 @@ export const narrativeLayouts: Record<
         body: "",
         color: "black",
         width: state.text1Width,
-        id: 14,
+        id: "jade",
       },
       {
         padx: state.text1PadX,
@@ -68,7 +68,7 @@ export const narrativeLayouts: Record<
         body: "",
         color: "black",
         width: state.text1Width,
-        id: "marshmallow",
+        id: "coral",
       },
     ];
   },
@@ -80,13 +80,13 @@ export const narrativeLayouts: Record<
     state.text1horizontalAlign = "left";
     state.text1verticalAlign = "top";
     state.text1body =
-      "AN OMINOUS STRUCTURE STANDS BEFORE THE saint, THE HUMMING SOUND SEEMS TO COME FROM ITS DIRECTION. A VIVID LIGHT SHINES THROUGH THE CIRCULAR PORTAL AT THE BASE OF THE great monolith.  NOT COMPLETELY believing IT, THE saint PAUSES FOR A MOMENT TO GET HIS SENSES BACK.";
+      "A great stone gate rises before Chaewon, and the humming seems to pour straight from it. The last light of summer burns through the round window at its heart. Not quite believing her eyes, she pauses on the steps and lets the warm air steady her racing pulse.";
     state.text1Width = 500;
     state.text2padx = 0.4;
     state.text2pady = -1.5;
     state.text2horizontalAlign = "center";
     state.text2verticalAlign = "center";
-    state.text2body = "There's no time.\nHe must see it through the end.";
+    state.text2body = "No time to waste.\nShe means to see it through.";
     state.text1padx = isMobile ? 0.03 : 0.4;
     state.text1pady = isMobile ? 0.1 : 1.1;
     state.text1Width = isMobile ? 0.5 * width : 500;
@@ -129,7 +129,7 @@ export const narrativeLayouts: Record<
     state.text1HorizontalAlign = "right";
     state.text1VerticalAlign = "top";
     state.text1Body =
-      "THE saint LOSES CONSCIOUSNESS FOR A BRIEF MOMENT. HIS MIND STRUGGLES TO PROCESS WHAT IS HAPPENING. HE AWAKES IN AN EXALTED ROOM LIT BY A WARM LIGHT.";
+      "For one heartbeat the world goes quiet. Her mind races to catch up. Then she wakes in a golden hall of columns, warm as a late summer afternoon.";
     state.text1Width = 440;
     state.text1PadX = isMobile ? 0.03 : 0.4;
     state.text1Width = isMobile ? 0.6 * width : 440;
@@ -155,14 +155,14 @@ export const narrativeLayouts: Record<
     state.text1OffsetZ = 0.45;
     state.text1HorizontalAlign = "left";
     state.text1VerticalAlign = "top";
-    state.text1Body = "IN FRONT OF HIM A LARGE PEDESTAL PULSATES WITH LIGHT.";
+    state.text1Body = "Before her, a pedestal glows like a small sun.";
     state.text2PadX = 0.2;
     state.text2PadY = -1;
     state.text2OffsetZ = 0.45;
     state.text2HorizontalAlign = "right";
     state.text2VerticalAlign = "center";
     state.text2Body =
-      "THREE SPIRIT BOTTLES GLINT ON THE TABLE, VIBRATING WITH A TANTILIZING SHIMMER. THE SAINT PAUSES SOMEHOW… THEY'RE CALLING TO HIM, INVITING HIM TO INDULGE.";
+      "Three Trapnest Voyage elixirs gleam on the pedestal, each one holding a different sea. Chaewon tilts her head and smiles. Somehow they are calling to her, daring her to choose.";
     state.text2Width = 440;
     state.text1PadX = isMobile ? 0.03 : 0.2;
     state.text1PadY = isMobile ? 1 : 1.5;
@@ -207,7 +207,7 @@ export const narrativeLayouts: Record<
     state.text1OffsetZ = 0.45;
     state.text1HorizontalAlign = "left";
     state.text1VerticalAlign = "top";
-    state.text1Body = "Hesitantly, his hand draws forward.";
+    state.text1Body = "Slowly, her fingertips reach for the light.";
     state.text1Width = 440;
     state.text1PadX = isMobile ? 0.05 : 0.2;
     state.text1PadY = isMobile ? 0.6 : 1;
@@ -234,7 +234,7 @@ export const narrativeLayouts: Record<
     state.text1HorizontalAlign = "left";
     state.text1VerticalAlign = "bottom";
     state.text1Body =
-      "As he approaches the portal, the holy sound grows stronger, shaking him to the core. Light begins to pulsate, inviting him closer.";
+      "As she climbs toward the gate, the melody swells, sweet and reckless, and shakes her to the core. The light begins to pulse, beckoning her closer.";
     state.text1Width = 440;
     state.text2PadX = 0.2;
     state.text2PadY = 2.5;
@@ -242,7 +242,7 @@ export const narrativeLayouts: Record<
     state.text2HorizontalAlign = "right";
     state.text2VerticalAlign = "bottom";
     state.text2Body =
-      "A strong wind begins to blow, playful and expectant. Now standing before the portal, he raises a hand…";
+      "A warm wind rushes past, playful and expectant. Standing at the threshold, she lifts her hand.";
     state.text2Width = 440;
     state.text1PadY = isMobile ? 0.6 : 4;
     state.text1PadX = isMobile ? 0 : 0.2;
@@ -287,14 +287,14 @@ export const narrativeLayouts: Record<
     state.text1horizontalAlign = "left";
     state.text1verticalAlign = "top";
     state.text1body =
-      "THE saint GENTLY FLOATS BACK TO THE FLOOR, ONE FOOT AFTER THE OTHER. HIS ROBE, NOW SATURATED WITH THE COLOR OF THE MYSTERIOUS LIQUID.";
+      "Chaewon drifts gently back to the floor, one bare foot after the other, her lace dress now dyed with the color of the elixir.";
     state.text1Width = 500;
     state.text2padx = 1;
     state.text2pady = -1;
     state.text2horizontalAlign = "center";
     state.text2verticalAlign = "center";
     state.text2body =
-      "The sudden roar of shattering stone fills the air. The columns and roof begin to break apart and lift away, revealing a deep red sky.";
+      "A rumble of breaking stone fills the air. The columns crack and float away, opening onto an endless golden sky.";
     state.text2Width = 500;
     state.text1padx = isMobile ? 0.03 : 0.4;
     state.text1pady = isMobile ? 0.33 : 1.1;
@@ -339,14 +339,14 @@ export const narrativeLayouts: Record<
     state.text1horizontalAlign = "center";
     state.text1verticalAlign = "center";
     state.text1body =
-      "The saint finally catches a glimpse of what he was seeking since he went on his pilgrimage.";
+      "Chaewon finally catches a glimpse of what she has been chasing since she first set sail.";
     state.text1Width = 350;
     state.text2padx = 1.15;
     state.text2pady = -0.5;
     state.text2horizontalAlign = "center";
     state.text2verticalAlign = "center";
     state.text2body =
-      "At the sight of it, he stands taller, gaze fixated, and determination burning within.";
+      "At the sight of it, she stands taller, chin raised, a playful smile tugging at her lips.";
     state.text2Width = 350;
     state.text1padx = isMobile ? 0.03 : -1.1;
     state.text1pady = isMobile ? -0.1 : 0.5;
@@ -389,7 +389,7 @@ export const narrativeLayouts: Record<
     state.text1OffsetZ = 0.45;
     state.text1HorizontalAlign = "center";
     state.text1VerticalAlign = "center";
-    state.text1Body = "taking a deep breath, he steps in.";
+    state.text1Body = "Taking a deep breath, she steps through.";
     state.text1Width = 440;
     state.text1PadX = isMobile ? 0.03 : -1;
     state.text1PadY = isMobile ? -0.9 : -0.5;
@@ -414,9 +414,9 @@ export const narrativeLayouts: Record<
     const state: Record<string, any> = {};
     const isMobile = width / height < 1;
     state.text1body =
-      "In an immense land of nothingness, a lonely figure wanders through the mist.";
+      "On an endless shore of golden sand, a lone figure drifts barefoot through the haze.";
     state.text2body =
-      "Distant whispers alert the traveller. The saint removes his hood to look around, eyes unsure and fearful.";
+      "A warm breeze whispers her name. Chaewon sweeps the hair from her eyes and looks around, curious and unafraid.";
     state.text1Width = 400;
     state.text2Width = 400;
     state.text1padx = isMobile ? 0.03 : 0.4;
