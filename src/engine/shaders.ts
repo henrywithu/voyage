@@ -233,22 +233,21 @@ export function material(
     if (fromUIL && defaults[name]?.[uniformKey]?.ignoreUIL) continue;
     uniforms[uniformKey] = { value: uniformValue(uniformKey, value) };
   }
-  // Runtime branding is deliberately layered over the captured UIL/defaults,
-  // which remain authoritative source evidence in src/data.
+  // The Voyage flask atlases are bound here as well as in src/data, so no
+  // captured default can bring back the former bottle artwork.
   if (name === "DrinkSelectionBottleShader")
     uniforms.tMap = {
       value: texture(
-        "assets/images/story/drinkselection/trapnest-merged-bottle-upright.png",
+        "assets/images/story/drinkselection/trapnest-voyage-flask.png",
         false,
       ),
     };
   if (name === "LabelPBR")
     Object.assign(uniforms, {
       tBaseColor: {
-        value: texture("assets/images/trapnest-label-color.png", false),
+        value: texture("assets/images/trapnest-voyage-label.png", false),
       },
-      // The captured normal/MRO maps emboss the former wordmark. Neutral maps
-      // prevent that relief from showing through the new base-color artwork.
+      // The printed label is flat: neutral maps keep any captured relief off it.
       tMRO: { value: texture("assets/images/empty_mro-7UPNyD6z.jpg") },
       tNormal: { value: texture("assets/images/empty_normal-1Qg4XGDW.png") },
     });

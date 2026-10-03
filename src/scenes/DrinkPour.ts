@@ -104,14 +104,14 @@ export async function setupDrinkPour(section: SceneSection) {
   const bottle = section.addMesh(
     (
       await loadGeometry(
-        "assets/geometry/story/drinkpour/saint-pour-bottle2.bin",
+        "assets/geometry/story/drinkpour/chaewon-pour-flask.bin",
       )
     ).geometry,
     material("DrinkPourBottleShader", {
       ...common,
       tNoise: texture("assets/images/story/drinkpour/T_Noise15.png"),
       tMap: texture(
-        "assets/images/story/drinkselection/trapnest-merged-bottle-upright.png",
+        "assets/images/story/drinkselection/trapnest-voyage-flask.png",
         false,
       ),
       uColorHighlight: new THREE.Vector3(1, 1, 1),

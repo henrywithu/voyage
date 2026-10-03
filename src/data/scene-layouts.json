@@ -1857,10 +1857,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "bottle1",
       "renderOrder": 5,
@@ -1905,10 +1905,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "bottle2",
       "renderOrder": 6,
@@ -1953,10 +1953,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "bottle3",
       "renderOrder": 7,
@@ -3473,10 +3473,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "bottle2",
       "parent": "sl_DrinkSelectionScene_group_1",
@@ -3522,10 +3522,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "bottle1",
       "parent": "sl_DrinkSelectionScene_group_0",
@@ -3571,10 +3571,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "bottle3",
       "parent": "sl_DrinkSelectionScene_group_2",
@@ -3676,10 +3676,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "plinth_bottle1",
       "renderOrder": 6,
@@ -3724,10 +3724,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "plinth_bottle2",
       "renderOrder": 7,
@@ -3772,10 +3772,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/bottle_low.bin",
+        "filename": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/bottle_low.bin",
-        "src": "assets/geometry/story/drinkselection/bottle_low.bin"
+        "relative": "assets/geometry/story/drinkselection/voyage-flask-low.bin",
+        "src": "assets/geometry/story/drinkselection/voyage-flask-low.bin"
       },
       "name": "plinth_bottle3",
       "renderOrder": 8,
@@ -4846,10 +4846,10 @@
       "depthTest": true,
       "depthWrite": true,
       "geometry": {
-        "filename": "assets/geometry/fpo/bottle_liquid.bin",
+        "filename": "assets/geometry/fpo/voyage-flask-liquid.bin",
         "prefix": "",
-        "relative": "assets/geometry/fpo/bottle_liquid.bin",
-        "src": "assets/geometry/fpo/bottle_liquid.bin"
+        "relative": "assets/geometry/fpo/voyage-flask-liquid.bin",
+        "src": "assets/geometry/fpo/voyage-flask-liquid.bin"
       },
       "name": "liquid",
       "parent": "sl_ProductsScene_group_0",
@@ -4941,10 +4941,10 @@
       "depthTest": true,
       "depthWrite": false,
       "geometry": {
-        "filename": "assets/geometry/fpo/bottle.bin",
+        "filename": "assets/geometry/fpo/voyage-flask.bin",
         "prefix": "",
-        "relative": "assets/geometry/fpo/bottle.bin",
-        "src": "assets/geometry/fpo/bottle.bin"
+        "relative": "assets/geometry/fpo/voyage-flask.bin",
+        "src": "assets/geometry/fpo/voyage-flask.bin"
       },
       "name": "bottle",
       "parent": "sl_ProductsScene_group_0",
@@ -5058,13 +5058,7 @@
       "id": 10,
       "uniforms": {
         "_txtBaseColor": {
-          "compressed": false,
-          "filename": "LABEL_color-843I_GwQ.png",
-          "hotreload": true,
-          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
-          "relative": "",
-          "src": "assets/images/LABEL_color-843I_GwQ.png",
-          "useCompressed": false
+          "src": "assets/images/trapnest-voyage-label.png"
         },
         "_txtEnvDiffuse": {
           "compressed": false,
@@ -5079,20 +5073,10 @@
           "src": "assets/images/story/glass-specular.png?1770787347244"
         },
         "_txtMRO": {
-          "compressed": false,
-          "filename": "LABEL_mro-jiLMzwfd.png",
-          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
-          "relative": "",
-          "src": "assets/images/LABEL_mro-jiLMzwfd.png",
-          "useCompressed": false
+          "src": "assets/images/empty_mro-7UPNyD6z.jpg"
         },
         "_txtNormal": {
-          "compressed": false,
-          "filename": "LABEL_nrm-EjgTZ6RQ.png",
-          "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
-          "relative": "",
-          "src": "assets/images/LABEL_nrm-EjgTZ6RQ.png",
-          "useCompressed": false
+          "src": "assets/images/empty_normal-1Qg4XGDW.png"
         },
         "uEnv": [
           10,
@@ -5125,10 +5109,10 @@
       "depthTest": true,
       "depthWrite": true,
       "geometry": {
-        "filename": "assets/geometry/fpo/bottle_label.bin",
+        "filename": "assets/geometry/fpo/voyage-flask-label.bin",
         "prefix": "",
-        "relative": "assets/geometry/fpo/bottle_label.bin",
-        "src": "assets/geometry/fpo/bottle_label.bin"
+        "relative": "assets/geometry/fpo/voyage-flask-label.bin",
+        "src": "assets/geometry/fpo/voyage-flask-label.bin"
       },
       "name": "label",
       "parent": "sl_ProductsScene_group_0",
@@ -5158,7 +5142,7 @@
       "uniforms": {
         "_txtBaseColor": {
           "hotreload": true,
-          "src": "assets/images/fpo/cap_basecolor.jpg?1770792031497-compressedKtx2"
+          "src": "assets/images/story/products/voyage-stopper.png"
         },
         "_txtEnvDiffuse": {
           "compressed": false,
@@ -5195,8 +5179,8 @@
         ],
         "uLightmapIntensity": 0,
         "uMRON": [
-          0,
-          1,
+          1.9,
+          0.38,
           0,
           1
         ],
@@ -5209,10 +5193,10 @@
       },
       "depthWrite": true,
       "geometry": {
-        "filename": "assets/geometry/fpo/bottle_cap.bin",
+        "filename": "assets/geometry/fpo/voyage-flask-stopper.bin",
         "prefix": "",
-        "relative": "assets/geometry/fpo/bottle_cap.bin",
-        "src": "assets/geometry/fpo/bottle_cap.bin"
+        "relative": "assets/geometry/fpo/voyage-flask-stopper.bin",
+        "src": "assets/geometry/fpo/voyage-flask-stopper.bin"
       },
       "name": "cap",
       "parent": "sl_ProductsScene_group_0",
@@ -5503,7 +5487,7 @@
       "uniforms": {
         "_txtBaseColor": {
           "hotreload": true,
-          "src": "assets/images/story/products/cap_label.png?1770792026024-compressedKtx2"
+          "src": "assets/images/story/products/voyage-medallion.png"
         },
         "_txtEnvDiffuse": {
           "compressed": false,
@@ -5544,8 +5528,8 @@
         ],
         "uLightmapIntensity": 0,
         "uMRON": [
-          0,
-          1,
+          1.3,
+          0.3,
           0,
           1
         ],
@@ -5562,10 +5546,10 @@
       "depthTest": true,
       "depthWrite": true,
       "geometry": {
-        "filename": "assets/geometry/fpo/bottle_sticker.bin",
+        "filename": "assets/geometry/fpo/voyage-flask-medallion.bin",
         "prefix": "",
-        "relative": "assets/geometry/fpo/bottle_sticker.bin",
-        "src": "assets/geometry/fpo/bottle_sticker.bin"
+        "relative": "assets/geometry/fpo/voyage-flask-medallion.bin",
+        "src": "assets/geometry/fpo/voyage-flask-medallion.bin"
       },
       "name": "sticker",
       "parent": "sl_ProductsScene_group_0",
