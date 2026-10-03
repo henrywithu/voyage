@@ -8,6 +8,8 @@ Trim layout (v measured bottom -> top, like GL texture coordinates):
   0.46-0.94 allover floral lace (tiles in u)
   0.94-1.00 neckline lace edge (scallops at the top edge)
 Atlas layout: skin when v > 0.55; head projection in u 0-0.45, v 0.56-1.0.
+  Close-up eye crop (hi-res): u 0.505-0.995, v 0.02-0.314 (cloth zone, only
+  sampled by the eye close-up frames). Iris graphic: u 0.84-0.96, v 0.62-0.74.
 """
 import numpy as np
 
@@ -165,7 +167,30 @@ def trim_svg(seed=21):
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="{T}" height="{T}" viewBox="0 0 {T} {T}">{body}</svg>'
 
 
-def write_textures(out_dir, face_png, svg2png):
+EYE_CROP = dict(x0=-0.075, x1=0.075, y0=1.44, y1=1.53, u0=0.505, u1=0.995, v0=0.02, v1=0.314)
+IRIS_BOX = dict(u0=0.84, u1=0.96, v0=0.62, v1=0.74)
+
+
+def iris_svg(size=512, seed=4):
+    rng = np.random.default_rng(seed)
+    c = size / 2
+    r = size * 0.46
+    out = [f'<rect width="{size}" height="{size}" fill="#fff"/>']
+    for k in range(64):
+        a = 2 * np.pi * k / 64 + rng.normal(0, 0.02)
+        r0, r1 = r * 0.42, r * (0.80 + 0.12 * rng.random())
+        out.append(f'<line x1="{c + np.cos(a) * r0:.1f}" y1="{c + np.sin(a) * r0:.1f}" x2="{c + np.cos(a) * r1:.1f}" '
+                   f'y2="{c + np.sin(a) * r1:.1f}" stroke="#000" stroke-width="{3 + 2 * rng.random():.1f}" stroke-linecap="round"/>')
+    out.append(f'<circle cx="{c}" cy="{c}" r="{r * 0.95:.1f}" fill="none" stroke="#000" stroke-width="{r * 0.13:.1f}"/>')
+    out.append(f'<circle cx="{c}" cy="{c}" r="{r * 0.36:.1f}" fill="#000"/>')
+    out.append(f'<path d="M {c - r * 0.95:.1f} {c} A {r * 0.95:.1f} {r * 0.95:.1f} 0 0 1 {c + r * 0.95:.1f} {c} '
+               f'L {c + r * 0.8:.1f} {c - r * 0.1:.1f} A {r * 0.8:.1f} {r * 0.8:.1f} 0 0 0 {c - r * 0.8:.1f} {c - r * 0.1:.1f} Z" fill="#000"/>')
+    out.append(f'<ellipse cx="{c - r * 0.38:.1f}" cy="{c - r * 0.4:.1f}" rx="{r * 0.26:.1f}" ry="{r * 0.2:.1f}" fill="#fff"/>')
+    out.append(f'<circle cx="{c + r * 0.42:.1f}" cy="{c + r * 0.36:.1f}" r="{r * 0.1:.1f}" fill="#fff"/>')
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">{"".join(out)}</svg>'
+
+
+def write_textures(out_dir, face_png, svg2png, face_svg=None):
     """svg2png(svg_text, path, w, h) renders an SVG to PNG."""
     import os
     from PIL import Image
@@ -189,6 +214,27 @@ def write_textures(out_dir, face_png, svg2png):
     size = int(0.45 * T)
     atlas = Image.new('L', (T, T), 255)
     atlas.paste(face.resize((size, size), Image.LANCZOS), (0, 0))
+    if face_svg is not None:
+        big = os.path.join(out_dir, '_face_big.png')
+        svg2png(face_svg, big, 4096, 4096)
+        fb = Image.open(big).convert('L')
+        e = EYE_CROP
+        k = 4096 / 1024
+        px0 = (e['x0'] + 0.11) / 0.22 * 1024 * k
+        px1 = (e['x1'] + 0.11) / 0.22 * 1024 * k
+        py0 = (1.58 - e['y1']) / 0.22 * 1024 * k
+        py1 = (1.58 - e['y0']) / 0.22 * 1024 * k
+        crop = fb.crop((int(px0), int(py0), int(px1), int(py1)))
+        w = int((e['u1'] - e['u0']) * T)
+        h = int((e['v1'] - e['v0']) * T)
+        atlas.paste(crop.resize((w, h), Image.LANCZOS), (int(e['u0'] * T), int((1 - e['v1']) * T)))
+        os.remove(big)
+    iris = os.path.join(out_dir, '_iris.png')
+    svg2png(iris_svg(), iris, 512, 512)
+    ib = IRIS_BOX
+    w = int((ib['u1'] - ib['u0']) * T)
+    atlas.paste(Image.open(iris).convert('L').resize((w, w), Image.LANCZOS), (int(ib['u0'] * T), int((1 - ib['v1']) * T)))
+    os.remove(iris)
     atlas.convert('RGB').save(os.path.join(out_dir, 'chaewon_atlas.png'), optimize=True)
 
 

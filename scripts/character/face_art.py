@@ -58,7 +58,7 @@ def bezier(p0, p1, p2, n=24):
     return (1 - t) ** 2 * p0 + 2 * (1 - t) * t * p1 + t * t * p2
 
 
-def eye_svg(mask, outer_sign, rng):
+def eye_svg(mask, outer_sign, rng, closeup=False):
     """outer_sign: -1 if the outer corner is toward image left."""
     top, bot = contour(mask)
     top, bot = smooth(top, 7), smooth(bot, 7)
@@ -69,8 +69,8 @@ def eye_svg(mask, outer_sign, rng):
     # widen the drawn eye a little beyond the geometric opening
     def widen(P):
         Q = P.copy()
-        Q[:, 0] = cx + (Q[:, 0] - cx) * 1.12
-        Q[:, 1] = cy + (Q[:, 1] - cy) * 1.18
+        Q[:, 0] = cx + (Q[:, 0] - cx) * (1.0 if closeup else 1.12)
+        Q[:, 1] = cy + (Q[:, 1] - cy) * (1.0 if closeup else 1.18)
         return Q
     top, bot = widen(top), widen(bot)
     inner_x = top[:, 0].max() if outer_sign < 0 else top[:, 0].min()
@@ -103,7 +103,10 @@ def eye_svg(mask, outer_sign, rng):
     g.append(f'<ellipse cx="{icx - outer_sign * ir * 0.38:.1f}" cy="{icy - ir * 0.42:.1f}" rx="{ir * 0.30:.1f}" ry="{ir * 0.24:.1f}" fill="#fff"/>')
     g.append(f'<circle cx="{icx + outer_sign * ir * 0.42:.1f}" cy="{icy + ir * 0.30:.1f}" r="{ir * 0.12:.1f}" fill="#fff"/>')
     g.append('</g>')
-    out += g
+    if not closeup:
+        out += g
+    else:
+        out = out[:1]
     # upper lash line: tapered filled band from inner to outer, with a wing
     n = len(top)
     thick = np.interp(np.linspace(0, 1, n), [0, 0.15, 0.6, 1], [1.5, 4.0, 7.5, 9.5])
@@ -228,14 +231,14 @@ def blush_svg(cx, cy, rng):
     return out
 
 
-def face_svg(ref_path, size=1024, seed=11):
+def face_svg(ref_path, size=1024, seed=11, closeup=False):
     rng = np.random.default_rng(seed)
     eyes, upper, lower = masks(ref_path)
     left_img, right_img = split_eyes(eyes)
     parts = []
     # image-left eye is the character's right eye: its outer corner points left
-    e_r, info_r = eye_svg(left_img, -1, rng)
-    e_l, info_l = eye_svg(right_img, 1, rng)
+    e_r, info_r = eye_svg(left_img, -1, rng, closeup)
+    e_l, info_l = eye_svg(right_img, 1, rng, closeup)
     parts += e_r + e_l
     parts += brow_svg(info_r, -1, rng) + brow_svg(info_l, 1, rng)
     cx = 0.5 * (info_r['cx'] + info_l['cx'])
