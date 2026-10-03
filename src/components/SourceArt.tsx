@@ -10,16 +10,16 @@ export const privacyUrl =
   "https://cdn.sanity.io/files/nhqx6ogi/production/d2513cb86f7baedec1e90571f62be07acd158d56.pdf?dl=privacy-policy.pdf";
 const rebrand = (value: string) =>
   value
-    .replaceAll("Santioni<br>Spirits", "Trapnest<br>Spirit")
-    .replaceAll("SANTIONI<br>SPIRITS", "TRAPNEST<br>SPIRIT")
-    .replaceAll("Santioni Spirits", "Trapnest Spirit")
-    .replaceAll("SANTIONI SPIRITS", "TRAPNEST SPIRIT")
+    .replaceAll("Santioni<br>Spirits", "Trapnest<br>Voyage")
+    .replaceAll("SANTIONI<br>SPIRITS", "TRAPNEST<br>VOYAGE")
+    .replaceAll("Santioni Spirits", "Trapnest Voyage")
+    .replaceAll("SANTIONI SPIRITS", "TRAPNEST VOYAGE")
     .replaceAll("Santioni", "Trapnest")
     .replaceAll("SANTIONI", "TRAPNEST")
-    .replaceAll("Notturno", "Trapnest")
-    .replaceAll("NOTTURNO", "TRAPNEST")
-    .replace(/^Spirits$/, "Spirit")
-    .replace(/^SPIRITS$/, "SPIRIT");
+    .replaceAll("Notturno", "Tides")
+    .replaceAll("NOTTURNO", "TIDES")
+    .replace(/^Spirits$/, "Voyage")
+    .replace(/^SPIRITS$/, "VOYAGE");
 export function findArt(name: string, refName?: string): ArtNode | undefined {
   const search = (node: ArtNode): ArtNode | undefined => {
     if (refName ? node.refName === refName : node._type === "svg") return node;
@@ -39,7 +39,7 @@ export function SourceArt({ node }: { node?: ArtNode }): React.ReactNode {
   const originalText = node.text ?? node._innerText;
   const sourceText =
     originalText === "$headingText"
-      ? "Select Houses Forthcoming"
+      ? "Select Harbours Forthcoming"
       : originalText;
   const text =
     typeof sourceText === "string" ? rebrand(sourceText) : sourceText;

@@ -96,8 +96,8 @@ export function Loader({ progress, error, ready, onReveal, onExit }: Props) {
     <div ref={root} className="LoaderView stack">
       <div className="logo">
         <img
-          src="/assets/images/trapnest-spirit-logo-footer.svg"
-          alt="Trapnest Spirit"
+          src="/assets/images/trapnest-voyage-logo-footer.svg"
+          alt="Trapnest Voyage"
         />
       </div>
       <div className="lottie-container" ref={animation} />

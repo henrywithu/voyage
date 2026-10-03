@@ -13,8 +13,8 @@
     "wobblePulseFrequency": 0.4,
     "wobblePulseSpeed": 1,
     "wobbleVelMultiplier": 7,
-    "yellowColor": "#fdeb87",
-    "yellowColorDark": "#fdd90d"
+    "coralColor": "#ffa292",
+    "coralColorDark": "#ff5a42"
   },
   "Products": {
     "blueColor": "#6fccfb",
@@ -30,7 +30,7 @@
     "wobblePulseFrequency": 0.3,
     "wobblePulseSpeed": 5,
     "wobbleVelMultiplier": 10,
-    "yellowColor": "#fdeb87",
-    "yellowColorDark": "#fdd90d"
+    "coralColor": "#ffa292",
+    "coralColorDark": "#ff5a42"
   }
 }

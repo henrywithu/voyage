@@ -206,8 +206,8 @@ export default function App() {
                   <div className="footer-group">
                     <div className="footer-logo">
                       <img
-                        src="/assets/images/trapnest-spirit-logo-footer.svg"
-                        alt="Trapnest Spirit"
+                        src="/assets/images/trapnest-voyage-logo-footer.svg"
+                        alt="Trapnest Voyage"
                       />
                     </div>
                   </div>
@@ -240,10 +240,10 @@ export default function App() {
             <img
               src={
                 viewport.w < 768
-                  ? "/assets/images/trapnest-spirit-logo-mobile.png"
-                  : "/assets/images/trapnest-spirit-logo.png"
+                  ? "/assets/images/trapnest-voyage-logo-mobile.png"
+                  : "/assets/images/trapnest-voyage-logo.png"
               }
-              alt="Trapnest Spirit"
+              alt="Trapnest Voyage"
             />
           </button>
           <HeaderMenu

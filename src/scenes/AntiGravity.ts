@@ -7,6 +7,7 @@ import { loadGeometry, texture } from "../engine/assets";
 import { CurveParticles } from "../engine/CurveParticles";
 import { windLines } from "../engine/WindLines";
 import { worldHeight } from "../data/sections";
+import { tideColor } from "../data/theme";
 gsap.registerPlugin(CustomEase);
 const speedUpEase = CustomEase.create("source-speed-up", "0.52,0.02,0.02,1");
 const reveal = new WeakMap<SceneSection, () => void>();
@@ -153,14 +154,14 @@ export async function setupAntiGravity(section: SceneSection) {
     const t = frame.time,
       dt = frame.delta * 60;
     flavor
-      .set(["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected])
+      .set(tideColor(frame.selected))
       .convertLinearToSRGB();
     drawn.setColor(flavor);
     leaves.setHeld(frame.pressed);
     drawn.setHeld(frame.pressed);
     skin.update(frame.delta);
     skinMaterial.uniforms.uColor.value
-      .set(["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected])
+      .set(tideColor(frame.selected))
       .convertLinearToSRGB();
     character.rotation.y +=
       (0.1 * Math.PI - 0.2 * frame.pointer.x - character.rotation.y) *

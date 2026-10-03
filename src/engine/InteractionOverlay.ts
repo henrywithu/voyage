@@ -39,7 +39,7 @@ export class InteractionOverlay {
     this.thumbMaterial,
   );
   private readonly logoMaterial = material("LogoShader", {
-    tLogo: texture("assets/images/trapnest-spirit-logo.png", false),
+    tLogo: texture("assets/images/trapnest-voyage-logo.png", false),
     tNoise: texture("assets/images/story/clouds_noise.png"),
     tLines: texture("assets/images/story/lines.jpg"),
     uShow: 1,
@@ -236,8 +236,8 @@ export class InteractionOverlay {
     );
     this.logoMaterial.uniforms.tLogo.value = texture(
       mobile
-        ? "assets/images/trapnest-spirit-logo-mobile.png"
-        : "assets/images/trapnest-spirit-logo.png",
+        ? "assets/images/trapnest-voyage-logo-mobile.png"
+        : "assets/images/trapnest-voyage-logo.png",
       false,
     );
     const footer = sections.find((s) => s.name === "FooterScene"),

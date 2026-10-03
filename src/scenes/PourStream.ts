@@ -3,6 +3,7 @@ import { SceneSection } from "../engine/SceneSection";
 import { material } from "../engine/shaders";
 import { texture } from "../engine/assets";
 import { range, clamp } from "../data/sections";
+import { tideColor } from "../data/theme";
 
 /** The original PourFX ballistic ribbon: 64 staggered particles, gravity -15, original splash shaders. */
 export class PourStream {
@@ -134,7 +135,7 @@ export class PourStream {
     uniforms.uThickness.value = range(rootScale, 0.69, 1.73, 0.4, 1, false);
     for (const mesh of [this.base, this.ribbon])
       mesh.material.uniforms.uColor.value
-        .set(["#63c4f4", "#97f3ad", "#fbeb7f"][selected])
+        .set(tideColor(selected))
         .convertLinearToSRGB();
   }
 }

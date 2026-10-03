@@ -10,6 +10,7 @@ import {
   type NarrativeParams,
 } from "../data/narrative-layouts";
 import { worldHeight, clamp } from "../data/sections";
+import { theme, tides } from "../data/theme";
 gsap.registerPlugin(CustomEase);
 const textBoxEase = CustomEase.create("source-text-box", "0.45,0.30,0.16,1.00");
 export type NarrationData = Record<
@@ -61,7 +62,7 @@ export class NarrativeBox {
       material("TextBoxTextShader", {
         tMap: font.map,
         uColor: new THREE.Vector3(0, 0, 0),
-        uColorHighlight: new THREE.Color("#db9600").convertLinearToSRGB(),
+        uColorHighlight: new THREE.Color(theme.highlight).convertLinearToSRGB(),
         uTranslate: this.translate,
         uOpacity: this.opacity,
         uKaraokeInfluence: 1,
@@ -189,7 +190,7 @@ export class NarrativeBox {
         );
     this.group.visible =
       this.scene.name !== "AntiGravityScene" ||
-      this.id === ["lagoon", "jade", "coral"][frame.selected];
+      this.id === tides[frame.selected].id;
     this.group.getWorldPosition(this.world);
     const distance = this.world.y + (frame.scroll / frame.height) * worldHeight;
     this.inView =

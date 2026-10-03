@@ -1940,7 +1940,7 @@
           -0.07
         ],
         "uColor": "#ffffff",
-        "uColorHighlight": "#fbeb7f",
+        "uColorHighlight": "#ff9b8a",
         "uLightDir": [
           -0.061,
           0.331,
@@ -3558,7 +3558,7 @@
           -0.07
         ],
         "uColor": "#ffffff",
-        "uColorHighlight": "#fbeb7f",
+        "uColorHighlight": "#ff9b8a",
         "uLightDir": [
           -0.061,
           0.331,
@@ -3759,7 +3759,7 @@
           -0.07
         ],
         "uColor": "#ffffff",
-        "uColorHighlight": "#fbeb7f",
+        "uColorHighlight": "#ff9b8a",
         "uLightDir": [
           0,
           0.331,
@@ -5001,18 +5001,18 @@
       "uniforms": {
         "_txtMap": {
           "compressed": false,
-          "filename": "orange-chocolate-and-cream-ygkMV-R5.png",
+          "filename": "lagoon-yuzu-and-sea-salt.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/orange-chocolate-and-cream-ygkMV-R5.png",
+          "src": "assets/images/lagoon-yuzu-and-sea-salt.png",
           "useCompressed": false
         },
         "_txtSDF": {
           "compressed": false,
-          "filename": "orange-chocolate-and-cream-sdf-_jB5_P3k.png",
+          "filename": "lagoon-yuzu-and-sea-salt-sdf.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/orange-chocolate-and-cream-sdf-_jB5_P3k.png",
+          "src": "assets/images/lagoon-yuzu-and-sea-salt-sdf.png",
           "useCompressed": false
         },
         "uColor": "#ffffff",
@@ -5020,16 +5020,16 @@
         "uTranslateIn": 0,
         "_txtMSDF": {
           "hotreload": true,
-          "src": "assets/images/msdf/orange-chocolate-and-cream-msdf.png?1770695480272"
+          "src": "assets/images/msdf/lagoon-yuzu-and-sea-salt.png"
         }
       },
       "depthTest": true,
       "depthWrite": false,
       "geometry": {
-        "filename": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin",
+        "filename": "assets/geometry/fromuil/lagoonYuzuAndSeaSalt.bin",
         "prefix": "",
-        "relative": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin",
-        "src": "assets/geometry/fromuil/orangeChocolateAndCream-yPhJqrfB.bin"
+        "relative": "assets/geometry/fromuil/lagoonYuzuAndSeaSalt.bin",
+        "src": "assets/geometry/fromuil/lagoonYuzuAndSeaSalt.bin"
       },
       "name": "text1",
       "parent": "sl_ProductsScene_group_1",
@@ -5309,25 +5309,25 @@
       "id": 16,
       "uniforms": {
         "_txtMSDF": {
-          "filename": "assets/images/msdf/marshmellow-coffee-and-cream.png",
+          "filename": "assets/images/msdf/coral-peach-and-hibiscus.png",
           "prefix": "",
-          "relative": "assets/images/msdf/marshmellow-coffee-and-cream.png",
-          "src": "assets/images/msdf/marshmellow-coffee-and-cream.png"
+          "relative": "assets/images/msdf/coral-peach-and-hibiscus.png",
+          "src": "assets/images/msdf/coral-peach-and-hibiscus.png"
         },
         "_txtMap": {
           "compressed": false,
-          "filename": "marshmellow-coffee-and-cream-UR_MhHB7.png",
+          "filename": "coral-peach-and-hibiscus.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/marshmellow-coffee-and-cream-UR_MhHB7.png",
+          "src": "assets/images/coral-peach-and-hibiscus.png",
           "useCompressed": false
         },
         "_txtSDF": {
           "compressed": false,
-          "filename": "marshmellow-coffee-and-cream-sdf-wL4QBllP.png",
+          "filename": "coral-peach-and-hibiscus-sdf.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/marshmellow-coffee-and-cream-sdf-wL4QBllP.png",
+          "src": "assets/images/coral-peach-and-hibiscus-sdf.png",
           "useCompressed": false
         },
         "uColor": "#ffffff"
@@ -5335,10 +5335,10 @@
       "depthTest": true,
       "depthWrite": false,
       "geometry": {
-        "filename": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin",
+        "filename": "assets/geometry/fromuil/coralPeachAndHibiscus.bin",
         "prefix": "",
-        "relative": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin",
-        "src": "assets/geometry/fromuil/marshmellowCoffeeAndCream-EC46OVEy.bin"
+        "relative": "assets/geometry/fromuil/coralPeachAndHibiscus.bin",
+        "src": "assets/geometry/fromuil/coralPeachAndHibiscus.bin"
       },
       "name": "text3",
       "parent": "sl_ProductsScene_group_2",
@@ -5368,22 +5368,22 @@
       "uniforms": {
         "_txtMSDF": {
           "hotreload": true,
-          "src": "assets/images/msdf/mint-chocolate-and-cream.png?1770695480277"
+          "src": "assets/images/msdf/jade-lime-and-mint.png"
         },
         "_txtMap": {
           "compressed": false,
-          "filename": "mint-chocolate-and-cream-pOH5RCTG.png",
+          "filename": "jade-lime-and-mint.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/mint-chocolate-and-cream-pOH5RCTG.png",
+          "src": "assets/images/jade-lime-and-mint.png",
           "useCompressed": false
         },
         "_txtSDF": {
           "compressed": false,
-          "filename": "mint-chocolate-and-cream-sdf-Uset9WAj.png",
+          "filename": "jade-lime-and-mint-sdf.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/mint-chocolate-and-cream-sdf-Uset9WAj.png",
+          "src": "assets/images/jade-lime-and-mint-sdf.png",
           "useCompressed": false
         },
         "uColor": "#ffffff"
@@ -5391,10 +5391,10 @@
       "depthTest": true,
       "depthWrite": false,
       "geometry": {
-        "filename": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin",
+        "filename": "assets/geometry/fromuil/jadeLimeAndMint.bin",
         "prefix": "",
-        "relative": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin",
-        "src": "assets/geometry/fromuil/mintChocolateAndCream-A6WKV2d8.bin"
+        "relative": "assets/geometry/fromuil/jadeLimeAndMint.bin",
+        "src": "assets/geometry/fromuil/jadeLimeAndMint.bin"
       },
       "name": "text2",
       "parent": "sl_ProductsScene_group_3",
@@ -6093,25 +6093,25 @@
       "id": 2,
       "uniforms": {
         "_txtMSDF": {
-          "filename": "assets/images/msdf/indulge-now-atone-later.png",
+          "filename": "assets/images/msdf/sail-away-stay-golden.png",
           "prefix": "",
-          "relative": "assets/images/msdf/indulge-now-atone-later.png",
-          "src": "assets/images/msdf/indulge-now-atone-later.png"
+          "relative": "assets/images/msdf/sail-away-stay-golden.png",
+          "src": "assets/images/msdf/sail-away-stay-golden.png"
         },
         "_txtMap": {
           "compressed": false,
-          "filename": "indulge-now-atone-later-2w3QN_Ic.png",
+          "filename": "sail-away-stay-golden.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/indulge-now-atone-later-2w3QN_Ic.png",
+          "src": "assets/images/sail-away-stay-golden.png",
           "useCompressed": false
         },
         "_txtSDF": {
           "compressed": false,
-          "filename": "indulge-now-atone-later-sdf-mhn3XOfP.png",
+          "filename": "sail-away-stay-golden-sdf.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/indulge-now-atone-later-sdf-mhn3XOfP.png",
+          "src": "assets/images/sail-away-stay-golden-sdf.png",
           "useCompressed": false
         },
         "uBoundsX": [
@@ -6125,10 +6125,10 @@
       "depthTest": false,
       "depthWrite": false,
       "geometry": {
-        "filename": "indulgenowatonelater-2BYplWLB.json",
+        "filename": "sailawaystaygolden.json",
         "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
         "relative": "",
-        "src": "assets/geometry/indulgenowatonelater-2BYplWLB.json"
+        "src": "assets/geometry/sailawaystaygolden.json"
       },
       "name": "title",
       "renderOrder": 1,
@@ -6428,26 +6428,26 @@
       "uniforms": {
         "_txtMSDF": {
           "compressed": false,
-          "filename": "chill-your-spirit-miy68ZWn.png",
+          "filename": "msdf/chill-your-voyage.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/chill-your-spirit-miy68ZWn.png",
+          "src": "assets/images/msdf/chill-your-voyage.png",
           "useCompressed": false
         },
         "_txtMap": {
           "compressed": false,
-          "filename": "chillYourSpirit-8vxI0jU-.png",
+          "filename": "chill-your-voyage.png",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/chillYourSpirit-8vxI0jU-.png",
+          "src": "assets/images/chill-your-voyage.png",
           "useCompressed": false
         },
         "_txtSDF": {
           "compressed": false,
-          "filename": "chillYourSpirit-sdf-dbIZjxxR.jpg",
+          "filename": "chill-your-voyage-sdf.jpg",
           "prefix": "https://storage.googleapis.com/at-uil-assets/santioni",
           "relative": "",
-          "src": "assets/images/chillYourSpirit-sdf-dbIZjxxR.jpg",
+          "src": "assets/images/chill-your-voyage-sdf.jpg",
           "useCompressed": false
         },
         "uColor": "#000000",
@@ -6464,10 +6464,10 @@
       "depthTest": false,
       "depthWrite": true,
       "geometry": {
-        "filename": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin",
+        "filename": "assets/geometry/fromuil/chillYourVoyage.bin",
         "prefix": "",
-        "relative": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin",
-        "src": "assets/geometry/fromuil/chillYourSpirit-i8BR1e_v.bin"
+        "relative": "assets/geometry/fromuil/chillYourVoyage.bin",
+        "src": "assets/geometry/fromuil/chillYourVoyage.bin"
       },
       "name": "title",
       "renderOrder": 6,

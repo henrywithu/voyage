@@ -5,7 +5,7 @@
     "color": "#FFFFFF",
     "align": "center",
     "lineHeight": 0.9,
-    "text": "TRAPNEST\nEXPERIENCE",
+    "text": "TRAPNEST\nVOYAGE",
     "anchor2D": false
   },
   "Element_998_ColosseumScene": {
@@ -14,7 +14,7 @@
     "color": "#FFFFFF",
     "align": "center",
     "lineHeight": 0.78,
-    "text": "THE\nTRAPNEST\nEXPERIENCE",
+    "text": "THE\nTRAPNEST\nVOYAGE",
     "anchor2D": false
   },
   "Element_13_CollectionScene": {
@@ -22,7 +22,7 @@
     "size": 0.0225,
     "color": "#c88e00",
     "align": "center",
-    "text": "AN ODE TO THE NIGHT, YOUR NIGHT",
+    "text": "AN ODE TO SUMMER, YOUR SUMMER",
     "anchor2D": false
   },
   "Element_14_CollectionScene": {
@@ -30,7 +30,7 @@
     "size": 0.0224,
     "color": "#c88e00",
     "align": "center",
-    "text": "TRAPNEST COLLECTION",
+    "text": "TIDES COLLECTION",
     "anchor2D": false
   },
   "Element_15_CollectionScene": {
@@ -60,7 +60,7 @@
     "size": 0.0224,
     "color": "#c88e00",
     "align": "right",
-    "text": "SPIRIT",
+    "text": "VOYAGE",
     "anchor2D": false
   },
   "Element_20_ProductsScene": {
@@ -69,7 +69,7 @@
     "color": "#FFFFFF",
     "align": "center",
     "lineHeight": 1,
-    "text": "ORANGE\nCHOCOLATE\n& CREAM",
+    "text": "LAGOON\nYUZU\n& SEA SALT",
     "anchor2D": false
   },
   "Element_21_ProductsScene": {
@@ -78,7 +78,7 @@
     "color": "#FFFFFF",
     "align": "center",
     "lineHeight": 1,
-    "text": "MINT\nCHOCOLATE\n& CREAM",
+    "text": "JADE\nLIME\n& MINT",
     "anchor2D": false
   },
   "Element_23_ProductsScene": {

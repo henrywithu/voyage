@@ -8,6 +8,7 @@ import { FloatingFrameHover } from "../engine/FloatingFrameHover";
 import { loadGeometry, texture } from "../engine/assets";
 import { material } from "../engine/shaders";
 import { worldHeight, clamp, range } from "../data/sections";
+import { tideColor, tides } from "../data/theme";
 interface FrameParams {
   geometry: string;
   animation?: string;
@@ -355,7 +356,7 @@ export async function setupFloatingFrames(section: SceneSection) {
           (age - 0.7) / 2,
         );
         f.mesh.material.uniforms.uColorFlavor.value
-          .set(["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected])
+          .set(tideColor(frame.selected))
           .convertLinearToSRGB();
       } else
         f.skin?.update(
@@ -364,11 +365,11 @@ export async function setupFloatingFrames(section: SceneSection) {
         );
       if (section.name === "PillarCrumbleScene")
         f.mesh.material.uniforms.uColor2.value
-          .set(["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected])
+          .set(tideColor(frame.selected))
           .convertLinearToSRGB();
       if (f.mesh.material.uniforms.uDrinkColor)
         f.mesh.material.uniforms.uDrinkColor.value.set(
-          ["#53b3e8", "#02f660", "#f6e168"][frame.selected],
+          tides[frame.selected].drink,
         );
     }
     hover.update(frame.pointer, frame.camera);

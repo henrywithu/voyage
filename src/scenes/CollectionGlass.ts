@@ -62,7 +62,7 @@ export function setupCollectionGlass(section: SceneSection) {
     colors = [
       ["blueColor", "blueColorDark"],
       ["greenColor", "greenColorDark"],
-      ["yellowColor", "yellowColorDark"],
+      ["coralColor", "coralColorDark"],
     ] as const;
   const fill = liquid.material.uniforms.uFillAmount.value;
   let lineScale = 1,

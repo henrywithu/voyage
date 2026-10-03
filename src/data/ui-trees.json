@@ -282,7 +282,7 @@
             "noResize": true,
             "noSplit": true,
             "class": "body-bold left-text",
-            "text": "The night STARTS<br> after dinner",
+            "text": "The summer STARTS<br> at sunset",
             "_type": "XText",
             "refName": "leftText",
             "children": []
@@ -295,7 +295,7 @@
               {
                 "className": "sr-only",
                 "_type": "span",
-                "_innerText": "\n                    Chill your spirit. The night starts after dinner. Shake your spirit. Let the night play on. Pour your spirit. What happens next is up to you.\n                ",
+                "_innerText": "\n                    Chill your voyage. The summer starts at sunset. Shake your voyage. Let the tide roll in. Pour your voyage. Where you sail next is up to you.\n                ",
                 "refName": "unnamed",
                 "children": []
               }
@@ -306,7 +306,7 @@
             "noResize": true,
             "noSplit": true,
             "class": "body-bold right-text",
-            "text": "What happens<br> next is up to you",
+            "text": "Where you sail<br> next is up to you",
             "_type": "XText",
             "refName": "rightText",
             "children": []
@@ -1109,7 +1109,7 @@
                 "noSplit": true,
                 "noResize": true,
                 "class": "body-bold",
-                "text": "Santioni<br>Spirits",
+                "text": "Trapnest<br>Voyage",
                 "_type": "XText",
                 "refName": "heading1mob",
                 "children": []
@@ -1119,7 +1119,7 @@
                 "noSplit": true,
                 "noResize": true,
                 "class": "body-bold",
-                "text": "Notturno<br>Collection",
+                "text": "Tides<br>Collection",
                 "_type": "XText",
                 "refName": "heading3mob",
                 "children": []
@@ -1171,7 +1171,7 @@
                         "noSplit": true,
                         "noResize": true,
                         "class": "body-bold body-left",
-                        "text": "Santioni<br>Spirits",
+                        "text": "Trapnest<br>Voyage",
                         "_type": "XText",
                         "refName": "heading1",
                         "children": []
@@ -1221,7 +1221,7 @@
                         "noSplit": true,
                         "noResize": true,
                         "class": "body-bold body-right",
-                        "text": "Notturno<br>Collection",
+                        "text": "Tides<br>Collection",
                         "_type": "XText",
                         "refName": "heading3",
                         "children": []
@@ -1883,7 +1883,7 @@
                 "noResize": true,
                 "data-heading": 1,
                 "class": "body-bold",
-                "text": "The Notturno Collection <br>is an ode to the night",
+                "text": "The Tides Collection <br>is an ode to summer",
                 "_type": "XText",
                 "refName": "heading1",
                 "children": []
@@ -1894,7 +1894,7 @@
                 "noResize": true,
                 "data-heading": 2,
                 "class": "body-bold",
-                "text": "A taste<br>of possibility",
+                "text": "A taste<br>of sunlight",
                 "_type": "XText",
                 "refName": "heading2",
                 "children": []
@@ -1905,7 +1905,7 @@
                 "noResize": true,
                 "data-heading": 3,
                 "class": "body-bold",
-                "text": "Inspired by the quiet glamour<br>of the late hours",
+                "text": "Inspired by the slow glow<br>of the golden hour",
                 "_type": "XText",
                 "refName": "heading3",
                 "children": []
@@ -1932,7 +1932,7 @@
                     "noSplit": true,
                     "noResize": true,
                     "class": "body-bold",
-                    "text": "Santioni",
+                    "text": "Trapnest",
                     "_type": "XText",
                     "refName": "copyheading1",
                     "children": []
@@ -1943,7 +1943,7 @@
                 "noSplit": true,
                 "noResize": true,
                 "class": "body-bold",
-                "text": "Spirits",
+                "text": "Voyage",
                 "_type": "XText",
                 "refName": "copyheading2",
                 "children": []
@@ -1957,7 +1957,7 @@
                     "noSplit": true,
                     "noResize": true,
                     "class": "body-regular",
-                    "text": "True devotion requires a little indulgence. Santioni Spirits is crafted for the saints and the sinners alike. The Notturno Collection blends heavenly cream and earthly decadence to unwind your soul and elevate your evenings.",
+                    "text": "Every voyage begins with a little daring. Trapnest Voyage is crafted for the dreamers and the drifters alike. The Tides Collection blends sun-warmed citrus and a breath of sea salt to loosen your shoulders and stretch your summer evenings.",
                     "_type": "XText",
                     "refName": "copy",
                     "children": []
@@ -1968,7 +1968,7 @@
                 "noSplit": true,
                 "noResize": true,
                 "class": "body-bold",
-                "text": "Notturno",
+                "text": "Tides",
                 "_type": "XText",
                 "refName": "copyheading3",
                 "children": []
@@ -2001,7 +2001,7 @@
                 "noSplit": true,
                 "noResize": true,
                 "class": "body-bold",
-                "text": "Santioni<br>Spirits",
+                "text": "Trapnest<br>Voyage",
                 "_type": "XText",
                 "refName": "copyMobileHeading1",
                 "children": []
@@ -2011,7 +2011,7 @@
                 "noSplit": true,
                 "noResize": true,
                 "class": "body-bold",
-                "text": "Notturno<br>Collection",
+                "text": "Tides<br>Collection",
                 "_type": "XText",
                 "refName": "copyMobileHeading2",
                 "children": []

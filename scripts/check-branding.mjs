@@ -10,12 +10,12 @@ const requireText = async (path, expected) => {
 };
 
 const index = await requireText("index.html", [
-  "Trapnest Spirit — The Trapnest Experience",
-  "https://spirit.henrywithu.com/",
-  "trapnest-spirit-og.jpg",
-  "trapnest-spirit.svg",
+  "Trapnest Voyage — The Trapnest Experience",
+  "https://voyage.henrywithu.com/",
+  "trapnest-voyage-og.jpg",
+  "trapnest-voyage.svg",
 ]);
-if (/Santioni|Notturno/i.test(index))
+if (/Santioni|Notturno|Spirit/i.test(index))
   throw new Error("index.html: legacy public branding remains");
 
 await requireText("src/components/AgeGate.tsx", [
@@ -29,7 +29,7 @@ await requireText("src/App.tsx", [
   "https://henrywithu.com/",
 ]);
 await requireText("src/components/Loader.tsx", [
-  "trapnest-spirit-logo-footer.svg",
+  "trapnest-voyage-logo-footer.svg",
 ]);
 await requireText("src/engine/shaders.ts", [
   "trapnest-merged-bottle-upright.png",
@@ -44,7 +44,7 @@ await requireText("wrangler.jsonc", [
 ]);
 
 const jpg = await readFile(
-  new URL("../public/assets/social/trapnest-spirit-og.jpg", import.meta.url),
+  new URL("../public/assets/social/trapnest-voyage-og.jpg", import.meta.url),
 );
 let width;
 let height;
@@ -65,8 +65,8 @@ if (width !== 1200 || height !== 630)
 for (const path of [
   "public/assets/images/trapnest-label-color.png",
   "public/assets/images/story/drinkselection/trapnest-merged-bottle-upright.png",
-  "public/assets/images/trapnest-spirit-logo-footer.svg",
-  "public/assets/favicon/trapnest-spirit.svg",
+  "public/assets/images/trapnest-voyage-logo-footer.svg",
+  "public/assets/favicon/trapnest-voyage.svg",
   "public/assets/images/trapnest-product-n1.svg",
   "public/assets/images/trapnest-product-n2.svg",
   "public/assets/images/trapnest-product-n3.svg",
@@ -76,5 +76,5 @@ for (const path of [
 }
 
 console.log(
-  "Verified Trapnest Spirit metadata, L.A.S.T. gate, footer destination, bottle assets, Workers SPA routing and 1200x630 OG image.",
+  "Verified Trapnest Voyage metadata, L.A.S.T. gate, footer destination, bottle assets, Workers SPA routing and 1200x630 OG image.",
 );

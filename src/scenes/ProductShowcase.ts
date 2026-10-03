@@ -15,24 +15,24 @@ const config = settings.Products;
 const color = (hex: string) => new THREE.Color(hex).convertLinearToSRGB();
 export const products = [
   {
-    name: "Orange Chocolate & Cream",
-    short: "Orange\nChocolate\n& Cream",
+    name: "Lagoon Yuzu & Sea Salt",
+    short: "Lagoon\nYuzu\n& Sea Salt",
     color: config.blueColor,
     dark: config.blueColorDark,
     uv: 0,
   },
   {
-    name: "Mint Chocolate & Cream",
-    short: "Mint\nChocolate\n& Cream",
+    name: "Jade Lime & Mint",
+    short: "Jade\nLime\n& Mint",
     color: config.greenColor,
     dark: config.greenColorDark,
     uv: 0.5,
   },
   {
-    name: "Marshmallow Coffee & Cream",
-    short: "Marshmallow\nCoffee\n& Cream",
-    color: config.yellowColor,
-    dark: config.yellowColorDark,
+    name: "Coral Peach & Hibiscus",
+    short: "Coral\nPeach\n& Hibiscus",
+    color: config.coralColor,
+    dark: config.coralColorDark,
     uv: 0.25,
   },
 ];

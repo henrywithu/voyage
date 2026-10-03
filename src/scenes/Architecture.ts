@@ -5,6 +5,7 @@ import { SceneSection } from "../engine/SceneSection";
 import { outline } from "../engine/outline";
 import { range, worldHeight } from "../data/sections";
 import { SourceText } from "../engine/SourceText";
+import { tideColor } from "../data/theme";
 
 /** Recovered TargetScene, TransitionScene and CathedralScene scene graph and responsive rules. */
 export async function setupArchitecture(section: SceneSection) {
@@ -205,7 +206,7 @@ export async function setupArchitecture(section: SceneSection) {
         });
       }
       character.material.uniforms.uColor.value
-        .set(["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected])
+        .set(tideColor(frame.selected))
         .convertLinearToSRGB();
       raycaster.setFromCamera(frame.pointer, frame.camera);
       section.group.updateMatrixWorld(true);

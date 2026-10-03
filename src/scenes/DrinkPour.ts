@@ -7,6 +7,7 @@ import { material } from "../engine/shaders";
 import { outline } from "../engine/outline";
 import { range, clamp, worldHeight } from "../data/sections";
 import { PourStream } from "./PourStream";
+import { tideColor } from "../data/theme";
 const states = new WeakMap<
   SceneSection,
   { progress: number; drinkFrame: number }
@@ -222,7 +223,7 @@ export async function setupDrinkPour(section: SceneSection) {
       0.05,
       -(Math.cos(Math.PI * range(p, 0, 0.7, 0, 1)) - 1) / 2,
     );
-    const color = ["#63c4f4", "#97f3ad", "#fbeb7f"][frame.selected];
+    const color = tideColor(frame.selected);
     bottle.material.uniforms.uColor.value.set(color).convertLinearToSRGB();
     const u = (character.mesh.material as THREE.RawShaderMaterial).uniforms;
     u.uDrinkColor.value.set(color).convertLinearToSRGB();
