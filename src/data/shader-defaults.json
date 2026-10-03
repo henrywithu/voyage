@@ -83,7 +83,7 @@
     "tTrim": {
       "value": {
         "kind": "Texture",
-        "path": "assets/images/story/tex_clothing_trim.png",
+        "path": "assets/images/story/chaewon/trim.png",
         "repeat": true
       }
     },
@@ -859,14 +859,14 @@
     "tAtlas": {
       "value": {
         "kind": "Texture",
-        "path": "assets/images/story/tex_atlas.png",
+        "path": "assets/images/story/chaewon/atlas.png",
         "repeat": true
       }
     },
     "tTrim": {
       "value": {
         "kind": "Texture",
-        "path": "assets/images/story/tex_trim-2.png",
+        "path": "assets/images/story/chaewon/trim.png",
         "repeat": true
       }
     },
@@ -1818,7 +1818,7 @@
     "tAtlas": {
       "value": {
         "kind": "Texture",
-        "path": "assets/images/story/tex_atlas.png",
+        "path": "assets/images/story/chaewon/atlas.png",
         "repeat": true
       },
       "ignoreUIL": true
@@ -1826,7 +1826,7 @@
     "tTrim": {
       "value": {
         "kind": "Texture",
-        "path": "assets/images/story/tex_clothing_trim.png",
+        "path": "assets/images/story/chaewon/trim.png",
         "repeat": true
       }
     },
@@ -2506,14 +2506,14 @@
     "tTrim": {
       "value": {
         "kind": "Texture",
-        "path": "assets/images/story/tex_trim-2.png",
+        "path": "assets/images/story/chaewon/trim.png",
         "repeat": true
       }
     },
     "tAtlas": {
       "value": {
         "kind": "Texture",
-        "path": "assets/images/story/tex_atlas.png",
+        "path": "assets/images/story/chaewon/atlas.png",
         "repeat": true
       }
     },

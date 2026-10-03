@@ -11,8 +11,8 @@ import { SourceText } from "../engine/SourceText";
 import { worldHeight, range, clamp } from "../data/sections";
 
 export const characterTextures = {
-  tAtlas: texture("assets/images/story/tex_atlas.png"),
-  tTrim: texture("assets/images/story/tex_trim-2.png"),
+  tAtlas: texture("assets/images/story/chaewon/atlas.png"),
+  tTrim: texture("assets/images/story/chaewon/trim.png"),
   tLines: texture("assets/images/story/lines.jpg"),
   tNoise: texture("assets/images/story/perlin.png"),
 };

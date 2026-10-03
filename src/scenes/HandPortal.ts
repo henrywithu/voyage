@@ -15,7 +15,7 @@ export async function setupHand(section: SceneSection) {
     await loadGeometry("assets/geometry/story/hand/arm-skin.bin"),
     "SkinHandShader",
     {
-      tTrim: texture("assets/images/story/tex_clothing_trim.png"),
+      tTrim: texture("assets/images/story/chaewon/trim.png"),
       tLines: texture("assets/images/story/lines.jpg"),
       tNoise: texture("assets/images/story/perlin.png"),
       uLinesTile: 12,

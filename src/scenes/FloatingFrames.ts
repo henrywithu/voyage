@@ -172,13 +172,13 @@ export async function setupFloatingFrames(section: SceneSection) {
       const name = params.shader ?? "FloatingFrameBaseShader";
       const uniforms = {
         uDPR: 1,
-        tAtlas: texture("assets/images/story/tex_atlas.png"),
+        tAtlas: texture("assets/images/story/chaewon/atlas.png"),
         tTrim: texture(
           ["FloatingFrameDrinkShader", "FloatingFramePillarShader"].includes(
             params.shader ?? "",
           )
-            ? "assets/images/story/tex_trim-2.png"
-            : "assets/images/story/tex_clothing_trim.png",
+            ? "assets/images/story/chaewon/trim.png"
+            : "assets/images/story/chaewon/trim.png",
         ),
         tLines: texture("assets/images/story/lines.jpg"),
         tNoise: texture("assets/images/story/perlin.png"),
@@ -204,7 +204,7 @@ export async function setupFloatingFrames(section: SceneSection) {
       };
       if (section.name === "AntiGravityScene")
         Object.assign(uniforms, {
-          tTrim: texture("assets/images/story/tex_trim-2.png"),
+          tTrim: texture("assets/images/story/chaewon/trim.png"),
           uLinesTile: 2.5,
           uLightDir: new THREE.Vector3(0.25, 0.25, 0.2),
           uColor: new THREE.Vector3(127 / 255, 114 / 255, 97 / 255),

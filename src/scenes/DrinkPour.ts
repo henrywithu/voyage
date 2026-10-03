@@ -46,7 +46,7 @@ export async function setupDrinkPour(section: SceneSection) {
       root,
     );
   const common = {
-    tAtlas: texture("assets/images/story/tex_atlas.png"),
+    tAtlas: texture("assets/images/story/chaewon/atlas.png"),
     tLines: texture("assets/images/story/lines.jpg"),
     tNoise: texture("assets/images/story/perlin.png"),
   };
@@ -55,7 +55,7 @@ export async function setupDrinkPour(section: SceneSection) {
     "SkinShader",
     {
       ...common,
-      tTrim: texture("assets/images/story/tex_clothing_trim.png"),
+      tTrim: texture("assets/images/story/chaewon/trim.png"),
       uColor: new THREE.Vector3(1, 1, 1),
       uDrinkColor: new THREE.Vector3(1, 1, 1),
       uLinesTile: 12,
@@ -74,7 +74,7 @@ export async function setupDrinkPour(section: SceneSection) {
     "SkinShader",
     {
       ...common,
-      tTrim: texture("assets/images/story/tex_trim-2.png"),
+      tTrim: texture("assets/images/story/chaewon/trim.png"),
       uColor: new THREE.Vector3(176 / 255, 151 / 255, 106 / 255),
       uDrinkColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
       uLinesTile: 3.5,

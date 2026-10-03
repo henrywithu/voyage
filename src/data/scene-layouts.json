@@ -1481,10 +1481,10 @@
       "id": 10,
       "uniforms": {
         "_txtTrim": {
-          "filename": "assets/images/story/tex_trim-2.png",
+          "filename": "assets/images/story/chaewon/trim.png",
           "prefix": "",
-          "relative": "assets/images/story/tex_trim-2.png",
-          "src": "assets/images/story/tex_trim-2.png"
+          "relative": "assets/images/story/chaewon/trim.png",
+          "src": "assets/images/story/chaewon/trim.png"
         },
         "uBreathe": [
           0.738,
@@ -1983,7 +1983,7 @@
       "uniforms": {
         "_txtTrim": {
           "hotreload": true,
-          "src": "assets/images/story/tex_trim-2.png?1770350663367"
+          "src": "assets/images/story/chaewon/trim.png?1770350663367"
         },
         "uBreathe": [
           0.7,
@@ -2208,10 +2208,10 @@
       "id": 5,
       "uniforms": {
         "_txtTrim": {
-          "filename": "assets/images/story/tex_trim-2.png",
+          "filename": "assets/images/story/chaewon/trim.png",
           "prefix": "",
-          "relative": "assets/images/story/tex_trim-2.png",
-          "src": "assets/images/story/tex_trim-2.png"
+          "relative": "assets/images/story/chaewon/trim.png",
+          "src": "assets/images/story/chaewon/trim.png"
         },
         "uBreathe": [
           0.738,
@@ -3602,7 +3602,7 @@
       "uniforms": {
         "_txtTrim": {
           "hotreload": true,
-          "src": "assets/images/story/tex_trim-2.png?1770190931833"
+          "src": "assets/images/story/chaewon/trim.png?1770190931833"
         },
         "uBreathe": [
           0.02,
@@ -4408,10 +4408,10 @@
       "id": 4,
       "uniforms": {
         "_txtTrim": {
-          "filename": "assets/images/story/tex_trim-2.png",
+          "filename": "assets/images/story/chaewon/trim.png",
           "prefix": "",
-          "relative": "assets/images/story/tex_trim-2.png",
-          "src": "assets/images/story/tex_trim-2.png"
+          "relative": "assets/images/story/chaewon/trim.png",
+          "src": "assets/images/story/chaewon/trim.png"
         },
         "uBreathe": [
           1,
@@ -6022,14 +6022,14 @@
           "src": "assets/images/story/lines.jpg"
         },
         "_txtMap": {
-          "filename": "assets/images/story/tex_atlas.png",
+          "filename": "assets/images/story/chaewon/atlas.png",
           "prefix": "",
-          "relative": "assets/images/story/tex_atlas.png",
-          "src": "assets/images/story/tex_atlas.png"
+          "relative": "assets/images/story/chaewon/atlas.png",
+          "src": "assets/images/story/chaewon/atlas.png"
         },
         "_txtTrim": {
           "hotreload": true,
-          "src": "assets/images/story/tex_trim-2.png?1769134533566"
+          "src": "assets/images/story/chaewon/trim.png?1769134533566"
         },
         "uCutout": 0.45
       },

@@ -40,7 +40,7 @@ export async function setupAntiGravity(section: SceneSection) {
     ),
     "AntiGravSkinShader",
     {
-      tTrim: texture("assets/images/story/tex_clothing_trim.png"),
+      tTrim: texture("assets/images/story/chaewon/trim.png"),
       tLines: texture("assets/images/story/lines.jpg"),
       tNoise: texture("assets/images/story/perlin.png"),
       uColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
