@@ -1444,7 +1444,7 @@
           "hotreload": true,
           "src": "assets/images/story/clouds_noise.png?1769143042614"
         },
-        "uColor1": "#592223",
+        "uColor1": "#b8820f",
         "uColor2": "#000000",
         "uLinesTile": 1,
         "uStep": 0.127,
@@ -1491,7 +1491,7 @@
           1.97,
           0.4
         ],
-        "uColor": "#b29a6e",
+        "uColor": "#e8e1d0",
         "uLightDir": [
           0.31,
           1.38,
@@ -1656,8 +1656,8 @@
           8.682,
           90
         ],
-        "uColor": "#be261e",
-        "uColorHighlight": "#be261e",
+        "uColor": "#f3bc23",
+        "uColorHighlight": "#f3bc23",
         "uDistanceCompensation": 0,
         "uLightDir": [
           0,
@@ -1707,8 +1707,8 @@
           "hotreload": true,
           "src": "assets/images/story/nearblack.png?1770350663118"
         },
-        "uColor": "#be261e",
-        "uColorHighlight": "#be261e",
+        "uColor": "#f3bc23",
+        "uColorHighlight": "#f3bc23",
         "uLightDir": [
           -0.331,
           1.131,
@@ -1744,7 +1744,7 @@
       "id": 3,
       "uniforms": {
         "uColor": "#ae9c74",
-        "uColorHighlight": "#be261e",
+        "uColorHighlight": "#f3bc23",
         "uLinesTile": 8.39,
         "uThreshold": [
           1.99,
@@ -1790,8 +1790,8 @@
           8.682,
           90
         ],
-        "uColor": "#be261e",
-        "uColorHighlight": "#be261e",
+        "uColor": "#f3bc23",
+        "uColorHighlight": "#f3bc23",
         "uDistanceCompensation": 1,
         "uLightDir": [
           0,
@@ -1990,7 +1990,7 @@
           0.61,
           1
         ],
-        "uColor": "#b39b70",
+        "uColor": "#e8e1d0",
         "uLightDir": [
           -0.09,
           0.313,
@@ -2872,7 +2872,7 @@
     "1": {
       "id": 1,
       "uniforms": {
-        "color": "#bc251c"
+        "color": "#f3bb22"
       },
       "depthTest": false,
       "geometry": {
@@ -3218,7 +3218,7 @@
     "1": {
       "id": 1,
       "uniforms": {
-        "color": "#c0261d"
+        "color": "#f3bc23"
       },
       "depthTest": false,
       "depthWrite": true,
@@ -3609,7 +3609,7 @@
           2.03,
           0.2
         ],
-        "uColor": "#b39b70",
+        "uColor": "#e8e1d0",
         "uLightDir": [
           3,
           -1.75,
@@ -4131,7 +4131,7 @@
     "0": {
       "id": 0,
       "uniforms": {
-        "uColor": "#bc251c"
+        "uColor": "#f3bb22"
       },
       "depthTest": false,
       "depthWrite": true,
@@ -4335,7 +4335,7 @@
           "hotreload": true,
           "src": "assets/images/story/clouds_noise.png?1769143042614"
         },
-        "uColor1": "#592223",
+        "uColor1": "#b8820f",
         "uColor2": "#000000",
         "uLinesTile": 0.983
       },
@@ -4914,7 +4914,7 @@
           "src": "assets/images/empty_normal-1Qg4XGDW.png",
           "useCompressed": false
         },
-        "uBGColor": "#c82924",
+        "uBGColor": "#f4bd28",
         "uEnv": [
           0.5,
           100,
@@ -4973,7 +4973,7 @@
     "6": {
       "id": 6,
       "uniforms": {
-        "uColor": "#c82924"
+        "uColor": "#f4bd28"
       },
       "depthTest": true,
       "name": "bg",
@@ -5839,7 +5839,7 @@
       "id": 0,
       "uniforms": {
         "uColor": "#ffffff",
-        "uColorHighlight": "#971d16",
+        "uColorHighlight": "#f3b713",
         "uLinesTile": 7.53,
         "_txtMap": {
           "filename": "assets/images/story/nearblack.png",
@@ -5951,7 +5951,7 @@
           "hotreload": true,
           "src": "assets/images/story/clouds_noise.png?1769143042614"
         },
-        "uColor1": "#c1271f",
+        "uColor1": "#f3bc24",
         "uColor2": "#121212",
         "uSteppedTime": 12,
         "_txtNoise": {
@@ -6066,7 +6066,7 @@
     "0": {
       "id": 0,
       "uniforms": {
-        "uColor": "#c82924"
+        "uColor": "#f4bd28"
       },
       "depthTest": true,
       "name": "bg",
@@ -6739,7 +6739,7 @@
       "id": 9,
       "uniforms": {
         "billboard": 1,
-        "color": "#990B06",
+        "color": "#f2b60f",
         "uFixed": 1
       },
       "billboard": false,

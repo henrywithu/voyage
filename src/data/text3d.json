@@ -20,7 +20,7 @@
   "Element_13_CollectionScene": {
     "font": "PPNikkeiMaru-Ultrabold",
     "size": 0.0225,
-    "color": "#C82924",
+    "color": "#c88e00",
     "align": "center",
     "text": "AN ODE TO THE NIGHT, YOUR NIGHT",
     "anchor2D": false
@@ -28,7 +28,7 @@
   "Element_14_CollectionScene": {
     "font": "PPNikkeiMaru-Ultrabold",
     "size": 0.0224,
-    "color": "#C82924",
+    "color": "#c88e00",
     "align": "center",
     "text": "TRAPNEST COLLECTION",
     "anchor2D": false
@@ -36,21 +36,21 @@
   "Element_15_CollectionScene": {
     "font": "PPNikkeiMaru-UltraBold",
     "size": 0.02,
-    "color": "#C82924",
+    "color": "#c88e00",
     "align": "center",
     "anchor2D": false
   },
   "Element_16_CollectionScene": {
     "font": "PPNikkeiMaru-UltraBold",
     "size": 0.02,
-    "color": "#C82924",
+    "color": "#c88e00",
     "align": "center",
     "anchor2D": false
   },
   "Element_18_CollectionScene": {
     "font": "PPNikkeiMaru-Ultrabold",
     "size": 0.0224,
-    "color": "#C82924",
+    "color": "#c88e00",
     "align": "left",
     "text": "TRAPNEST",
     "anchor2D": false
@@ -58,7 +58,7 @@
   "Element_19_CollectionScene": {
     "font": "PPNikkeiMaru-Ultrabold",
     "size": 0.0224,
-    "color": "#C82924",
+    "color": "#c88e00",
     "align": "right",
     "text": "SPIRIT",
     "anchor2D": false

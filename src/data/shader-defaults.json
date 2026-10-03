@@ -312,7 +312,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#be261e"
+          "#f3bc23"
         ]
       }
     },
@@ -733,7 +733,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#8C0D09"
+          "#99740e"
         ]
       }
     },
@@ -755,7 +755,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#bc251c"
+          "#f3bb22"
         ]
       }
     },
@@ -888,7 +888,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#b0976a"
+          "#e8e1d0"
         ]
       }
     },
@@ -1128,7 +1128,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#CB2C1F"
+          "#f4bd28"
         ]
       }
     },
@@ -1136,7 +1136,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#ff0000"
+          "#f4bf2f"
         ]
       }
     },
@@ -1144,7 +1144,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#dd0000"
+          "#f3bc23"
         ]
       }
     },
@@ -1759,7 +1759,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#C82924"
+          "#f4bd28"
         ]
       }
     }
@@ -2169,7 +2169,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#bc241b"
+          "#f3bb21"
         ]
       }
     },
@@ -2266,7 +2266,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#c82924"
+          "#f4bd28"
         ]
       }
     },
@@ -2768,7 +2768,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#ff0000"
+          "#f4bf2f"
         ]
       }
     },
@@ -2776,7 +2776,7 @@
       "value": {
         "kind": "Color",
         "args": [
-          "#C82924"
+          "#f4bd28"
         ]
       }
     },

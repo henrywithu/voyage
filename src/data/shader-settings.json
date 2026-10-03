@@ -13,7 +13,7 @@
     "thickness": 0.2
   },
   "SkinHandShader": {
-    "uHighlight": "#c1271f",
+    "uHighlight": "#f3bc24",
     "uPortalFeather": 0.005
   },
   "SkinShaderMRT": {
@@ -45,9 +45,9 @@
     ]
   },
   "WaterHandShader": {
-    "uColor1": "#592223",
+    "uColor1": "#b8820f",
     "uColor2": "#000",
-    "uColor3": "#d05355",
-    "uColor4": "#C82924"
+    "uColor3": "#f5c33b",
+    "uColor4": "#f4bd28"
   }
 }

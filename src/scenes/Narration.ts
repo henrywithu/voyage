@@ -61,7 +61,7 @@ export class NarrativeBox {
       material("TextBoxTextShader", {
         tMap: font.map,
         uColor: new THREE.Vector3(0, 0, 0),
-        uColorHighlight: new THREE.Vector3(200 / 255, 41 / 255, 36 / 255),
+        uColorHighlight: new THREE.Color("#db9600").convertLinearToSRGB(),
         uTranslate: this.translate,
         uOpacity: this.opacity,
         uKaraokeInfluence: 1,

@@ -75,7 +75,7 @@ export async function setupDrinkPour(section: SceneSection) {
     {
       ...common,
       tTrim: texture("assets/images/story/chaewon/trim.png"),
-      uColor: new THREE.Vector3(176 / 255, 151 / 255, 106 / 255),
+      uColor: new THREE.Vector3(232 / 255, 225 / 255, 208 / 255),
       uDrinkColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
       uLinesTile: 3.5,
       uLightDir: new THREE.Vector3(0.13, 0.3, 0.74).normalize(),

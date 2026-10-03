@@ -190,11 +190,11 @@ export async function setupFloatingFrames(section: SceneSection) {
           params.shader === "FloatingFrameWalkShader"
             ? "#f3f1e9"
             : params.shader
-              ? "#be261e"
-              : "#b29a6e",
+              ? "#f3bc23"
+              : "#e8e1d0",
         ).convertLinearToSRGB(),
         uColor2: new THREE.Color(
-          params.shader ? "#b0976a" : "#7f7261",
+          params.shader ? "#e8e1d0" : "#a39b8a",
         ).convertLinearToSRGB(),
         uColor3: new THREE.Color("#3c3c3c").convertLinearToSRGB(),
         uTransition: 0,
@@ -208,7 +208,7 @@ export async function setupFloatingFrames(section: SceneSection) {
           uLinesTile: 2.5,
           uLightDir: new THREE.Vector3(0.25, 0.25, 0.2),
           uColor: new THREE.Vector3(127 / 255, 114 / 255, 97 / 255),
-          uColorBG: new THREE.Vector3(188 / 255, 37 / 255, 28 / 255),
+          uColorBG: new THREE.Vector3(243 / 255, 187 / 255, 34 / 255),
           uColorFlavor: new THREE.Vector3(99 / 255, 196 / 255, 244 / 255),
           uOpenEyesWeight: 0,
           uTransitionEyeColor: 0,
@@ -223,7 +223,7 @@ export async function setupFloatingFrames(section: SceneSection) {
                 uColor: new THREE.Vector3(127 / 255, 114 / 255, 97 / 255),
               }
             : {
-                uColor1: new THREE.Vector3(188 / 255, 37 / 255, 28 / 255),
+                uColor1: new THREE.Vector3(243 / 255, 187 / 255, 34 / 255),
                 uColor3: new THREE.Vector3(18 / 255, 18 / 255, 18 / 255),
               },
         );

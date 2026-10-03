@@ -45,7 +45,7 @@ export class InteractionOverlay {
     uShow: 1,
     uColor: "#121212",
     uColor2: "#ffffff",
-    uColor3: "#C82924",
+    uColor3: "#f4bd28",
   });
   private readonly logo = new THREE.Mesh(
     new THREE.PlaneGeometry(),

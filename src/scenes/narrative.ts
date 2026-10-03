@@ -68,7 +68,7 @@ export async function setupNarrative(scene: SceneSection) {
       "SkinShader",
       {
         ...characterTextures,
-        uColor: new THREE.Vector3(0.68235, 0.61176, 0.4549),
+        uColor: new THREE.Vector3(0.9098, 0.88235, 0.81569),
         uLinesTile: 1.25,
         uLightDir: new THREE.Vector3(0.1, 0.1, 0.5).normalize(),
         uAxis: new THREE.Vector3(1, 0, 2.5),
@@ -140,7 +140,7 @@ export async function setupNarrative(scene: SceneSection) {
       uBreathe: new THREE.Vector3(-0.2, 0.3, 1),
       uWindAxisAngle: new THREE.Vector4(0, 1, 0, 0),
       uWindParams: new THREE.Vector3(0, 1, 1),
-      uColor: new THREE.Vector3(0.70196, 0.60784, 0.43922),
+      uColor: new THREE.Vector3(0.9098, 0.88235, 0.81569),
       // The saint straightens over the source's 2.5-second entrance tween.
       uBend: -0.4,
     };

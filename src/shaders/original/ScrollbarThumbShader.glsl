@@ -51,7 +51,7 @@ void main() {
     float isDark = step(0.3, sceneLuma);
 
     vec3 baseColor = vec3(0.0);
-    vec3 outColor = mix(vec3(0.784,0.161,0.141), vec3(0.071,0.071,0.071), isDark);
+    vec3 outColor = mix(vec3(0.957,0.741,0.157), vec3(0.071,0.071,0.071), isDark);
     float steppedTime = floor(time * 8.0) / 8.0;
     
     float noise = texture2D(tNoise, vPos.xy * 0.4 + vec2(0.0, steppedTime)).r;
