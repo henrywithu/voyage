@@ -87,10 +87,14 @@ export async function setupNarrative(scene: SceneSection) {
       character.update(f.delta);
       // The swell: a slow pitch and roll about the waterline, the bow lifting first.
       const t = f.time;
+      // Behind the age gate the scene renders with time held at 0: keep the sloop (whose mast
+      // reaches into the first screen) out of sight, then let it sail up as the sky opens.
+      const arrive = 1 - (1 - clamp((t - 0.6) / 4.5)) ** 3;
+      characterGroup.visible = seaGroup.visible = t > 0;
       characterGroup.rotation.x = 0.022 * Math.sin(t * 0.9);
       characterGroup.rotation.z = 0.016 * Math.sin(t * 0.62 + 1.3);
       characterGroup.position.y =
-        0.6 - scene.height * 0.5 + 0.03 * Math.sin(t * 0.9 - 0.8);
+        0.6 - scene.height * 0.5 + 0.03 * Math.sin(t * 0.9 - 0.8) - 2.5 * (1 - arrive);
       const titleProgress = 1 - (1 - clamp((f.time - 1) / 7)) ** 2;
       title.material.uniforms.uAlpha.value = titleProgress;
       title.material.uniforms.uTransition.value = Math.max(
