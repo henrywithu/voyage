@@ -10,6 +10,8 @@ Per-vertex attributes written for the shaders:
   color     r unused, g eye mask, b ambient occlusion (inverted in the shader)
   windmask  how much a vertex sways in the wind shaders (hair tips, skirt hem)
 """
+import math
+
 import numpy as np
 from scipy.spatial import cKDTree
 
@@ -241,11 +243,13 @@ def to_three(P, scale=SCALE):
     return (np.asarray(P) @ B2T.T) * scale
 
 
-def mat_to_three(M, scale=SCALE):
+def mat_to_three(M, scale=SCALE, roll=0.0):
     """Blender 4x4 bone world matrix -> three.js space. The bone keeps its own axes (Y along the bone, as in
     Spirit's rigs), expressed in three's world: scene code that turns bones about local axes (the hand
-    scene's twist, curl and wrist spring) then behaves as it did on Spirit's arm."""
-    R = B2T @ M[:3, :3]
+    scene's twist, curl and wrist spring) then behaves as it did on Spirit's arm. `roll` (radians) turns
+    the bone's frame about its own Y, to match the roll of the Spirit bone a scene was written for."""
+    c, s_ = math.cos(roll), math.sin(roll)
+    R = B2T @ M[:3, :3] @ np.array([[c, 0, s_], [0, 1, 0], [-s_, 0, c]])
     t = B2T @ M[:3, 3] * scale
     out = np.eye(4)
     out[:3, :3] = R

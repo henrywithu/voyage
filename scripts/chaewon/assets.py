@@ -511,6 +511,26 @@ def asset_hand(s, frames=64):
     keep = ['lowerarm01.R', 'upperarm01.R', 'wrist.R', 'hand_bone_parent'] + \
            [f'finger{m}-{k}.R' for m in (2, 3, 5, 4) for k in (1, 2, 3)] + ['shoulder01.R', 'root'] + \
            [f'finger1-{k}.R' for k in (1, 2, 3)]
+    # Roll each exported bone to the Spirit bone it stands in for: the scene turns these bones about their
+    # local axes (cursor-driven forearm swing and bend, wrist and finger noise), so their frames must match.
+    roll = {}
+    samples = [(f, ext(pose_frame(f))) for f in range(25, 56, 5)]
+    for k in keep:
+        sname = rename.get(k, k)
+        if sname not in idx:
+            continue
+        i = names_x.index(k)
+        angles = []
+        for f, mats in samples:
+            Ro = M.B2T @ mats[i][:3, :3]
+            Ro /= np.linalg.norm(Ro, axis=0, keepdims=True)
+            Rs = track[f][idx[sname]][:3, :3]
+            Rs = Rs / np.linalg.norm(Rs, axis=0, keepdims=True)
+            xl = Ro.T @ Rs[:, 0]
+            angles.append(math.atan2(-xl[2], xl[0]))
+        roll[k] = math.atan2(np.mean(np.sin(angles)), np.mean(np.cos(angles)))
+    print('hand bone roll (deg):', {rename.get(k, k): round(math.degrees(v)) for k, v in roll.items()})
+    mats_bind = pose_frame(25)
     # Arm skin only (shoulder to fingertips), posed at the bind frame.
     body = s.base_parts[0]
     names = s.names
@@ -533,13 +553,13 @@ def asset_hand(s, frames=64):
     bind_x = ext(mats_bind)
     path = os.path.join(DEC, 'hand/arm-skin.bin.mesh')
     export.write_skinned(path, Pb, F, uv, uv2, Wx, names_x, np.array(parents_x), bind_x, keep=keep, scale=scale,
-                         N_bl=Nb, rename=rename, extra={'windmask': np.zeros((len(Pb), 3), np.float32)})
+                         N_bl=Nb, rename=rename, extra={'windmask': np.zeros((len(Pb), 3), np.float32)}, roll=roll)
     anim = []
     for f in range(frames):
         mats = ext(pose_frame(f))
         anim.append({n: mats[i] for i, n in enumerate(names_x)})
     export.write_animation(os.path.join(DEC, 'hand/arm.bin.mesh'), anim, names_x, np.array(parents_x),
-                           keep=keep, scale=scale)
+                           keep=keep, scale=scale, roll=roll)
     # The header names must match the renamed bones: rewrite the bind mesh skinning against bind (not rest).
     print('hand', len(Pb), 'verts scale', round(scale, 3))
 

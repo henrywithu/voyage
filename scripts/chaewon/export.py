@@ -23,7 +23,7 @@ def write_static(path, P_bl, F, uv, uv2, extra=None, scale=M.SCALE, N_bl=None):
     return P
 
 
-def bones_header(rest_world_bl, names, parents, keep=M.KEEP, scale=M.SCALE, rename=None):
+def bones_header(rest_world_bl, names, parents, keep=M.KEEP, scale=M.SCALE, rename=None, roll=None):
     """Header bones (kept subset) and their three-space rest world matrices."""
     idx = {n: i for i, n in enumerate(names)}
     kept = [idx[n] for n in keep]
@@ -33,7 +33,8 @@ def bones_header(rest_world_bl, names, parents, keep=M.KEEP, scale=M.SCALE, rena
         while p >= 0 and names[p] not in keep:
             p = parents[p]
         kparent.append(keep.index(names[p]) if p >= 0 else -1)
-    world = [M.mat_to_three(rest_world_bl[i], scale) for i in kept]
+    roll = roll or {}
+    world = [M.mat_to_three(rest_world_bl[i], scale, roll.get(names[i], 0.0)) for i in kept]
     locs = M.local_transforms(world, kparent)
     rename = rename or {}
     bones = [{'name': rename.get(keep[k], keep[k]), 'parent': int(kparent[k]), 'pos': [round(float(x), 6) for x in locs[k][0]],
@@ -42,10 +43,10 @@ def bones_header(rest_world_bl, names, parents, keep=M.KEEP, scale=M.SCALE, rena
 
 
 def write_skinned(path, P_bl, F, uv, uv2, Wfull, names, parents, rest_world_bl, color=None, extra=None,
-                  keep=M.KEEP, scale=M.SCALE, N_bl=None, rename=None):
+                  keep=M.KEEP, scale=M.SCALE, N_bl=None, rename=None, roll=None):
     Wk, kept = M.fold_weights(Wfull, names, parents, keep)
     si, sw = M.top4(Wk)
-    bones, kparent, world = bones_header(rest_world_bl, names, parents, keep, scale, rename)
+    bones, kparent, world = bones_header(rest_world_bl, names, parents, keep, scale, rename, roll)
     P = M.to_three(P_bl, scale)
     N = normals(P, F) if N_bl is None else np.asarray(N_bl) @ M.B2T.T
     arrays = {'position': P, 'normal': N, 'uv': uv, 'uv2': uv2, 'skinIndex': si, 'skinWeight': sw}
@@ -58,7 +59,7 @@ def write_skinned(path, P_bl, F, uv, uv2, Wfull, names, parents, rest_world_bl, 
     return bones, kparent
 
 
-def write_animation(path, frames_world_bl, names, parents, keep=M.KEEP, scale=M.SCALE):
+def write_animation(path, frames_world_bl, names, parents, keep=M.KEEP, scale=M.SCALE, roll=None):
     """frames_world_bl: list of {bone name: 4x4 Blender world matrix} per frame (20 fps)."""
     _, kparent, _ = bones_header(frames_world_bl[0]['__rest__'], names, parents, keep, scale) \
         if '__rest__' in frames_world_bl[0] else (None, None, None)
@@ -72,7 +73,7 @@ def write_animation(path, frames_world_bl, names, parents, keep=M.KEEP, scale=M.
             kparent.append(keep.index(names[p]) if p >= 0 else -1)
     arrays = {}
     for f, mats in enumerate(frames_world_bl):
-        world = [M.mat_to_three(mats[n], scale) for n in keep]
+        world = [M.mat_to_three(mats[n], scale, (roll or {}).get(n, 0.0)) for n in keep]
         locs = M.local_transforms(world, kparent)
         arrays[f'offset_{f}'] = np.array([l[0] for l in locs], np.float32)
         arrays[f'orientation_{f}'] = np.array([l[1] for l in locs], np.float32)
