@@ -13,7 +13,7 @@ const labels: Partial<Record<SectionName, string>> = {
   HandScene: "HOLD &\nMOVE",
   DrinkPourScene: "HOLD &\nFASTEN",
   AntiGravityScene: "HOLD",
-  DrinkSelectionScene: "CHOOSE\nFLAVOR",
+  DrinkSelectionScene: "CHOOSE\nA TIDE",
 };
 /** Screen-space GLUI port. Geometry, deformation, noise and timing come from GLUICursor / Scrollbar. */
 export class InteractionOverlay {

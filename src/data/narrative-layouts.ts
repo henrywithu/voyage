@@ -80,13 +80,13 @@ export const narrativeLayouts: Record<
     state.text1horizontalAlign = "left";
     state.text1verticalAlign = "top";
     state.text1body =
-      "A great stone gate rises before Chaewon, and the humming seems to pour straight from it. The last light of summer burns through the round window at its heart. Not quite believing her eyes, she pauses on the steps and lets the warm air steady her racing pulse.";
+      "A colossal arch of black stone rises from the open water, and the last sun of summer is caught inside it, glowing like a lantern. The wind falls away, and her little boat glides on all by itself.";
     state.text1Width = 500;
     state.text2padx = 0.4;
     state.text2pady = -1.5;
     state.text2horizontalAlign = "center";
     state.text2verticalAlign = "center";
-    state.text2body = "No time to waste.\nShe means to see it through.";
+    state.text2body = "No turning back now.\nShe means to see it through.";
     state.text1padx = isMobile ? 0.03 : 0.4;
     state.text1pady = isMobile ? 0.1 : 1.1;
     state.text1Width = isMobile ? 0.5 * width : 500;
@@ -129,7 +129,7 @@ export const narrativeLayouts: Record<
     state.text1HorizontalAlign = "right";
     state.text1VerticalAlign = "top";
     state.text1Body =
-      "For one heartbeat the world goes quiet. Her mind races to catch up. Then she wakes in a golden hall of columns, warm as a late summer afternoon.";
+      "For one heartbeat the world goes quiet. Then she wakes in a hall of stone columns, with tide pools glowing gold at her feet.";
     state.text1Width = 440;
     state.text1PadX = isMobile ? 0.03 : 0.4;
     state.text1Width = isMobile ? 0.6 * width : 440;
@@ -155,14 +155,14 @@ export const narrativeLayouts: Record<
     state.text1OffsetZ = 0.45;
     state.text1HorizontalAlign = "left";
     state.text1VerticalAlign = "top";
-    state.text1Body = "Before her, a pedestal glows like a small sun.";
+    state.text1Body = "At the far end, a great shell lies open like an altar.";
     state.text2PadX = 0.2;
     state.text2PadY = -1;
     state.text2OffsetZ = 0.45;
     state.text2HorizontalAlign = "right";
     state.text2VerticalAlign = "center";
     state.text2Body =
-      "Three Trapnest Voyage elixirs gleam on the pedestal, each one holding a different sea. Chaewon tilts her head and smiles. Somehow they are calling to her, daring her to choose.";
+      "Above it turn three Trapnest Voyage pendants, each with a pearl that holds a different tide. Chaewon tilts her head and smiles. They are daring her to choose.";
     state.text2Width = 440;
     state.text1PadX = isMobile ? 0.03 : 0.2;
     state.text1PadY = isMobile ? 1 : 1.5;
@@ -207,7 +207,7 @@ export const narrativeLayouts: Record<
     state.text1OffsetZ = 0.45;
     state.text1HorizontalAlign = "left";
     state.text1VerticalAlign = "top";
-    state.text1Body = "Slowly, her fingertips reach for the light.";
+    state.text1Body = "Slowly, her fingertips reach into the light.";
     state.text1Width = 440;
     state.text1PadX = isMobile ? 0.05 : 0.2;
     state.text1PadY = isMobile ? 0.6 : 1;
@@ -234,7 +234,7 @@ export const narrativeLayouts: Record<
     state.text1HorizontalAlign = "left";
     state.text1VerticalAlign = "bottom";
     state.text1Body =
-      "As she climbs toward the gate, the melody swells, sweet and reckless, and shakes her to the core. The light begins to pulse, beckoning her closer.";
+      "Beneath the arch the sea goes still as glass. A road of light runs across the water, all the way to her feet.";
     state.text1Width = 440;
     state.text2PadX = 0.2;
     state.text2PadY = 2.5;
@@ -242,7 +242,7 @@ export const narrativeLayouts: Record<
     state.text2HorizontalAlign = "right";
     state.text2VerticalAlign = "bottom";
     state.text2Body =
-      "A warm wind rushes past, playful and expectant. Standing at the threshold, she lifts her hand.";
+      "A warm breath of wind lifts her hair. She steps out onto the stones and kneels at the water's edge.";
     state.text2Width = 440;
     state.text1PadY = isMobile ? 0.6 : 4;
     state.text1PadX = isMobile ? 0 : 0.2;
@@ -287,14 +287,14 @@ export const narrativeLayouts: Record<
     state.text1horizontalAlign = "left";
     state.text1verticalAlign = "top";
     state.text1body =
-      "Chaewon drifts gently back to the floor, one bare foot after the other, her lace dress now dyed with the color of the elixir.";
+      "Chaewon drifts gently back down, one bare foot after the other, her lace dress now the color of the pearl.";
     state.text1Width = 500;
     state.text2padx = 1;
     state.text2pady = -1;
     state.text2horizontalAlign = "center";
     state.text2verticalAlign = "center";
     state.text2body =
-      "A rumble of breaking stone fills the air. The columns crack and float away, opening onto an endless golden sky.";
+      "A rumble of breaking stone fills the air. The columns crack and float away, and the grotto opens onto an endless golden sky.";
     state.text2Width = 500;
     state.text1padx = isMobile ? 0.03 : 0.4;
     state.text1pady = isMobile ? 0.33 : 1.1;
@@ -339,14 +339,14 @@ export const narrativeLayouts: Record<
     state.text1horizontalAlign = "center";
     state.text1verticalAlign = "center";
     state.text1body =
-      "Chaewon finally catches a glimpse of what she has been chasing since she first set sail.";
+      "Far off on the horizon, something catches the light.";
     state.text1Width = 350;
     state.text2padx = 1.15;
     state.text2pady = -0.5;
     state.text2horizontalAlign = "center";
     state.text2verticalAlign = "center";
     state.text2body =
-      "At the sight of it, she stands taller, chin raised, a playful smile tugging at her lips.";
+      "She lifts her chin and smiles. Whatever it is, she is going to find out.";
     state.text2Width = 350;
     state.text1padx = isMobile ? 0.03 : -1.1;
     state.text1pady = isMobile ? -0.1 : 0.5;
@@ -389,7 +389,7 @@ export const narrativeLayouts: Record<
     state.text1OffsetZ = 0.45;
     state.text1HorizontalAlign = "center";
     state.text1VerticalAlign = "center";
-    state.text1Body = "Taking a deep breath, she steps through.";
+    state.text1Body = "Taking a deep breath, she lets it pull her through.";
     state.text1Width = 440;
     state.text1PadX = isMobile ? 0.03 : -1;
     state.text1PadY = isMobile ? -0.9 : -0.5;
@@ -414,9 +414,9 @@ export const narrativeLayouts: Record<
     const state: Record<string, any> = {};
     const isMobile = width / height < 1;
     state.text1body =
-      "On an endless shore of golden sand, a lone figure drifts barefoot through the haze.";
+      "At the end of summer, a small white sloop slips across a golden sea.";
     state.text2body =
-      "A warm breeze whispers her name. Chaewon sweeps the hair from her eyes and looks around, curious and unafraid.";
+      "Chaewon stands at the bow, one hand on the forestay, and lets the wind comb through her hair. Today she has nowhere to be.";
     state.text1Width = 400;
     state.text2Width = 400;
     state.text1padx = isMobile ? 0.03 : 0.4;

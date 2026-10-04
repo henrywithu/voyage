@@ -14,7 +14,7 @@ function nextRotation(current: number) {
 }
 export async function setupDrinkSelection(section: SceneSection) {
   if (section.name !== "DrinkSelectionScene") return;
-  section.control = { label: "CHOOSE\nFLAVOR", mode: "choose", hovered: false };
+  section.control = { label: "CHOOSE\nA TIDE", mode: "choose", hovered: false };
   const layout = Object.values(layoutJson.DrinkSelectionScene) as any[];
   const bottles = Array.from({ length: 3 }, (_, i) => {
     const n = i + 1,

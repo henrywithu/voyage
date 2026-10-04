@@ -1,25 +1,27 @@
 {
   "voice": "af_heart",
   "speed": 0.9,
-  "speak_replace": {"Chaewon": "Chaywon"},
+  "speak_replace": {
+    "Chaewon": "Chaywon"
+  },
   "lines": {
-    "1": "On an endless shore of golden sand, a lone figure drifts barefoot through the haze.",
-    "2": "A warm breeze whispers her name. Chaewon sweeps the hair from her eyes and looks around, curious and unafraid.",
-    "3": "Chaewon finally catches a glimpse of what she has been chasing since she first set sail.",
-    "4": "At the sight of it, she stands taller, chin raised, a playful smile tugging at her lips.",
-    "5": "A great stone gate rises before Chaewon, and the humming seems to pour straight from it. The last light of summer burns through the round window at its heart. Not quite believing her eyes, she pauses on the steps and lets the warm air steady her racing pulse.",
-    "6": "No time to waste. She means to see it through.",
-    "7": "As she climbs toward the gate, the melody swells, sweet and reckless, and shakes her to the core. The light begins to pulse, beckoning her closer.",
-    "8": "A warm wind rushes past, playful and expectant. Standing at the threshold, she lifts her hand.",
-    "9": "Slowly, her fingertips reach for the light.",
-    "10": "Taking a deep breath, she steps through.",
-    "11": "For one heartbeat the world goes quiet. Her mind races to catch up. Then she wakes in a golden hall of columns, warm as a late summer afternoon.",
-    "12": "Before her, a pedestal glows like a small sun.",
-    "13": "Three Trapnest Voyage elixirs gleam on the pedestal, each one holding a different sea. Chaewon tilts her head and smiles. Somehow they are calling to her, daring her to choose.",
-    "lagoon": "Chaewon sips, and in an instant a beam of light lifts her off her feet, swirling with yuzu, sea salt and blue lagoon, a tide that carries her past the horizon.",
-    "jade": "Chaewon sips, and in an instant a beam of light lifts her off her feet, swirling with lime, matcha and fresh mint, a tide that carries her past the horizon.",
-    "coral": "Chaewon sips, and in an instant a beam of light lifts her off her feet, swirling with white peach, hibiscus and coral, a tide that carries her past the horizon.",
-    "15": "Chaewon drifts gently back to the floor, one bare foot after the other, her lace dress now dyed with the color of the elixir.",
-    "16": "A rumble of breaking stone fills the air. The columns crack and float away, opening onto an endless golden sky."
+    "1": "At the end of summer, a small white sloop slips across a golden sea.",
+    "2": "Chaewon stands at the bow, one hand on the forestay, and lets the wind comb through her hair. Today she has nowhere to be.",
+    "3": "Far off on the horizon, something catches the light.",
+    "4": "She lifts her chin and smiles. Whatever it is, she is going to find out.",
+    "5": "A colossal arch of black stone rises from the open water, and the last sun of summer is caught inside it, glowing like a lantern. The wind falls away, and her little boat glides on all by itself.",
+    "6": "No turning back now.\nShe means to see it through.",
+    "7": "Beneath the arch the sea goes still as glass. A road of light runs across the water, all the way to her feet.",
+    "8": "A warm breath of wind lifts her hair. She steps out onto the stones and kneels at the water's edge.",
+    "9": "Slowly, her fingertips reach into the light.",
+    "10": "Taking a deep breath, she lets it pull her through.",
+    "11": "For one heartbeat the world goes quiet. Then she wakes in a hall of stone columns, with tide pools glowing gold at her feet.",
+    "12": "At the far end, a great shell lies open like an altar.",
+    "13": "Above it turn three Trapnest Voyage pendants, each with a pearl that holds a different tide. Chaewon tilts her head and smiles. They are daring her to choose.",
+    "lagoon": "The clasp clicks shut and the pearl wakes. A spiral of light lifts her off her feet, swirling with yuzu, sea salt and blue lagoon, a tide that carries her past the horizon.",
+    "jade": "The clasp clicks shut and the pearl wakes. A spiral of light lifts her off her feet, swirling with lime, matcha and fresh mint, a tide that carries her past the horizon.",
+    "coral": "The clasp clicks shut and the pearl wakes. A spiral of light lifts her off her feet, swirling with white peach, hibiscus and coral, a tide that carries her past the horizon.",
+    "15": "Chaewon drifts gently back down, one bare foot after the other, her lace dress now the color of the pearl.",
+    "16": "A rumble of breaking stone fills the air. The columns crack and float away, and the grotto opens onto an endless golden sky."
   }
 }
