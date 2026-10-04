@@ -1894,7 +1894,7 @@
                 "noResize": true,
                 "data-heading": 2,
                 "class": "body-bold",
-                "text": "A taste<br>of sunlight",
+                "text": "A pearl<br>of sunlight",
                 "_type": "XText",
                 "refName": "heading2",
                 "children": []
@@ -1957,7 +1957,7 @@
                     "noSplit": true,
                     "noResize": true,
                     "class": "body-regular",
-                    "text": "Every voyage begins with a little daring. Trapnest Voyage is crafted for the dreamers and the drifters alike. The Tides Collection blends sun-warmed citrus and a breath of sea salt to loosen your shoulders and stretch your summer evenings.",
+                    "text": "Every voyage begins with a little daring. Trapnest Voyage is made for the dreamers and the drifters alike. Each compass in the Tides Collection holds a pearl of the sea it was named for: lagoon blue, jade green or coral, set in gold to catch the last light of your summer evenings.",
                     "_type": "XText",
                     "refName": "copy",
                     "children": []

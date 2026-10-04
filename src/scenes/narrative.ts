@@ -110,7 +110,7 @@ export async function setupNarrative(scene: SceneSection) {
     const group = new THREE.Group();
     group.scale.setScalar(3.6);
     group.rotation.set(0, -Math.PI / 2 + 0.1, -0.2);
-    group.position.set(0.25, -0.35, -1.05);
+    group.position.set(0.25, -0.62, -1.05);
     scene.group.add(group);
     const geometry = (
       await loadGeometry("assets/geometry/story/wander/saint-pose-3.bin")
@@ -118,7 +118,9 @@ export async function setupNarrative(scene: SceneSection) {
     const params = {
       ...characterTextures,
       uLinesTile: 5.5,
-      uLightDir: new THREE.Vector3(0, 0.5, 2).normalize(),
+      // The bust faces +z in its group and the group turns her to profile: light the side the
+      // camera sees (her left, the group's +x) so the lace and her skin read as paper white.
+      uLightDir: new THREE.Vector3(1.0, 0.6, 0.55).normalize(),
       uLinesAxis: new THREE.Vector3(1, 0, 0.3).normalize(),
       uLinesAngle: -0.4,
       uThreshold: new THREE.Vector2(0.4, 1.8),
