@@ -19,7 +19,7 @@ export async function setupHand(section: SceneSection) {
       tLines: texture("assets/images/story/lines.jpg"),
       tNoise: texture("assets/images/story/perlin.png"),
       uLinesTile: 12,
-      uColor: new THREE.Vector3(150 / 255, 138 / 255, 131 / 255),
+      uColor: new THREE.Vector3(0.9451, 0.92549, 0.88235),
       uLightDir: new THREE.Vector3(-1.5, 0.5, 2),
       uAxis: new THREE.Vector3(0.1, -0.5, 0),
       uAngle: 1.5,

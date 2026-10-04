@@ -139,24 +139,26 @@ def wind_field(direction, strength=0.0012, gust=0.4, seed=3):
 
 
 def bow_pose(s, t=0.0):
-    """At the bow: right hand on the forestay, weight on the left leg, chin up into the wind."""
+    """At the bow: her right hand up on the forestay at her side (the stay clear of her face), weight on the
+    right leg, the left foot forward bracing against the swell, chin lifted into the wind."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
     sw = math.sin(2 * math.pi * t)
     sw2 = math.sin(2 * math.pi * t - 0.9)
     br = math.sin(2 * math.pi * 2 * t)
-    poses.hips(arm, shift=(0.022 + 0.006 * sw, 0, -0.006 + 0.003 * sw2), roll=4 + 1.2 * sw, yaw=4 + 1.0 * sw2)
-    poses.plant_leg(ctx, 'L')
-    a = ctx.ankle['R']
-    poses.plant_leg(ctx, 'R', ankle=(a.x + 0.03, a.y - 0.06, a.z + 0.015), knee_dir=(0.3, -1, 0), foot_yaw=14, foot_pitch=-6)
-    poses.spine(arm, roll=-6 - 1.0 * sw, yaw=-6 - 1.5 * sw2, pitch=-3 + 0.8 * br)
-    poses.clavicle(arm, 'R', lift=4)
-    grip = s.ctx.shoulder['R'] + Vector((0.08, -0.25, 0.22))
-    poses.arm_to(ctx, 'R', grip, elbow_dir=(-1, -0.1, -0.7),
-                 wrist=(Vector((0.05, -0.25, 1.0)), Vector((0.6, 0.4, 0.0))),
-                 hand=dict(curl=0.82, close=0.95, thumb=0.85))
-    poses.relaxed_arm(ctx, 'L', out=0.22 + 0.02 * sw, fwd=0.05, bend=20)
-    poses.head(arm, pitch=-8 + 1.5 * sw2, yaw=6 + 2.0 * math.sin(2 * math.pi * t + 1.7), roll=4 + 1.0 * sw)
+    poses.hips(arm, shift=(-0.024 + 0.006 * sw, 0, -0.008 + 0.003 * sw2), roll=4.5 + 1.2 * sw, yaw=-5 + 1.0 * sw2)
+    poses.plant_leg(ctx, 'R')
+    a = ctx.ankle['L']
+    poses.plant_leg(ctx, 'L', ankle=(a.x + 0.02, a.y - 0.11, a.z + 0.012), knee_dir=(0.25, -1, 0), foot_yaw=10,
+                    foot_pitch=-5)
+    poses.spine(arm, roll=-5 - 1.0 * sw, yaw=9 + 1.5 * sw2, pitch=-4 + 0.8 * br)
+    poses.clavicle(arm, 'R', lift=9)
+    grip = s.ctx.shoulder['R'] + Vector((-0.13, -0.19, 0.31))
+    poses.arm_to(ctx, 'R', grip, elbow_dir=(-1, 0.25, -0.55),
+                 wrist=(Vector((-0.1, -0.35, 1.0)), Vector((0.85, -0.2, 0.0))),
+                 hand=dict(curl=0.8, close=0.9, thumb=0.8))
+    poses.relaxed_arm(ctx, 'L', out=0.27 + 0.02 * sw, fwd=0.08, bend=24, hand=dict(curl=0.2, close=0.55, thumb=0.35))
+    poses.head(arm, pitch=-9 + 1.5 * sw2, yaw=16 + 2.0 * math.sin(2 * math.pi * t + 1.7), roll=-4 + 1.0 * sw)
 
 
 def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, amp=1.0, wind_dir=(0, 1, 0.1),
@@ -208,8 +210,9 @@ def asset_bow(s):
     import json
     bow_pose(s, 0.0)
     mats0 = s.pose_mats()
-    json.dump(dict(grip=grip_point(s).tolist(), feet=[(M.B2T @ np.array(s.arm.pose.bones[f'foot.{x}'].head) * M.SCALE).tolist()
-                                                       for x in 'LR']),
+    sole = float(M.to_three(s.posed_body(mats0), M.SCALE)[:, 1].min())
+    json.dump(dict(grip=grip_point(s).tolist(), sole=sole,
+                   feet=[(M.B2T @ np.array(s.arm.pose.bones[f'foot.{x}'].head) * M.SCALE).tolist() for x in 'LR']),
               open(os.path.join(BUILD, 'bow_grip.json'), 'w'))
     H = s.hair(mats0, wind=wind_field((0, 1, 0.15), 0.0011), key='bow')
     m, hr = skinned_with_hair(s, mats0, H, os.path.join(DEC, 'sea/chaewon-bow.bin.mesh'),
@@ -267,12 +270,16 @@ def asset_hand(s, frames=64):
         across = (ip - pp).normalized()
         palm = across.cross(d).normalized()  # right hand: index x forward -> palm side
         poses.face_palm(s.arm, 'R', palm)
-        # Reach: relaxed curl at hover (f <= 25) opening gracefully to an elegant extended hand (f >= 55).
+        # Hover (f <= 25): a soft dancer's hand, the fingers cascading from a long index to a curled pinky
+        # so each one reads in silhouette. Reach (f >= 55): long fingers, a gentle cascade.
         u = np.clip((f - 25) / 30, 0, 1)
         u = u * u * (3 - 2 * u)
-        curl = 0.58 * (1 - u) + 0.14 * u
-        rig.hand_pose(s.arm, 'R', curl=curl, close=0.45 + 0.25 * u, thumb=0.45 - 0.2 * u,
-                      cascade=(0.7, 0.95, 1.15, 1.45))
+        hover = dict(mcp=(6, 14, 22, 27), pip=(10, 22, 32, 36), dip=(4, 10, 14, 14), spread=(-10, 0, 9, 19),
+                     thumb=(-30, 36, 20, 10, 10))
+        reach = dict(mcp=(4, 7, 9, 6), pip=(6, 10, 13, 10), dip=(3, 6, 7, 6), spread=(-9, 0, 7, 15),
+                     thumb=(-32, 30, 10, 6, 8))
+        mix = {k: tuple(a * (1 - u) + b * u for a, b in zip(hover[k], reach[k])) for k in hover}
+        rig.hand_shape(s.arm, 'R', **mix)
         # Fingertip noise is added in the scene; keep the index a touch straighter for a leading line.
         return s.pose_mats()
 
@@ -311,7 +318,8 @@ def asset_hand(s, frames=64):
     Pb = M.skin(body.P[used], body.W[used], mats_bind, s.rest_mats)
     Nb = Nfull[body.src[used]]
     uv = np.tile(M.TRIM_WHITE, (len(used), 1))
-    uv2 = np.tile([-0.6, 0.0], (len(used), 1))
+    # Not flagged as skin: the hand shader then shades it like her body (paper white, inked shadow).
+    uv2 = np.zeros((len(used), 2))
     bind_x = ext(mats_bind)
     path = os.path.join(DEC, 'hand/arm-skin.bin.mesh')
     export.write_skinned(path, Pb, F, uv, uv2, Wx, names_x, np.array(parents_x), bind_x, keep=keep, scale=scale,

@@ -29,21 +29,6 @@ export async function setupNarrative(scene: SceneSection) {
       { uThreshold: 0.78, uSpeed: 1 },
     );
     wind.scale.set(0.5, 1.1, 0.4);
-    const ground = await windLines(
-      scene,
-      "assets/geometry/story/wander/ground-curves.json",
-      { uThreshold: 0.81, uSpeed: 0.4 },
-    );
-    ground.scale.setScalar(1.25);
-    ground.position.z = -1;
-    const vertical = await windLines(
-      scene,
-      "assets/geometry/story/wander/ground-curves-vertical.json",
-      { uThreshold: 0.6, uAnimatePosition: 1 },
-    );
-    vertical.scale.setScalar(1.25);
-    vertical.position.z = -1;
-
     const title = (await SourceText.create("WanderScene", {
       id: 999,
       name: "trapnestTitle",
@@ -58,9 +43,10 @@ export async function setupNarrative(scene: SceneSection) {
     title.material.uniforms.uTransition.value = 0.0001;
     title.material.uniforms.uTranslate.value.set(0, 0.16, 0);
     const characterGroup = new THREE.Group();
-    characterGroup.position.set(0, 0.35, -2);
-    characterGroup.scale.setScalar(1.3);
-    characterGroup.rotation.y = (25 * Math.PI) / 180;
+    // Seen from her left bow: the bow points off to the left, the sail fills the right.
+    characterGroup.position.set(-1.1, 0.6, -2);
+    characterGroup.scale.setScalar(0.85);
+    characterGroup.rotation.y = (-50 * Math.PI) / 180;
     scene.group.add(characterGroup);
     const character = new SkeletalMesh(
       await loadGeometry("assets/geometry/story/sea/chaewon-bow.bin"),
@@ -78,24 +64,19 @@ export async function setupNarrative(scene: SceneSection) {
       "assets/geometry/story/sea/chaewon-bow-anim.bin",
     );
     characterGroup.add(character.mesh, character.outline);
-    const shadow = scene.addMesh(
-      new THREE.PlaneGeometry(),
-      material("WanderShadow", {
-        tMap: texture("assets/images/story/wander/shadow1.png"),
-        tLines: characterTextures.tLines,
-        tNoise: characterTextures.tNoise,
-        uLinesTile: 1.3,
-      }),
-      characterGroup,
-    );
-    shadow.rotation.x = -Math.PI / 2;
-    shadow.scale.set(3, 2, 1);
-    shadow.position.x = 0.5;
+    // Her sloop: she stands on the foredeck, the forestay in her hand.
+    await addBoat(scene, characterGroup);
+    // The sea does not ride the swell: a twin of the character group without the bob.
+    const seaGroup = new THREE.Group();
+    scene.group.add(seaGroup);
+    await addSea(scene, seaGroup, "assets/geometry/story/sea/wander-sea-curves.json");
     scene.onResize = (w, h) => {
       wind.position.y = -scene.height * 0.5;
-      ground.position.y = vertical.position.y = -scene.height * 0.5 + 0.25;
       title.position.y = scene.height * 0.5 - worldHeight * 0.5;
-      characterGroup.position.y = 0.35 - scene.height * 0.5;
+      characterGroup.position.y = 0.6 - scene.height * 0.5;
+      seaGroup.position.copy(characterGroup.position);
+      seaGroup.rotation.copy(characterGroup.rotation);
+      seaGroup.scale.copy(characterGroup.scale);
       const width =
         title.geometry.boundingBox!.max.x - title.geometry.boundingBox!.min.x;
       title.scale.setScalar(Math.min((0.6 * worldHeight * w) / h, 3.8) / width);
@@ -104,6 +85,12 @@ export async function setupNarrative(scene: SceneSection) {
     };
     scene.animate = (f) => {
       character.update(f.delta);
+      // The swell: a slow pitch and roll about the waterline, the bow lifting first.
+      const t = f.time;
+      characterGroup.rotation.x = 0.022 * Math.sin(t * 0.9);
+      characterGroup.rotation.z = 0.016 * Math.sin(t * 0.62 + 1.3);
+      characterGroup.position.y =
+        0.6 - scene.height * 0.5 + 0.03 * Math.sin(t * 0.9 - 0.8);
       const titleProgress = 1 - (1 - clamp((f.time - 1) / 7)) ** 2;
       title.material.uniforms.uAlpha.value = titleProgress;
       title.material.uniforms.uTransition.value = Math.max(
@@ -195,54 +182,51 @@ export async function setupNarrative(scene: SceneSection) {
   if (scene.name === "ApproachScene") {
     const root = new THREE.Group();
     const moonRoot = new THREE.Group();
-    for (const name of [
-      "portal",
-      "background",
-      "landscape",
-      "steps",
-      "structure",
-      "stepsclose",
-      "character",
-      "charshadow",
-    ])
+    for (const name of ["portal", "background", "structure", "character"])
       if (layers[name]) root.add(layers[name]);
-    if (layers.moonRoot) moonRoot.add(layers.moonRoot);
+    // No moon over this sea: the sun is caught in the arch.
+    if (layers.moonRoot) layers.moonRoot.visible = false;
     scene.group.add(root, moonRoot);
-    let stepsCloseOutline:
-      THREE.Mesh<THREE.BufferGeometry, THREE.RawShaderMaterial> | undefined;
-    for (const name of ["landscape", "steps", "stepsclose", "structure"])
-      if (scene.mesh(name)?.visible) {
-        const inverse = outline(
-          scene,
-          scene.mesh(name),
-          "StaticObjectBaseShaderInverse",
-          0.0025,
-        );
-        if (name === "stepsclose") stepsCloseOutline = inverse;
-      }
-    outline(
+    outline(scene, scene.mesh("structure"), "StaticObjectBaseShaderInverse", 0.0025);
+    // The sloop under her, sail furled as the wind falls away near the arch, on the open sea.
+    const character = scene.mesh("character");
+    // Seen from off the starboard quarter, her bow on the sun.
+    const boatGroup = new THREE.Group();
+    boatGroup.position.set(-2.2, -1.9, -11);
+    boatGroup.rotation.y = (155 * Math.PI) / 180;
+    boatGroup.scale.setScalar(1.6);
+    root.add(boatGroup);
+    const hull = new THREE.Group();
+    boatGroup.add(hull);
+    hull.add(character);
+    character.position.set(0, 0, 0);
+    character.quaternion.identity();
+    character.scale.setScalar(1);
+    outline(scene, character, "StaticCharacterBaseShaderInverse", 0.008, hull);
+    await addBoat(
       scene,
-      scene.mesh("character"),
-      "StaticCharacterBaseShaderInverse",
-      0.008,
+      hull,
+      {
+        uLightDir: new THREE.Vector3(-0.6, 0.75, 0.35).normalize(),
+        uThreshold: new THREE.Vector2(-0.2, 0.62),
+      },
+      0.0025,
+      "assets/geometry/story/sea/boat-furled.bin",
     );
+    await addSea(scene, boatGroup, "assets/geometry/story/sea/approach-sea-curves.json");
     const wind = await windLines(
       scene,
       "assets/geometry/story/approach/portal-wind-curves.json",
       { uThreshold: 0.84, uSpeed: 1, uTile: 2, uFrameRate: 18 },
     );
     root.add(wind);
-    const stepsClose = scene.mesh("stepsclose"),
-      hiddenPosition = new THREE.Vector3(-0.437, 1 - 2.49, 0.138),
-      shownPosition = new THREE.Vector3(-0.437, -2.49, 0.138);
     scene.uniform("border", "uTransition", 0);
-    stepsClose.scale.setScalar(0);
-    stepsClose.position.copy(hiddenPosition);
-    stepsCloseOutline?.scale.setScalar(0);
-    stepsCloseOutline?.position.copy(hiddenPosition);
-    if (stepsCloseOutline) stepsCloseOutline.visible = false;
     let entered = false;
     scene.animate = (frame) => {
+      const t = frame.time;
+      hull.rotation.x = 0.012 * Math.sin(t * 0.8);
+      hull.rotation.z = 0.01 * Math.sin(t * 0.55 + 1.1);
+      hull.position.y = 0.015 * Math.sin(t * 0.8 - 0.8);
       const trigger = scene.pixelTop - frame.height + scene.pixelHeight * 0.25;
       if (entered || frame.scroll < trigger) return;
       entered = true;
@@ -251,25 +235,6 @@ export async function setupNarrative(scene: SceneSection) {
         duration: 0.8,
         ease: "power2.out",
       });
-      for (const mesh of [stepsClose, stepsCloseOutline]) {
-        if (!mesh) continue;
-        gsap.to(mesh.scale, {
-          x: 0.8,
-          y: 0.768,
-          z: 1,
-          duration: 0.5,
-          delay: 0.5,
-          ease: "power2.out",
-        });
-        gsap.to(mesh.position, {
-          x: shownPosition.x,
-          y: shownPosition.y,
-          z: shownPosition.z,
-          duration: 0.5,
-          delay: 0.5,
-          ease: "power2.out",
-        });
-      }
     };
     scene.onResize = (w, h) => {
       const mobile = w / h < 1;
@@ -281,15 +246,12 @@ export async function setupNarrative(scene: SceneSection) {
       scene.uniform("border", "uPadY", range(w, 1600, 393, 0.18, 0.08));
       scene.mesh("background").scale.y = mobile ? 142 : 140;
       wind.position.y = -scene.height * 0.5 + 0.6;
-      stepsClose.visible = w >= 1600;
-      if (stepsCloseOutline) stepsCloseOutline.visible = w >= 1600;
     };
   }
   if (scene.name === "NearScene") {
     const root = new THREE.Group();
     const group = new THREE.Group();
     for (const name of [
-      "structure_shadow1",
       "portal",
       "structure",
       "background",
@@ -314,6 +276,24 @@ export async function setupNarrative(scene: SceneSection) {
       "StaticObjectBaseShaderInverse",
       0.002,
     );
+    // Stepping stones: basalt column heads just clear of the still water, leading into the arch.
+    const structure = scene.mesh("structure");
+    const causeway = scene.addMesh(
+      (await loadGeometry("assets/geometry/story/sea/near-causeway.bin")).geometry,
+      material("StaticObjectBaseShader", {
+        ...Object.fromEntries(
+          ["tLines", "tNoise", "uLinesTile", "uAxis", "uAngle", "uColor", "uColorHighlight"].map(
+            (key) => [key, structure.material.uniforms[key]?.value],
+          ),
+        ),
+        uLightDir: new THREE.Vector3(0.2, 1.0, 0.5).normalize(),
+        uThreshold: new THREE.Vector2(-0.6, 0.5),
+      }),
+      group,
+    );
+    causeway.position.copy(structure.position);
+    causeway.scale.copy(structure.scale);
+    outline(scene, causeway, "StaticObjectBaseShaderInverse", 0.002, group);
     outline(
       scene,
       scene.mesh("character"),
@@ -341,4 +321,68 @@ export async function setupNarrative(scene: SceneSection) {
       scene.uniform("border", "uSkewCorrection", mobile ? -0.05 : -0.45);
     };
   }
+}
+
+const boatParams = () => ({
+  tLines: characterTextures.tLines,
+  tNoise: characterTextures.tNoise,
+  uLinesTile: 2.6,
+  uLightDir: new THREE.Vector3(0.75, 0.8, 0.45).normalize(),
+  uThreshold: new THREE.Vector2(-0.25, 0.62),
+  uAxis: new THREE.Vector3(-0.54, 0, 1),
+  uAngle: 1.55,
+  uDistanceCompensation: 0,
+  uColor: new THREE.Color("#f3f1e9"),
+  uColorHighlight: new THREE.Color("#ffffff"),
+  uVerticalGrad: new THREE.Vector2(100, 101),
+});
+
+/** Chaewon's sloop, modelled in her bow-pose space (scripts/env/boat.py). */
+export async function addBoat(
+  scene: SceneSection,
+  parent: THREE.Object3D,
+  params: Record<string, unknown> = {},
+  lineWidth = 0.0025,
+  path = "assets/geometry/story/sea/boat.bin",
+) {
+  const geometry = (await loadGeometry(path)).geometry;
+  const boat = scene.addMesh(
+    geometry,
+    material("StaticObjectBaseShader", { ...boatParams(), ...params }),
+    parent,
+  );
+  outline(scene, boat, "StaticObjectBaseShaderInverse", lineWidth, parent);
+  return boat;
+}
+
+/** The sea in the boat's space: a depth mask on the waterline and ink crests. */
+export async function addSea(
+  scene: SceneSection,
+  parent: THREE.Object3D,
+  crests: string,
+  params: Record<string, unknown> = {},
+) {
+  const occluder = scene.addMesh(
+    new THREE.PlaneGeometry(400, 400),
+    material("SeaOccluderShader"),
+    parent,
+  );
+  occluder.material.colorWrite = false;
+  occluder.rotation.x = -Math.PI / 2;
+  occluder.position.y = -0.8;
+  occluder.renderOrder = -1;
+  const sea = await windLines(scene, crests, {
+    uThreshold: 0.3,
+    uSpeed: 0.6,
+    uTile: 3,
+    ...params,
+  });
+  parent.add(sea);
+  const wake = await windLines(
+    scene,
+    "assets/geometry/story/sea/wake-curves.json",
+    { uThreshold: 0.42, uSpeed: 2.2, uTile: 2.5 },
+  );
+  parent.add(wake);
+  return { occluder, sea, wake };
 }

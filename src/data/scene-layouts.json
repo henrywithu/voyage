@@ -1232,104 +1232,6 @@
         0.052
       ]
     },
-    "4": {
-      "id": 4,
-      "uniforms": {
-        "uAngle": -3.56,
-        "uAxis": [
-          1.03,
-          1,
-          0
-        ],
-        "uColor": "#f3f1e9",
-        "uColorHighlight": "#f3f1e9",
-        "uDistanceCompensation": 0.252,
-        "uLightDir": [
-          -0.08,
-          0.326,
-          0.703
-        ],
-        "uLinesTile": 0.5,
-        "uThreshold": [
-          -0.239,
-          1.38
-        ]
-      },
-      "geometry": {
-        "filename": "assets/geometry/story/approach/landscape.bin",
-        "prefix": "",
-        "relative": "assets/geometry/story/approach/landscape.bin",
-        "src": "assets/geometry/story/approach/landscape.bin"
-      },
-      "name": "landscape",
-      "renderOrder": 3,
-      "shader": "StaticObjectBaseShader",
-      "sortIndex": 3,
-      "position": [
-        0,
-        -2.732,
-        0
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
-      ]
-    },
-    "6": {
-      "id": 6,
-      "uniforms": {
-        "uAngle": -9.023,
-        "uAxis": [
-          -12.44,
-          -12.617,
-          -1.42
-        ],
-        "uColor": "#f3f1e9",
-        "uColorHighlight": "#f3f1e9",
-        "uDistanceCompensation": 1,
-        "uLightDir": [
-          0.169,
-          0.883,
-          0.323
-        ],
-        "uLinesTile": 0.676,
-        "uThreshold": [
-          -1.42,
-          0
-        ]
-      },
-      "geometry": {
-        "filename": "assets/geometry/story/approach/steps.bin",
-        "prefix": "",
-        "relative": "assets/geometry/story/approach/steps.bin",
-        "src": "assets/geometry/story/approach/steps.bin"
-      },
-      "name": "steps",
-      "renderOrder": 4,
-      "shader": "StaticObjectBaseShader",
-      "sortIndex": 4,
-      "position": [
-        0,
-        -2.732,
-        0
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
-      ]
-    },
     "7": {
       "id": 7,
       "uniforms": {
@@ -1353,10 +1255,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/approach/portal.bin",
-        "prefix": "",
-        "relative": "assets/geometry/story/approach/portal.bin",
-        "src": "assets/geometry/story/approach/portal.bin"
+        "filename": "assets/geometry/story/sea/arch.bin",
+        "relative": "assets/geometry/story/sea/arch.bin",
+        "src": "assets/geometry/story/sea/arch.bin",
+        "prefix": ""
       },
       "name": "structure",
       "renderOrder": 5,
@@ -1376,55 +1278,6 @@
         1.4,
         1.4,
         1.4
-      ]
-    },
-    "8": {
-      "id": 8,
-      "uniforms": {
-        "uAngle": -9.723,
-        "uAxis": [
-          -4.282,
-          -4.097,
-          0.63
-        ],
-        "uColor": "#f3f1e9",
-        "uLightDir": [
-          0.039,
-          1.213,
-          -0.057
-        ],
-        "uLinesTile": 0.8,
-        "uThreshold": [
-          -0.73,
-          0.7
-        ],
-        "uColorHighlight": "#f3f1e9"
-      },
-      "geometry": {
-        "filename": "assets/geometry/story/approach/steps-close.bin",
-        "prefix": "",
-        "relative": "assets/geometry/story/approach/steps-close.bin",
-        "src": "assets/geometry/story/approach/steps-close.bin"
-      },
-      "name": "stepsclose",
-      "renderOrder": 6,
-      "shader": "StaticObjectNoDiscard",
-      "sortIndex": 6,
-      "visible": true,
-      "position": [
-        -0.437,
-        -2.493,
-        0.138
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        0.8,
-        0.768,
-        1
       ]
     },
     "9": {
@@ -1545,46 +1398,6 @@
         1.85,
         1.85,
         1.85
-      ]
-    },
-    "12": {
-      "id": 12,
-      "uniforms": {
-        "_txtMap": {
-          "hotreload": true,
-          "src": "assets/images/story/windswept-shadow.png?1769577009757"
-        },
-        "uGradient": -0.22,
-        "uGradientAngle": -1.14,
-        "uLinesAngle": -3.15,
-        "uLinesStrength": 0.961,
-        "uLinesTile": 2.543
-      },
-      "geometry": {
-        "filename": "assets/geometry/story/approach/steps-shadow-mesh.bin",
-        "prefix": "",
-        "relative": "assets/geometry/story/approach/steps-shadow-mesh.bin",
-        "src": "assets/geometry/story/approach/steps-shadow-mesh.bin"
-      },
-      "name": "charshadow",
-      "renderOrder": 9,
-      "shader": "ShadowShader",
-      "sortIndex": 9,
-      "transparent": true,
-      "position": [
-        0,
-        -2.732,
-        0
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
       ]
     }
   },
@@ -4292,10 +4105,10 @@
       "depthTest": true,
       "depthWrite": true,
       "geometry": {
-        "filename": "assets/geometry/story/approach/portal.bin",
+        "filename": "assets/geometry/story/sea/arch.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/approach/portal.bin",
-        "src": "assets/geometry/story/approach/portal.bin"
+        "relative": "assets/geometry/story/sea/arch.bin",
+        "src": "assets/geometry/story/sea/arch.bin"
       },
       "name": "structure",
       "renderOrder": 4,
@@ -4476,30 +4289,20 @@
     "7": {
       "id": 7,
       "uniforms": {
-        "uAngle": -0.28,
-        "uAxis": [
-          -0.95,
-          0.243,
-          0.97
-        ],
-        "uColor": "#f3f1e9",
-        "uColorHighlight": "#f3f1e9",
-        "uLightDir": [
-          -0.331,
-          -0.689,
-          0.883
-        ],
-        "uLinesTile": 9.387,
-        "uThreshold": [
-          0.44,
-          0.85
-        ],
-        "_txtMap": {
-          "filename": "assets/images/story/near/shadow2.png",
+        "_txtNoise": {
+          "filename": "assets/images/story/perlin.png",
           "prefix": "",
-          "relative": "assets/images/story/near/shadow2.png",
-          "src": "assets/images/story/near/shadow2.png"
-        }
+          "relative": "assets/images/story/perlin.png",
+          "src": "assets/images/story/perlin.png"
+        },
+        "uColor": "#f3f1e9",
+        "uGlowColor": "#e3a81c",
+        "uSun": [
+          -0.178,
+          1.5,
+          -20.2
+        ],
+        "uSpacing": 0.42
       },
       "geometry": {
         "filename": "World.PLANE_MID_RES",
@@ -4509,7 +4312,7 @@
       },
       "name": "newfloor",
       "renderOrder": 7,
-      "shader": "NearGroundShader",
+      "shader": "NearWaterShader",
       "sortIndex": 7,
       "visible": true,
       "position": [
@@ -4560,78 +4363,6 @@
         3.194,
         4,
         4
-      ]
-    },
-    "12": {
-      "id": 12,
-      "uniforms": {
-        "_txtMap": {
-          "filename": "assets/images/story/square-shadow.png",
-          "prefix": "",
-          "relative": "assets/images/story/square-shadow.png",
-          "src": "assets/images/story/square-shadow.png"
-        },
-        "uGradient": -0.968,
-        "uGradientAngle": -6.12,
-        "uLinesAngle": -6.312,
-        "uLinesStrength": 1.542,
-        "uLinesTile": 3.91
-      },
-      "name": "structure_shadow1",
-      "renderOrder": 0,
-      "shader": "ShadowShader",
-      "sortIndex": 0,
-      "transparent": true,
-      "position": [
-        -4.859,
-        -3.84,
-        -22.64
-      ],
-      "rotation": [
-        -90,
-        0,
-        0
-      ],
-      "scale": [
-        9.64,
-        9.29,
-        5.69
-      ]
-    },
-    "13": {
-      "id": 13,
-      "uniforms": {
-        "_txtMap": {
-          "filename": "assets/images/story/square-shadow.png",
-          "prefix": "",
-          "relative": "assets/images/story/square-shadow.png",
-          "src": "assets/images/story/square-shadow.png"
-        },
-        "uGradient": -0.788,
-        "uGradientAngle": -6.58,
-        "uLinesAngle": -6.312,
-        "uLinesStrength": 1.462,
-        "uLinesTile": 3.91
-      },
-      "name": "structure_shadow2",
-      "renderOrder": 1,
-      "shader": "ShadowShader",
-      "sortIndex": 1,
-      "transparent": true,
-      "position": [
-        4.801,
-        -3.84,
-        -22.64
-      ],
-      "rotation": [
-        -90,
-        0,
-        0
-      ],
-      "scale": [
-        9.57,
-        9.29,
-        5.69
       ]
     }
   },

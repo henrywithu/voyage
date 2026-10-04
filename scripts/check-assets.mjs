@@ -73,7 +73,7 @@ for (const mesh of meshes) {
           errors.push(`${mesh.output}: missing ${name}`);
       if ((header.bones?.length ?? 0) !== mesh.bones)
         errors.push(`${mesh.output}: bone count changed`);
-    } else if (!header.attributes.position)
+    } else if (!header.attributes.position && header.frameCount === undefined)
       errors.push(`${mesh.output}: missing position`);
   } catch (error) {
     errors.push(`${mesh.output}: ${error.message}`);

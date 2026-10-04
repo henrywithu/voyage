@@ -1,5 +1,5 @@
 export const sections=[
- {name:'WanderScene',height:2.5},{name:'ProfileScene',height:1.25},
+ {name:'WanderScene',height:3},{name:'ProfileScene',height:1.25},
  {name:'ApproachScene',height:2,mobileHeight:1.25},{name:'NearScene',height:3,mobileHeight:1.25},
  {name:'HandScene',height:1.5},{name:'TargetScene',height:1,auto:true},
  {name:'TransitionScene',height:2,mobileHeight:1.5,marginTop:-.1},

@@ -249,33 +249,67 @@ def palm_normal(arm, side):
     return n.normalized()
 
 
-def hand_pose(arm, side, curl=0.35, close=0.6, thumb=0.5, cascade=(0.85, 1.0, 1.15, 1.3), spread_extra=(0, 0, 0, 0)):
-    """A natural hand: fingers gathered toward the middle finger, a progressive curl, the thumb turned in.
+FINGER_BONES = [f'finger{f}-{k}' for f in range(1, 6) for k in (1, 2, 3)]
 
-    curl 0 = flat, 0.35 = relaxed, 1 = fist. close 0 = as modelled (fanned), 1 = together.
-    thumb 0 = open, 1 = across the palm.
-    """
-    update()
+
+def hand_frame(arm, side):
+    """(f, n, s): along the middle finger, out of the palm, toward the pinky (world)."""
     n = palm_normal(arm, side)
-    mid = bone_dir(arm, f'finger3-1.{side}')
-    for k, f in enumerate((2, 3, 4, 5)):
-        if f != 3:
-            d = bone_dir(arm, f'finger{f}-1.{side}')
-            target = d.slerp(mid, close * 0.75) if d.angle(mid) > 1e-3 else d
-            pb = arm.pose.bones[f'finger{f}-1.{side}']
-            q = d.rotation_difference(target)
-            M = pb.matrix.copy()
-            pb.matrix = Matrix.Translation(M.to_translation()) @ (q.to_matrix() @ M.to_3x3()).to_4x4()
-            update()
-        c = curl * cascade[k]
-        curl_finger(arm, side, f, (52 * c, 78 * c, 42 * c))
-        if spread_extra[k]:
-            rotate_local(arm, f'finger{f}-1.{side}', 'Z', spread_extra[k])
-    # Thumb (measured): -X opposes/flexes toward the palm, -Z swings toward the index finger.
-    rotate_local(arm, f'finger1-1.{side}', 'X', -(12 + 38 * thumb))
-    rotate_local(arm, f'finger1-1.{side}', 'Z', -(8 + 14 * thumb))
-    rotate_local(arm, f'finger1-2.{side}', 'X', -(8 + 30 * thumb))
-    rotate_local(arm, f'finger1-3.{side}', 'X', -(10 + 32 * thumb))
+    f = bone_dir(arm, f'finger3-1.{side}')
+    f = (f - n * f.dot(n)).normalized()
+    s = n.cross(f) if side == 'R' else f.cross(n)
+    return f, n, s.normalized()
+
+
+def hand_shape(arm, side, mcp, pip, dip, spread, thumb=(-32, 42, 0, 14, 16)):
+    """Pose the fingers anatomically (degrees).
+
+    mcp/pip/dip: flexion per finger (index, middle, ring, pinky) at each joint.
+    spread: angle of each finger in the palm plane from the middle finger's line
+    (negative toward the thumb). thumb: (angle in the palm plane, lift toward the
+    palm, roll about its axis, MP flexion, IP flexion) of the thumb.
+    """
+    for b in FINGER_BONES:
+        arm.pose.bones[f'{b}.{side}'].rotation_quaternion = (1, 0, 0, 0)
+    update()
+    f, n, s = hand_frame(arm, side)
+    sgn = 1 if side == 'R' else -1
+    for k, fi in enumerate((2, 3, 4, 5)):
+        name = f'finger{fi}-1.{side}'
+        y = bone_dir(arm, name)
+        ang0 = math.degrees(math.atan2(y.dot(s), y.dot(f)))
+        if fi != 3 or spread[k]:
+            rotate_world(arm, name, n, sgn * (spread[k] - ang0))
+        for seg, a in zip((1, 2, 3), (mcp[k], pip[k], dip[k])):
+            rotate_local(arm, f'finger{fi}-{seg}.{side}', 'X', -a)
+    ang, lift, roll, mp, ip = thumb
+    a, e = math.radians(ang), math.radians(lift)
+    d = (f * math.cos(a) + s * math.sin(a)) * math.cos(e) + n * math.sin(e)
+    aim(arm, f'finger1-1.{side}', d)
+    if roll:
+        rotate_world(arm, f'finger1-1.{side}', d, sgn * roll)
+    rotate_local(arm, f'finger1-2.{side}', 'X', -mp)
+    rotate_local(arm, f'finger1-3.{side}', 'X', -ip)
+
+
+def hand_pose(arm, side, curl=0.35, close=0.6, thumb=0.5, cascade=(0.85, 1.0, 1.15, 1.3), spread_extra=(0, 0, 0, 0)):
+    """A natural hand from three intents.
+
+    curl 0 = long and nearly straight, 0.35 = relaxed, 1 = fist (per finger, scaled by cascade).
+    close 0 = a soft fan, 1 = fingers together. thumb 0 = open, 0.5 = resting by the index, 1 = across the palm.
+    """
+    mcp, pip, dip = [], [], []
+    for k in range(4):
+        c = min(1.0, curl * cascade[k])
+        mcp.append(4 + 78 * c ** 1.15)
+        pip.append(6 + 94 * c)
+        dip.append(3 + 58 * c ** 1.1)
+    fan = (-11, 0, 8, 17)
+    tight = (-3.5, 0, 3.5, 7)
+    spread = [fan[k] * (1 - close) + tight[k] * close + spread_extra[k] for k in range(4)]
+    t = thumb
+    th = (-50 + 30 * t, 22 + 36 * t, 14 * t, 4 + 28 * t, 6 + 30 * t)
+    hand_shape(arm, side, mcp, pip, dip, spread, th)
 
 
 def reset_pose(arm):
