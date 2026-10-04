@@ -127,6 +127,16 @@ def bez(p0, p1, p2, n=30):
 
 # ------------------------------------------------------------------ features
 
+def iris_geometry(e, outer):
+    """Iris centre and radius (px) as eye() draws it."""
+    cols, top, bot = e['cols'], e['top'], e['bot']
+    up = smooth(np.c_[cols, top], 5)
+    lo = smooth(np.c_[cols, bot], 5)
+    W = abs(up[-1][0] - up[0][0])
+    H = (lo[:, 1] - up[:, 1]).max()
+    return e['cx'] + outer * 0.03 * W, e['cy'] + 0.08 * H, 0.33 * W
+
+
 def eye(e, outer, s=1.0, closeup=False, rng=None):
     """One eye. `outer` is +1 if the outer corner is toward +x in the image."""
     rng = rng or np.random.default_rng(3)
@@ -150,13 +160,26 @@ def eye(e, outer, s=1.0, closeup=False, rng=None):
     opening = np.vstack([up, lo[::-1]])
     out.append('<clipPath id="%s"><path d="%s"/></clipPath>' % (clip_id, path(opening, close=True)))
     g = ['<g clip-path="url(#%s)">' % clip_id]
-    g.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#000"/>' % (icx, icy, ir))
-    # Iris texture: radial white streaks in the lower half (visible when tinted), pupil.
-    for k in range(18):
-        a = np.pi * (0.15 + 0.7 * k / 17)
-        r0, r1 = ir * 0.45, ir * 0.9
-        g.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#fff" stroke-width="%.1f" stroke-linecap="round"/>' % (
-            icx + np.cos(a) * r0, icy + np.sin(a) * r0, icx + np.cos(a) * r1, icy + np.sin(a) * r1, 1.2 * s))
+    if closeup:
+        # Close-ups tint the iris in the shader: draw it light, with a limbal ring, the shadow of the
+        # upper lid across its top, fine radial fibres and the pupil.
+        g.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" stroke="#000" stroke-width="%.1f"/>' % (
+            icx, icy, ir, 0.11 * ir))
+        g.append('<path d="M %.1f %.1f A %.1f %.1f 0 0 1 %.1f %.1f Q %.1f %.1f %.1f %.1f Z" fill="#000"/>' % (
+            icx - ir, icy - 0.05 * ir, ir, ir, icx + ir, icy - 0.05 * ir, icx, icy - 0.45 * ir, icx - ir, icy - 0.05 * ir))
+        for k in range(28):
+            a = np.pi * (0.08 + 0.84 * k / 27)
+            r0, r1 = ir * 0.5, ir * (0.8 + 0.12 * ((k * 7) % 5) / 4)
+            g.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#000" stroke-width="%.1f" stroke-linecap="round"/>' % (
+                icx + np.cos(a) * r0, icy + np.sin(a) * r0, icx + np.cos(a) * r1, icy + np.sin(a) * r1, 0.9 * s))
+    else:
+        g.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#000"/>' % (icx, icy, ir))
+        # Iris texture: radial white streaks in the lower half (visible when tinted), pupil.
+        for k in range(18):
+            a = np.pi * (0.15 + 0.7 * k / 17)
+            r0, r1 = ir * 0.45, ir * 0.9
+            g.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#fff" stroke-width="%.1f" stroke-linecap="round"/>' % (
+                icx + np.cos(a) * r0, icy + np.sin(a) * r0, icx + np.cos(a) * r1, icy + np.sin(a) * r1, 1.2 * s))
     g.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#000"/>' % (icx, icy, ir * 0.42))
     # Catch-lights: a large one upper outer, a small one lower inner.
     g.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff"/>' % (

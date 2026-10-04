@@ -26,7 +26,10 @@ if __name__ == '__main__':
     lm = face.landmarks(face.load_map(fm))
     lm['nose_y'] = face.nose_tip_px(rest, win, lm['R'])
     ew = atlas.build(face.face_svg(lm), face.face_svg(lm, closeup=True), lm, win, OUT, chromium=CHROMIUM)
-    json.dump(dict(win=win, eye_window=ew, eyes=[dict(cx=float(e['cx']), cy=float(e['cy']), x0=int(e['x0']), x1=int(e['x1']))
-                                                 for e in lm['eyes']], R=lm['R']),
+    mid = (lm['eyes'][0]['cx'] + lm['eyes'][1]['cx']) / 2
+    iris = [face.iris_geometry(e, -1 if e['cx'] < mid else 1) for e in lm['eyes']]
+    json.dump(dict(win=win, eye_window=ew, eyes=[dict(cx=float(e['cx']), cy=float(e['cy']), x0=int(e['x0']), x1=int(e['x1']),
+                                                      iris=[float(v) for v in ir])
+                                                 for e, ir in zip(lm['eyes'], iris)], R=lm['R']),
               open(os.path.join(BUILD, 'face.json'), 'w'), indent=1)
     print('atlas', OUT)
