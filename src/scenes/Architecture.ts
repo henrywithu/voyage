@@ -53,17 +53,35 @@ export async function setupArchitecture(section: SceneSection) {
       "bottle3",
       "character",
       "background_floor",
-      "structure_shadow",
     ])
       root.add(section.layers[name]);
-    for (const name of ["structure", "table", "bottle1", "bottle2", "bottle3"])
-      outline(
+    const outlines: THREE.Mesh[] = [];
+    for (const name of ["structure", "table", "bottle1", "bottle2", "bottle3"]) {
+      const inverse = outline(
         section,
         section.mesh(name),
         "StaticObjectBaseShaderInverse",
         name.startsWith("bottle") ? 0.003 : 0.009,
         root,
       );
+      if (name.startsWith("bottle")) outlines.push(inverse);
+    }
+    // The three pendants turn slowly above the shell, each at its own pace.
+    const pendants = ["bottle1", "bottle2", "bottle3"].map((name) =>
+      section.mesh(name),
+    );
+    const baseY = pendants.map((pendant) => pendant.position.y);
+    section.animate = (frame) => {
+      const t = frame.time;
+      pendants.forEach((pendant, i) => {
+        pendant.rotation.y = t * (0.35 + 0.12 * i) + i * 2.1;
+        pendant.position.y = baseY[i] + 0.035 * Math.sin(t * 0.9 + i * 1.7);
+      });
+      outlines.forEach((mesh, i) => {
+        mesh.rotation.y = pendants[i].rotation.y;
+        mesh.position.y = pendants[i].position.y;
+      });
+    };
     const character = section.layers.character,
       position = character.position.clone(),
       scale = character.scale.clone();

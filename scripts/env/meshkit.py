@@ -32,6 +32,19 @@ class Mesh:
         self.n += len(P)
         return self
 
+    def extend(self, other):
+        """Append all parts of another Mesh."""
+        base = 0
+        for P, F, N, uv, tag in zip(other.P, other.F, other.N, other.uv, other.tag):
+            self.P.append(P)
+            self.F.append(F - base + self.n)
+            self.N.append(N)
+            self.uv.append(uv)
+            self.tag.append(tag)
+            self.n += len(P)
+            base += len(P)
+        return self
+
     def arrays(self):
         return (np.vstack(self.P), np.vstack(self.F), np.vstack(self.N), np.vstack(self.uv),
                 np.concatenate(self.tag))

@@ -2819,5 +2819,92 @@
     "uPageScroll": {
       "value": 0
     }
+  },
+  "PendantShader": {
+    "tLines": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/lines.jpg",
+        "repeat": true
+      }
+    },
+    "tNoise": {
+      "value": {
+        "kind": "Texture",
+        "path": "assets/images/story/perlin.png",
+        "repeat": true
+      }
+    },
+    "uColorHighlight": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ffffff"
+        ]
+      }
+    },
+    "uColor": {
+      "value": {
+        "kind": "Color",
+        "args": [
+          "#ae9c74"
+        ]
+      }
+    },
+    "uLinesTile": {
+      "value": 4.5
+    },
+    "uLightDir": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          -0.75,
+          0.75,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAxis": {
+      "value": {
+        "kind": "Vector3",
+        "args": [
+          0,
+          0.5,
+          2
+        ],
+        "normalize": true
+      }
+    },
+    "uAngle": {
+      "value": -0.5
+    },
+    "uDistanceCompensation": {
+      "value": 0
+    },
+    "uThreshold": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          0.4,
+          0.7
+        ]
+      }
+    },
+    "uVerticalGrad": {
+      "value": {
+        "kind": "Vector2",
+        "args": [
+          1000,
+          1001
+        ]
+      }
+    },
+    "uDiscardTop": {
+      "value": 1
+    },
+    "uDiscardBottom": {
+      "value": 0
+    }
   }
 }
