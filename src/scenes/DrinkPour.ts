@@ -129,7 +129,7 @@ export async function setupDrinkPour(section: SceneSection) {
       // The clasp closes: the pearl wakes, the colour runs, and she lets go.
       fastened = true;
       section.audioState.clasp = 1;
-      section.onAudio("bottle_interact");
+      section.onAudio("pendant_clasp");
       gsap.to(state, {
         progress: 1,
         duration: 1.6,

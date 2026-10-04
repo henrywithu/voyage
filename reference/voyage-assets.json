@@ -200,6 +200,70 @@
     {
       "path": "assets/decoded/story/hand/arm.bin.mesh",
       "reason": "Chaewon arm animation"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/hovers/1.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/hovers/1.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/hovers/2.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/hovers/2.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/hovers/3.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/hovers/3.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/interact.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/interact.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/levitate.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/bottle/levitate.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/pouring/start.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/pouring/start.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/pouring/hold.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/pouring/hold.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/pouring/stop.mp3",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/audio/interactions/pouring/stop.ogg",
+      "reason": "pendant sound effects (scripts/music/sfx.py)"
     }
   ],
   "removed": [

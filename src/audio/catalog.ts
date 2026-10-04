@@ -50,6 +50,7 @@ add(
 );
 add("bottle_interact", "interactions/bottle/interact");
 add("bottle_levitate", "interactions/bottle/levitate");
+add("pendant_clasp", "interactions/pendant/clasp");
 add("drinking", "one-shots/drinking");
 add("ui_click", "one-shots/uiClick");
 add("transition_crack", "transitions/crack", 0.75);
