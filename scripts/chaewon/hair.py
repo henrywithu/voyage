@@ -212,8 +212,10 @@ def release_point(phi0, el0, group, rng):
     return phi0 + np.radians(rng.normal(0, 3)), -22.0 + rng.normal(0, 5)
 
 
-def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140):
-    """Style the hair for a pose: head_xf maps rest head space to posed (4x4)."""
+def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
+    """Style the hair for a pose: head_xf maps rest head space to posed (4x4).
+
+    sweep: a point (posed space) to gather the long hair toward, e.g. over one shoulder."""
     rng = np.random.default_rng(seed)
     hf, R, groups = design(rest, seed)
     N = 34
@@ -284,8 +286,16 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140):
     w2 = np.linspace(0, 1, N) ** 2
     hcx = hf['center'] if head_xf is None else (np.asarray(head_xf)[:3, :3] @ hf['center'] + np.asarray(head_xf)[:3, 3])
 
+    long_hair = ~is_bang & ~is_frame
+
     def forces(X, t):
         F = np.zeros_like(X)
+        if sweep is not None:
+            # Gathered over one shoulder: the long hair is drawn toward the sweep point, most at the tips.
+            d = np.asarray(sweep)[None, None] - X[long_hair]
+            d /= np.maximum(np.linalg.norm(d, axis=2, keepdims=True), 1e-9)
+            F[long_hair] += d * 0.0009 * w2[None, :, None]
+            return F
         F[is_front] += np.array([0, -1.0, 0]) * 0.00016   # in front of the shoulders
         below = (X[..., 2] < hcx[2] - 0.16)[..., None]
         back = ~is_front & ~is_bang & ~is_frame

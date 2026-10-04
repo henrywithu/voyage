@@ -42,7 +42,8 @@ const light = new THREE.Vector3(num("lx", 0.3), num("ly", 0.4), num("lz", 1)).no
     mesh = skin.mesh;
     outline = skin.outline;
   } else {
-    skin = new SkeletalMesh(asset, "SkinShader", { ...tex, uColor: new THREE.Vector3(0.945, 0.925, 0.882), uLinesTile: num("tile", 1.25), uLightDir: light, uAxis: new THREE.Vector3(1, 0, 2.5), uAngle: 0.5 });
+    skin = new SkeletalMesh(asset, "SkinShader", { ...tex, uColor: new THREE.Vector3(0.945, 0.925, 0.882), uLinesTile: num("tile", 1.25), uLightDir: light, uAxis: new THREE.Vector3(1, 0, 2.5), uAngle: 0.5, uClasp: num("clasp", 1), uPearl: num("pearl", 0), uDrinkColor: new THREE.Color("#63c4f4"), uColorScan: num("scan", 0) });
+    (skin.outline.material as THREE.RawShaderMaterial).uniforms.uClasp = (skin.mesh.material as THREE.RawShaderMaterial).uniforms.uClasp;
     if (q.get("anim")) await skin.loadAnimation(`assets/geometry/${q.get("anim")}.bin`);
     mesh = skin.mesh;
     outline = skin.outline;

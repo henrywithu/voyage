@@ -11,7 +11,7 @@ import type { SceneSection, Frame } from "./SceneSection";
 
 const labels: Partial<Record<SectionName, string>> = {
   HandScene: "HOLD &\nMOVE",
-  DrinkPourScene: "HOLD &\nPOUR",
+  DrinkPourScene: "HOLD &\nFASTEN",
   AntiGravityScene: "HOLD",
   DrinkSelectionScene: "CHOOSE\nFLAVOR",
 };

@@ -17,6 +17,10 @@ uniform vec3 uLightDir;
 uniform vec3 uColor;
 uniform vec3 uDrinkColor;
 uniform float uColorScan;
+uniform float uClasp;
+uniform float uClipY;
+uniform float uPearl;
+uniform float uScanDown;
 
 #!VARYINGS
 varying vec2 vUv;
@@ -27,6 +31,8 @@ varying vec3 vPos;
 varying float vAo;
 varying float vEyeMask;
 varying float vNdcHeight;
+varying float vChain;
+varying float vWorldY;
 
 #!SHADER: Vertex
 
@@ -54,6 +60,8 @@ void main() {
     vAo = 1.0 - color.b;
     //use green channel for eye mask
     vEyeMask = color.g;
+    // red channel: jewellery chains (0.5 = parted at the nape, 1 = closed), see uClasp
+    vChain = color.r;
 
     vec3 pos = position;
     applySkin(pos, vNormal);
@@ -63,6 +71,7 @@ void main() {
     vLineUv = (rotation3d(normalize(uAxis), uAngle) * position).xy;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    vWorldY = (modelMatrix * vec4(pos, 1.0)).y;
 
     vNdcHeight = 1.0 - (gl_Position.y / gl_Position.w * 0.5 + 0.5);
 }
@@ -76,6 +85,13 @@ float aastep(float threshold, float value) {
 
 void main() {
     // if (uDiscardBottom - vNdcHeight > 0.0 || uDiscardTop - vNdcHeight < 0.0) discard;
+
+    // A panel edge in world space (default far below): the close-up ends at its frame.
+    float clipNoise = max(texture2D(tNoise, gl_FragCoord.xy / 180.0).r, 0.05);
+    if (vWorldY < uClipY || smoothstep(uClipY, uClipY + 0.5, vWorldY) < clipNoise) discard;
+    // One chain or the other: parted (held at the nape) before the clasp closes, closed after.
+    if (vChain > 0.25 && vChain < 0.75 && uClasp > 0.5) discard;
+    if (vChain > 0.75 && uClasp < 0.5) discard;
 
     // trim pattern
     vec4 trimData = texture2D(tTrim, vUv);
@@ -132,6 +148,12 @@ void main() {
     // DrinkPourScene: affect clothes color
     drinkMask += 1.0 - min(1.0, step(-uColorScan * 1.5, vPos.y * 3.5 + noise * 0.1 + lines * 0.1 + sin(-steppedTime * 0.3 + vPos.x * 8.0 + uColorScan * 6.0) * 0.15) + skinMask);
 
+    // Voyage: the pendant's colour runs down through the lace from the collar (uColorScan 0 -> 1).
+    float wob = noise * 0.03 + lines * 0.03 + sin(-steppedTime * 0.3 + vPos.x * 8.0 + uColorScan * 6.0) * 0.04;
+    float level = mix(1.66, -0.05, uColorScan);
+    float down = step(level, vPos.y + wob) * (1.0 - skinMask);
+    drinkMask = mix(drinkMask, down, uScanDown);
+
     color = mix(alt, vec3(1.0), skinMask);
     color = mix(color, vec3(1.0), skinMask);
     color = mix(color, uDrinkColor, drinkMask);
@@ -139,6 +161,12 @@ void main() {
     color *= maskedLines;
     color *= trim;
     color *= atlas;
+
+    // The pendant's pearl wakes in the tide's colour (uv2 in the far corner marks it).
+    float pearl = step(0.995, min(vUv2.x, vUv2.y)) * uPearl;
+    vec3 tide = uDrinkColor * mix(0.62, 1.0, terminatormid);
+    tide = mix(tide, vec3(1.0), terminatorhigh * 0.8);
+    color = mix(color, tide, pearl);
 
     if (!gl_FrontFacing) {
         color = vec3(0.0);

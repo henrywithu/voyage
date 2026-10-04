@@ -180,6 +180,7 @@ export function material(
   const standard: Record<string, any> = {
     uDiscardTop: 10000,
     uDiscardBottom: -10000,
+    uClipY: -100000,
     uOpacity: 1,
     uAlpha: 1,
     alpha: 1,

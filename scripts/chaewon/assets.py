@@ -61,7 +61,7 @@ class Session:
     def posed_body(self, mats):
         return M.skin(self.rest['P'], self.rest['W'], mats, self.rest_mats)
 
-    def sdf_for(self, mats, key=None):
+    def sdf_for(self, mats, key=None, arms=False):
         if key:
             path = os.path.join(BUILD, f'sdf_{key}.pkl')
             if os.path.exists(path):
@@ -71,7 +71,8 @@ class Session:
         lab = dress_mod.labels(self.names, self.rest['W'])
         hb = self.names.index('head')
         hc = mats[hb][:3, 3]
-        k = lab != 1  # arms do not deflect hair (they move freely in front of it)
+        # Arms usually do not deflect hair (they move freely in front of it); raised arms do.
+        k = np.ones(len(lab), bool) if arms else lab != 1
         lo, hi = hc + np.array([-0.32, -0.32, -0.80]), hc + np.array([0.32, 0.32, 0.20])
         sdf = hair_mod.SDF(P[k], N[k], lo, hi, step=0.006)
         if key:
@@ -82,9 +83,9 @@ class Session:
         hb = self.names.index('head')
         return mats[hb] @ np.linalg.inv(self.rest_mats[hb])
 
-    def hair(self, mats, wind=None, key=None, seed=11):
-        sdf = self.sdf_for(mats, key)
-        return hair_mod.grow(self.rest, sdf, head_xf=self.head_xf(mats), wind=wind, seed=seed)
+    def hair(self, mats, wind=None, key=None, seed=11, arms=False, sweep=None):
+        sdf = self.sdf_for(mats, key, arms)
+        return hair_mod.grow(self.rest, sdf, head_xf=self.head_xf(mats), wind=wind, seed=seed, sweep=sweep)
 
     def assemble(self, mats, H):
         """All parts posed by `mats` plus hair styled for this pose. Returns merged dict in pose space."""
@@ -162,8 +163,12 @@ def bow_pose(s, t=0.0):
 
 
 def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, amp=1.0, wind_dir=(0, 1, 0.1),
-                      cycles=(1, 2)):
-    """Skinned export with hair chains: bind pose = mats_bind, animation from pose_fn(t)."""
+                      cycles=(1, 2), extra_parts=(), more_anims=(), inclusive=False):
+    """Skinned export with hair chains: bind pose = mats_bind, animation from pose_fn(t).
+
+    extra_parts: rest-space Parts weighted to the body bones (e.g. jewellery).
+    more_anims: further clips [(path, pose_fn, frames, dict(amp=, cycles=, inclusive=))] on the same rig.
+    inclusive: t runs 0..1 inclusive (a scrubbed clip) instead of a loop."""
     hb = s.names.index('head')
     hr = hairrig.HairRig(H, mats_bind[hb], s.rest_mats[hb])
     names_x, parents_x, rest_x = hr.extend(s.names, s.parents, s.rest_mats)
@@ -181,19 +186,169 @@ def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, am
                    p.color, p.wind, p.soft)
         q.kind, q.src = p.kind, p.src
         base.append(q)
-    m = M.merge(base + hparts, topo=(s.rest['P'], s.rest['T']))
+    extra = []
+    for p in extra_parts:
+        q = M.Part(p.P, p.F, p.uv, p.uv2, np.c_[p.W, np.zeros((len(p.P), len(hr.names)), np.float32)], 'strap',
+                   p.color, p.wind, p.soft)
+        extra.append(q)
+    m = M.merge(base + hparts + extra, topo=(s.rest['P'], s.rest['T']))
     export.write_skinned(mesh_path, m['P'], m['F'], m['uv'], m['uv2'], m['W'], names_x, parents_x, rest_x,
                          color=color_attr(m), N_bl=m['N'], keep=keep)
-    anim = []
-    for f in range(frames):
-        t = f / frames
-        pose_fn(s, t)
-        mats = s.pose_mats()
-        d = {n: mats[i] for i, n in enumerate(s.names)}
-        d.update(hr.frame(mats[hb], s.rest_mats[hb], t, amp=amp, wind_dir=wind_dir, cycles=cycles))
-        anim.append(d)
-    export.write_animation(anim_path, anim, names_x, parents_x, keep=keep)
+    clips = [(anim_path, pose_fn, frames, dict(amp=amp, cycles=cycles, inclusive=inclusive))] + list(more_anims)
+    for path, fn, n, kw in clips:
+        anim = []
+        for f in range(n):
+            t = f / (n - 1) if kw.get('inclusive') else f / n
+            fn(s, t)
+            mats = s.pose_mats()
+            d = {nm: mats[i] for i, nm in enumerate(s.names)}
+            d.update(hr.frame(mats[hb], s.rest_mats[hb], t, amp=kw.get('amp', 1.0), wind_dir=wind_dir,
+                              cycles=kw.get('cycles', (1, 2))))
+            anim.append(d)
+        export.write_animation(path, anim, names_x, parents_x, keep=keep)
     return m, hr
+
+
+def smoothstep(a, b, x):
+    u = min(max((x - a) / (b - a), 0.0), 1.0)
+    return u * u * (3 - 2 * u)
+
+
+def pinch_point(s, side):
+    pb = s.arm.pose.bones
+    rig.update()
+    return np.array((pb[f'finger2-3.{side}'].tail + pb[f'finger1-3.{side}'].tail) / 2)
+
+
+PINCH = dict(mcp=(34, 30, 34, 38), pip=(46, 58, 62, 60), dip=(26, 34, 34, 30), spread=(-4, 0, 6, 13),
+             thumb=(-14, 46, 34, 20, 26))
+OPEN = dict(mcp=(10, 14, 18, 20), pip=(14, 22, 28, 30), dip=(6, 10, 12, 12), spread=(-8, 0, 7, 15),
+            thumb=(-34, 30, 12, 8, 10))
+
+
+def capture_pose(arm):
+    return {pb.name: (pb.location.copy(), pb.rotation_quaternion.copy()) for pb in arm.pose.bones}
+
+
+def blend_pose(arm, A, B, u):
+    """Bone-local blend between two captured poses (slerped rotations): a natural FK transition."""
+    for pb in arm.pose.bones:
+        la, qa = A[pb.name]
+        lb, qb = B[pb.name]
+        pb.location = la.lerp(lb, u)
+        pb.rotation_quaternion = qa.slerp(qb, u)
+    rig.update()
+
+
+def clasp_pose(s, clasp):
+    """Both hands at her nape, fingertips pinching the chain ends together (clasp 0 -> 1 closes them)."""
+    ctx, arm = s.ctx, s.arm
+    rig.reset_pose(arm)
+    poses.contrapposto(ctx, 'R', 0.55)
+    poses.spine(arm, pitch=-4, yaw=2, roll=-1)
+    for side in ('L', 'R'):
+        poses.clavicle(arm, side, lift=13)
+    pb = arm.pose.bones
+    rig.update()
+    # The clasp sits at the nape; her fingertips meet there from either side, palms toward her neck,
+    # elbows lifted forward so her arms frame her face.
+    nape = pb['neck02'].head + Vector((0, 0.062, -0.006))
+    for side, sgn in (('L', 1), ('R', -1)):
+        gap = 0.026 * (1 - clasp) + 0.008
+        target = nape + Vector((sgn * gap, 0.006, 0))
+        fingers = Vector((-sgn * 0.92, 0.18, 0.34)).normalized()
+        wrist_pos = target - fingers * 0.092
+        for _ in range(3):
+            # Solve so the pinch (thumb and index tips), not the wrist, lands on the target.
+            poses.arm_to(ctx, side, wrist_pos, elbow_dir=(sgn * 0.75, -1.3, 0.3),
+                         wrist=(fingers, Vector((0, -1, 0.1))))
+            rig.hand_shape(arm, side, **PINCH)
+            wrist_pos = wrist_pos + (target - Vector(pinch_point(s, side)))
+    # Head bowed into the task.
+    poses.head(arm, pitch=11 - 4 * clasp, yaw=-3, roll=-4)
+
+
+def capture_arm(s, side):
+    pb = s.arm.pose.bones
+    rig.update()
+    return dict(sh=pb[f'upperarm01.{side}'].head.copy(), el=pb[f'lowerarm01.{side}'].head.copy(),
+                wr=pb[f'wrist.{side}'].head.copy(), dir=rig.bone_dir(s.arm, f'wrist.{side}'),
+                palm=rig.palm_normal(s.arm, side))
+
+
+def fasten_pose(s, p):
+    """The hold scrubs this clip: hands close the clasp (p 0 -> 0.72), then let go, slide forward
+    beside her neck and settle into the first frame of the charm loop (-> 1)."""
+    if p <= 0.72:
+        clasp_pose(s, smoothstep(0.0, 0.72, p))
+        return
+    u = smoothstep(0.72, 1.0, p)
+    clasp_pose(s, 1.0)
+    A, IA = capture_pose(s.arm), {x: capture_arm(s, x) for x in 'LR'}
+    charm_pose(s, 0.0)
+    B, IB = capture_pose(s.arm), {x: capture_arm(s, x) for x in 'LR'}
+    blend_pose(s.arm, A, B, u)          # torso, head, clavicles and fingers
+    neck = s.arm.pose.bones['neck01'].head
+    for side, sgn in (('L', 1), ('R', -1)):
+        a, b = IA[side], IB[side]
+        c = neck + Vector((sgn * 0.15, -0.09, 0.03))      # beside the neck, in front of the shoulder
+        wr = a['wr'] * (1 - u) ** 2 + c * 2 * u * (1 - u) + b['wr'] * u ** 2
+        ea = (a['el'] - (a['sh'] + a['wr']) / 2).normalized()
+        eb = (b['el'] - (b['sh'] + b['wr']) / 2).normalized()
+        d = a['dir'].lerp(b['dir'], u).normalized()
+        palm = a['palm'].lerp(b['palm'], u).normalized()
+        fingers = {n: s.arm.pose.bones[f'{n}.{side}'].rotation_quaternion.copy() for n in rig.FINGER_BONES}
+        poses.arm_to(s.ctx, side, wr, elbow_dir=tuple(ea.lerp(eb, u).normalized()), wrist=(d, palm))
+        for n, q in fingers.items():
+            s.arm.pose.bones[f'{n}.{side}'].rotation_quaternion = q
+        rig.update()
+
+
+def charm_pose(s, t):
+    """Afterwards: fingertips resting on the pendant, a slow sway (loop)."""
+    ctx, arm = s.ctx, s.arm
+    rig.reset_pose(arm)
+    sw = math.sin(2 * math.pi * t)
+    sw2 = math.sin(2 * math.pi * t - 1.1)
+    br = math.sin(2 * math.pi * 2 * t)
+    poses.contrapposto(ctx, 'L', 0.75 + 0.12 * sw)
+    poses.spine(arm, pitch=-2 + 0.7 * br, yaw=-4 + 2 * sw2, roll=1.5 * sw)
+    poses.clavicle(arm, 'R', lift=4)
+    pb = arm.pose.bones
+    rig.update()
+    # Index fingertip resting on the right of the pendant; the hand lies along her chest, palm in.
+    pend = pb['neck01'].head + Vector((-0.004, -0.13, -0.112))       # on the skin of her upper chest
+    tip_target = pend + Vector((-0.017, -0.03, -0.006))   # over the bodice, not under it
+    fingers = Vector((0.42, -0.08, 0.9)).normalized()
+    wrist_pos = tip_target - fingers * 0.15 + Vector((0, -0.03, 0))
+    for _ in range(4):
+        poses.arm_to(ctx, 'R', wrist_pos, elbow_dir=(-1, 0.35, -0.8), wrist=(fingers, Vector((0.15, 1, 0.1))))
+        rig.hand_shape(arm, 'R', mcp=(6, 12, 18, 24), pip=(8, 20, 28, 32), dip=(4, 10, 13, 14),
+                       spread=(-6, 0, 8, 16), thumb=(-34, 34, 14, 8, 10))
+        rig.update()
+        wrist_pos = wrist_pos + (tip_target - pb['finger2-3.R'].tail)
+    poses.relaxed_arm(ctx, 'L', out=0.2 + 0.015 * sw, fwd=0.04, bend=18, hand=dict(curl=0.22, close=0.6, thumb=0.35))
+    poses.head(arm, pitch=4 + 2 * sw2, yaw=10 + 3 * sw, roll=7 + 1.5 * sw2)
+
+
+def asset_fasten(s):
+    """The fastening close-up (scrubbed by the hold) and the charm loop, sharing one skinned mesh."""
+    import necklace
+    fasten_pose(s, 0.0)
+    mats0 = s.pose_mats()
+    pinch = {side: pinch_point(s, side) for side in 'LR'}
+    # Her hair gathered over her left shoulder, clear of the clasp at her nape.
+    sweep = np.array(s.arm.pose.bones['upperarm01.L'].head) + np.array([-0.05, -0.13, -0.2])
+    H = s.hair(mats0, key='fasten', arms=True, sweep=sweep)
+    parts, info = necklace.build(s, mats0, pinch)
+    print('necklace', {k: np.round(v, 3).tolist() if hasattr(v, '__len__') else round(v, 3) for k, v in info.items()})
+    m, hr = skinned_with_hair(
+        s, mats0, H, os.path.join(DEC, 'grotto/chaewon-fasten.bin.mesh'),
+        os.path.join(DEC, 'grotto/chaewon-fasten-anim.bin.mesh'), fasten_pose, 61, amp=0.35, inclusive=True,
+        extra_parts=parts,
+        more_anims=[(os.path.join(DEC, 'grotto/chaewon-charm-anim.bin.mesh'), charm_pose, 100,
+                     dict(amp=0.8, cycles=(1, 2)))])
+    print('fasten', len(m['P']), 'verts')
 
 
 def grip_point(s, side='R'):

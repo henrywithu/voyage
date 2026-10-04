@@ -3,246 +3,191 @@ import gsap from "gsap";
 import { SceneSection } from "../engine/SceneSection";
 import { SkeletalMesh } from "../engine/SkeletalMesh";
 import { loadGeometry, texture } from "../engine/assets";
-import { material } from "../engine/shaders";
 import { outline } from "../engine/outline";
-import { range, clamp, worldHeight } from "../data/sections";
-import { PourStream } from "./PourStream";
+import { range, worldHeight } from "../data/sections";
 import { tideColor } from "../data/theme";
+
+/**
+ * The fastening (Voyage's replacement for Spirit's pour and drink).
+ *
+ * Top: a close-up of Chaewon with her hands at her nape. Holding scrubs the
+ * fastening clip; at 72% the clasp closes, the pearl wakes in the chosen tide's
+ * colour and the colour runs down through the lace, then she lets go and rests
+ * her hand by the pendant. Below: her full figure in the charm loop, the colour
+ * running through the dress as the reader scrolls.
+ */
+const CLASP = 0.72;
 const states = new WeakMap<
   SceneSection,
   { progress: number; drinkFrame: number }
 >();
+/** Frame of the charm loop, shared with the floating close-up frame. */
 export const getDrinkFrame = (section: SceneSection) =>
   states.get(section)?.drinkFrame;
 export const getPourProgress = (section: SceneSection) =>
   states.get(section)?.progress ?? 0;
 export async function setupDrinkPour(section: SceneSection) {
   if (section.name !== "DrinkPourScene") return;
-  const state = { progress: 0, drinkFrame: 90 };
+  const state = { progress: 0, drinkFrame: 0 };
   states.set(section, state);
-  section.disposables.push(()=>gsap.killTweensOf(state));
+  const fx = { pearl: 0, scan: 0 };
+  section.disposables.push(() => {
+    gsap.killTweensOf(state);
+    gsap.killTweensOf(fx);
+  });
   const root = new THREE.Group(),
-    armRoot = new THREE.Group(),
+    closeRoot = new THREE.Group(),
     characterRoot = new THREE.Group();
-  root.add(armRoot, characterRoot);
+  root.add(closeRoot, characterRoot);
   section.group.add(root);
-  armRoot.position.y = 5.25;
   characterRoot.position.set(0, -8.75, -1.25);
   characterRoot.scale.setScalar(3);
-  for (const name of [
-    "background_plinth",
-    "foreground_plinth",
-    "glass",
-    "glass_front",
-    "glassshadow",
-    "armshadow",
-  ])
+  for (const name of ["background_plinth", "foreground_plinth"]) {
     root.add(section.layers[name]);
-  for (const name of ["background_plinth", "foreground_plinth"])
     outline(
       section,
       section.mesh(name),
       "StaticObjectBaseShaderInverse",
-      name === "foreground_plinth" ? 0.002 : 0.0005,
+      0.0025,
       root,
     );
+  }
+  for (const name of ["glass", "glass_front", "glassshadow", "armshadow"])
+    if (section.layers[name]) section.layers[name].visible = false;
   const common = {
     tAtlas: texture("assets/images/story/chaewon/atlas.png"),
+    tTrim: texture("assets/images/story/chaewon/trim.png"),
     tLines: texture("assets/images/story/lines.jpg"),
     tNoise: texture("assets/images/story/perlin.png"),
+    uColor: new THREE.Vector3(241 / 255, 236 / 255, 225 / 255),
+    uDrinkColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
+    uAxis: new THREE.Vector3(1, 0, 2.5),
+    uAngle: 0.5,
+    uColorScan: 0,
+    uScanDown: 1,
+    uClasp: 0,
+    uPearl: 0,
   };
-  const arm = new SkeletalMesh(
-    await loadGeometry("assets/geometry/story/drinkpour/saint-pour-arm.bin"),
-    "SkinShader",
-    {
-      ...common,
-      tTrim: texture("assets/images/story/chaewon/trim.png"),
-      uColor: new THREE.Vector3(1, 1, 1),
-      uDrinkColor: new THREE.Vector3(1, 1, 1),
-      uLinesTile: 12,
-      uLightDir: new THREE.Vector3(0, 0.5, 0.95).normalize(),
-      uAxis: new THREE.Vector3(1, 0.77, -0.6),
-      uThreshold: new THREE.Vector2(0, 0.7),
-      uAngle: -2.008,
-    },
+  const asset = await loadGeometry(
+    "assets/geometry/story/grotto/chaewon-fasten.bin",
   );
-  await arm.loadAnimation(
-    "assets/geometry/story/drinkpour/saint-pour-arm-animation.bin",
-  );
-  armRoot.add(arm.mesh, arm.outline);
-  const character = new SkeletalMesh(
-    await loadGeometry("assets/geometry/story/drinkpour/saint-drink.bin"),
-    "SkinShader",
-    {
-      ...common,
-      tTrim: texture("assets/images/story/chaewon/trim.png"),
-      uColor: new THREE.Vector3(241 / 255, 236 / 255, 225 / 255),
-      uDrinkColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
-      uLinesTile: 3.5,
-      uLightDir: new THREE.Vector3(0.13, 0.3, 0.74).normalize(),
-      uAxis: new THREE.Vector3(0, 0, 1),
-      uThreshold: new THREE.Vector2(0, 0),
-      uAngle: -1.53,
-      uColorScan: 0,
-    },
-  );
-  await character.loadAnimation(
-    "assets/geometry/story/drinkpour/saint-drink-animation.bin",
-  );
-  characterRoot.add(character.mesh, character.outline);
-  for (const skin of [arm, character]) {
+  const [fastenClip, charmClip] = await Promise.all([
+    loadGeometry("assets/geometry/story/grotto/chaewon-fasten-anim.bin"),
+    loadGeometry("assets/geometry/story/grotto/chaewon-charm-anim.bin"),
+  ]);
+  const closeup = new SkeletalMesh(asset, "SkinShader", {
+    ...common,
+    uLinesTile: 2.4,
+    uLightDir: new THREE.Vector3(0.25, 0.35, 1).normalize(),
+  });
+  closeup.setAnimation(fastenClip);
+  closeRoot.add(closeup.mesh, closeup.outline);
+  const figure = new SkeletalMesh(asset, "SkinShader", {
+    ...common,
+    uLinesTile: 3.5,
+    uLightDir: new THREE.Vector3(0.13, 0.3, 0.74).normalize(),
+    uClasp: 1,
+    uPearl: 1,
+  });
+  figure.setAnimation(charmClip);
+  characterRoot.add(figure.mesh, figure.outline);
+  for (const skin of [closeup, figure]) {
     section.meshes.push(skin.mesh as any, skin.outline as any);
+    // The outline shares the colour pass's uniforms (chain visibility, discard bounds).
     (skin.outline.material as THREE.RawShaderMaterial).uniforms = {
       ...(skin.mesh.material as THREE.RawShaderMaterial).uniforms,
       uDisplacement: { value: 1 },
     };
   }
-  // Keep the bone palette in model space, and mirror attachment matrices beneath the animated arm root.
-  const attachment = new THREE.Group();
-  attachment.matrixAutoUpdate = false;
-  armRoot.add(attachment);
-  const bottle = section.addMesh(
-    (
-      await loadGeometry(
-        "assets/geometry/story/drinkpour/chaewon-pour-flask.bin",
-      )
-    ).geometry,
-    material("DrinkPourBottleShader", {
-      ...common,
-      tNoise: texture("assets/images/story/drinkpour/T_Noise15.png"),
-      tMap: texture(
-        "assets/images/story/drinkselection/trapnest-voyage-flask.png",
-        false,
-      ),
-      uColorHighlight: new THREE.Vector3(1, 1, 1),
-      uColor: new THREE.Color(110 / 255, 192 / 255, 240 / 255),
-      uLinesTile: 10,
-      uLightDir: new THREE.Vector3(0, 0.1, 1).normalize(),
-      uAxis: new THREE.Vector3(1, 0, 0),
-      uAngle: Math.PI / 2,
-      uDistanceCompensation: 0,
-      uThreshold: new THREE.Vector2(0.5, 0.1),
-      uPourStrength: 0,
-      uWaterLineOffset: 0.1,
-    }),
-    attachment,
-  );
-  bottle.rotation.z = 4.4;
-  arm.update(0, 0);
-  character.update(0, 90);
-  attachment.matrix.copy(arm.bones[0].matrixWorld);
-  const stream = new PourStream(
-    section,
-    root,
-    arm.bones[0].scale.y,
-    arm.bones[0].position.z,
-  );
-  const glass = section.mesh("glass");
-  glass.geometry.computeBoundingBox();
-  stream.base.position.y =
-    glass.position.y -
-    0.35 * stream.base.scale.y +
-    (glass.geometry.boundingBox!.max.y - glass.geometry.boundingBox!.min.y) *
-      glass.scale.y;
-  const shadow = section.mesh("armshadow"),
-    shadowX = shadow.position.x,
-    shadowLines = shadow.material.uniforms.uLinesStrength.value;
-  const base = new THREE.Vector3(),
-    tip = new THREE.Vector3();
-  let held = false;
+  const closeUniforms = (closeup.mesh.material as THREE.RawShaderMaterial)
+    .uniforms;
+  const figureUniforms = (figure.mesh.material as THREE.RawShaderMaterial)
+    .uniforms;
+  closeup.update(0, 0);
+  figure.update(0, 0);
+  let held = false,
+    fastened = false,
+    looping = false;
   section.control = {
-    label: "HOLD &\nPOUR",
+    label: "HOLD &\nFASTEN",
     top: 0.025,
     height: 1.5,
     mobilePosition: new THREE.Vector2(),
   };
+  const anchor = new THREE.Vector3();
   section.animate = (frame) => {
-    if (frame.pressed !== held) {
+    if (!fastened && frame.pressed !== held) {
       held = frame.pressed;
       gsap.to(state, {
-        progress: held ? 1 : 0,
-        duration: held ? 3 : 1,
-        ease: "none",
+        progress: held ? CLASP : 0,
+        duration: held ? 2.6 : 1,
+        ease: held ? "power1.inOut" : "power2.out",
         overwrite: true,
       });
     }
-    const mobile = frame.width / frame.height < 1,
-      p = state.progress,
-      t = frame.time;
-    const x =
-      range(
-        frame.pointer.x,
-        -0.5,
-        0.5,
-        mobile ? -0.4 : -0.25,
-        mobile ? 0.11 : 0.25,
-      ) * p;
-    armRoot.position.x +=
-      (x - armRoot.position.x) * (1 - Math.pow(0.9, frame.delta * 60));
-    armRoot.position.x -=
-      Math.sin(0.7 * t) * Math.cos(0.6 * (t + 0.12)) * 0.005;
-    const y = 5.25 + range(frame.pointer.y, -0.5, 0.5, 0, 0.6) * p;
-    armRoot.position.y +=
-      (y - armRoot.position.y) * (1 - Math.pow(0.92, frame.delta * 60));
-    armRoot.position.y +=
-      0.01 *
-      ((0.5 * Math.sin(0.4 * t) + 0.5) * Math.cos(0.6 * (t + 0.01)) * 0.5 +
-        0.5);
-    arm.update(0, p * 60);
-    state.drinkFrame += frame.delta * 30;
-    if (state.drinkFrame >= 319)
-      state.drinkFrame = 141 + (state.drinkFrame % 319);
-    character.update(0, state.drinkFrame);
-    section.audioState.pour = p;
-    section.audioState.drinkFrame = state.drinkFrame;
-    attachment.matrix.copy(arm.bones[0].matrixWorld);
-    section.group.updateMatrixWorld(true);
-    base.setFromMatrixPosition(attachment.matrixWorld);
-    tip
-      .setFromMatrixPosition(arm.bones[4].matrixWorld)
-      .applyMatrix4(armRoot.matrixWorld);
-    stream.update(
-      frame.delta,
-      t,
-      base,
-      tip,
-      root.scale.length(),
-      frame.selected,
-    );
-    shadow.material.uniforms.uLinesStrength.value = THREE.MathUtils.lerp(
-      shadowLines,
-      0.6,
-      clamp(p * 2),
-    );
-    shadow.position.x +=
-      (shadowX + x - shadow.position.x) *
-      (1 - Math.pow(0.82, frame.delta * 60));
-    bottle.material.uniforms.uPourStrength.value = stream.strength;
-    bottle.material.uniforms.uWaterLineOffset.value = THREE.MathUtils.lerp(
-      0.4,
-      0.05,
-      -(Math.cos(Math.PI * range(p, 0, 0.7, 0, 1)) - 1) / 2,
-    );
-    const color = tideColor(frame.selected);
-    bottle.material.uniforms.uColor.value.set(color).convertLinearToSRGB();
-    const u = (character.mesh.material as THREE.RawShaderMaterial).uniforms;
-    u.uDrinkColor.value.set(color).convertLinearToSRGB();
-    u.uColorScan.value =
-      (section.top - (frame.scroll / frame.height) * worldHeight) / worldHeight;
-    for (const name of ["background", "background_plinth"]) {
-      const uniform = section.mesh(name).material.uniforms.uDiscardTop;
-      uniform.value -= 0.1;
+    if (!fastened && state.progress >= CLASP - 1e-3) {
+      // The clasp closes: the pearl wakes, the colour runs, and she lets go.
+      fastened = true;
+      section.audioState.clasp = 1;
+      section.onAudio("bottle_interact");
+      gsap.to(state, {
+        progress: 1,
+        duration: 1.6,
+        ease: "power1.inOut",
+        overwrite: true,
+      });
+      gsap.to(fx, { pearl: 1, duration: 0.6, ease: "power2.out" });
+      gsap.to(fx, { scan: 0.42, duration: 2.6, delay: 0.25, ease: "sine.inOut" });
     }
-    glass.getWorldPosition(tip).project(frame.camera);
+    const p = state.progress,
+      t = frame.time;
+    if (p >= 1 && !looping) {
+      looping = true;
+      closeup.setAnimation(charmClip);
+      closeup.elapsed = 0;
+    }
+    // A breath of movement while she waits for the reader to hold.
+    closeRoot.rotation.y = 0.04 * Math.sin(0.5 * t) * (1 - p);
+    if (looping) closeup.update(frame.delta);
+    else closeup.update(0, p * 60);
+    state.drinkFrame = (state.drinkFrame + frame.delta * 20) % 100;
+    figure.update(0, state.drinkFrame);
+    // The close-up dissolves into stipple below her waist, inside its panel.
+    closeUniforms.uClipY.value = section.group.position.y + section.height / 2 - 1.02 * worldHeight;
+    closeUniforms.uClasp.value = fastened ? 1 : 0;
+    closeUniforms.uPearl.value = fx.pearl;
+    closeUniforms.uColorScan.value = fx.scan;
+    section.audioState.pour = held && !fastened ? p / CLASP : 0;
+    const color = tideColor(frame.selected);
+    for (const u of [closeUniforms, figureUniforms])
+      u.uDrinkColor.value.set(color).convertLinearToSRGB();
+    // Below, the colour runs down through her dress as she comes into view.
+    const scrollTop = (frame.scroll / frame.height) * worldHeight;
+    figureUniforms.uColorScan.value = range(
+      scrollTop - section.top,
+      section.height - 2.2 * worldHeight,
+      section.height - 1.0 * worldHeight,
+      0.12,
+      1,
+    );
+    closeup.mesh.getWorldPosition(anchor).project(frame.camera);
     section.control!.mobilePosition!.set(
-      (tip.x + 1) * 0.5 * frame.width + 0.125 * frame.width,
-      (1 - tip.y) * 0.5 * frame.height - 400,
+      (anchor.x + 1) * 0.5 * frame.width + 0.125 * frame.width,
+      (1 - anchor.y) * 0.5 * frame.height - 400,
     );
   };
   section.onResize = (w, h) => {
+    const mobile = w / h < 1;
     section.uniform("border", "uPadX", range(w, 1600, 393, 0.18, 0.08));
     section.uniform("border", "uPadY", 0.05);
-    character.mesh.position.y = character.outline.position.y =
-      w / h < 1 ? 0.1 : 0;
+    // Chest-up in the first screen of the section, slightly off centre on wide screens.
+    const s = mobile ? 3.2 : 4.0;
+    closeRoot.scale.setScalar(s);
+    closeRoot.position.set(
+      mobile ? 0 : 0.5,
+      section.height / 2 - worldHeight / 2 - 1.66 * s,
+      -0.6,
+    );
+    characterRoot.position.y = mobile ? -8.65 : -8.75;
   };
 }

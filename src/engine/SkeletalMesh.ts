@@ -70,6 +70,11 @@ export class SkeletalMesh {
   }
   async loadAnimation(path: string) {
     this.animation = await loadGeometry(path);
+    return this.animation;
+  }
+  /** Switch to another clip on the same rig (e.g. from a one-shot into a loop). */
+  setAnimation(asset: DecodedAsset) {
+    this.animation = asset;
   }
   update(delta: number, frame?: number, afterPose?: () => void) {
     this.elapsed += delta * 20;

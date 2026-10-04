@@ -14,6 +14,8 @@ interface FrameParams {
   animation?: string;
   shader?: string;
   frameWidth: number;
+  /** Draw a paper backdrop inside the frame (for meshes without their own background). */
+  backdrop?: boolean;
   frameHeight: number;
   frameZ: number;
   zOffset: number;
@@ -145,11 +147,13 @@ const layouts: Record<string, (w: number, h: number) => FrameParams[]> = {
   },
   DrinkPourScene: (w, h) => {
     const m = w / h < 1;
+    // Close on her throat: the pendant glowing in the tide's colour, her hand resting beside it.
     return [
       {
-        geometry: "assets/geometry/story/drinkpour/floating-frame-drink.bin",
-        animation: "assets/geometry/story/drinkpour/saint-drink-animation.bin",
-        shader: "FloatingFrameDrinkShader",
+        geometry: "assets/geometry/story/grotto/chaewon-fasten.bin",
+        animation: "assets/geometry/story/grotto/chaewon-charm-anim.bin",
+        shader: "FloatingFramePendantShader",
+        backdrop: true,
         frameWidth: m ? 0.45 : 0.63,
         frameHeight: m ? 0.25 : 0.33,
         frameZ: 0.1,
@@ -158,9 +162,9 @@ const layouts: Record<string, (w: number, h: number) => FrameParams[]> = {
         verticalAlign: "bottom",
         padx: m ? 0 : 0.5,
         pady: m ? 4 : 3.25,
-        meshOffsetY: -2.425,
-        meshRotationY: 13.614,
-        meshScale: 1.38,
+        meshOffsetY: -1.68 * (m ? 0.85 : 1.15),
+        meshRotationY: -0.35,
+        meshScale: m ? 0.85 : 1.15,
       },
     ];
   },
@@ -242,11 +246,25 @@ export async function setupFloatingFrames(section: SceneSection) {
       mesh.material.side = THREE.DoubleSide;
       mesh.material.transparent = true;
       mesh.renderOrder = 1000;
+      // A paper backdrop clipped to the same frame, for meshes that bring no background of their own.
+      let backdrop: typeof mesh | undefined;
+      if (params.backdrop) {
+        backdrop = section.addMesh(
+          new THREE.PlaneGeometry(),
+          material("FloatingFrameBackdropShader", uniforms),
+        );
+        for (const key of ["uPoint1", "uPoint2", "uPoint3", "uPoint4", "uCenter", "uTransition", "uHover"])
+          if (mesh.material.uniforms[key])
+            backdrop.material.uniforms[key] = mesh.material.uniforms[key];
+        backdrop.material.transparent = true;
+        backdrop.renderOrder = 999;
+      }
       const window = new THREE.Object3D();
       section.group.add(window);
       return {
         params,
         mesh,
+        backdrop,
         skin,
         window,
         started: -1,
@@ -276,6 +294,10 @@ export async function setupFloatingFrames(section: SceneSection) {
             ? p.pady
             : section.height * 0.5 - p.pady - p.frameHeight;
       f.window.position.set(x, y, p.frameZ);
+      if (f.backdrop) {
+        f.backdrop.position.set(x, y, p.frameZ - 0.9);
+        f.backdrop.scale.set(p.frameWidth * 2.6, p.frameHeight * 2.6, 1);
+      }
       f.mesh.position.set(x, y + (p.meshOffsetY ?? 0), p.frameZ + p.zOffset);
       f.baseY = f.mesh.position.y;
       f.mesh.rotation.y = p.meshRotationY ?? 0;
