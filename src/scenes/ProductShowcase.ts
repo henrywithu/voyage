@@ -8,29 +8,29 @@ import { LiquidMotion } from "../engine/LiquidMotion";
 import { ProductSlider, mod } from "../engine/ProductSlider";
 import { qualityUniforms } from "../engine/RenderQuality";
 import { material } from "../engine/shaders";
-import { texture } from "../engine/assets";
+import { loadGeometry, texture } from "../engine/assets";
 import { worldHeight, range } from "../data/sections";
 import settings from "../data/product-settings.json";
 const config = settings.Products;
 const color = (hex: string) => new THREE.Color(hex).convertLinearToSRGB();
 export const products = [
   {
-    name: "Lagoon Yuzu & Sea Salt",
-    short: "Lagoon\nYuzu\n& Sea Salt",
+    name: "Lagoon Pearl & Gold",
+    short: "Lagoon\nPearl\n& Gold",
     color: config.blueColor,
     dark: config.blueColorDark,
     uv: 0,
   },
   {
-    name: "Jade Lime & Mint",
-    short: "Jade\nLime\n& Mint",
+    name: "Jade Pearl & Gold",
+    short: "Jade\nPearl\n& Gold",
     color: config.greenColor,
     dark: config.greenColorDark,
     uv: 0.5,
   },
   {
-    name: "Coral Peach & Hibiscus",
-    short: "Coral\nPeach\n& Hibiscus",
+    name: "Coral Pearl & Gold",
+    short: "Coral\nPearl\n& Gold",
     color: config.coralColor,
     dark: config.coralColorDark,
     uv: 0.25,
@@ -85,6 +85,39 @@ export async function setupProductShowcase(section: SceneSection) {
     liquid = section.mesh("liquid"),
     label = section.mesh("label"),
     bg = section.mesh("bg");
+  // The Tides pendant replaces the flask: gold rose, rings and chain, and a pearl in the tide's colour.
+  for (const name of ["bottle", "liquid", "label", "cap", "sticker"])
+    section.mesh(name).visible = false;
+  const [goldAsset, pearlAsset] = await Promise.all([
+    loadGeometry("assets/geometry/fpo/voyage-pendant-gold.bin"),
+    loadGeometry("assets/geometry/fpo/voyage-pendant-pearl.bin"),
+  ]);
+  const gold = section.addMesh(
+    goldAsset.geometry,
+    material("PBR", {
+      uTint: new THREE.Color("#ffcb6b").convertLinearToSRGB(),
+      uMRON: new THREE.Vector4(1.55, 0.42, 0, 1),
+      uEnv: new THREE.Vector3(10, 0, 0),
+    }),
+    root,
+  );
+  // Smaller than the flask (it is jewellery) and hung so the rose sits at the heart of the frame.
+  gold.scale.setScalar(0.6);
+  gold.position.y = 0.42;
+  const pearl = section.addMesh(
+    pearlAsset.geometry,
+    material("PBR", {
+      uTint: new THREE.Color("#63c4f4").convertLinearToSRGB(),
+      uMRON: new THREE.Vector4(1.12, 0.12, 0, 1),
+      uEnv: new THREE.Vector3(10, 0.1, 0),
+    }),
+    root,
+  );
+  pearl.position.y = gold.position.y;
+  pearl.scale.copy(gold.scale);
+  gold.renderOrder = pearl.renderOrder = 10;
+  const pearlColor = new THREE.Color(),
+    pearlNext = new THREE.Color();
   bottle.renderOrder = 10;
   bg.material.depthTest = bg.material.depthWrite = false;
   bg.renderOrder = -1000;
@@ -243,6 +276,13 @@ export async function setupProductShowcase(section: SceneSection) {
       liquid.material.uniforms[key].value.set(value).convertLinearToSRGB();
     liquid.material.uniforms.uTransition.value =
       label.material.uniforms.uTransition.value = transition;
+    // The pearl blends to the next tide as the carousel turns, with a nacre sheen toward white.
+    pearlColor
+      .set(p.color)
+      .lerp(pearlNext.set(q.color), transition)
+      .lerp(pearlNext.set("#ffffff"), 0.18)
+      .convertLinearToSRGB();
+    pearl.material.uniforms.uTint.value.copy(pearlColor);
     label.material.uniforms.uUVOffset1.value = p.uv;
     label.material.uniforms.uUVOffset2.value = q.uv;
     const mouseX = (frame.pointer.x + 1) * frame.width * 0.5,
@@ -259,9 +299,11 @@ export async function setupProductShowcase(section: SceneSection) {
         transform.position.z) *
       0.1;
     rotation.rotation.y = angleLerp(rotation.rotation.y, mx * Math.PI, 0.1);
+    // A pendant turns on its chain: a slow swing that keeps the rose toward the reader,
+    // with a full turn as the carousel passes from one tide to the next.
     root.rotation.y = angleLerp(
       root.rotation.y,
-      rotationY -
+      0.55 * Math.sin(rotationY * 0.35) -
         elapsed * Math.PI * 2 +
         (bottleGroup.position.x / screenWidth) * Math.PI * 2,
       0.1,

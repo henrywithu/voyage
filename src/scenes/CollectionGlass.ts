@@ -6,6 +6,8 @@ import { SceneSection } from "../engine/SceneSection";
 import { RefractionTexture } from "../engine/RefractionTexture";
 import { LiquidMotion } from "../engine/LiquidMotion";
 import { worldHeight, range } from "../data/sections";
+import { loadGeometry } from "../engine/assets";
+import { material } from "../engine/shaders";
 import settings from "../data/product-settings.json";
 gsap.registerPlugin(CustomEase);
 const ease = CustomEase.create("source-collection", "0.30,0.09,0.00,1.05"),
@@ -56,6 +58,42 @@ export function setupCollectionGlass(section: SceneSection) {
       magFilter: THREE.LinearFilter,
     });
   glass.material.uniforms.tLiquid.value = liquidTarget.texture;
+  // The Tides pendant rises in front of the card in place of the glass; its pearl takes the chosen tide.
+  glass.visible = liquid.visible = false;
+  const pendant = new THREE.Group();
+  pendant.scale.setScalar(0.32);
+  pendant.position.y = 0.05;
+  root.add(pendant);
+  const pearlColor = new THREE.Color();
+  let pearl: THREE.Mesh<THREE.BufferGeometry, THREE.RawShaderMaterial> | undefined;
+  void Promise.all([
+    loadGeometry("assets/geometry/fpo/voyage-pendant-gold.bin"),
+    loadGeometry("assets/geometry/fpo/voyage-pendant-pearl.bin"),
+  ]).then(([goldAsset, pearlAsset]) => {
+    const gold = section.addMesh(
+      goldAsset.geometry,
+      material("PBR", {
+        uTint: new THREE.Color("#ffcb6b").convertLinearToSRGB(),
+        uMRON: new THREE.Vector4(1.55, 0.42, 0, 1),
+        uEnv: new THREE.Vector3(10, 0, 0),
+      }),
+      pendant,
+    );
+    pearl = section.addMesh(
+      pearlAsset.geometry,
+      material("PBR", {
+        uTint: new THREE.Color("#63c4f4").convertLinearToSRGB(),
+        uMRON: new THREE.Vector4(1.12, 0.12, 0, 1),
+        uEnv: new THREE.Vector3(10, 0.1, 0),
+      }),
+      pendant,
+    );
+    // The card and its lettering draw in the transparent pass without depth: draw after them.
+    for (const mesh of [gold, pearl]) {
+      mesh.material.transparent = true;
+      mesh.renderOrder = 9;
+    }
+  });
   glass.material.uniforms.tRefraction.value = refraction.text.texture;
   liquid.material.uniforms.tRefraction.value = refraction.blurred;
   const motion = new LiquidMotion(config),
@@ -210,6 +248,15 @@ export function setupCollectionGlass(section: SceneSection) {
       .copy(root.position)
       .add(interaction.position)
       .add(section.group.position);
+    // The pendant turns slowly on its chain.
+    pendant.rotation.y = 0.5 * Math.sin(0.4 * frame.time);
+    if (pearl)
+      pearl.material.uniforms.uTint.value.copy(
+        pearlColor
+          .set(config[colors[frame.selected][0]])
+          .lerp(new THREE.Color("#ffffff"), 0.18)
+          .convertLinearToSRGB(),
+      );
     const [normal, dark] = colors[frame.selected];
     for (const key of ["uColor", "uColor2"])
       liquid.material.uniforms[key].value
@@ -223,7 +270,6 @@ export function setupCollectionGlass(section: SceneSection) {
   section.beforeRender.push((renderer, frame) => {
     title.material.uniforms.uColor.value.setRGB(1, 1, 1);
     refraction.render(renderer, frame.camera, [title]);
-    refraction.render(renderer, frame.camera, [liquid], liquidTarget);
     title.material.uniforms.uColor.value.setRGB(0, 0, 0);
     refraction.renderBlur(renderer);
   });

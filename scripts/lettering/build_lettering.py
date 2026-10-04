@@ -47,8 +47,8 @@ BLOCKS = [
     },
     {
         'name': 'chill-your-voyage',
-        'lines': ['CHILL YOUR VOYAGE.', 'THE SUMMER STARTS', 'AT SUNSET.', 'SHAKE YOUR VOYAGE.', 'LET THE TIDE',
-                  'ROLL IN. POUR', 'YOUR VOYAGE. WHERE', 'YOU SAIL NEXT', 'IS UP TO YOU.'],
+        'lines': ['WEAR YOUR VOYAGE.', 'THE SUMMER STARTS', 'AT SUNSET.', 'FASTEN THE CLASP.', 'LET THE TIDE',
+                  'RISE. FOLLOW', 'THE PEARL. WHERE', 'YOU SAIL NEXT', 'IS UP TO YOU.'],
         'source_mesh': 'chillYourSpirit.bin.mesh',
         'canvas': (1105, 1140),
         'pitch': 0.1115,
@@ -59,10 +59,11 @@ BLOCKS = [
         'sdf_jpg': True,
     },
 ]
+# The Tides pendants (the file names keep the slots of the carousel they fill).
 PRODUCTS = [
-    ('lagoon-yuzu-and-sea-salt', ['LAGOON', 'YUZU', '& SEA SALT']),
-    ('jade-lime-and-mint', ['JADE', 'LIME', '& MINT']),
-    ('coral-peach-and-hibiscus', ['CORAL', 'PEACH', '& HIBISCUS']),
+    ('lagoon-yuzu-and-sea-salt', ['LAGOON', 'PEARL', '& GOLD']),
+    ('jade-lime-and-mint', ['JADE', 'PEARL', '& GOLD']),
+    ('coral-peach-and-hibiscus', ['CORAL', 'PEARL', '& GOLD']),
 ]
 for name, lines in PRODUCTS:
     BLOCKS.append({
