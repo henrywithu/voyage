@@ -1,6 +1,13 @@
 import * as THREE from 'three';
 
-export interface PackedAttribute {offset:number;count:number;itemSize:number;type:string}
+export interface PackedAttribute {offset:number;count:number;itemSize:number;type:string;normalized?:boolean}
+// Compact meshes store some attributes in smaller types (see scripts/character/meshio.py).
+const ARRAY_TYPES:Record<string,new (buffer:ArrayBuffer,offset:number,length:number)=>THREE.TypedArray>={
+ Float32Array,Float16Array:Uint16Array,Uint32Array,Uint16Array,Int16Array,Uint8Array,Int8Array};
+function packedAttribute(data:ArrayBuffer,base:number,att:PackedAttribute):THREE.BufferAttribute{
+ const array=new (ARRAY_TYPES[att.type]??Float32Array)(data,base+att.offset,att.count);
+ return att.type==='Float16Array'?new THREE.Float16BufferAttribute(array as Uint16Array,att.itemSize):new THREE.BufferAttribute(array,att.itemSize,!!att.normalized);
+}
 export interface BoneData {name:string;parent:number;pos:number[];rotq:number[];scl:number[];[key:string]:unknown}
 export interface PackedMesh {attributes:Record<string,PackedAttribute>;index?:PackedAttribute;bones?:BoneData[];duration?:number;frameCount?:number;frameTimes?:number[];userData?:Record<string,unknown>}
 export interface DecodedAsset {geometry:THREE.BufferGeometry;header:PackedMesh}
@@ -31,8 +38,8 @@ export function loadGeometry(path:string):Promise<DecodedAsset>{
    const data=await response.arrayBuffer();const size=new DataView(data).getUint32(0,true);
    const header:PackedMesh=JSON.parse(new TextDecoder().decode(data.slice(4,size+4)));
    const geometry=new THREE.BufferGeometry();
-   for(const [name,att]of Object.entries(header.attributes))geometry.setAttribute(name,new THREE.BufferAttribute(new Float32Array(data,4+size+att.offset,att.count),att.itemSize));
-   if(header.index)geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(data,4+size+header.index.offset,header.index.count),1));
+   for(const [name,att]of Object.entries(header.attributes))geometry.setAttribute(name,packedAttribute(data,4+size,att));
+   if(header.index)geometry.setIndex(packedAttribute(data,4+size,header.index));
    if(geometry.attributes.position){geometry.computeBoundingBox();geometry.computeBoundingSphere();}
    geometry.userData=header.userData??{};return {geometry,header};
   }

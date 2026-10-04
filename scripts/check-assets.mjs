@@ -44,6 +44,12 @@ for (const item of originals) {
   }
 }
 
+// Compact meshes (scripts/character/meshio.py) store some attributes in smaller types.
+const elementSize = (attribute) =>
+  ({ Float16Array: 2, Uint16Array: 2, Int16Array: 2, Uint8Array: 1, Int8Array: 1 })[
+    attribute.type
+  ] ?? 4;
+
 const meshes = (await json("reference/geometry-inventory.json")).filter(
   (mesh) => !removed.has(mesh.output),
 );
@@ -61,7 +67,8 @@ for (const mesh of meshes) {
       ...(header.index ? { index: header.index } : {}),
     })) {
       if (
-        base + attribute.offset + attribute.count * 4 > bytes.length ||
+        base + attribute.offset + attribute.count * elementSize(attribute) >
+          bytes.length ||
         (base + attribute.offset) % 4
       )
         errors.push(`${mesh.output}: invalid ${name} payload`);
