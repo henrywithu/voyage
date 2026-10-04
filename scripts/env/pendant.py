@@ -126,9 +126,10 @@ def chain_loop(m, bottom, a=0.2, b=0.29, links=28, link=0.042, wire=0.0068, tag=
 
 def pendant(chain_links=12, loop=True):
     m = mk.Mesh()
-    # A thin backing disc keeps the rose readable when it turns edge-on.
-    P, F = mk.cylinder((0, CY, -0.012), (0, CY, 0.012), 0.2, 0.2, sides=32, segs=1)
-    m.add(P, F, tag=1)
+    # The dial: a thin disc of the tide's enamel under the rose (uv.x = 0.5 marks it). It also keeps the
+    # rose readable when the pendant turns edge-on.
+    P, F = mk.cylinder((0, CY, -0.012), (0, CY, 0.012), 0.2, 0.2, sides=48, segs=1)
+    m.add(P, F, uv=np.tile([0.5, 0.0], (len(P), 1)), tag=1)
     rose(m)
     m.add(*torus((0, CY, 0), (0, 0, 1), R_RING, 0.02), tag=2)
     # Fine inner ring and a pearl at the heart.

@@ -104,7 +104,11 @@ void main() {
 
     // The pearl (uv.x = 1) takes the tide's colour, with a bright catch-light where the
     // light is strongest; the gold stays ink on paper.
-    float pearl = step(0.5, vUv.x);
+    float pearl = step(0.75, vUv.x);
+    // Voyage: the dial (uv.x = 0.5) is enamel in the tide's colour, a shade deeper than the pearl, inked in shadow.
+    float enamel = step(0.25, vUv.x) * (1.0 - pearl);
+    vec3 enamelColor = uColorHighlight * mix(0.45, 0.85, terminatormid) * mix(0.75, 1.0, maskedLines);
+    color = mix(color, enamelColor, enamel);
     vec3 tide = uColorHighlight * mix(0.72, 1.0, terminatormid);
     tide = mix(tide, vec3(1.0), terminatorhigh * 0.85);
     color = mix(color, tide, pearl);
