@@ -49,18 +49,18 @@ The tide she chooses colours the pearl's glow, the light that runs through her d
 
 ## Scene by scene
 
-1. **Open sea.** Title: *Trapnest Voyage*. Chaewon stands at the bow of her sailboat, one hand on the forestay, hair streaming as the boat rides the swell. Panels: her face with eyes closed into the wind; both hands sweeping her hair back.
+1. **Open sea.** Title: *Trapnest Voyage*. Chaewon stands at the bow of her sloop, her right hand on the forestay, hair streaming as the boat rides the swell over an ink-stroke sea with its bow wave and wake. Panels: her face turned into the wind; one hand sweeping her hair back.
 2. **Profile.** In profile, hair blowing across her cheek, she sees a light on the horizon.
 3. **Approach.** The boat glides toward a colossal sea arch; the setting sun is caught inside it. Inset: her bare feet bracing on the wet deck.
-4. **Near.** Beneath the arch the water goes still and starts to glow. She stands at the bow as the wind lifts her hair and skirt.
+4. **Near.** Beneath the arch the water goes still, and a road of light runs from the sun across it. She stands on a causeway of column heads as the wind lifts her hair and skirt.
 5. **Hand.** *Hold* to reach into the water. Her fingertips break the glowing surface, and the light curls around her hand.
-6. **Through.** Her silhouette stands inside the disc of light, and the light swallows her.
+6. **Through.** Her silhouette stands inside the disc of light, framed by a rosette of radiating basalt columns, and the light swallows her.
 7. **The Pearl Grotto.** A close-up of her eyes as she wakes, then the long hall of basalt columns in golden light, with tide pools on the floor and three pendants turning above a shell altar at the far end.
 8. **Choice.** She waits beside the altar, hand on hip and head tilted. The reader chooses a tide: Lagoon, Jade or Coral.
-9. **Fasten.** *Hold* to fasten the pendant. She lifts her hair with one hand and closes the clasp at her nape. The pearl wakes and its colour runs down through the lace.
+9. **Fasten.** *Hold* to fasten the pendant. Her hair swept over one shoulder, she brings the two ends of the chain together at her nape; the clasp closes, the pearl wakes and its colour runs down through the lace. She lets go and rests her fingertips beside the pendant.
 10. **Lift.** The tide rises in a spiral of light and lifts her off her feet (*hold* to quicken it). Her eyes widen and take the pearl's colour.
 11. **Breaking.** The basalt columns crack and drift apart, opening onto the sky.
-12. **On the sea.** *The Trapnest Voyage*. She stands on the surface of the sea at golden hour and looks back over her shoulder. Fragments of the grotto float overhead, and her boat waits behind her.
+12. **On the sea.** *The Trapnest Voyage*. She stands on the still surface of the sea in rings of ripples, a road of light running from the arch on the horizon. Broken drums of basalt drift past, and her sloop waits beside her, sail furled.
 13. **Editorial.** *Sail away, stay golden.* The Tides Collection of compass pendants, then harbours forthcoming.
 
 ## Interactions
@@ -70,7 +70,7 @@ The tide she chooses colours the pearl's glow, the light that runs through her d
 | Hand | Hold | Her hand sinks into the glowing water; ripples and light gather around her fingers |
 | Choice | Hover and click | The pendants rise and turn; the chosen tide is kept for the rest of the story |
 | Fasten | Hold | Her hands bring the clasp together; on closing, the pearl lights and the colour runs through her dress |
-| Lift | Hold | The spiral of light speeds up and carries more spray |
+| Lift | Hold | The spiral of light speeds up and she drifts faster in it; her eyes widen and take the pearl's colour |
 | Collection | Drag | The pendant carousel turns between the three tides |
 
 ## Narration
