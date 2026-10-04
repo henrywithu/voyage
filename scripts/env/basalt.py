@@ -1,8 +1,10 @@
 """Hexagonal basalt columns: the building block of the sea arch, the Pearl Grotto and the breaking pillars.
 
-A column is a hexagonal prism split into drums by shallow grooves (the cross
-joints of real columnar basalt), with flat-shaded faces so the ink shader draws
-crisp facets, a chamfered top and an optional jagged bottom.
+A column is a prism of five to seven uneven sides (mostly six, as in real
+columnar basalt) split into drums by shallow grooves (the cross joints), with
+flat-shaded faces so the ink shader draws crisp facets, a chamfered top and an
+optional jagged bottom. Each column's irregularity is seeded by its position,
+so a set rebuilds identically.
 """
 import math
 
@@ -14,8 +16,11 @@ import meshkit as mk
 def column(m, cx, cz, r, y0, y1, rot=0.0, joints=(), chamfer=0.035, groove=0.03, top_tilt=(0.0, 0.0),
            bottom_cap=False, tag=0, lean=(0.0, 0.0)):
     """Add one prism from y0 to y1 at (cx, cz). joints: heights of cross joints (grooves)."""
-    a = rot + np.arange(6) * np.pi / 3
-    ring = np.c_[np.cos(a), np.sin(a)]                      # unit hexagon (x, z)
+    seed = int(abs(cx) * 7919 + abs(cz) * 104729 + abs(y1) * 1299709 + (cx < 0) * 3 + (cz < 0) * 5) % (2 ** 31)
+    prng = np.random.default_rng(seed)
+    n = int(prng.choice([5, 6, 6, 6, 6, 7]))
+    a = rot + np.arange(n) * 2 * np.pi / n + prng.uniform(-0.12, 0.12, n) * (2 * np.pi / n)
+    ring = np.c_[np.cos(a), np.sin(a)] * prng.uniform(0.9, 1.08, n)[:, None]  # uneven polygon (x, z)
     ys = [y0]
     rs = [r]
     for j in sorted(joints):
@@ -39,8 +44,8 @@ def column(m, cx, cz, r, y0, y1, rot=0.0, joints=(), chamfer=0.035, groove=0.03,
 
     # Sides: per face strips (two verts per ring) for flat facets.
     P, F, N = [], [], []
-    for k in range(6):
-        k2 = (k + 1) % 6
+    for k in range(n):
+        k2 = (k + 1) % n
         base = len(P)
         for i in range(len(ys)):
             P.append(pt(k, i))
@@ -65,23 +70,23 @@ def column(m, cx, cz, r, y0, y1, rot=0.0, joints=(), chamfer=0.035, groove=0.03,
         N = -N
     m.add(P, F, N=N, tag=tag)
     # Top cap (flat).
-    top = np.array([pt(k, len(ys) - 1) for k in range(6)])
+    top = np.array([pt(k, len(ys) - 1) for k in range(n)])
     Pc = np.vstack([top, top.mean(0)])
-    Fc = np.array([(6, (k + 1) % 6, k) for k in range(6)])
-    n = mk.face_normals(Pc, Fc).mean(0)
-    if n[1] < 0:
+    Fc = np.array([(n, (k + 1) % n, k) for k in range(n)])
+    cn = mk.face_normals(Pc, Fc).mean(0)
+    if cn[1] < 0:
         Fc = Fc[:, ::-1]
-        n = -n
-    m.add(Pc, Fc, N=np.tile(n / np.linalg.norm(n), (7, 1)), tag=tag)
+        cn = -cn
+    m.add(Pc, Fc, N=np.tile(cn / np.linalg.norm(cn), (n + 1, 1)), tag=tag)
     if bottom_cap:
-        bot = np.array([pt(k, 0) for k in range(6)])
+        bot = np.array([pt(k, 0) for k in range(n)])
         Pb = np.vstack([bot, bot.mean(0)])
-        Fb = np.array([(6, k, (k + 1) % 6) for k in range(6)])
-        n = mk.face_normals(Pb, Fb).mean(0)
-        if n[1] > 0:
+        Fb = np.array([(n, k, (k + 1) % n) for k in range(n)])
+        bn = mk.face_normals(Pb, Fb).mean(0)
+        if bn[1] > 0:
             Fb = Fb[:, ::-1]
-            n = -n
-        m.add(Pb, Fb, N=np.tile(n / np.linalg.norm(n), (7, 1)), tag=tag)
+            bn = -bn
+        m.add(Pb, Fb, N=np.tile(bn / np.linalg.norm(bn), (n + 1, 1)), tag=tag)
 
 
 def hex_grid(x0, x1, z0, z1, spacing, jitter, rng):
