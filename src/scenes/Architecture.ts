@@ -167,6 +167,13 @@ export async function setupArchitecture(section: SceneSection) {
       0.005,
       root,
     );
+    // She stands on the still sea: rings of ripples spread from her feet.
+    const ripples = await windLines(
+      section,
+      "assets/geometry/story/finale/ripples.json",
+      { uThreshold: 0.35, uSpeed: 0.5, uTile: 2 },
+    );
+    root.add(ripples);
     const rocks = Array.from({ length: 6 }, (_, i) => {
       const mesh = section.mesh("floatingrock" + (i + 1)),
         parent = new THREE.Group();

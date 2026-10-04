@@ -35,29 +35,29 @@ export async function setupAntiGravity(section: SceneSection) {
   outer.add(floor);
   // This cylinder is an interaction surface, not a visible object in the production scene.
   section.layers.cyclinderProjection.visible = false;
+  // Chaewon lifted by the tide, the pendant at her throat and the lace in the tide's colour.
   const skin = new SkeletalMesh(
-    await loadGeometry(
-      "assets/geometry/story/antigravity/saint-antigravity.bin",
-    ),
-    "AntiGravSkinShader",
+    await loadGeometry("assets/geometry/story/antigravity/chaewon-float.bin"),
+    "SkinShader",
     {
+      tAtlas: texture("assets/images/story/chaewon/atlas.png"),
       tTrim: texture("assets/images/story/chaewon/trim.png"),
       tLines: texture("assets/images/story/lines.jpg"),
       tNoise: texture("assets/images/story/perlin.png"),
-      uColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
+      uColor: new THREE.Vector3(241 / 255, 236 / 255, 225 / 255),
+      uDrinkColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
       uLinesTile: 2.25,
-      uLightDir: new THREE.Vector3(0.1, 0.1, 0.9).normalize(),
+      uLightDir: new THREE.Vector3(0.1, 0.25, 0.9).normalize(),
       uAxis: new THREE.Vector3(1, 1, 2.5),
-      uTime: 0,
       uAngle: 0.5,
-      uInverse: 0,
-      uWindSpeed: 1,
-      uDisplacement: 0,
+      uColorScan: 1,
+      uScanDown: 1,
+      uClasp: 1,
+      uPearl: 1,
     },
-    "AntiGravSkinShader",
   );
   await skin.loadAnimation(
-    "assets/geometry/story/antigravity/saint-antigravity-idle.bin",
+    "assets/geometry/story/antigravity/chaewon-float-anim.bin",
   );
   character.add(skin.mesh, skin.outline);
   skin.mesh.renderOrder = 3;
@@ -67,10 +67,8 @@ export async function setupAntiGravity(section: SceneSection) {
     inverse = skin.outline.material as THREE.RawShaderMaterial;
   inverse.uniforms = {
     ...skinMaterial.uniforms,
-    uInverse: { value: 1 },
     uDisplacement: { value: 1 },
   };
-  inverse.side = THREE.BackSide;
   section.meshes.push(skin.mesh as any, skin.outline as any);
   light.renderOrder = 2;
   light.material.uniforms.uDraw ??= { value: 0 };
@@ -159,8 +157,9 @@ export async function setupAntiGravity(section: SceneSection) {
     drawn.setColor(flavor);
     leaves.setHeld(frame.pressed);
     drawn.setHeld(frame.pressed);
-    skin.update(frame.delta);
-    skinMaterial.uniforms.uColor.value
+    // Holding quickens the spiral; her hair and limbs drift faster with it.
+    skin.update(frame.delta * (0.6 + 0.4 * speed.skin));
+    skinMaterial.uniforms.uDrinkColor.value
       .set(tideColor(frame.selected))
       .convertLinearToSRGB();
     character.rotation.y +=
@@ -212,7 +211,6 @@ export async function setupAntiGravity(section: SceneSection) {
       light.material.uniforms.uTimeUp.value = 4 * beamTime;
       for (const wind of winds)
         wind.material.uniforms.uTime.value += 5 * frame.delta * speed.wind;
-      skinMaterial.uniforms.uTime.value += 5 * frame.delta * speed.skin;
       const shake = speed.shake < 0.1 ? 0 : speed.shake,
         x = 0.0035 * Math.sin(10000 * t) * shake,
         y = 0.0035 * Math.cos(10000 * (t + 0.01)) * shake;

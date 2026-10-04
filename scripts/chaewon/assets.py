@@ -351,6 +351,54 @@ def asset_fasten(s):
     print('fasten', len(m['P']), 'verts')
 
 
+DANCER = dict(mcp=(6, 14, 20, 24), pip=(8, 20, 28, 32), dip=(4, 10, 13, 14), spread=(-9, 0, 8, 17),
+              thumb=(-30, 34, 14, 8, 10))
+
+
+def float_pose(s, t):
+    """Lifted by the tide (loop): weightless, one knee drawn up, toes pointed, arms drifting out
+    as if underwater, chin lifted toward the light."""
+    ctx, arm = s.ctx, s.arm
+    rig.reset_pose(arm)
+    sw = math.sin(2 * math.pi * t)
+    sw2 = math.sin(2 * math.pi * t - 1.2)
+    sw3 = math.sin(2 * math.pi * 2 * t + 0.4)
+    poses.hips(arm, shift=(0.0, 0.0, 0.6 + 0.015 * sw), roll=2.5 * sw2, pitch=-5 + 1.5 * sw, yaw=3 * sw2)
+    aR, aL = ctx.ankle['R'], ctx.ankle['L']
+    lift = Vector((0, 0, 0.6 + 0.015 * sw))
+    poses.plant_leg(ctx, 'R', ankle=tuple(aR + lift + Vector((0.01, -0.06 + 0.02 * sw2, 0.03))), knee_dir=(0, -1, 0.1),
+                    foot_pitch=-48)
+    poses.plant_leg(ctx, 'L', ankle=tuple(aL + lift + Vector((-0.03, -0.1 - 0.02 * sw2, 0.3 + 0.03 * sw))),
+                    knee_dir=(0.15, -1, 0.3), foot_pitch=-58, foot_yaw=6)
+    poses.spine(arm, pitch=-7 + 1.5 * sw, roll=-2 * sw2, yaw=-3 * sw)
+    pb = arm.pose.bones
+    rig.update()
+    for side, sgn, ph in (('L', 1, 0.0), ('R', -1, 0.9)):
+        drift = math.sin(2 * math.pi * t - ph)
+        sh = pb[f'upperarm01.{side}'].head
+        wrist = sh + Vector((sgn * (0.36 + 0.02 * drift), -0.1 - 0.03 * drift, -0.2 + 0.07 * drift))
+        out = Vector((sgn * 0.9, -0.15, -0.25 + 0.2 * drift)).normalized()
+        poses.arm_to(ctx, side, wrist, elbow_dir=(sgn * 0.2, 0.35, -1), wrist=(out, Vector((0, 0.1, -1))))
+        rig.hand_shape(arm, side, **DANCER)
+    poses.head(arm, pitch=-15 + 2 * sw3, yaw=7 * sw, roll=5 * sw2)
+
+
+def asset_float(s):
+    """The tide lifts her: a floating loop with her hair rising, the pendant at her throat."""
+    import necklace
+    float_pose(s, 0.0)
+    mats0 = s.pose_mats()
+    pb = s.arm.pose.bones
+    nape = np.array(pb['neck02'].head) + np.array([0, 0.06, 0])
+    pinch = {'L': nape + np.array([0.02, 0.01, 0]), 'R': nape + np.array([-0.02, 0.01, 0])}
+    H = s.hair(mats0, wind=wind_field((0.15, 0.25, 1.0), 0.0019, gust=0.6), key='float')
+    parts, info = necklace.build(s, mats0, pinch)
+    m, hr = skinned_with_hair(s, mats0, H, os.path.join(DEC, 'antigravity/chaewon-float.bin.mesh'),
+                              os.path.join(DEC, 'antigravity/chaewon-float-anim.bin.mesh'), float_pose, 100,
+                              amp=1.6, wind_dir=(0, 0.2, 1), extra_parts=parts)
+    print('float', len(m['P']), 'verts')
+
+
 def grip_point(s, side='R'):
     """Centre of a closed hand (three space, export scale): where a rope passes through the fist."""
     pb = s.arm.pose.bones
