@@ -37,6 +37,9 @@ export class CurveParticles {
   readonly lifecycle: THREE.RawShaderMaterial;
   readonly shaders: THREE.RawShaderMaterial[] = [];
   readonly spawnPoint = new THREE.Vector3();
+  /** Voyage: when set, held DrawnParticles stream from this fixed point (section space) instead of the cursor. */
+  source?: THREE.Vector3;
+  sourceRadius = 0.1;
   private readonly computeScene = new THREE.Scene();
   private readonly camera = new THREE.Camera();
   private readonly quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2));
@@ -258,7 +261,8 @@ export class CurveParticles {
       clearInterval(this.drawTimer);
       this.drawTimer = held
         ? setInterval(() => {
-            if (!this.disposed && this.initialized) this.emit(this.projected, 0.1);
+            if (!this.disposed && this.initialized)
+              this.emit(this.source ?? this.projected, this.source ? this.sourceRadius : 0.1);
           }, 7)
         : undefined;
       gsap.to(this.behavior.uniforms.uSpeedUp, {

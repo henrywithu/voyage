@@ -119,6 +119,11 @@ export async function setupAntiGravity(section: SceneSection) {
   );
   const drawn = new CurveParticles("DrawnParticles", section, section.group, 1),
     flavor = new THREE.Color();
+  // Holding wakes the tide from one fixed point of the whirlpool, in front of its axis by her knees: the
+  // petals sweep across in front of her, around the light and back (the vortex in DrawnParticles turns
+  // about x = -0.5, z = -3 in section space, carrying the near side to the right).
+  drawn.source = new THREE.Vector3(-0.95, -2.3, -1.5);
+  drawn.sourceRadius = 0.22;
   const originalScale = light.scale.clone(),
     originalPosition = light.position.clone(),
     floorPosition = floor.position.clone();
