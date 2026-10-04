@@ -89,6 +89,7 @@ void main() {
 
 
 #!SHADER: Fragment
+#require(makeup.glsl)
 #require(simplenoise.glsl)
 #require(range.glsl)
 float aastep(float threshold, float value) {
@@ -182,7 +183,9 @@ void main() {
     maskedLines += noise* pow(lightMask, 2.0) * 3.0;
 
     float gradMask = 1.0 - (vPos.y - 0.95);
-    maskedLines += pow(gradMask, 2.0);
+    maskedLines += pow(max(gradMask, 0.0), 2.0);
+    // Voyage: her skin stays clean paper in the close-up, a light stipple only where it turns from the light.
+    maskedLines += 0.45;
     maskedLines = aastep(0.01, maskedLines);
 
     // compositing;
@@ -204,6 +207,7 @@ void main() {
     maskedLines = mix(maskedLines, 1.0, pow(shine,0.01));
 
     // eye rings
+    color = applyMakeup(color, tAtlas, vUv2, terminatormid);
     color *= maskedLines;
     color = mix(color, vec3(1.0), terminatorbounce);
     color *= atlas;

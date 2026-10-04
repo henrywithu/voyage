@@ -46,6 +46,15 @@ void applySkin(inout vec3 pos, inout vec3 normal) {
     pos = transformed.xyz;
 }
 
+// Voyage: as applySkin, also skinning a second normal (an object-space one, for view-space contours).
+void applySkin(inout vec3 pos, inout vec3 normal, inout vec3 objectNormal) {
+    mat4 skinMatrix = skinWeight.x * getBoneMatrix(skinIndex.x) + skinWeight.y * getBoneMatrix(skinIndex.y)
+                    + skinWeight.z * getBoneMatrix(skinIndex.z) + skinWeight.w * getBoneMatrix(skinIndex.w);
+    normal = (skinMatrix * vec4(normal, 0.0)).xyz;
+    objectNormal = (skinMatrix * vec4(objectNormal, 0.0)).xyz;
+    pos = (skinMatrix * vec4(pos, 1.0)).xyz;
+}
+
 void applySkin(inout vec3 pos) {
     vec3 normal = vec3(0.0, 1.0, 0.0);
     applySkin(pos, normal);

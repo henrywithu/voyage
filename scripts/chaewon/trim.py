@@ -25,19 +25,16 @@ def hair_bands(img, rng):
     for b in range(BANDS):
         top = y0 + b * bh
         rows = (np.arange(bh)[:, None] + 0.5) / bh
+        # A lock reads as one mass of ink (its pointed shape comes from the geometry); only the last few
+        # percent fray into two or three points.
         alpha = np.ones((bh, T))
-        for _ in range(rng.integers(2, 4)):
-            c = rng.uniform(0.2, 0.8)
-            wob = c + 0.025 * np.sin(u * rng.uniform(6, 12) + rng.uniform(0, 6))
-            start = rng.uniform(0.45, 0.8)
-            alpha[(np.abs(rows - wob) < 0.03) & (u > start)] = 0
-        edges = np.sort(rng.uniform(0.15, 0.85, rng.integers(2, 4)))
+        edges = np.sort(rng.uniform(0.25, 0.75, rng.integers(1, 3)))
         bounds = np.concatenate([[0], edges, [1]])
         for k in range(len(bounds) - 1):
             lo, hi = bounds[k], bounds[k + 1]
             mid = 0.5 * (lo + hi)
-            end = rng.uniform(0.88, 1.0)
-            half = 0.5 * (hi - lo) * np.clip((end - u) / 0.16, 0, 1) ** 0.7
+            end = rng.uniform(0.97, 1.0)
+            half = 0.5 * (hi - lo) * np.clip((end - u) / 0.07, 0, 1) ** 0.6
             inside = (rows >= lo) & (rows <= hi)
             keep = np.abs(rows - mid) <= half
             alpha[np.broadcast_to(inside, alpha.shape) & ~keep] = 0
@@ -50,14 +47,15 @@ def hair_bands(img, rng):
             a1 = a0 + rng.uniform(0.07, 0.12)
             prof = np.sin(np.pi * np.clip((u - a0) / (a1 - a0), 0, 1))
             wob = c + 0.015 * np.sin(u * rng.uniform(8, 14) + rng.uniform(0, 6))
-            col[(np.abs(rows - wob) < 0.04 * prof) & (u > a0) & (u < a1)] = 1
-        # A few fine flow lines lower down.
-        for _ in range(rng.integers(1, 3)):
-            c = rng.uniform(0.25, 0.75)
-            a0 = rng.uniform(0.3, 0.55)
-            a1 = a0 + rng.uniform(0.1, 0.25)
+            col[(np.abs(rows - wob) < 0.07 * prof) & (u > a0) & (u < a1)] = 1
+        # Fine flow lines along the lock (the strands of a manga lock), longer and fainter lower down.
+        for _ in range(rng.integers(2, 4)):
+            c = rng.uniform(0.15, 0.85)
+            a0 = rng.uniform(0.3, 0.6)
+            a1 = min(a0 + rng.uniform(0.15, 0.35), 0.97)
             prof = np.sin(np.pi * np.clip((u - a0) / (a1 - a0), 0, 1))
-            col[(np.abs(rows - c) < 0.012 * prof) & (u > a0) & (u < a1)] = 1
+            wob = c + 0.01 * np.sin(u * rng.uniform(6, 12) + rng.uniform(0, 6))
+            col[(np.abs(rows - wob) < 0.03 * prof) & (u > a0) & (u < a1)] = 1
         img[top:top + bh, :, :3] = (col * 255)[..., None]
         img[top:top + bh, :, 3] = alpha * 255
     return img

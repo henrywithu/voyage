@@ -85,6 +85,7 @@ void main() {
 }
 
 #!SHADER: Fragment
+#require(makeup.glsl)
     float aastep(float threshold, float value) {
         float afwidth = length(vec2(dFdx(value), dFdy(value))) * 0.70710678118654757;
         return smoothstep(threshold-afwidth, threshold+afwidth, value);
@@ -174,6 +175,8 @@ void main() {
     // break up lines with dots as light gets brighter
     float noise = texture2D(tNoise, lineUv * 2.0).r;
     maskedLines += noise* pow(lightMask, 2.0) * 3.0;
+    // Voyage: her skin stays clean paper in the close-up (no stipple across the face).
+    maskedLines += vSkinMask * 0.6;
     maskedLines = aastep(0.01, maskedLines);
 
     // compositing;
@@ -181,6 +184,7 @@ void main() {
     color = mix(vec3(0.0), uColor1, terminatormid);
     color = mix(color, vec3(1.0), vSkinMask);
     color = mix(color, uColor2, vIrisMask);
+    color = applyMakeup(color, tAtlas, vUv2, terminatormid);
     color *= maskedLines;
     color *= trim;
     color *= atlas;

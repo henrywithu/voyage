@@ -26,6 +26,8 @@ varying vec2 vUv2;
 varying vec2 vLineUv;
 varying vec3 vNormal;
 varying float vSkinMask;
+varying vec3 vViewNormal;
+varying vec3 vViewPos;
 
 #!SHADER: Vertex
 
@@ -74,9 +76,12 @@ void main() {
     pos += pivot;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    vViewNormal = normalMatrix * normal;
+    vViewPos = (modelViewMatrix * vec4(pos, 1.0)).xyz;
 }
 
 #!SHADER: Fragment
+#require(makeup.glsl)
     float aastep(float threshold, float value) {
         float afwidth = length(vec2(dFdx(value), dFdy(value))) * 0.70710678118654757;
         return smoothstep(threshold-afwidth, threshold+afwidth, value);
@@ -108,7 +113,8 @@ void main() {
     // lighting
     float lighting = dot(normal, uLightDir);
     float lightMask = max(0.0, lighting);
-    float terminatormid = aastep(uThreshold.x, lighting + lines * 0.45);
+    // Voyage: her skin keeps to the light (a crisp shadow only where it turns well away).
+    float terminatormid = aastep(uThreshold.x, lighting + lines * mix(0.45, 0.25, vSkinMask) + vSkinMask * 0.4);
     float terminatorhigh = aastep(uThreshold.y, lighting + lines * 0.1);
 
     // reduce lines in areas of brightness
@@ -117,6 +123,7 @@ void main() {
     // break up lines with dots as light gets brighter
     float noise = texture2D(tNoise, lineUv * 2.0).r;
     maskedLines += noise* pow(lightMask, 2.0) * 3.0;
+    maskedLines += vSkinMask * 0.3;
     maskedLines = aastep(0.01, maskedLines);
 
     // compositing;
@@ -126,6 +133,8 @@ void main() {
 
     color = mix(vec3(0.0), alt, terminatormid);
     color = mix(color, vec3(1.0), terminatorhigh);
+    color = applyMakeup(color, tAtlas, vUv2, terminatormid);
+    color *= mix(1.0, skinContour(vViewNormal, vViewPos), vSkinMask);
     color *= maskedLines;
     color *= atlas;
 

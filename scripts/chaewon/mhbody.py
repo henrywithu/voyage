@@ -181,7 +181,29 @@ SHAPE += [
 ]
 
 
-def build(shape=SHAPE, **macro_overrides):
+EYE_SCALE = 1.22  # her large eyes: the eye region (opening, lids and eyeball) grown past MakeHuman's range
+
+
+def enlarge_eyes(verts, faces, groups, scale=EYE_SCALE, r0=0.17, r1=0.42):
+    """Grow each eye about the front of its eyeball (MakeHuman units, +Z forward): the opening, the lids
+    and the eyeball widen while the lid surface keeps its depth (the eyeball sinks back rather than
+    bulging), easing out over the brow, cheek and nose bridge."""
+    if scale == 1.0:
+        return verts
+    for side in ('l', 'r'):
+        idx = np.unique(np.concatenate([np.asarray(f) for f, g in zip(faces, groups) if g == f'helper-{side}-eye']))
+        P = verts[idx]
+        c = (P.min(0) + P.max(0)) / 2
+        r = (P.max(0) - P.min(0))[2] / 2
+        front = c + np.array([0.0, 0.0, r])
+        d = np.linalg.norm(verts - front, axis=1)
+        t = np.clip((d - r0) / (r1 - r0), 0, 1)
+        w = 1 - t * t * (3 - 2 * t)
+        verts += (verts - front) * ((scale - 1) * w)[:, None]
+    return verts
+
+
+def build(shape=SHAPE, eye_scale=EYE_SCALE, **macro_overrides):
     """Shaped body: (verts, uvs, faces, fuvs, groups) in MakeHuman space."""
     verts, uvs, faces, fuvs, groups = load_obj()
     params = dict(MACRO)
@@ -189,6 +211,7 @@ def build(shape=SHAPE, **macro_overrides):
     macro(verts, **params)
     for rel, value, neg, pos in shape:
         modifier(verts, rel, value, neg, pos)
+    enlarge_eyes(verts, faces, groups, eye_scale)
     return verts, uvs, faces, fuvs, groups
 
 

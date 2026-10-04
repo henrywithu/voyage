@@ -16,6 +16,7 @@ import { RenderClock } from "./RenderClock";
 import { renderQuality, qualityUniforms } from "./RenderQuality";
 import { InteractionOverlay } from "./InteractionOverlay";
 import { setupFloatingFrames } from "../scenes/FloatingFrames";
+import { setupCharacterLight } from "../scenes/characterLight";
 import { setupAntiGravity } from "../scenes/AntiGravity";
 import { setupArchitecture } from "../scenes/Architecture";
 import { setupDrinkSelection } from "../scenes/DrinkSelection";
@@ -178,6 +179,7 @@ export class Experience {
           if (s.name === "HandScene") await setupHand(s);
         },
         setupFloatingFrames,
+        setupCharacterLight,
       ]) {
         await setup(section);
         if (this.disposed) {

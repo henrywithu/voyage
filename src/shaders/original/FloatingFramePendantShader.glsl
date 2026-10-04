@@ -80,6 +80,7 @@ void main() {
 }
 
 #!SHADER: Fragment
+#require(makeup.glsl)
     float aastep(float threshold, float value) {
         float afwidth = length(vec2(dFdx(value), dFdy(value))) * 0.70710678118654757;
         return smoothstep(threshold-afwidth, threshold+afwidth, value);
@@ -163,6 +164,7 @@ void main() {
     float value = aastep(0.5, lighting + lines + noise * lighting - fresnel);
     vec3 color = mix(mix(uColor2, backgroundColor, step(0.5, vBackground)), vec3(1.0), skinMask);
     color *= mix(trim, 1.0, vBackground);
+    color = mix(color, applyMakeup(color, tAtlas, vUv2, 1.0), skinMask * (1.0 - vBackground));
 
     // The lace has taken the tide's colour; the pearl glows with it.
     float dress = 1.0 - skinMask;

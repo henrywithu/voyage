@@ -76,6 +76,7 @@ void main() {
 }
 
 #!SHADER: Fragment
+#require(makeup.glsl)
     float aastep(float threshold, float value) {
         float afwidth = length(vec2(dFdx(value), dFdy(value))) * 0.70710678118654757;
         return smoothstep(threshold-afwidth, threshold+afwidth, value);
@@ -185,6 +186,7 @@ void main() {
     float value = aastep(0.4, lighting + (1.0 - lines) * 0.3 + noise * lighting + vBackground - fresnel * 0.8);
     vec3 color = mix(mix(uColor2, backgroundColor, step(0.5, vBackground)), vec3(1.0), skinMask);
     color = mix(color, nearBlack, vBlobs * blobOutline);
+    color = mix(color, applyMakeup(color, tAtlas, vUv2, 1.0), skinMask * (1.0 - vBackground));
     color *= mix(trim, 1.0, vBackground + vBlobs);
     color *= mix(atlas, 1.0, vBackground + vBlobs);
     color = mix(color, vec3(1.0), blobAlpha);

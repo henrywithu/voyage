@@ -435,6 +435,8 @@ def frame_eyes_cathedral(s):
     capP, capN = place_caps(s, caps_P, caps_W, caps_side, xf)
     plane = lab == np.argmin([P0[lab == c][:, 2].mean() if (lab == c).any() else 9 for c in range(lab.max() + 1)])
     bP, bN, bF, battrs = saint_backdrop(a, F0, plane, ('uv', 'uv2', 'colorid'))
+    # The backdrop is plain paper: its source uvs would sample her face drawing (the lips) in this atlas.
+    battrs['uv'] = np.tile(atlas.SKIN_WHITE, (len(bP), 1))
     nb = len(used)
     pos = np.concatenate([P[used], capP, bP])
     nor = np.concatenate([N[used], capN, bN])
@@ -452,13 +454,16 @@ def wide_eyes_delta(s):
     """Rest-space displacement of her body for wide-open eyes and lifted brows (same topology)."""
     import mhbody
     shape = []
+    # Wonder, not fright: the lids open a little and the brows lift, the iris still tucked under the upper lid.
     for rel, val, neg, pos in mhbody.SHAPE:
-        if 'eye-height1' in rel or 'eye-height2' in rel:
-            val = 1.0
+        if 'eye-height1' in rel:
+            val = val + 0.25
+        elif 'eye-height2' in rel:
+            val = val + 0.35
         elif 'eye-height3' in rel:
-            val = 0.95
+            val = val + 0.2
         shape.append((rel, val, neg, pos))
-    shape.append(('eyebrows/eyebrows-trans', 0.85, 'down', 'up'))
+    shape.append(('eyebrows/eyebrows-trans', 0.5, 'down', 'up'))
     arm2, body2, eyes2, _ = rig.build(subdiv=1, shape={'shape': shape}, name='wide')
     me = body2.data
     P2 = np.empty(len(me.vertices) * 3, np.float32)

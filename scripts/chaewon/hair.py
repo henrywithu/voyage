@@ -185,7 +185,7 @@ def design(rest, seed=11):
     hf = head_frame(rest)
     hair = sample_roots(hf, 420, rng, 'all')
     # The fringe: fine locks spread evenly across the forehead, none at the parting itself.
-    az = np.linspace(-36, 36, 30)
+    az = np.linspace(-36, 36, 24)
     az = az[np.abs(az) > 2.5] + rng.normal(0, 0.7, (np.abs(az) > 2.5).sum())
     phi_b = np.radians(az)
     depth = 30.0 * np.clip(1 - (np.abs(az) / 40.0) ** 2, 0, 1)
@@ -254,19 +254,19 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
         if g == 'bangs':
             total = None  # set from the scalp path below: to the brows
             lift = 0.0055 + 0.001 * rng.random()
-            widths[i] = 0.0035 + 0.0015 * rng.random()
+            widths[i] = 0.0105 + 0.003 * rng.random()
         elif g == 'front':
             total = 0.50 + rng.normal(0, 0.03)
-            widths[i] = 0.012 + 0.008 * rng.random()
+            widths[i] = 0.016 + 0.008 * rng.random()
         elif g == 'frame':
             # Face-framing pieces: from the temples along the cheeks, past the jaw.
             total = 0.24 + 0.08 * rng.random()
             lift = 0.005
-            widths[i] = 0.006 + 0.004 * rng.random()
+            widths[i] = 0.010 + 0.004 * rng.random()
         elif g == 'back':
             back = 0.5 - 0.5 * np.cos(phi0)
             total = 0.50 + 0.06 * back + rng.normal(0, 0.025)
-            widths[i] = 0.016 + 0.010 * rng.random()
+            widths[i] = 0.020 + 0.010 * rng.random()
         else:
             total = 0.35 + 0.2 * rng.random()
             widths[i] = 0.002 + 0.002 * rng.random()
@@ -462,7 +462,11 @@ def ribbons(H, cam_up=None):
     S, N, _ = X.shape
     hc = H['hf']['center']
     V, F, UV, G, T = [], [], [], [], []
-    taper = np.concatenate([np.linspace(0.75, 1.0, N // 4), np.ones(N // 2), np.linspace(1.0, 0.06, N - N // 4 - N // 2)])
+    # Manga locks: full at the root and drawn to a point. The fringe tapers all along its length, so neighbouring
+    # locks touch at the hairline and part toward their tips; long hair holds its width and points at the ends.
+    t = np.linspace(0, 1, N)
+    taper_long = np.clip(np.minimum(0.8 + t / 0.12 * 0.2, (1 - t) / 0.42), 0.02, 1.0) ** 0.8
+    taper_bang = np.clip(1 - t, 0.02, 1) ** 0.9
     for s in range(S):
         P = X[s]
         t = np.gradient(P, axis=0)
@@ -473,7 +477,7 @@ def ribbons(H, cam_up=None):
             out = H['N'][s]
         side = np.cross(t, out)
         side /= np.maximum(np.linalg.norm(side, axis=1, keepdims=True), 1e-9)
-        w = widths[s] * taper
+        w = widths[s] * (taper_bang if H['groups'][s] == 'bangs' else taper_long)
         base = len(V)
         for k in range(N):
             for e in (-0.5, 0.5):

@@ -33,6 +33,8 @@ varying float vEyeMask;
 varying float vNdcHeight;
 varying float vChain;
 varying float vWorldY;
+varying vec3 vViewPos;
+varying vec3 vViewNormal;
 
 #!SHADER: Vertex
 
@@ -64,19 +66,23 @@ void main() {
     vChain = color.r;
 
     vec3 pos = position;
-    applySkin(pos, vNormal);
+    vec3 objectNormal = normal;
+    applySkin(pos, vNormal, objectNormal);
+    vViewNormal = normalMatrix * objectNormal;
 
     float steppedTime = floor(time * 8.0);
 
     vLineUv = (rotation3d(normalize(uAxis), uAngle) * position).xy;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    vViewPos = (modelViewMatrix * vec4(pos, 1.0)).xyz;
     vWorldY = (modelMatrix * vec4(pos, 1.0)).y;
 
     vNdcHeight = 1.0 - (gl_Position.y / gl_Position.w * 0.5 + 0.5);
 }
 
 #!SHADER: Fragment
+#require(makeup.glsl)
 
 float aastep(float threshold, float value) {
     float afwidth = length(vec2(dFdx(value), dFdy(value))) * 0.70710678118654757;
@@ -120,7 +126,8 @@ void main() {
     float lighting = dot(normal, lightDir) * vAo;
     
     float lightMask = max(0.0, lighting);
-    float terminatormid = aastep(0.3, lighting + lines * 0.3 + skinMask * 0.2);
+    // Voyage: her skin keeps to the light (a crisp shadow only where it turns well away).
+    float terminatormid = aastep(0.3, lighting + lines * mix(0.3, 0.18, skinMask) + skinMask * 0.42);
     float terminatorhigh = aastep(0.85, lighting + lines * 0.1 - 0.1);
     float terminatorbounce = 1.0 - aastep(-0.91, lighting - lines * 0.2);
 
@@ -130,6 +137,7 @@ void main() {
     // break up lines with dots as light gets brighter
     float noise = texture2D(tNoise, lineUv * 2.0).r;
     maskedLines += noise * pow(lightMask, 2.0) * 3.0;
+    maskedLines += skinMask * 0.3;
     maskedLines = aastep(0.01, maskedLines);
     // Prevent masked lines appearing in the eyes
     maskedLines += vEyeMask;
@@ -158,6 +166,8 @@ void main() {
     color = mix(color, vec3(1.0), skinMask);
     color = mix(color, uDrinkColor, drinkMask);
     color = mix(vec3(18.0 / 255.0), color, terminatormid);
+    color = applyMakeup(color, tAtlas, vUv2, terminatormid);
+    color *= mix(1.0, skinContour(vViewNormal, vViewPos), skinMask);
     color *= maskedLines;
     color *= trim;
     color *= atlas;

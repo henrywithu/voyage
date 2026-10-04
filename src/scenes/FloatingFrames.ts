@@ -119,7 +119,8 @@ const layouts: Record<string, (w: number, h: number) => FrameParams[]> = {
         frameZ: 0,
         zOffset: -range(w, 1728, 393, 3, 4),
         meshScale: range(w, 1728, 393, 2, 1.3),
-        meshOffsetY: -3 + range(w, 1728, 393, 0, 1),
+        // Voyage: her (larger) eyes sit a little lower on the face than the source's; lift them clear of the frame edge.
+        meshOffsetY: -2.82 + range(w, 1728, 393, 0, 1),
         horizontalAlign: "center",
         verticalAlign: "top",
         padx: 0,
