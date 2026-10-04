@@ -186,6 +186,8 @@ export async function setupDrinkPour(section: SceneSection) {
     // Chest-up in the first screen of the section, slightly off centre on wide screens.
     const s = mobile ? 3.2 : 4.0;
     closeRoot.scale.setScalar(s);
+    // Tipped a little toward the camera, which sits below her face: we meet her eyes rather than her throat.
+    closeRoot.rotation.x = 0.2;
     closeRoot.position.set(
       mobile ? 0 : 0.5,
       section.height / 2 - worldHeight / 2 - 1.66 * s,

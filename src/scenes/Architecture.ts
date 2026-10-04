@@ -160,6 +160,9 @@ export async function setupArchitecture(section: SceneSection) {
         );
     }
     const character = section.mesh("character");
+    // Turned from the source's back view to three-quarters, so her glance back over her shoulder meets
+    // the reader.
+    character.rotation.y = THREE.MathUtils.degToRad(235);
     outline(
       section,
       character,

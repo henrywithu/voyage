@@ -12,6 +12,7 @@ import type { SceneSection } from "../engine/SceneSection";
 const keys: Record<string, { dir: [number, number, number]; strength: number; threshold: [number, number] }> = {
   DrinkSelectionScene: { dir: [-0.45, 0.55, 0.7], strength: 1.1, threshold: [-0.2, 0.95] },
   CathedralScene: { dir: [0.35, 0.6, 0.7], strength: 1.0, threshold: [-0.1, 0.95] },
+  ColosseumScene: { dir: [-0.5, 0.55, 0.65], strength: 1.1, threshold: [-0.15, 0.95] },
 };
 
 export function setupCharacterLight(section: SceneSection) {
