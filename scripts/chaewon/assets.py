@@ -71,10 +71,17 @@ class Session:
         lab = dress_mod.labels(self.names, self.rest['W'])
         hb = self.names.index('head')
         hc = mats[hb][:3, 3]
-        # Arms usually do not deflect hair (they move freely in front of it); raised arms do.
-        k = np.ones(len(lab), bool) if arms else lab != 1
+        # Arms usually do not deflect hair (they move freely in front of it); raised arms do. The
+        # shoulder caps always do, so hair cannot fall into the gap where the arm meets the torso.
+        dom = np.array(self.names)[self.rest['W'].argmax(1)]
+        cap = np.char.startswith(dom.astype(str), 'shoulder01')
+        k = np.ones(len(lab), bool) if arms else (lab != 1) | cap
         lo, hi = hc + np.array([-0.32, -0.32, -0.80]), hc + np.array([0.32, 0.32, 0.20])
-        sdf = hair_mod.SDF(P[k], N[k], lo, hi, step=0.006)
+        # Hair lies over the dress, not between it and the skin: the dress surface joins the field.
+        d = self.base_parts[2]
+        Pd = M.skin(d.P, d.W, mats, self.rest_mats)
+        Nd = M.vertex_normals(Pd, d.F)
+        sdf = hair_mod.SDF(np.vstack([P[k], Pd]), np.vstack([N[k], Nd]), lo, hi, step=0.006)
         if key:
             pickle.dump(sdf, open(os.path.join(BUILD, f'sdf_{key}.pkl'), 'wb'))
         return sdf

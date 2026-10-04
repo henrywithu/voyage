@@ -240,7 +240,8 @@ export async function setupHand(section: SceneSection) {
       range(1 - Math.cos((progress * Math.PI) / 2), 0, 1, 25, 55),
       () => {
         arm.rotation.y += boneX;
-        arm.rotation.x += boneY;
+        // Chaewon's forearm bends about -X where the source arm bends about +X.
+        arm.rotation.x -= boneY;
         const now = performance.now();
         const fingerNoise = cnoise2d(now * 0.0006) * 0.15;
         const wristNoise = cnoise2d(now * 0.0001) * 0.1;

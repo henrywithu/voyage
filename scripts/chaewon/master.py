@@ -169,7 +169,8 @@ def hair_parts(rest, H, P_body_for_cap, names, head_xf=None, cap=True):
     N = H['X'].shape[1]
     band = np.repeat(np.arange(S) % HAIR_BANDS, N * 2)
     across = huv[:, 1]
-    uv = np.c_[huv[:, 0] * 0.999, HAIR_V[0] + (band + 0.02 + 0.96 * across) * (HAIR_V[1] - HAIR_V[0]) / HAIR_BANDS]
+    u = np.repeat(hair_mod.strand_u(H).reshape(-1), 2)
+    uv = np.c_[u * 0.999, HAIR_V[0] + (band + 0.02 + 0.96 * across) * (HAIR_V[1] - HAIR_V[0]) / HAIR_BANDS]
     W = np.zeros((len(hv), len(names)), np.float32)
     hb, nb, cb = names.index('head'), names.index('neck02'), names.index('spine01')
     pinned = np.repeat(H['pinned'], 2, axis=1).reshape(-1)
@@ -241,8 +242,10 @@ def to_three(P, scale=SCALE):
 
 
 def mat_to_three(M, scale=SCALE):
-    """Blender 4x4 world matrix -> three.js space (rotation conjugated, translation converted+scaled)."""
-    R = B2T @ M[:3, :3] @ B2T.T
+    """Blender 4x4 bone world matrix -> three.js space. The bone keeps its own axes (Y along the bone, as in
+    Spirit's rigs), expressed in three's world: scene code that turns bones about local axes (the hand
+    scene's twist, curl and wrist spring) then behaves as it did on Spirit's arm."""
+    R = B2T @ M[:3, :3]
     t = B2T @ M[:3, 3] * scale
     out = np.eye(4)
     out[:3, :3] = R

@@ -1,8 +1,8 @@
 """Chaewon's body from the CC0 MakeHuman hm08 base mesh, without the MakeHuman app.
 
 Shape: macro targets (female, early twenties, East Asian, slim, idealised
-proportions) plus local modifiers for a K-pop idol figure: a small face with
-a soft V-line, large eyes, long neck and legs, narrow shoulders, slim arms,
+proportions) plus local modifiers for a K-pop idol figure: a small, soft round
+face with a small chin, large eyes, a fuller bust, long neck and legs, narrow shoulders, slim arms,
 a defined waist and a gentle hip curve.
 
 Rig: the full MakeHuman default skeleton (163 bones with twist bones, finger
@@ -115,29 +115,29 @@ def modifier(verts, rel, value, neg='decr', pos='incr'):
 
 
 MACRO = dict(gender=0.0, age=0.5 * 22 / 25, muscle=0.38, weight=0.2, height=0.62, proportions=1.0,
-             asian=0.85, caucasian=0.15, cup=0.65, firmness=0.85)
+             asian=0.85, caucasian=0.15, cup=0.8, firmness=0.95)
 
 SIDES = ('l', 'r')
 SHAPE = [
     # Head: small, soft V-line, smooth youthful skin.
-    ('head/head-oval', 0.7, None, None), ('head/head-age', -0.6, 'decr', 'incr'),
-    ('head/head-scale-horiz', -0.22, 'decr', 'incr'), ('head/head-scale-vert', -0.14, 'decr', 'incr'),
-    ('head/head-scale-depth', -0.28, 'decr', 'incr'), ('head/head-fat', -0.5, 'decr', 'incr'),
+    ('head/head-oval', 0.2, None, None), ('head/head-age', -0.6, 'decr', 'incr'),
+    ('head/head-scale-horiz', -0.07, 'decr', 'incr'), ('head/head-scale-vert', -0.4, 'decr', 'incr'),
+    ('head/head-scale-depth', -0.28, 'decr', 'incr'), ('head/head-fat', -0.2, 'decr', 'incr'),
     ('head/head-back-scale-depth', -0.5, 'decr', 'incr'),
-    ('chin/chin-width', -0.55, 'decr', 'incr'), ('chin/chin-height', -0.1, 'decr', 'incr'),
-    ('chin/chin-prominent', 0.45, 'decr', 'incr'), ('chin/chin-bones', -0.4, 'decr', 'incr'),
+    ('chin/chin-width', -0.1, 'decr', 'incr'), ('chin/chin-height', -0.7, 'decr', 'incr'),
+    ('chin/chin-prominent', 0.15, 'decr', 'incr'), ('chin/chin-bones', -0.3, 'decr', 'incr'),
     ('chin/chin-prognathism', 0.2, 'decr', 'incr'),
     ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans-backward', 0.0, 'forward', 'backward'),
-    ('nose/nose-scale-horiz', -0.4, 'decr', 'incr'), ('nose/nose-scale-vert', -0.15, 'decr', 'incr'),
+    ('nose/nose-scale-horiz', -0.4, 'decr', 'incr'), ('nose/nose-scale-vert', -0.3, 'decr', 'incr'),
     ('nose/nose-point-width', -0.45, 'decr', 'incr'), ('nose/nose-nostrils-width', -0.4, 'decr', 'incr'),
     ('nose/nose-point', 0.3, 'down', 'up'), ('nose/nose-volume', -0.35, 'decr', 'incr'),
     ('nose/nose-scale-depth', 0.3, 'decr', 'incr'), ('nose/nose-greek', 0.45, 'decr', 'incr'),
     ('nose/nose-trans', 0.15, 'backward', 'forward'),
     ('nose/nose-flaring', -0.4, 'decr', 'incr'),
-    ('mouth/mouth-scale-horiz', -0.18, 'decr', 'incr'), ('mouth/mouth-upperlip-volume', 0.5, 'decr', 'incr'),
+    ('mouth/mouth-scale-horiz', -0.1, 'decr', 'incr'), ('mouth/mouth-upperlip-volume', 0.45, 'decr', 'incr'),
     ('mouth/mouth-lowerlip-volume', 0.55, 'decr', 'incr'), ('mouth/mouth-cupidsbow', 0.6, 'decr', 'incr'),
     ('mouth/mouth-angles', 0.35, 'down', 'up'), ('mouth/mouth-scale-depth', -0.2, 'decr', 'incr'),
-    ('mouth/mouth-trans', -0.35, 'backward', 'forward'),
+    ('mouth/mouth-trans', -0.1, 'backward', 'forward'),
     ('neck/neck-scale-horiz', -0.35, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
     ('measure/measure-neck-height', 0.15, 'decr', 'incr'), ('measure/measure-neck-circ', -0.4, 'decr', 'incr'),
     # Torso: narrow shoulders, defined waist, soft hips.
@@ -149,7 +149,7 @@ SHAPE = [
     ('hip/hip-waist', 0.25, 'down', 'up'), ('stomach/stomach-tone', 0.0, 'decr', 'incr'),
     ('buttocks/buttocks-volume', 0.05, 'decr', 'incr'),
     ('bodyshapes/bodyshapes-elvs-fem-neat-hourglass', 0.18, None, None),
-    ('breast/breast-trans', 0.25, 'down', 'up'), ('breast/breast-volume-vert', 0.25, 'down', 'up'),
+    ('breast/breast-trans', 0.25, 'down', 'up'), ('breast/breast-volume-vert', 0.3, 'down', 'up'),
     # Limbs: long legs, slender arms and calves, small hands and feet.
     ('armslegs/upperlegs-height', 0.35, 'decr', 'incr'), ('armslegs/lowerlegs-height', 0.3, 'decr', 'incr'),
     ('measure/measure-thigh-circ', -0.05, 'decr', 'incr'), ('measure/measure-calf-circ', -0.2, 'decr', 'incr'),
@@ -160,18 +160,25 @@ SHAPE = [
 for s in SIDES:
     SHAPE += [
         (f'eyes/{s}-eye-scale', 1.0, 'decr', 'incr'), (f'eyes/{s}-eye-height1', 0.55, 'decr', 'incr'),
-        (f'eyes/{s}-eye-height2', 0.7, 'decr', 'incr'), (f'eyes/{s}-eye-height3', 0.35, 'decr', 'incr'),
+        (f'eyes/{s}-eye-height2', 0.0, 'decr', 'incr'), (f'eyes/{s}-eye-height3', 0.35, 'decr', 'incr'),
         (f'eyes/{s}-eye-push1', -0.3, 'in', 'out'), (f'eyes/{s}-eye-push2', -0.3, 'in', 'out'),
         (f'eyes/{s}-eye-epicanthus', -0.4, 'in', 'out'), (f'eyes/{s}-eye-bag', -0.6, 'decr', 'incr'),
         (f'eyes/{s}-eye-corner1', 0.15, 'down', 'up'), (f'eyes/{s}-eye-corner2', 0.25, 'down', 'up'),
         (f'eyes/{s}-eye-eyefold-angle', 0.2, 'down', 'up'),
-        (f'cheek/{s}-cheek-volume', -0.35, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.35, 'decr', 'incr'),
+        (f'cheek/{s}-cheek-volume', 0.45, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.15, 'decr', 'incr'),
         (f'armslegs/{s}-hand-scale', -0.3, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
         (f'armslegs/{s}-hand-fingers-length', 0.3, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
         (f'armslegs/{s}-lowerarm-scale-horiz', -0.2, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.15, 'decr', 'incr'),
         (f'armslegs/{s}-upperarm-shoulder-muscle', -0.4, 'decr', 'incr'),
         (f'armslegs/{s}-lowerleg-scale-horiz', -0.1, 'decr', 'incr'),
     ]
+
+
+# A soft, round face with a small chin (her likeness), and a fuller bust.
+SHAPE += [
+    ('head/head-round', 0.6, None, None), ('mouth/mouth-trans', 0.4, 'down', 'up'),
+    ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.15, 'decr', 'incr'),
+]
 
 
 def build(shape=SHAPE, **macro_overrides):

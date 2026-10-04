@@ -23,6 +23,7 @@ LACE_V = (0.46, 0.94)
 HEM_V = (0.36, 0.46)
 NECK_V = (0.94, 0.995)
 STRAP_V = 0.075  # plain cloth row
+LACE_TILE = 0.8  # metres of fabric per trim tile in u (the lace field spans about the dress height in v)
 
 
 def vertex_normals(P, T):
@@ -218,7 +219,14 @@ def build(rest, n_theta=144, seed=4, hem_drop=0.11, flare=0.33, ease=0.004, fold
     weld[bodice[:, -1]] = bodice[:, 0]
     weld[skirt[:, -1]] = skirt[:, 0]
     info = dict(L=L, thetas=thetas, tops=tops, hem=hem, bodice=bodice, skirt=skirt, hip_z=hip_z, weld=weld)
-    return V, F, np.array(uv), np.array(part), info
+    # Lace runs around the body by arc length so its flowers keep their shape (the tile seam is at the
+    # centre back, under her hair).
+    UV = np.array(uv)
+    for G in (bodice, skirt):
+        for row in G:
+            arc = np.r_[0, np.cumsum(np.linalg.norm(np.diff(V[row], axis=0), axis=1))]
+            UV[row, 0] = arc / LACE_TILE
+    return V, F, UV, np.array(part), info
 
 
 def straps(rest, info, width=0.0055, offset=0.003):
