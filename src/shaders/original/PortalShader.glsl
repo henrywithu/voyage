@@ -6,6 +6,7 @@ uniform sampler2D tNoise;
 uniform sampler2D tLines;
 uniform float uDiscardTop;
 uniform float uDiscardBottom;
+uniform float uClipSection;
 uniform float uSteppedTime;
 uniform float uLinesTile;
 uniform float uStep;
@@ -53,7 +54,8 @@ float aastep(float threshold, float value) {
 }
 
 void main() {
-    // if (uDiscardBottom - vNdcHeight > 0.0 || uDiscardTop - vNdcHeight < 0.0) discard;
+    // Voyage: a disc larger than its panel (the arch light) stays inside its own section.
+    if (uClipSection > 0.5 && (uDiscardBottom - vNdcHeight > 0.0 || uDiscardTop - vNdcHeight < 0.0)) discard;
     vec2 uv = vUv;
     uv.x -= uv.y * 0.5;
 

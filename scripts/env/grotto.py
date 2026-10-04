@@ -44,12 +44,14 @@ def inner_x(z):
 
 def walls(m, rng):
     for side in (-1, 1):
-        pts = basalt.hex_grid(0.0, 1.9, -23.0, -3.2, 0.98, 0.05, rng)
+        # Few, massive columns with a flat face turned to the nave: each reads as one lit (or shaded)
+        # facet with its two oblique faces, instead of a field of small random facets.
+        pts = basalt.hex_grid(0.0, 2.2, -23.0, -3.2, 1.45, 0.04, rng)
         for u, z in pts:
             xi = inner_x(z)
             x = side * (xi + u)
-            r = rng.uniform(0.47, 0.55)
-            rot = rng.uniform(0, np.pi / 3)
+            r = rng.uniform(0.68, 0.75)
+            rot = np.pi / 6 + rng.normal(0, 0.05)
             if u < 0.5 and rng.random() < 0.45 and buttress(z) < 0.5:
                 # A broken column at the foot of the wall: a step or a seat.
                 top = FLOOR + rng.uniform(0.25, 1.4)

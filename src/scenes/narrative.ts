@@ -187,12 +187,16 @@ export async function setupNarrative(scene: SceneSection) {
   }
   if (scene.name === "ApproachScene") {
     const root = new THREE.Group();
-    const moonRoot = new THREE.Group();
     for (const name of ["portal", "background", "structure", "character"])
       if (layers[name]) root.add(layers[name]);
     // No moon over this sea: the sun is caught in the arch.
-    if (layers.moonRoot) layers.moonRoot.visible = false;
-    scene.group.add(root, moonRoot);
+    for (const name of ["moon", "mooninverse"]) if (layers[name]) layers[name].visible = false;
+    scene.group.add(root);
+    // The sloop's rigging and the wind streaks reach past the panel as it opens: draw the border (and
+    // its paper margins) over everything in the scene.
+    const border = scene.mesh("border");
+    border.renderOrder = 999;
+    border.material.depthTest = false;
     outline(scene, scene.mesh("structure"), "StaticObjectBaseShaderInverse", 0.0025);
     // The sloop under her, sail furled as the wind falls away near the arch, on the open sea.
     const character = scene.mesh("character");
@@ -244,8 +248,6 @@ export async function setupNarrative(scene: SceneSection) {
     };
     scene.onResize = (w, h) => {
       const mobile = w / h < 1;
-      moonRoot.scale.setScalar(mobile ? 0.75 : 1);
-      moonRoot.position.set(mobile ? -0.9 : 0.3, mobile ? 0.25 : 0.4, 0);
       root.rotation.set(mobile ? 0.05 : 0, mobile ? 0.2 : 0, 0);
       root.position.set(mobile ? 1.6 : 0, mobile ? -0.5 : 0, 0);
       scene.uniform("border", "uPadX", range(w, 1600, 393, 0.18, 0.08));
@@ -255,6 +257,8 @@ export async function setupNarrative(scene: SceneSection) {
     };
   }
   if (scene.name === "NearScene") {
+    // The arch light is wider than the panel: keep it out of the Approach panel above.
+    scene.mesh("portal").material.uniforms.uClipSection = { value: 1 };
     const root = new THREE.Group();
     const group = new THREE.Group();
     for (const name of [

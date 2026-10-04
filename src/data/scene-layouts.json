@@ -1473,11 +1473,11 @@
         "uColorHighlight": "#f3bc23",
         "uDistanceCompensation": 0,
         "uLightDir": [
-          0.0,
+          0.45,
           0.5,
-          0.45
+          0.75
         ],
-        "uLinesTile": 0.24,
+        "uLinesTile": 0.2,
         "uThreshold": [
           -0.5,
           0.55
