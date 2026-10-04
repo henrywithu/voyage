@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import gsap from "gsap";
-import { footsteps } from "../audio/Footsteps";
 import { SceneSection } from "../engine/SceneSection";
 import { loadGeometry, texture } from "../engine/assets";
 import { material } from "../engine/shaders";
@@ -64,7 +63,7 @@ export async function setupNarrative(scene: SceneSection) {
     characterGroup.rotation.y = (25 * Math.PI) / 180;
     scene.group.add(characterGroup);
     const character = new SkeletalMesh(
-      await loadGeometry("assets/geometry/story/wander/saint-walk-2.bin"),
+      await loadGeometry("assets/geometry/story/sea/chaewon-bow.bin"),
       "SkinShader",
       {
         ...characterTextures,
@@ -76,9 +75,8 @@ export async function setupNarrative(scene: SceneSection) {
       },
     );
     await character.loadAnimation(
-      "assets/geometry/story/wander/saint-walk-2-anim.bin",
+      "assets/geometry/story/sea/chaewon-bow-anim.bin",
     );
-    footsteps(scene, character);
     characterGroup.add(character.mesh, character.outline);
     const shadow = scene.addMesh(
       new THREE.PlaneGeometry(),

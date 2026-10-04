@@ -1,93 +1,86 @@
 # Trapnest Voyage: story bible
 
-**Trapnest Voyage** retells the Trapnest Spirit experience as a sun-drenched voyage. The scroll structure, manga line-art rendering, motion and interactions are the same as Spirit. The heroine, the story, the palette, the key item, the narration and the music are new.
+**Trapnest Voyage** keeps the shape of the Trapnest Spirit experience: a vertical scroll of manga panels drawn in ink and one accent colour, with narration boxes, hold interactions, a choice and a magical turn. Everything inside that shape is new: the heroine, the sea, the boat, the grotto, the pendant, the interactions, the music and the sunflower-yellow palette.
 
 ## Logline
 
-On an endless golden shore at the end of summer, Chaewon follows a melody that hums her name to a stone gate holding the setting sun. Inside a golden hall she finds three Trapnest Voyage elixirs and chooses one. The first sip lifts her into the light and sets her down again, dyed in its colour, while the hall breaks apart into an open golden sky. The voyage was never a place. It was a taste.
+At the end of summer Chaewon sails alone onto a golden sea, chasing a sun that will not set. Beneath a great sea arch she reaches into the glowing water and is drawn through the light into a hidden grotto, where three compass pendants float above a shell altar. She chooses one and fastens it at her throat. The pearl wakes, the tide rises in a spiral of light and lifts her, the grotto breaks open to the sky, and she walks out across the surface of the sea. Summer was never a season. It was a heading.
 
 ## Heroine: Chaewon
 
-- **Who she is:** a woman in her early twenties. Charming, playful and quietly daring. She smiles before she decides, and she never turns down an invitation.
-- **Look (from the reference photo):** very slim and long-legged, with fair skin. Long, straight, dark hair parted near the centre, with wispy see-through bangs that fall to her brows and face-framing strands in front of her shoulders. Large dark eyes with a defined upper lash line and soft straight brows, full lips. In the manga rendering her skin is white paper, her hair is ink-black with white shine lines, and her irises are tinted in close-ups.
-- **Outfit:** a short white floral-lace sundress with spaghetti straps, a V-neck bodice and a flared mini skirt with a scalloped lace hem. She is barefoot. After she drinks, the dress takes on the colour of the elixir she chose, from the hem upwards.
-- **Body language:** an upright, graceful walk; a playful contrapposto with a hand on her hip at the pedestal; she sweeps or tucks her hair behind her ear; her head tilts when she is curious.
-- **Build:** a CC0 MakeHuman base mesh shaped for her proportions, with procedural dress and hair. She is re-fitted to every rig and pose that the saint used. See `scripts/character/`.
+- **Who she is:** a K-pop idol in her twenties, on the one free day of her summer. Charming, playful and quietly daring. She smiles before she decides, and she never turns down an invitation from the sea.
+- **Look:** very slim, long-legged, small-faced, with fair skin. Long, straight, dark hair parted near the centre, with see-through bangs that fall to her brows and face-framing strands. Large dark eyes with a soft double lid and aegyo-sal, straight soft brows, full lips. In the manga rendering her skin is white paper, her hair is ink-black with a white sheen band, and her irises take the tide's colour in close-ups.
+- **Outfit:** a very short white floral-lace sundress with spaghetti straps, a fitted V-neck bodice and a flared skirt with a scalloped hem. She is barefoot. After the pendant wakes, its colour runs through the lace from the collar down.
+- **Movement:** an idol's ease. She balances on the bow with one hand on the forestay, sweeps her hair back with both hands, tucks it behind her ear, leans over the water, rests a hand on her hip with her head tilted, lifts her hair to fasten a chain, floats with her toes pointed, and looks back over her shoulder.
 
-## Key item: the Trapnest Voyage elixir
+## Key item: the Trapnest Voyage compass pendant
 
-A single key item replaces Spirit's liquor bottles: a hand-blown glass flask holding a "sea" of sunlight elixir, with a brass compass-rose stopper and a wax-sealed label. It comes in three tides:
+A small gold compass rose, eight points around a pearl, on a fine gold chain. The Trapnest compass has always pointed somewhere; this one points to whoever wears it. Each pearl holds a tide:
 
-| Tide | Notes | Colour |
-| --- | --- | --- |
-| **Lagoon** | Yuzu, sea salt & blue lagoon | blue `#63c4f4` |
-| **Jade** | Lime, matcha & fresh mint | green `#97f3ad` |
-| **Coral** | White peach, hibiscus & coral | coral `#ff9b8a` |
+| Tide | Pearl | Notes | Colour |
+| --- | --- | --- | --- |
+| **Lagoon** | Blue pearl | Yuzu, sea salt and blue lagoon | `#63c4f4` |
+| **Jade** | Green pearl | Lime, matcha and fresh mint | `#97f3ad` |
+| **Coral** | Pink pearl | White peach, hibiscus and coral | `#ff9b8a` |
 
-The tide she picks colours the levitation beam, her irises in the close-up, her dress, and the collection that follows.
+The tide she chooses colours the pearl's glow, the light that runs through her dress, the spiral that lifts her, her irises in the close-up, and the collection that follows.
+
+## Props
+
+- **The boat:** a small white gaff-rigged sailboat with a single mast, a cream sail and a wooden tiller.
+- **The sea arch:** a colossal basalt arch rising from open water, its opening holding a disc of light: the last sun of summer.
+- **The pendants:** three compass pendants turning slowly above a scallop-shell altar.
+- **The chain and clasp:** a fine gold chain with a lobster clasp, fastened at the nape of her neck.
 
 ## Environments
 
 | Spirit | Voyage |
 | --- | --- |
-| A land of nothingness in the mist | An endless golden shore under a dark sky, with drifting sea haze |
-| An ominous monolith with a red portal | A great stone gate whose round window holds the last light of summer |
-| Red cathedral of columns | A golden hall of columns, warm as late afternoon |
-| Bottles on a pedestal | Three elixir flasks glowing on a pedestal like a small sun |
-| Deep red sky behind crumbling pillars | An endless golden sky beyond the breaking colonnade |
-| Colosseum | The open-air amphitheatre of the golden coast |
+| A land of nothingness in the mist | The open sea at dusk, sea fog and clouds over a dark sky |
+| A monolith with a round portal, stone steps | A basalt sea arch holding the sun, her boat gliding toward it |
+| Standing at the portal | Drifting beneath the arch on still, glowing water |
+| Hand into the portal | Her hand reaching into the light under the water |
+| Cathedral of columns | The Pearl Grotto: a hall of hexagonal basalt columns and tide pools in golden light |
+| Bottles on a pedestal | Three compass pendants above a scallop-shell altar |
+| Pouring and drinking | Lifting her hair and fastening the pendant at her nape |
+| Levitation in a vortex | The tide rising in a spiral of light |
+| Crumbling pillars | Basalt columns breaking apart into the sky |
+| Colosseum | Standing on the sea at golden hour, fragments of the grotto drifting overhead |
 
 ## Scene by scene
 
-1. **Wander.** Title: *Trapnest Voyage*. Chaewon walks barefoot across the shore. The close-up panels show her face behind her hair, then both hands sweeping her hair back.
-2. **Profile.** With her hair tucked behind her ear and streaming in the wind, she sees what she came for.
-3. **Approach.** She climbs the steps toward the gate. Inset: her bare feet on the stone.
-4. **Near.** She stands at the threshold, and the wind tugs at her hair and skirt.
-5. **Hand.** Her fingertips reach into the light (the hold interaction).
-6. **Target / transition.** Her silhouette fills the round window, and she steps through.
-7. **Golden hall.** A close-up of her eyes, then the walk toward the pedestal.
-8. **Selection.** Three elixirs. She waits, hand on hip, head tilted, for the reader to choose.
-9. **Pour & drink.** Her hand pours the elixir into the glass, and she drinks. Her dress takes the colour.
-10. **Antigravity.** Her eyes widen and her irises turn the colour of the tide as she floats in the vortex.
-11. **Pillar crumble.** She drifts down, and the columns crack and float away.
-12. **Colosseum.** *The Trapnest Voyage*.
-13. **Editorial.** *Sail away, stay golden*. Collection, the three tides, and harbours forthcoming.
+1. **Open sea.** Title: *Trapnest Voyage*. Chaewon stands at the bow of her sailboat, one hand on the forestay, hair streaming as the boat rides the swell. Panels: her face with eyes closed into the wind; both hands sweeping her hair back.
+2. **Profile.** In profile, hair blowing across her cheek, she sees a light on the horizon.
+3. **Approach.** The boat glides toward a colossal sea arch; the setting sun is caught inside it. Inset: her bare feet bracing on the wet deck.
+4. **Near.** Beneath the arch the water goes still and starts to glow. She stands at the bow as the wind lifts her hair and skirt.
+5. **Hand.** *Hold* to reach into the water. Her fingertips break the glowing surface, and the light curls around her hand.
+6. **Through.** Her silhouette stands inside the disc of light, and the light swallows her.
+7. **The Pearl Grotto.** A close-up of her eyes as she wakes, then the long hall of basalt columns in golden light, with tide pools on the floor and three pendants turning above a shell altar at the far end.
+8. **Choice.** She waits beside the altar, hand on hip and head tilted. The reader chooses a tide: Lagoon, Jade or Coral.
+9. **Fasten.** *Hold* to fasten the pendant. She lifts her hair with one hand and closes the clasp at her nape. The pearl wakes and its colour runs down through the lace.
+10. **Lift.** The tide rises in a spiral of light and lifts her off her feet (*hold* to quicken it). Her eyes widen and take the pearl's colour.
+11. **Breaking.** The basalt columns crack and drift apart, opening onto the sky.
+12. **On the sea.** *The Trapnest Voyage*. She stands on the surface of the sea at golden hour and looks back over her shoulder. Fragments of the grotto float overhead, and her boat waits behind her.
+13. **Editorial.** *Sail away, stay golden.* The Tides Collection of compass pendants, then harbours forthcoming.
+
+## Interactions
+
+| Moment | Gesture | Response |
+| --- | --- | --- |
+| Hand | Hold | Her hand sinks into the glowing water; ripples and light gather around her fingers |
+| Choice | Hover and click | The pendants rise and turn; the chosen tide is kept for the rest of the story |
+| Fasten | Hold | Her hands bring the clasp together; on closing, the pearl lights and the colour runs through her dress |
+| Lift | Hold | The spiral of light speeds up and carries more spray |
+| Collection | Drag | The pendant carousel turns between the three tides |
 
 ## Narration
 
-The narration is read by a warm female voice (Kokoro TTS, `af_heart`). Each text box highlights its words as they are spoken. The script lives in `scripts/narration/narration.json`, and `scripts/narration/generate.py` produces the audio and the word timestamps.
-
-1. On an endless shore of golden sand, a lone figure drifts barefoot through the haze.
-2. A warm breeze whispers her name. Chaewon sweeps the hair from her eyes and looks around, curious and unafraid.
-3. Chaewon finally catches a glimpse of what she has been chasing since she first set sail.
-4. At the sight of it, she stands taller, chin raised, a playful smile tugging at her lips.
-5. A great stone gate rises before Chaewon, and the humming seems to pour straight from it. The last light of summer burns through the round window at its heart. Not quite believing her eyes, she pauses on the steps and lets the warm air steady her racing pulse.
-6. No time to waste. She means to see it through.
-7. As she climbs toward the gate, the melody swells, sweet and reckless, and shakes her to the core. The light begins to pulse, beckoning her closer.
-8. A warm wind rushes past, playful and expectant. Standing at the threshold, she lifts her hand.
-9. Slowly, her fingertips reach for the light.
-10. Taking a deep breath, she steps through.
-11. For one heartbeat the world goes quiet. Her mind races to catch up. Then she wakes in a golden hall of columns, warm as a late summer afternoon.
-12. Before her, a pedestal glows like a small sun.
-13. Three Trapnest Voyage elixirs gleam on the pedestal, each one holding a different sea. Chaewon tilts her head and smiles. Somehow they are calling to her, daring her to choose.
-14. Chaewon sips, and in an instant a beam of light lifts her off her feet, swirling with *(the tide's notes)*, a tide that carries her past the horizon.
-15. Chaewon drifts gently back to the floor, one bare foot after the other, her lace dress now dyed with the color of the elixir.
-16. A rumble of breaking stone fills the air. The columns crack and float away, opening onto an endless golden sky.
+The narration is read by a warm female voice (Kokoro TTS, `af_heart`), and each text box highlights its words as they are spoken. The script lives in `scripts/narration/narration.json`, and `scripts/narration/generate.py` produces the audio and word timestamps.
 
 ## Music
 
-The soundtrack is in D major, against Spirit's E minor, and follows the same scroll crossfades. `scripts/music/compose.py` renders it.
-
-| Track | Plays during | Character |
-| --- | --- | --- |
-| Golden Shore | Wander to Approach | Warm Lydian pads, slow strings and a celesta that glints over the sea haze |
-| The Gate | Approach to the hall | A deep D pedal, low strings and horns swelling toward the gate |
-| Golden Hall | The hall to Antigravity | Choir and strings swelling chord by chord, harp rolls, no low end |
-| Lift | Antigravity | Harp arpeggios, pulsing synth, tremolo strings, choir and a horn melody at about 125 BPM |
-| Open Sky | Pillar crumble to the editorial | Sparse guitar harmonics and kalimba over air, a flute phrase |
-| Bossa | The editorial | Nylon guitar, upright bass, brushes, Rhodes and a vibraphone melody at 123 BPM |
-| Sea breeze | The shore | Wind and two slow waves |
+The soundtrack is in D major, follows the scroll crossfades, and is rendered by `scripts/music/compose.py`: Golden Shore (open sea), The Gate (the arch), Golden Hall (the grotto), Lift (the spiral), Open Sky (breaking and the sea), Bossa (the editorial) and Sea breeze (wind and waves).
 
 ## Palette
 
-Spirit's red is replaced by sunflower yellow (`#f4bd28`), with `#c88e00` for yellow text on white paper and a warm amber behind the gate's window. The tides are Lagoon `#63c4f4`, Jade `#97f3ad` and Coral `#ff9b8a`. The values live in `src/data/theme.ts`.
+Spirit's red is replaced by sunflower yellow (`#f4bd28`), with `#c88e00` for yellow text on white paper and a warm amber for the sun inside the arch. The tides are Lagoon `#63c4f4`, Jade `#97f3ad` and Coral `#ff9b8a`. The values live in `src/data/theme.ts`.

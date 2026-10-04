@@ -1521,10 +1521,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/common/saint-pose-2.bin",
+        "filename": "assets/geometry/story/sea/chaewon-approach.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/common/saint-pose-2.bin",
-        "src": "assets/geometry/story/common/saint-pose-2.bin"
+        "relative": "assets/geometry/story/sea/chaewon-approach.bin",
+        "src": "assets/geometry/story/sea/chaewon-approach.bin"
       },
       "name": "character",
       "renderOrder": 7,
@@ -2009,10 +2009,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/cathedral/saint-idle-3-clipped.bin",
+        "filename": "assets/geometry/story/grotto/chaewon-grotto.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/cathedral/saint-idle-3-clipped.bin",
-        "src": "assets/geometry/story/cathedral/saint-idle-3-clipped.bin"
+        "relative": "assets/geometry/story/grotto/chaewon-grotto.bin",
+        "src": "assets/geometry/story/grotto/chaewon-grotto.bin"
       },
       "name": "character",
       "renderOrder": 8,
@@ -2255,10 +2255,10 @@
         "uColorHighlight": "#ffffff"
       },
       "geometry": {
-        "filename": "assets/geometry/story/common/saint-pose-2.bin",
+        "filename": "assets/geometry/story/sea/chaewon-onsea.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/common/saint-pose-2.bin",
-        "src": "assets/geometry/story/common/saint-pose-2.bin"
+        "relative": "assets/geometry/story/sea/chaewon-onsea.bin",
+        "src": "assets/geometry/story/sea/chaewon-onsea.bin"
       },
       "name": "character",
       "renderOrder": 4,
@@ -3628,10 +3628,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/drinkselection/saint-idle-selection.bin",
+        "filename": "assets/geometry/story/grotto/chaewon-selection.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/drinkselection/saint-idle-selection.bin",
-        "src": "assets/geometry/story/drinkselection/saint-idle-selection.bin"
+        "relative": "assets/geometry/story/grotto/chaewon-selection.bin",
+        "src": "assets/geometry/story/grotto/chaewon-selection.bin"
       },
       "name": "character",
       "renderOrder": 5,
@@ -4448,10 +4448,10 @@
         ]
       },
       "geometry": {
-        "filename": "assets/geometry/story/common/saint-pose-2.bin",
+        "filename": "assets/geometry/story/sea/chaewon-near.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/common/saint-pose-2.bin",
-        "src": "assets/geometry/story/common/saint-pose-2.bin"
+        "relative": "assets/geometry/story/sea/chaewon-near.bin",
+        "src": "assets/geometry/story/sea/chaewon-near.bin"
       },
       "name": "character",
       "renderOrder": 6,
@@ -6018,10 +6018,10 @@
         "uCutout": 0.45
       },
       "geometry": {
-        "filename": "assets/geometry/story/common/saint-pose-4.bin",
+        "filename": "assets/geometry/story/sea/chaewon-target.bin",
         "prefix": "",
-        "relative": "assets/geometry/story/common/saint-pose-4.bin",
-        "src": "assets/geometry/story/common/saint-pose-4.bin"
+        "relative": "assets/geometry/story/sea/chaewon-target.bin",
+        "src": "assets/geometry/story/sea/chaewon-target.bin"
       },
       "name": "character",
       "renderOrder": 5,
