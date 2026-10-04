@@ -151,9 +151,9 @@ def bow_pose(s, t=0.0):
     poses.plant_leg(ctx, 'R', ankle=(a.x + 0.03, a.y - 0.06, a.z + 0.015), knee_dir=(0.3, -1, 0), foot_yaw=14, foot_pitch=-6)
     poses.spine(arm, roll=-6 - 1.0 * sw, yaw=-6 - 1.5 * sw2, pitch=-3 + 0.8 * br)
     poses.clavicle(arm, 'R', lift=4)
-    grip = s.ctx.shoulder['R'] + Vector((-0.12, -0.24, 0.10))
-    poses.arm_to(ctx, 'R', grip, elbow_dir=(-1, 0.4, -0.6),
-                 wrist=(Vector((0.15, -0.45, 0.85)), Vector((0.3, 0.6, -0.2))),
+    grip = s.ctx.shoulder['R'] + Vector((0.08, -0.25, 0.22))
+    poses.arm_to(ctx, 'R', grip, elbow_dir=(-1, -0.1, -0.7),
+                 wrist=(Vector((0.05, -0.25, 1.0)), Vector((0.6, 0.4, 0.0))),
                  hand=dict(curl=0.82, close=0.95, thumb=0.85))
     poses.relaxed_arm(ctx, 'L', out=0.22 + 0.02 * sw, fwd=0.05, bend=20)
     poses.head(arm, pitch=-8 + 1.5 * sw2, yaw=6 + 2.0 * math.sin(2 * math.pi * t + 1.7), roll=4 + 1.0 * sw)
@@ -194,9 +194,23 @@ def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, am
     return m, hr
 
 
+def grip_point(s, side='R'):
+    """Centre of a closed hand (three space, export scale): where a rope passes through the fist."""
+    pb = s.arm.pose.bones
+    pts = [pb[f'finger{f}-1.{side}'].head for f in (2, 3, 4, 5)] + [pb[f'finger{f}-2.{side}'].head for f in (2, 3, 4, 5)]
+    c = sum(pts, Vector((0, 0, 0))) / len(pts)
+    n = rig.palm_normal(s.arm, side)
+    c = c + n * 0.025
+    return (M.B2T @ np.array(c)) * M.SCALE
+
+
 def asset_bow(s):
+    import json
     bow_pose(s, 0.0)
     mats0 = s.pose_mats()
+    json.dump(dict(grip=grip_point(s).tolist(), feet=[(M.B2T @ np.array(s.arm.pose.bones[f'foot.{x}'].head) * M.SCALE).tolist()
+                                                       for x in 'LR']),
+              open(os.path.join(BUILD, 'bow_grip.json'), 'w'))
     H = s.hair(mats0, wind=wind_field((0, 1, 0.15), 0.0011), key='bow')
     m, hr = skinned_with_hair(s, mats0, H, os.path.join(DEC, 'sea/chaewon-bow.bin.mesh'),
                               os.path.join(DEC, 'sea/chaewon-bow-anim.bin.mesh'), bow_pose, 80, amp=1.0)
