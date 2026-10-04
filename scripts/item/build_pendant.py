@@ -2,10 +2,11 @@
 
     python3 scripts/item/build_pendant.py
 
-Outputs public/assets/decoded/fpo/voyage-pendant-{gold,pearl}.bin.mesh, fitted to the
-frame of the flask it replaces (base at y = 0, top at y ~= 1.375), so the showcase
-layout and camera need no changes. Gold: rose, rings, bail and chain; pearl: the
-sphere at the heart, tinted with the tide in the scene.
+Outputs public/assets/decoded/fpo/voyage-pendant-{gold,enamel,pearl}.bin.mesh, fitted to
+the frame of the flask it replaces (base at y = 0, top at y ~= 1.375), so the showcase
+layout and camera need no changes. Gold: rose, rings, ticks, bail and chain; enamel: the
+dial under the rose; pearl: the sphere at the heart. The scenes tint the enamel and the
+pearl with the chosen tide.
 """
 import math
 import os
@@ -44,10 +45,11 @@ def rose_solid(m, cy, thick=0.05):
 
 
 def build():
-    gold, pearl = mk.Mesh(), mk.Mesh()
+    gold, enamel, pearl = mk.Mesh(), mk.Mesh(), mk.Mesh()
     cy = pd.CY
-    P, F = mk.cylinder((0, cy, -0.014), (0, cy, 0.014), 0.2, 0.2, sides=64, segs=1)
-    gold.add(P, F)
+    # The dial: a disc of the tide's enamel between the rings, with a gold bezel at its rim.
+    P, F = mk.cylinder((0, cy, -0.014), (0, cy, 0.014), 0.2, 0.2, sides=96, segs=1)
+    enamel.add(P, F)
     rose_solid(gold, cy)
     gold.add(*pd.torus((0, cy, 0), (0, 0, 1), pd.R_RING, 0.022, nu=96, nv=16))
     gold.add(*pd.torus((0, cy, 0), (0, 0, 1), 0.13, 0.01, nu=72, nv=10))
@@ -79,7 +81,7 @@ def build():
         gold.add(P, F, N=N)
     P, F, N = pd.sphere((0, cy, 0), 0.088, nu=48, nv=32)
     pearl.add(P, F, N=N)
-    return gold, pearl
+    return gold, enamel, pearl
 
 
 def fit(meshes, top=1.375):
@@ -90,9 +92,9 @@ def fit(meshes, top=1.375):
 
 
 if __name__ == '__main__':
-    (gold, pearl), s = fit(build())
+    (gold, enamel, pearl), s = fit(build())
     os.makedirs(DEC, exist_ok=True)
-    for name, m in (('gold', gold), ('pearl', pearl)):
+    for name, m in (('gold', gold), ('enamel', enamel), ('pearl', pearl)):
         P, F, N, _, _ = m.arrays()
         uv = np.full((len(P), 2), 0.5, np.float32)
         meshio.write(os.path.join(DEC, f'voyage-pendant-{name}.bin.mesh'),

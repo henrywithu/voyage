@@ -65,17 +65,28 @@ export function setupCollectionGlass(section: SceneSection) {
   pendant.position.y = 0.05;
   root.add(pendant);
   const pearlColor = new THREE.Color();
-  let pearl: THREE.Mesh<THREE.BufferGeometry, THREE.RawShaderMaterial> | undefined;
+  let pearl: THREE.Mesh<THREE.BufferGeometry, THREE.RawShaderMaterial> | undefined,
+    enamel: THREE.Mesh<THREE.BufferGeometry, THREE.RawShaderMaterial> | undefined;
   void Promise.all([
     loadGeometry("assets/geometry/fpo/voyage-pendant-gold.bin"),
+    loadGeometry("assets/geometry/fpo/voyage-pendant-enamel.bin"),
     loadGeometry("assets/geometry/fpo/voyage-pendant-pearl.bin"),
-  ]).then(([goldAsset, pearlAsset]) => {
+  ]).then(([goldAsset, enamelAsset, pearlAsset]) => {
     const gold = section.addMesh(
       goldAsset.geometry,
       material("PBR", {
         uTint: new THREE.Color("#ffcb6b").convertLinearToSRGB(),
         uMRON: new THREE.Vector4(1.55, 0.42, 0, 1),
         uEnv: new THREE.Vector3(10, 0, 0),
+      }),
+      pendant,
+    );
+    enamel = section.addMesh(
+      enamelAsset.geometry,
+      material("PBR", {
+        uTint: new THREE.Color("#63c4f4").convertLinearToSRGB(),
+        uMRON: new THREE.Vector4(0.1, 0.22, 0, 1),
+        uEnv: new THREE.Vector3(6, 0.15, 0),
       }),
       pendant,
     );
@@ -89,7 +100,7 @@ export function setupCollectionGlass(section: SceneSection) {
       pendant,
     );
     // The card and its lettering draw in the transparent pass without depth: draw after them.
-    for (const mesh of [gold, pearl]) {
+    for (const mesh of [gold, enamel, pearl]) {
       mesh.material.transparent = true;
       mesh.renderOrder = 9;
     }
@@ -254,9 +265,14 @@ export function setupCollectionGlass(section: SceneSection) {
       pearl.material.uniforms.uTint.value.copy(
         pearlColor
           .set(config[colors[frame.selected][0]])
-          .lerp(new THREE.Color("#ffffff"), 0.18)
+          .lerp(new THREE.Color("#ffffff"), 0.12)
           .convertLinearToSRGB(),
       );
+    if (enamel)
+      enamel.material.uniforms.uTint.value
+        .set(config[colors[frame.selected][0]])
+        .lerp(new THREE.Color(config[colors[frame.selected][1]]), 0.3)
+        .convertLinearToSRGB();
     const [normal, dark] = colors[frame.selected];
     for (const key of ["uColor", "uColor2"])
       liquid.material.uniforms[key].value
