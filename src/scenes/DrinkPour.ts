@@ -154,6 +154,9 @@ export async function setupDrinkPour(section: SceneSection) {
     figure.update(0, state.drinkFrame);
     // The close-up dissolves into stipple below her waist, inside its panel.
     closeUniforms.uClipY.value = section.group.position.y + section.height / 2 - 1.02 * worldHeight;
+    // Below, she stands behind the ledge with her feet past the section's end: nothing of her may hang
+    // into the next scene (her legs would show against its light).
+    figureUniforms.uClipY.value = section.group.position.y - section.height / 2 - 0.5;
     closeUniforms.uClasp.value = fastened ? 1 : 0;
     closeUniforms.uPearl.value = fx.pearl;
     closeUniforms.uColorScan.value = fx.scan;
