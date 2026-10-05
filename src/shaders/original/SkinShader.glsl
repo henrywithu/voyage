@@ -166,12 +166,12 @@ void main() {
     color = mix(color, vec3(1.0), skinMask);
     color = mix(color, uDrinkColor, drinkMask);
     // Voyage: her dress falls into a soft grey shade (the hatching draws its texture), not solid ink.
-    color = mix(color * 0.6, color, terminatormid);
+    color = mix(color * 0.74, color, terminatormid);
     color = mix(color, skinShade(skinLit), skinMask * (1.0 - drinkMask));
     color = applyMakeup(color, tAtlas, vUv2, skinLit);
     color *= mix(vec3(1.0), skinContour(vViewNormal, vViewPos), skinMask);
     // Voyage: the hatching on her dress is a dark grey stroke, lighter than the ink of her outline.
-    color *= mix(min(mix(0.5, 1.0, maskedLines), 1.0), 1.0, skinMask);
+    color *= mix(min(mix(0.66, 1.0, maskedLines), 1.0), 1.0, skinMask);
     color *= trim;
     color *= atlas;
     color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), trim, vUv), hairMask(vUv));

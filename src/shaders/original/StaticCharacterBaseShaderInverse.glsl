@@ -1,5 +1,6 @@
 #!ATTRIBUTES
 attribute float windmask;
+attribute vec2 uv2;
 
 #!UNIFORMS
 uniform sampler2D tTrim;
@@ -52,9 +53,14 @@ void main() {
     pos -= pivot;
     pos = rotation3d(vec3(1.0, 0.0, 0.0), (2.5 * uBreathe.z + sin(floor(time * 8.0) * 0.3 - mask * 2.0)) * 0.02 * (mask * 0.6 + 0.2) * uBreathe.z + uBend * mask) * pos;
     pos += pivot;
-    pos += normal * uLineWidth;
+    // Voyage: on her face the shell sits a little behind the skin and draws finer, so it inks her face's
+    // outline but not the folds inside it (the wings of her nose, the creases of her smile).
+    float face = step(0.555, uv2.y) * step(uv2.x, 0.445);
+    pos += normal * uLineWidth * mix(1.0, 0.65, face);
+    vec4 viewPos = modelViewMatrix * vec4(pos, 1.0);
+    viewPos.xyz += normalize(viewPos.xyz) * 0.02 * face;
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    gl_Position = projectionMatrix * viewPos;
 }
 
 #!SHADER: Fragment

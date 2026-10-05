@@ -1,6 +1,7 @@
 
 #!ATTRIBUTES
 attribute vec3 color;
+attribute vec2 uv2;
 
 #!UNIFORMS
 uniform float uDiscardTop;
@@ -34,11 +35,16 @@ void main() {
     // vec3 displacement = vNormal * displacementStrength;
     // pos += displacement;
 
-    vec4 projectionPos = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    // Voyage: on her face the shell sits a little behind the skin and draws finer, so it inks her face's
+    // outline but not the folds inside it (the wings of her nose, the creases of her smile).
+    float face = step(0.555, uv2.y) * step(uv2.x, 0.445);
+    vec4 viewPos = modelViewMatrix * vec4(pos, 1.0);
+    viewPos.xyz += normalize(viewPos.xyz) * 0.02 * face;
+    vec4 projectionPos = projectionMatrix * viewPos;
     vec4 projectionNormal = projectionMatrix * modelViewMatrix * vec4(vNormal, 0.0);
     
     vec2 screenNormal = normalize(projectionNormal.xy);
-    projectionPos.xy += screenNormal * uDisplacement * projectionPos.w * 0.004;
+    projectionPos.xy += screenNormal * uDisplacement * projectionPos.w * 0.004 * mix(1.0, 0.65, face);
 
     gl_Position = projectionPos;
     vWorldY = (modelMatrix * vec4(pos, 1.0)).y;
