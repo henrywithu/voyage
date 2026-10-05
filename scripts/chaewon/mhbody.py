@@ -121,10 +121,10 @@ SIDES = ('l', 'r')
 SHAPE = [
     # Head: an idol's small face but true to her body (about eight heads tall), a soft V-line oval.
     ('head/head-oval', 0.45, None, None), ('head/head-age', -0.6, 'decr', 'incr'),
-    ('head/head-scale-horiz', 0.05, 'decr', 'incr'), ('head/head-scale-vert', 0.2, 'decr', 'incr'),
-    ('head/head-scale-depth', 0.0, 'decr', 'incr'), ('head/head-fat', -0.2, 'decr', 'incr'),
+    ('head/head-scale-horiz', -0.3, 'decr', 'incr'), ('head/head-scale-vert', 0.2, 'decr', 'incr'),
+    ('head/head-scale-depth', 0.0, 'decr', 'incr'), ('head/head-fat', -0.5, 'decr', 'incr'),
     ('head/head-back-scale-depth', -0.25, 'decr', 'incr'),
-    ('chin/chin-width', -0.2, 'decr', 'incr'), ('chin/chin-height', -0.5, 'decr', 'incr'),
+    ('chin/chin-width', -0.4, 'decr', 'incr'), ('chin/chin-height', -0.5, 'decr', 'incr'),
     ('chin/chin-prominent', 0.15, 'decr', 'incr'), ('chin/chin-bones', -0.3, 'decr', 'incr'),
     ('chin/chin-prognathism', 0.2, 'decr', 'incr'),
     ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans-backward', 0.0, 'forward', 'backward'),
@@ -165,7 +165,7 @@ for s in SIDES:
         (f'eyes/{s}-eye-epicanthus', -0.4, 'in', 'out'), (f'eyes/{s}-eye-bag', -0.6, 'decr', 'incr'),
         (f'eyes/{s}-eye-corner1', 0.15, 'down', 'up'), (f'eyes/{s}-eye-corner2', 0.25, 'down', 'up'),
         (f'eyes/{s}-eye-eyefold-angle', 0.2, 'down', 'up'),
-        (f'cheek/{s}-cheek-volume', 0.25, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.15, 'decr', 'incr'),
+        (f'cheek/{s}-cheek-volume', 0.05, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.35, 'decr', 'incr'),
         (f'armslegs/{s}-hand-scale', -0.3, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
         (f'armslegs/{s}-hand-fingers-length', 0.3, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
         (f'armslegs/{s}-lowerarm-scale-horiz', -0.2, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.15, 'decr', 'incr'),
@@ -176,7 +176,7 @@ for s in SIDES:
 
 # A soft oval face with a small, gently pointed chin (her likeness), and a fuller bust.
 SHAPE += [
-    ('head/head-round', 0.35, None, None), ('head/head-invertedtriangular', 0.15, None, None),
+    ('head/head-round', 0.15, None, None), ('head/head-invertedtriangular', 0.35, None, None),
     ('mouth/mouth-trans', 0.75, 'down', 'up'),
     ('nose/nose-trans', -0.15, 'down', 'up'),  # a short philtrum: nose and mouth close together
     ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.15, 'decr', 'incr'),
