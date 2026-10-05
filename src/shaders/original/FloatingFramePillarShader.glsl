@@ -173,6 +173,7 @@ void main() {
     // lighting
     vec3 lightDir = normalize(vec3(-0.9, 0.1, 1.0));
     float lighting = dot(normal, lightDir) * 0.5 + 0.5;
+    float hairLit = smoothstep(0.3, 0.85, lighting);
     lighting *= clamp(vPos.y * 0.5 + 0.88, 0.0, 1.0);
     lighting = pow(lighting - 0.1, 4.0);
 
@@ -190,8 +191,10 @@ void main() {
     color *= mix(trim, 1.0, vBackground + vBlobs);
     color *= mix(atlas, 1.0, vBackground + vBlobs);
     color = mix(color, vec3(1.0), blobAlpha);
-    color *= vec3((value + vBlobs) * (blobOutline + (1.0 - vBlobs)));
-    color = mix(color, hairShade(smoothstep(0.1, 0.5, lighting), aastep(0.55, texture2D(tTrim, vUv).r), vUv), hairMask(vUv) * (1.0 - vBackground) * (1.0 - vBlobs));
+    // Voyage: her skin keeps the frame's stipple, but as a light rosy shade rather than black dots.
+    vec3 shade = vec3((value + vBlobs) * (blobOutline + (1.0 - vBlobs)));
+    color *= mix(shade, skinShade(max(value, 0.35)), skinMask * (1.0 - vBackground) * (1.0 - vBlobs));
+    color = mix(color, hairShade(hairLit, aastep(0.55, texture2D(tTrim, vUv).r), vUv), hairMask(vUv) * (1.0 - vBackground) * (1.0 - vBlobs));
 
     // frame outline
     color *= outline;

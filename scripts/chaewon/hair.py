@@ -389,7 +389,10 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
         F[is_frame, :, 1] += -0.0003 * bump[None, :]
         return F
 
-    X = solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=iters, wind=wind, soften=4.0)
+    # Wind carries the hair a long way from where it starts (lifted, streaming back): give it time to
+    # settle, or the strands stop part-way, folded where the tips have turned and the rest has not.
+    X = solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=iters if wind is None else max(iters, 480),
+                     wind=wind, soften=4.0)
     # Outward direction of the nearest body surface at every point: ribbons lie flat on it.
     Nrm = sdf.gradient(X.reshape(-1, 3)).reshape(X.shape)
     return dict(X=X, groups=groups, widths=widths, lengths=lengths, hf=hf, pinned=pinned, roots=R, N=Nrm, el=elev,
@@ -476,7 +479,7 @@ def solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=140, bend=0.3, mar
     # Combed stiffness near the scalp, soft further down so long hair hangs instead of standing out.
     last_pin = N - 1 - np.argmax(pinned[:, ::-1], axis=1)
     k = np.arange(1, N - 1)[None, :] - last_pin[:, None]
-    bend_k = (bend * np.clip(np.exp(-np.maximum(k, 0) / soften), 0.12, 1.0))[..., None] if soften else bend
+    bend_k = (bend * np.clip(np.exp(-np.maximum(k, 0) / soften), 0.3, 1.0))[..., None] if soften else bend
     for it in range(iters):
         F = np.broadcast_to(gravity, X.shape).copy() + forces(X, it / iters)
         if wind is not None:
@@ -546,7 +549,18 @@ def ribbons(H, cam_up=None):
         P = X[i]
         tg = np.gradient(P, axis=0)
         tg /= np.maximum(np.linalg.norm(tg, axis=1, keepdims=True), 1e-9)
-        out = H['N'][i] if 'N' in H else P - hc
+        body = H['N'][i] if 'N' in H else P - hc
+        # The lock's flat side is carried along the strand (parallel transport), drawn gently toward the
+        # body's outward direction: it lies flat where it rests on her and never twists into a crumple
+        # where it flies free (far from the body that direction is noise).
+        out = np.zeros_like(P)
+        o = body[0]
+        for k in range(N):
+            o = o - tg[k] * (o @ tg[k])
+            b = body[k] - tg[k] * (body[k] @ tg[k])
+            o = o / max(np.linalg.norm(o), 1e-9) * 0.75 + b / max(np.linalg.norm(b), 1e-9) * 0.25
+            o /= max(np.linalg.norm(o), 1e-9)
+            out[k] = o
         side = np.cross(tg, out)
         side /= np.maximum(np.linalg.norm(side, axis=1, keepdims=True), 1e-9)
         up = np.cross(side, tg)

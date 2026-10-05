@@ -20,12 +20,14 @@ float skinLight(float lighting, float threshold) {
 }
 
 // Voyage: a fine warm contour where her skin turns edge-on to the eye (jaw, chin, the side of the nose),
-// inside the silhouette the outline pass already inks. Thin and rosy-brown rather than ink, so a face
-// seen in profile stays a face.
+// inside the silhouette the outline pass already inks: about a pixel and a half wide wherever it falls
+// (facing over its screen-space rate is the distance in pixels to the edge-on line), rosy-brown rather
+// than ink, so a face seen in profile stays a face rather than a band of shade.
 vec3 skinContour(vec3 viewNormal, vec3 viewPos) {
     float facing = abs(dot(normalize(viewNormal), normalize(-viewPos)));
-    float w = fwidth(facing);
-    return mix(vec3(0.62, 0.42, 0.4), vec3(1.0), smoothstep(0.1 - w, 0.1 + w, facing));
+    float px = facing / max(fwidth(facing), 1e-4);
+    float line = (1.0 - smoothstep(0.6, 1.6, px)) * (1.0 - smoothstep(0.1, 0.2, facing));
+    return mix(vec3(1.0), vec3(0.62, 0.42, 0.4), line);
 }
 
 // Her hair: locks map into the trim's hair bands (v 0.10-0.30) and the scalp cap into its black row

@@ -398,7 +398,7 @@ def asset_float(s):
     pb = s.arm.pose.bones
     nape = np.array(pb['neck02'].head) + np.array([0, 0.06, 0])
     pinch = {'L': nape + np.array([0.02, 0.01, 0]), 'R': nape + np.array([-0.02, 0.01, 0])}
-    H = s.hair(mats0, wind=wind_field((0.15, 0.25, 1.0), 0.0019, gust=0.6), key='float')
+    H = s.hair(mats0, wind=wind_field((0.15, 0.25, 1.0), 0.0017, gust=0.3), key='float', arms=True)
     parts, info = necklace.build(s, mats0, pinch)
     m, hr = skinned_with_hair(s, mats0, H, os.path.join(DEC, 'antigravity/chaewon-float.bin.mesh'),
                               os.path.join(DEC, 'antigravity/chaewon-float-anim.bin.mesh'), float_pose, 100,

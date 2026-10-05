@@ -250,7 +250,7 @@ def frame_profile(s):
     right = np.cross(up, fwd)
     target = (face['eyes'], d, np.stack([right, up, fwd], 1))
     m, P, N, k = place(s, lambda s_, y, p: gaze_pose(s_, 0, p), target,
-                       dict(wind_rel=(0.0, 0.25, 0.0012), key='frame_profile'))
+                       dict(wind_rel=(0.0, 0.3, 0.0022), key='frame_profile'))
     N = light_face(m, P, N, (0, 0.5, 2.0), face['eyes'], k, amount=0.75)
     y_cut = face['eyes'][1] - 0.4 * k
     keep = (P[m['F']][:, :, 1] > y_cut).any(1)
