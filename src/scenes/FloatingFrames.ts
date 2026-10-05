@@ -213,7 +213,8 @@ export async function setupFloatingFrames(section: SceneSection) {
           tTrim: texture("assets/images/story/chaewon/trim.png"),
           uLinesTile: 2.5,
           uLightDir: new THREE.Vector3(0.25, 0.25, 0.2),
-          uColor: new THREE.Vector3(127 / 255, 114 / 255, 97 / 255),
+          // Voyage: her irises' warm brown (multiplied over the painted iris).
+          uColor: new THREE.Vector3(168 / 255, 118 / 255, 92 / 255),
           uColorBG: new THREE.Vector3(243 / 255, 187 / 255, 34 / 255),
           uColorFlavor: new THREE.Vector3(99 / 255, 196 / 255, 244 / 255),
           uOpenEyesWeight: 0,
@@ -226,7 +227,8 @@ export async function setupFloatingFrames(section: SceneSection) {
             ? {
                 uLinesTile: 0.8,
                 uLightDir: new THREE.Vector3(0.25, 0.25, 0.2),
-                uColor: new THREE.Vector3(127 / 255, 114 / 255, 97 / 255),
+                // Voyage: her irises' warm brown (multiplied over the painted iris).
+                uColor: new THREE.Vector3(168 / 255, 118 / 255, 92 / 255),
               }
             : {
                 uColor1: new THREE.Vector3(243 / 255, 187 / 255, 34 / 255),

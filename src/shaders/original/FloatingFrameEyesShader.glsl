@@ -132,7 +132,7 @@ void main() {
 
     // trim texture
     vec2 displacement = vec2(sin(vPos.y * 20.0 + floor(time * 6.0) * 1.5), 0.0);
-    float atlas = texture2D(tAtlas, vUv + displacement * 0.0003).r;
+    float atlas = inkLevel(texture2D(tAtlas, vUv + displacement * 0.0003).r);
     atlas += (lines) * 0.15;
     atlas = aastep(0.25, atlas);
 
@@ -165,6 +165,7 @@ void main() {
     color *= maskedLines;
     color = mix(color, vec3(1.0), terminatorbounce);
     color *= atlas;
+    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), trim, vUv2), hairMask(vUv2));
     color *= mix(vec3(1.0), uColor, vIrisMask);
 
     vec3 backgroundColor = vec3(58.0) / 255.0;

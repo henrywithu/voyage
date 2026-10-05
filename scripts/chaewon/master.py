@@ -163,23 +163,26 @@ def dress_parts(rest, sim):
 
 
 def hair_parts(rest, H, P_body_for_cap, names, head_xf=None, cap=True):
-    """Hair ribbons (+ scalp cap) for a styled hair result H. Weights: head at the scalp, easing onto the
+    """Hair locks (+ scalp cap) for a styled hair result H. Weights: head at the scalp, easing onto the
     upper chest toward the tips so long hair follows the body in animation."""
     import hair as hair_mod
     hv, hf_, huv, hg, ht = hair_mod.ribbons(H)
     S = H['X'].shape[0]
     N = H['X'].shape[1]
-    band = np.repeat(np.arange(S) % HAIR_BANDS, N * 2)
+    K = hair_mod.RING
+    # The band a lock maps into is its shade (shaders read it back as a tone, makeup.glsl hairShade).
+    shade = H['tone'] if 'tone' in H else (np.arange(S) % HAIR_BANDS) / (HAIR_BANDS - 1)
+    band = np.repeat(np.clip(np.round(shade * (HAIR_BANDS - 1)), 0, HAIR_BANDS - 1).astype(int), N * K)
     across = huv[:, 1]
-    u = np.repeat(hair_mod.strand_u(H).reshape(-1), 2)
+    u = np.repeat(hair_mod.strand_u(H).reshape(-1), K)
     uv = np.c_[u * 0.999, HAIR_V[0] + (band + 0.02 + 0.96 * across) * (HAIR_V[1] - HAIR_V[0]) / HAIR_BANDS]
     W = np.zeros((len(hv), len(names)), np.float32)
     hb, nb, cb = names.index('head'), names.index('neck02'), names.index('spine01')
-    pinned = np.repeat(H['pinned'], 2, axis=1).reshape(-1)
+    pinned = np.repeat(H['pinned'], K, axis=1).reshape(-1)
     t = ht
     # Fraction of each strand that hangs free.
     free = np.clip((t - 0.25) / 0.75, 0, 1) * (~pinned)
-    long = np.repeat(H['lengths'] > 0.3, N * 2)
+    long = np.repeat(H['lengths'] > 0.3, N * K)
     W[:, hb] = 1 - free * np.where(long, 0.75, 0.2)
     W[:, nb] = free * np.where(long, 0.25, 0.2)
     W[:, cb] = free * np.where(long, 0.5, 0.0)

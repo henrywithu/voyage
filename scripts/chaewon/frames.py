@@ -437,6 +437,7 @@ def frame_eyes_cathedral(s):
     bP, bN, bF, battrs = saint_backdrop(a, F0, plane, ('uv', 'uv2', 'colorid'))
     # The backdrop is plain paper: its source uvs would sample her face drawing (the lips) in this atlas.
     battrs['uv'] = np.tile(atlas.SKIN_WHITE, (len(bP), 1))
+    battrs['uv2'] = np.tile(M.TRIM_WHITE, (len(bP), 1))
     nb = len(used)
     pos = np.concatenate([P[used], capP, bP])
     nor = np.concatenate([N[used], capN, bN])

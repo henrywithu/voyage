@@ -164,7 +164,7 @@ void main() {
     float lines = texture2D(tLines, lineUv.yx * (0.7 - vBackground * 0.1)).r * 2.0 - 1.0;
 
     // trim texture
-    float atlas = texture2D(tAtlas, vUv2).r;
+    float atlas = inkLevel(texture2D(tAtlas, vUv2).r);
 
     // trim texture
     float trim = texture2D(tTrim, vUv).r;
@@ -191,6 +191,7 @@ void main() {
     color *= mix(atlas, 1.0, vBackground + vBlobs);
     color = mix(color, vec3(1.0), blobAlpha);
     color *= vec3((value + vBlobs) * (blobOutline + (1.0 - vBlobs)));
+    color = mix(color, hairShade(smoothstep(0.1, 0.5, lighting), aastep(0.55, texture2D(tTrim, vUv).r), vUv), hairMask(vUv) * (1.0 - vBackground) * (1.0 - vBlobs));
 
     // frame outline
     color *= outline;

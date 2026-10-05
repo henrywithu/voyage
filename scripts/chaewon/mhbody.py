@@ -124,7 +124,7 @@ SHAPE = [
     ('head/head-scale-horiz', -0.07, 'decr', 'incr'), ('head/head-scale-vert', -0.4, 'decr', 'incr'),
     ('head/head-scale-depth', -0.28, 'decr', 'incr'), ('head/head-fat', -0.2, 'decr', 'incr'),
     ('head/head-back-scale-depth', -0.5, 'decr', 'incr'),
-    ('chin/chin-width', -0.1, 'decr', 'incr'), ('chin/chin-height', -0.7, 'decr', 'incr'),
+    ('chin/chin-width', -0.1, 'decr', 'incr'), ('chin/chin-height', -1.0, 'decr', 'incr'),
     ('chin/chin-prominent', 0.15, 'decr', 'incr'), ('chin/chin-bones', -0.3, 'decr', 'incr'),
     ('chin/chin-prognathism', 0.2, 'decr', 'incr'),
     ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans-backward', 0.0, 'forward', 'backward'),
@@ -176,7 +176,8 @@ for s in SIDES:
 
 # A soft, round face with a small chin (her likeness), and a fuller bust.
 SHAPE += [
-    ('head/head-round', 0.6, None, None), ('mouth/mouth-trans', 0.4, 'down', 'up'),
+    ('head/head-round', 0.6, None, None), ('mouth/mouth-trans', 0.75, 'down', 'up'),
+    ('nose/nose-trans', -0.35, 'down', 'up'),  # a short philtrum: nose and mouth close together
     ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.15, 'decr', 'incr'),
 ]
 
@@ -203,7 +204,13 @@ def enlarge_eyes(verts, faces, groups, scale=EYE_SCALE, r0=0.17, r1=0.42):
     return verts
 
 
-def build(shape=SHAPE, eye_scale=EYE_SCALE, **macro_overrides):
+# Her resting expression: a gentle smile, lips just parted, the lower lids lifted a little (the soft,
+# smiling eyes of the aegyo-sal) - never the blank stare of a neutral base mesh.
+EXPRESSION = {'mouth-corner-puller': 0.24, 'mouth-parling': 0.14, 'eye-left-slit': 0.13, 'eye-right-slit': 0.13,
+              'eyebrows-left-inner-up': 0.12, 'eyebrows-right-inner-up': 0.12}
+
+
+def build(shape=SHAPE, eye_scale=EYE_SCALE, expr=EXPRESSION, **macro_overrides):
     """Shaped body: (verts, uvs, faces, fuvs, groups) in MakeHuman space."""
     verts, uvs, faces, fuvs, groups = load_obj()
     params = dict(MACRO)
@@ -211,6 +218,8 @@ def build(shape=SHAPE, eye_scale=EYE_SCALE, **macro_overrides):
     macro(verts, **params)
     for rel, value, neg, pos in shape:
         modifier(verts, rel, value, neg, pos)
+    if expr:
+        verts[:] = expression(verts, expr)
     enlarge_eyes(verts, faces, groups, eye_scale)
     return verts, uvs, faces, fuvs, groups
 

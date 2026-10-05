@@ -158,7 +158,7 @@ void main() {
     float trim = texture2D(tTrim, vUv).r;
 
     // atlas texture
-    float atlas = texture2D(tAtlas, vUv2).r;
+    float atlas = inkLevel(texture2D(tAtlas, vUv2).r);
     atlas = aastep(0.55, atlas * trim);
 
     // lighting
@@ -182,12 +182,13 @@ void main() {
     // compositing;
     vec3 color = vec3(1.0);
     color = mix(vec3(0.0), uColor1, terminatormid);
-    color = mix(color, vec3(1.0), vSkinMask);
+    color = mix(color, skinShade(max(terminatormid, 0.35)), vSkinMask);
     color = mix(color, uColor2, vIrisMask);
     color = applyMakeup(color, tAtlas, vUv2, terminatormid);
     color *= maskedLines;
     color *= trim;
     color *= atlas;
+    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), aastep(0.55, trim), vUv), hairMask(vUv) * (1.0 - vBackgroundMask));
     color = mix(color, vec3(44.0, 44.0, 46.0) / 255.0, vBackgroundMask);
 
     // vec3 backgroundColor = vec3(1.0);

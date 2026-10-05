@@ -140,7 +140,7 @@ void main() {
     float lines = texture2D(tLines, lineUv.yx * (0.7 - vBackground * 0.1)).r * 2.0 - 1.0;
 
     // trim texture
-    float atlas = texture2D(tAtlas, vUv2).r;
+    float atlas = inkLevel(texture2D(tAtlas, vUv2).r);
     atlas = aastep(0.55, atlas);
 
     // trim texture
@@ -175,6 +175,7 @@ void main() {
 
     // frame outline
     color *= value;
+    color = mix(color, hairShade(smoothstep(0.35, 0.8, lighting), aastep(0.55, trimData.r), vUv), hairMask(vUv) * (1.0 - vBackground));
     color *= outline;
 
     color = max(nearBlack, color);

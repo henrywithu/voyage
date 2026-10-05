@@ -25,8 +25,24 @@ if __name__ == '__main__':
     win = facemap.render(rest, fm)
     lm = face.landmarks(face.load_map(fm))
     lm['nose_y'] = face.nose_tip_px(rest, win, lm['R'])
-    makeup = {k: face.makeup_svg(lm, k) for k in ('lips', 'cheeks')}
-    ew = atlas.build(face.face_svg(lm), face.face_svg(lm, closeup=True), lm, win, OUT, chromium=CHROMIUM, makeup=makeup)
+    # Contour shading and the fringe's shadow on the forehead, painted from the feature map's silhouette.
+    import base64
+    import io
+    import hair as hair_mod
+    from PIL import Image
+    fmap = face.load_map(fm)
+    R = lm['R']
+    eye_y = (lm['eyes'][0]['cy'] + lm['eyes'][1]['cy']) / 2
+    chin_y = lm['mouth']['seam_y'] + 0.6 * (lm['mouth']['seam_y'] - eye_y)
+    hf = hair_mod.head_frame(rest)
+    hz = hair_mod.ellipsoid_point(hf, 0.0, float(hair_mod.hairline_elev(0.0)))[2]
+    hair_y = (0.5 - (hz - win['cz']) / win['size']) * R
+    rgba = face.contour_layer(fmap, R, eye_y, chin_y, hair_y)
+    buf = io.BytesIO()
+    Image.fromarray((rgba * 255).astype(np.uint8), 'RGBA').save(buf, 'PNG')
+    layer = 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+    ew = atlas.build(face.face_svg(lm, layer_png=layer), face.face_svg(lm, closeup=True, layer_png=layer), lm, win, OUT,
+                     chromium=CHROMIUM)
     mid = (lm['eyes'][0]['cx'] + lm['eyes'][1]['cx']) / 2
     iris = [face.iris_geometry(e, -1 if e['cx'] < mid else 1) for e in lm['eyes']]
     json.dump(dict(win=win, eye_window=ew, eyes=[dict(cx=float(e['cx']), cy=float(e['cy']), x0=int(e['x0']), x1=int(e['x1']),

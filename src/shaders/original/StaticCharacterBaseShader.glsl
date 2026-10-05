@@ -107,14 +107,15 @@ void main() {
     float lines = texture2D(tLines, lineUv.yx).r * 2.0 - 1.0;
 
     // detail texture
-    float atlas = texture2D(tAtlas, vUv2).r;
+    float atlas = inkLevel(texture2D(tAtlas, vUv2).r);
     atlas = aastep(0.55, atlas * trim);
 
     // lighting
     float lighting = dot(normal, uLightDir);
     float lightMask = max(0.0, lighting);
-    // Voyage: her skin keeps to the light (a crisp shadow only where it turns well away).
-    float terminatormid = aastep(uThreshold.x, lighting + lines * mix(0.45, 0.25, vSkinMask) + vSkinMask * 0.4);
+    float terminatormid = aastep(uThreshold.x, lighting + lines * 0.45);
+    // Voyage: her skin keeps to the light (a soft shadow only where it turns well away).
+    float skinLit = skinLight(lighting, uThreshold.x - 0.4);
     float terminatorhigh = aastep(uThreshold.y, lighting + lines * 0.1);
 
     // reduce lines in areas of brightness
@@ -123,7 +124,6 @@ void main() {
     // break up lines with dots as light gets brighter
     float noise = texture2D(tNoise, lineUv * 2.0).r;
     maskedLines += noise* pow(lightMask, 2.0) * 3.0;
-    maskedLines += vSkinMask * 0.3;
     maskedLines = aastep(0.01, maskedLines);
 
     // compositing;
@@ -131,12 +131,16 @@ void main() {
     vec3 alt = uColor;
     alt = mix(alt, vec3(1.0), vSkinMask);
 
-    color = mix(vec3(0.0), alt, terminatormid);
+    // Voyage: her dress falls into a soft grey shade (the hatching draws its texture), not solid ink.
+    color = mix(alt * 0.6, alt, terminatormid);
+    color = mix(color, skinShade(skinLit), vSkinMask);
     color = mix(color, vec3(1.0), terminatorhigh);
-    color = applyMakeup(color, tAtlas, vUv2, terminatormid);
-    color *= mix(1.0, skinContour(vViewNormal, vViewPos), vSkinMask);
-    color *= maskedLines;
+    color = applyMakeup(color, tAtlas, vUv2, skinLit);
+    color *= mix(vec3(1.0), skinContour(vViewNormal, vViewPos), vSkinMask);
+    // Voyage: the hatching on her dress is a dark grey stroke, lighter than the ink of her outline.
+    color *= mix(mix(0.5, 1.0, maskedLines), 1.0, vSkinMask);
     color *= atlas;
+    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), aastep(0.55, trim), vUv), hairMask(vUv));
 
     color = max(vec3(18.0 / 255.0), color);
 

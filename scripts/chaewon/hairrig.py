@@ -10,6 +10,8 @@ All matrices are 4x4 world matrices in Blender space.
 """
 import numpy as np
 
+import hair as hair_mod
+
 SEGMENTS = 4
 
 
@@ -43,7 +45,7 @@ class HairRig:
         S, N, _ = X.shape
         rng = np.random.default_rng(seed)
         phi = H['roots'][:, 0]
-        movable = (groups != 'bangs') & (H['lengths'] > 0.12)
+        movable = ~np.isin(groups, ('bangs', 'side')) & (H['lengths'] > 0.12)
         # Cluster by azimuth (front pieces form their own clusters per side).
         bins = np.linspace(-np.pi, np.pi, n_chains + 1)
         cid = np.full(S, -1)
@@ -96,7 +98,7 @@ class HairRig:
 
     def hair_weights(self, W, names_ext, n_strand_verts):
         """Replace weights of free hair vertices with chain weights. W: (V, B) for the ribbon verts
-        (two verts per strand point, strand-major as in hair.ribbons)."""
+        (hair.RING verts per strand point, strand-major as in hair.ribbons)."""
         X, pinned = self.H['X'], self.H['pinned']
         S, N, _ = X.shape
         Wn = np.zeros((W.shape[0], len(names_ext)), np.float32)
@@ -124,8 +126,8 @@ class HairRig:
                     else:
                         w[idx[k]] += u * lead
                     w[hb] += 1 - lead
-                    for e in (0, 1):
-                        Wn[(i * N + a + j) * 2 + e] = w
+                    K = hair_mod.RING
+                    Wn[(i * N + a + j) * K:(i * N + a + j + 1) * K] = w
         return Wn
 
     # ---------------------------------------------------------------- animation

@@ -116,7 +116,7 @@ void main() {
     float lines = texture2D(tLines, lineUv.yx).r * 2.0 - 1.0;
 
     // detail texture
-    float atlas = texture2D(tAtlas, vUv2).r;
+    float atlas = inkLevel(texture2D(tAtlas, vUv2).r);
     atlas = aastep(0.55, atlas);
 
     // lighting
@@ -126,8 +126,9 @@ void main() {
     float lighting = dot(normal, lightDir) * vAo;
     
     float lightMask = max(0.0, lighting);
-    // Voyage: her skin keeps to the light (a crisp shadow only where it turns well away).
-    float terminatormid = aastep(0.3, lighting + lines * mix(0.3, 0.18, skinMask) + skinMask * 0.42);
+    float terminatormid = aastep(0.3, lighting + lines * 0.3);
+    // Voyage: her skin keeps to the light (a soft shadow only where it turns well away).
+    float skinLit = skinLight(lighting, -0.12);
     float terminatorhigh = aastep(0.85, lighting + lines * 0.1 - 0.1);
     float terminatorbounce = 1.0 - aastep(-0.91, lighting - lines * 0.2);
 
@@ -137,7 +138,6 @@ void main() {
     // break up lines with dots as light gets brighter
     float noise = texture2D(tNoise, lineUv * 2.0).r;
     maskedLines += noise * pow(lightMask, 2.0) * 3.0;
-    maskedLines += skinMask * 0.3;
     maskedLines = aastep(0.01, maskedLines);
     // Prevent masked lines appearing in the eyes
     maskedLines += vEyeMask;
@@ -165,12 +165,16 @@ void main() {
     color = mix(alt, vec3(1.0), skinMask);
     color = mix(color, vec3(1.0), skinMask);
     color = mix(color, uDrinkColor, drinkMask);
-    color = mix(vec3(18.0 / 255.0), color, terminatormid);
-    color = applyMakeup(color, tAtlas, vUv2, terminatormid);
-    color *= mix(1.0, skinContour(vViewNormal, vViewPos), skinMask);
-    color *= maskedLines;
+    // Voyage: her dress falls into a soft grey shade (the hatching draws its texture), not solid ink.
+    color = mix(color * 0.6, color, terminatormid);
+    color = mix(color, skinShade(skinLit), skinMask * (1.0 - drinkMask));
+    color = applyMakeup(color, tAtlas, vUv2, skinLit);
+    color *= mix(vec3(1.0), skinContour(vViewNormal, vViewPos), skinMask);
+    // Voyage: the hatching on her dress is a dark grey stroke, lighter than the ink of her outline.
+    color *= mix(min(mix(0.5, 1.0, maskedLines), 1.0), 1.0, skinMask);
     color *= trim;
     color *= atlas;
+    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), trim, vUv), hairMask(vUv));
 
     // The pendant's pearl wakes in the tide's colour (uv2 in the far corner marks it).
     float pearl = step(0.995, min(vUv2.x, vUv2.y)) * uPearl;

@@ -1,7 +1,9 @@
 """Chaewon's line-art atlas (4096 px) and the uv mapping into it.
 
-Channels: red is the line art; green and blue are make-up masks over the same projection (green: lips,
-blue: cheeks; 255 = none, 0 = full), white elsewhere. Shaders that know nothing of make-up read red only.
+Colour: ink is near-black (red below about 0.16, which makeup.glsl inkLevel maps under the 0.55 every
+shader thresholds its line art at), everything lighter is paint (her skin, make-up, dark brown irises),
+multiplied over her shading (src/shaders/original/makeup.glsl). Every shader that draws her reads the
+atlas through inkLevel.
 
 Layout (GL v, bottom -> top). Shaders treat v > 0.55 as skin, below as cloth.
   face projection   u 0.000-0.445, v 0.555-1.000  front orthographic window of the head
@@ -54,8 +56,11 @@ def eye_uv(P, ew):
                  EYE_UV['v0'] + np.clip(z, 0, 1) * (EYE_UV['v1'] - EYE_UV['v0'])]
 
 
-def build(face_svg, closeup_svg, lm, win, out_png, chromium=None, makeup=None):
-    """makeup: {'lips': svg, 'cheeks': svg} masks over the face projection (green and blue channels)."""
+SKIN_RGB = (255, 241, 235)  # face.SKIN: body skin samples SKIN_WHITE, which must match the painted face
+
+
+def build(face_svg, closeup_svg, lm, win, out_png, chromium=None):
+    """Render the painted face and the eye close-up into the atlas (RGB: ink is black, paint is colour)."""
     from svgrender import svg2png
     if chromium:
         os.environ['CHROMIUM_PATH'] = chromium
@@ -66,27 +71,15 @@ def build(face_svg, closeup_svg, lm, win, out_png, chromium=None, makeup=None):
     x0, y0, x1, y1 = ew['px']
     cw = int(round((EYE_UV['u1'] - EYE_UV['u0']) * SIZE))
     ch = int(round((EYE_UV['v1'] - EYE_UV['v0']) * SIZE))
-
-    def face_layer(svg):
-        svg2png(svg.replace('width="%d" height="%d"' % (R, R), 'width="%d" height="%d"' % (fpx, fpx), 1), tmp, fpx, fpx)
-        return Image.open(tmp).convert('L')
-
-    def eye_layer(svg):
-        svg = svg.replace('viewBox="0 0 %d %d"' % (R, R), 'viewBox="%.1f %.1f %.1f %.1f"' % (x0, y0, x1 - x0, y1 - y0), 1)
-        svg = svg.replace('width="%d" height="%d"' % (R, R), 'width="%d" height="%d"' % (cw, ch), 1)
-        svg2png(svg, tmp, cw, ch)
-        return Image.open(tmp).convert('L')
-
-    face_at = (int(FACE_UV['u0'] * SIZE), int((1 - FACE_UV['v0'] - FACE_UV['span']) * SIZE))
-    eye_at = (int(EYE_UV['u0'] * SIZE), int((1 - EYE_UV['v1']) * SIZE))
-    channels = []
-    for art_face, art_eye in ((face_svg, closeup_svg),) + tuple(((makeup or {}).get(k), (makeup or {}).get(k))
-                                                                  for k in ('lips', 'cheeks')):
-        layer = Image.new('L', (SIZE, SIZE), 255)
-        if art_face is not None:
-            layer.paste(face_layer(art_face), face_at)
-            layer.paste(eye_layer(art_eye), eye_at)
-        channels.append(layer)
+    atlas = Image.new('RGB', (SIZE, SIZE), 'white')
+    # Skin zone (v > 0.555) outside the face window: her skin tone.
+    atlas.paste(Image.new('RGB', (SIZE - fpx, int((1 - FACE_UV['v0']) * SIZE)), SKIN_RGB), (fpx, 0))
+    svg2png(face_svg.replace('width="%d" height="%d"' % (R, R), 'width="%d" height="%d"' % (fpx, fpx), 1), tmp, fpx, fpx)
+    atlas.paste(Image.open(tmp).convert('RGB'), (int(FACE_UV['u0'] * SIZE), int((1 - FACE_UV['v0'] - FACE_UV['span']) * SIZE)))
+    svg = closeup_svg.replace('viewBox="0 0 %d %d"' % (R, R), 'viewBox="%.1f %.1f %.1f %.1f"' % (x0, y0, x1 - x0, y1 - y0), 1)
+    svg = svg.replace('width="%d" height="%d"' % (R, R), 'width="%d" height="%d"' % (cw, ch), 1)
+    svg2png(svg, tmp, cw, ch)
+    atlas.paste(Image.open(tmp).convert('RGB'), (int(EYE_UV['u0'] * SIZE), int((1 - EYE_UV['v1']) * SIZE)))
     os.remove(tmp)
-    Image.merge('RGB', channels).save(out_png, optimize=True)
+    atlas.save(out_png, optimize=True)
     return ew
