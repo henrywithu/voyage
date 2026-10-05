@@ -41,17 +41,17 @@ float hairMask(vec2 trimUv) {
 vec3 hairShade(float lit, float sheen, vec2 trimUv) {
     float lock = step(0.10, trimUv.y);
     float band = clamp(floor((trimUv.y - 0.10) / 0.025) / 7.0, 0.0, 1.0);
-    float tone = mix(0.7, mix(0.84, 1.14, band), lock);
-    vec3 base = mix(vec3(0.07, 0.047, 0.04), vec3(0.235, 0.165, 0.138), lit) * tone;
+    float tone = mix(0.7, mix(0.93, 1.07, band), lock);
+    vec3 base = mix(vec3(0.065, 0.043, 0.037), vec3(0.25, 0.172, 0.14), lit) * tone;
     // Across the band, 0 and 1 are a lock's two edges and 0.5 its middle.
     float across = fract((trimUv.y - 0.10) / 0.025);
     float edge = (1.0 - smoothstep(0.0, 0.12, min(across, 1.0 - across))) * lock;
     float middle = 1.0 - abs(across - 0.5) * 2.0;
-    base *= 1.0 - 0.22 * edge;
+    base *= 1.0 - 0.07 * edge;
     float u = trimUv.x;
     float ring = smoothstep(0.11, 0.19, u) * (1.0 - smoothstep(0.25, 0.35, u)) * lock;
     float core = smoothstep(0.16, 0.2, u) * (1.0 - smoothstep(0.22, 0.27, u)) * lock;
-    base = mix(base, vec3(0.5, 0.4, 0.35), ring * (0.35 + 0.45 * lit) * (0.45 + 0.55 * middle));
-    base = mix(base, vec3(0.74, 0.64, 0.59), core * (0.3 + 0.7 * lit) * middle * 0.6);
-    return mix(base, vec3(0.62, 0.53, 0.49), sheen * 0.5 * (1.0 - edge));
+    base = mix(base, vec3(0.46, 0.37, 0.32), ring * (0.3 + 0.4 * lit) * (0.45 + 0.55 * middle));
+    base = mix(base, vec3(0.66, 0.57, 0.52), core * (0.25 + 0.6 * lit) * middle * 0.45);
+    return mix(base, vec3(0.58, 0.5, 0.46), sheen * 0.38 * (1.0 - edge));
 }

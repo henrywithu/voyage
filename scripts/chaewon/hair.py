@@ -188,15 +188,19 @@ def design(rest, seed=11):
     split so that a good part of it falls in front of the shoulders."""
     rng = np.random.default_rng(seed)
     hf = head_frame(rest)
-    hair = sample_roots(hf, 470, rng, 'all')
-    # The fringe: clumps of two or three locks across the forehead, a narrow gap at the parting.
-    bangs = []
-    for c in (-31.0, -25.0, -19.0, -13.5, -8.5, -4.2, 4.2, 8.5, 13.5, 19.0, 25.0, 31.0):
-        for _ in range(3 if abs(c) < 25 else 2):
-            az = c + rng.normal(0, 1.3)
+    hair = sample_roots(hf, 600, rng, 'all')
+    # The see-through fringe: wispy clumps of three or four fine locks whose tips gather to a point, the
+    # forehead showing between them; a narrow gap at the parting with a single fine wisp either side of it.
+    bangs, clump = [], []
+    for ci, c in enumerate((-31.5, -25.0, -18.8, -12.6, -6.6, -2.2, 2.2, 6.6, 12.6, 18.8, 25.0, 31.5)):
+        c = c + rng.normal(0, 0.6)
+        n_l = 1 if abs(c) < 3.5 else (3 if abs(c) > 28 else 4)
+        for _ in range(n_l):
+            az = c + rng.uniform(-2.3, 2.3) * (0.3 if n_l == 1 else 1.0)
             phi = np.radians(az)
             depth = 26.0 * np.clip(1 - (abs(az) / 40.0) ** 2, 0, 1)
-            bangs.append((phi, hairline_elev(phi) + 3.0 + depth * rng.uniform(0.2, 0.7)))
+            bangs.append((phi, hairline_elev(phi) + 3.0 + depth * rng.uniform(0.15, 0.75)))
+            clump.append(ci)
     bangs = np.array(bangs)
     # Side pieces at the temples, and the face-framing layer behind them.
     side = np.array([(sg * np.radians(az + rng.normal(0, 1.0)), hairline_elev(np.radians(az)) + 3 + 4 * rng.random())
@@ -207,10 +211,11 @@ def design(rest, seed=11):
     for phi, el in hair:
         a = abs(np.degrees(phi))
         # Hair from the front half of the head (ahead of the ears) falls partly in front of the shoulders.
-        front = a < 105 and rng.random() < 0.7 * np.clip((105 - a) / 50, 0, 1) + 0.1
+        front = a < 105 and rng.random() < 0.8 * np.clip((105 - a) / 45, 0, 1) + 0.1
         groups.append('front' if front else 'back')
     groups += ['bangs'] * len(bangs) + ['side'] * len(side) + ['frame'] * len(frame)
-    return hf, np.concatenate([hair, bangs, side, frame]), np.array(groups)
+    clumps = np.r_[np.full(len(hair), -1), clump, np.full(len(side) + len(frame), -1)]
+    return hf, np.concatenate([hair, bangs, side, frame]), np.array(groups), clumps
 
 
 def scalp_path(hf, phi0, el0, phi1, el1, n, lift):
@@ -233,23 +238,31 @@ def release_point(phi0, el0, group, rng):
         return s * np.radians(min(a + 8, 56)), hairline_elev(np.radians(a)) - 6.0
     if group == 'frame':
         return s * np.radians(min(a + 9, 70) + rng.normal(0, 2)), 2.0 + rng.normal(0, 3)
+    # Combed from the centre part: every lock runs straight down the side of the head from where it grows
+    # (along its own front-to-back slice, so neighbouring locks lie side by side and never cross), and
+    # leaves the scalp a little below the widest part of the head.
+    el_end = -9.0 + rng.normal(0, 3.0)
+    c = np.clip(np.cos(np.radians(a)) * np.cos(np.radians(el0)) / np.cos(np.radians(el_end)), -1, 1)
+    flow = np.degrees(np.arccos(c))
     if group == 'front':
-        # Over the temple, in front of the ear.
-        return s * np.radians(min(max(a + 30, 62 + 0.3 * a), 96) + rng.normal(0, 4)), -4.0 + rng.normal(0, 5)
-    if a < 95:
-        # Over the top and the sides: sweep away from the part to above and behind the ear.
-        phi_r = s * np.radians(min(180, max(a + 40, 92 + 0.45 * a) + rng.normal(0, 4)))
-        return phi_r, -4.0 + rng.normal(0, 6)
-    # Back of the head: down toward the nape, drawn a little toward the middle of the back.
-    return s * np.radians(a + (180 - a) * 0.35 + rng.normal(0, 3)), -22.0 + rng.normal(0, 5)
+        # Hair from ahead of the crown falls past the temple, clear of the face, over the ear.
+        az = np.clip(flow, 72 + 0.2 * a, 100) + rng.normal(0, 1.5)
+        return s * np.radians(az), el_end - 20.0 * np.clip(1 - abs(az - 92) / 20, 0, 1)
+    if a < 100:
+        # Hair over the ears wraps them and parts below them (in front of the shoulder or behind).
+        az = np.clip(flow, 84, 180) + rng.normal(0, 1.5)
+        return s * np.radians(az), el_end - 20.0 * np.clip(1 - abs(az - 92) / 20, 0, 1)
+    # Back of the head: straight down (behind the ears too, so no skin shows between the side and the back).
+    return s * np.radians(min(a + (180 - a) * 0.1 + rng.normal(0, 2), 180)), -18.0 + rng.normal(0, 3)
 
 
-def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
+def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None):
     """Style the hair for a pose: head_xf maps rest head space to posed (4x4).
 
     sweep: a point (posed space) to gather the long hair toward, e.g. over one shoulder."""
     rng = np.random.default_rng(seed)
-    hf, R, groups = design(rest, seed)
+    hf, R, groups, clumps = design(rest, seed)
+    clump_len = np.random.default_rng(seed + 1).normal(0, 0.005, max(clumps.max() + 1, 1))
     N = 26
     S = len(R)
     X0 = np.zeros((S, N, 3))
@@ -268,18 +281,18 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
         layer = np.clip((el0 - hl) / max(78 - hl, 1), 0, 1)
         # Each lock's own shade of brown: the outer layers (rooted higher) catch more light than those under them.
         tone[i] = np.clip(0.15 + 0.5 * layer + 0.45 * rng.random() + (0.2 if g in ('bangs', 'side', 'frame') else 0), 0, 1)
-        lift = 0.0028 + 0.0014 * layer
+        lift = 0.0028 + 0.0032 * layer
         if g == 'bangs':
             total = None  # set from the scalp path below: over the brows
             lift = 0.0042 + 0.001 * rng.random()
-            widths[i] = 0.0075 + 0.003 * rng.random()
+            widths[i] = 0.0058 + 0.0026 * rng.random()
         elif g == 'side':
             total = None  # to the cheekbones
             lift = 0.006
             widths[i] = 0.010 + 0.003 * rng.random()
         elif g == 'front':
             total = 0.50 + rng.normal(0, 0.03)
-            widths[i] = 0.013 + 0.006 * rng.random()
+            widths[i] = 0.011 + 0.005 * rng.random()
         elif g == 'frame':
             # Face-framing pieces: from the temples, along the cheeks and on past the jaw to the collarbone.
             total = 0.30 + 0.06 * rng.random()
@@ -288,12 +301,18 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
         elif g == 'back':
             back = 0.5 - 0.5 * np.cos(phi0)
             total = 0.50 + 0.06 * back + rng.normal(0, 0.025)
-            widths[i] = 0.019 + 0.009 * rng.random()
+            widths[i] = 0.016 + 0.007 * rng.random()
         else:
             total = 0.35 + 0.2 * rng.random()
             widths[i] = 0.002 + 0.002 * rng.random()
         el_path = np.linspace(el0, el1, 40)
-        lift = lift + 0.0045 * np.clip(el_path / 75.0, 0, 1) ** 1.3
+        if g in ('front', 'back'):
+            # Volume: the long hair stands further off the head the further it runs down from the part (the
+            # layers beneath hold it out), so the locks share one smooth dome that widens to below the ears
+            # and lets the hair fall clear of them, instead of hugging the skull and stepping off it.
+            lift = lift + 0.003 * np.clip(el_path / 75.0, 0, 1) + 0.012 * np.clip((62 - el_path) / 72.0, 0, 1) ** 1.4
+        else:
+            lift = lift + 0.0045 * np.clip(el_path / 75.0, 0, 1) ** 1.3
         # Grown out of the scalp: the first few millimetres rise from the skin to the lock's height.
         arc = np.r_[0, np.cumsum(np.linalg.norm(np.diff(ellipsoid_point(hf, np.linspace(phi0, phi1, 40), el_path), axis=0), axis=1))]
         lift = 0.004 + (lift - 0.004) * np.clip(arc / 0.006, 0, 1) ** 0.7
@@ -303,7 +322,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
             total = plen + 0.075 + 0.02 * rng.random()
         elif total is None:
             # The fringe falls from the hairline over the brows, longer toward the sides.
-            total = plen + 0.050 + 0.018 * (abs(phi0) / np.radians(34)) ** 2 + 0.008 * rng.random()
+            total = plen + 0.048 + 0.02 * (abs(phi0) / np.radians(34)) ** 2 + clump_len[clumps[i]] + 0.006 * rng.random()
         plen = min(plen, total * 0.7)
         seg = total / (N - 1)
         lengths[i] = total
@@ -337,7 +356,16 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
     # Hair in front of the shoulders slides forward over them, the rest back; locks by the face fall
     # forward of it.
     slide = np.where(np.isin(groups, ('front', 'bangs', 'side', 'frame')), -1.0, 1.0)
-    X0 = drape_start(X0, pinned, seg, sdf, slide)
+    # The styled scalp paths stay outside her too (over an ear, say, rather than through it).
+    P0 = X0[pinned]
+    d0 = sdf(P0)
+    hit = d0 < 0.0035
+    if hit.any():
+        P0[hit] += sdf.gradient(P0[hit]) * (0.0035 - d0[hit])[:, None]
+        X0[pinned] = P0
+    zc = hf['center'][2] if head_xf is None else float((np.asarray(head_xf)[:3, :3] @ hf['center'] + np.asarray(head_xf)[:3, 3])[2])
+    long0 = ~np.isin(groups, ('bangs', 'side', 'frame'))
+    X0 = drape_start(X0, pinned, seg, sdf, slide * long0 + 0.0, zc=zc)
     is_bang = groups == 'bangs'
     is_front = groups == 'front'
     gravity = np.array([0, 0, -1.0]) * 0.0010
@@ -369,18 +397,38 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
         near = near[..., None]
         F[is_front] += (np.array([0, -1.0, 0]) * 0.0006)[None, None] * near[is_front]
         # Front hair settles over the collarbones and the front of the shoulders, not gathered at the neck.
-        F[is_front, :, 0] += (side_sign[is_front, None] * 0.0001) * near[is_front, :, 0]
+        F[is_front, :, 0] += (side_sign[is_front, None] * 0.00003) * near[is_front, :, 0]
         back = ~is_front & ~is_bang & ~is_frame & ~is_side
-        F[back] += (np.array([0, 1.0, 0]) * 0.0008)[None, None] * near[back]
+        # The tops of her shoulders are a slope the hair slides off, in front or behind by its group: lying
+        # across them it would stand out over her arms like epaulettes.
+        flat = X.reshape(-1, 3)
+        top = (np.abs(flat[:, 0]) > 0.075) & (flat[:, 2] < hcx[2] - 0.14) & (flat[:, 2] > hcx[2] - 0.36)
+        sh = np.zeros(len(flat), bool)
+        sh[top] = sdf(flat[top]) < 0.03
+        sh = sh.reshape(X.shape[:2])[..., None]
+        F[long_hair, :, 1] += (np.where(is_front, -1.0, 1.0)[long_hair, None] * 0.002) * sh[long_hair, :, 0]
+        # ... and from the jaw down it keeps leaning the way it will pass them.
+        lean = np.clip((hcx[2] - 0.05 - X[..., 2]) / 0.12, 0, 1) * np.clip((X[..., 2] - hcx[2] + 0.36) / 0.08, 0, 1)
+        # (only while it is still over her: clear of the shoulder it hangs straight again)
+        lean = lean * np.clip(1 - (sdf(flat).reshape(X.shape[:2]) - 0.02) / 0.03, 0, 1)
+        F[long_hair, :, 1] += (np.where(is_front, -0.35, 1.0)[long_hair, None] * 0.0005) * lean[long_hair]
+        F[back] += (np.array([0, 1.0, 0]) * 0.0006)[None, None] * near[back]
         # Without hair-hair contact the strands would gather in the groove of the neck: spread them
         # across the back and the chest by where they grow on the head.
         low = (X[..., 2] < hcx[2] - 0.26)[..., None]
         spread = np.sin(R[:, 0])[:, None, None] * np.array([1.0, 0, 0])[None, None]
-        F[back] += (0.00012 * spread * low)[back]
-        F[is_front] += (0.00012 * spread * low)[is_front]
-        # Bangs: tips curl in toward the forehead and fan a little out from the parting.
+        F[back] += (0.00005 * spread * low)[back]
+        F[is_front] += (0.00006 * spread * low)[is_front]
+        # Bangs: tips curl in toward the forehead and fan a little out from the parting; the locks of a
+        # clump gather toward one point at their tips (wisps, not a comb).
         F[is_bang] += (np.array([0, 0.9, -0.15]) * 0.0008)[None, None] * w3[None, :, None]
         F[is_bang, :, 0] += (side_sign[is_bang, None] * 0.00015) * w2[None, :]
+        Xb = X[is_bang]
+        cb = clumps[is_bang]
+        acc = np.zeros((cb.max() + 1,) + Xb.shape[1:])
+        np.add.at(acc, cb, Xb)
+        cnt = np.bincount(cb, minlength=cb.max() + 1)[:, None, None]
+        F[is_bang] += (acc[cb] / cnt[cb] - Xb) * 0.06 * w2[None, :, None]
         # Side pieces: out over the temples, then down along the cheekbones, tips turning in.
         F[is_side, :, 0] += (side_sign[is_side, None] * 0.0002) * (w2 - 1.6 * w3)[None, :]
         F[is_side, :, 1] += -0.0002 * w2[None, :]
@@ -427,7 +475,7 @@ def strand_u(H):
     return U
 
 
-def drape_start(X, pinned, seg, sdf, slide, margin=0.008):
+def drape_start(X, pinned, seg, sdf, slide, margin=0.008, zc=None):
     """The free part of every strand laid out from its last pinned point, falling but sliding over the
     body where it meets it (toward +y or -y by `slide`), so the solver never starts from a strand driven
     through a shoulder (pushed out to the nearest surface, it would pile up there in a coil)."""
@@ -444,6 +492,11 @@ def drape_start(X, pinned, seg, sdf, slide, margin=0.008):
             d /= np.maximum(np.linalg.norm(d, axis=1, keepdims=True), 1e-9)
             continue
         nd = d * 0.6 + down * 0.4
+        if zc is not None:
+            # Below the jaw the long hair already leans the way it will pass her shoulders (in front of them
+            # or behind), so it reaches them clear of their tops.
+            lean = np.clip((zc - 0.05 - X[:, k - 1, 2]) / 0.12, 0, 1) * np.clip((X[:, k - 1, 2] - zc + 0.42) / 0.1, 0, 1)
+            nd = nd + bias * (0.55 * lean)[:, None]
         nd /= np.linalg.norm(nd, axis=1, keepdims=True)
         p = X[:, k - 1] + nd * seg[:, None]
         hit = free & (sdf(p) < margin)
@@ -451,8 +504,10 @@ def drape_start(X, pinned, seg, sdf, slide, margin=0.008):
             g = sdf.gradient(p[hit])
             # Slide: drop the part of the step that goes into the body, lean the way the strand should go.
             t = nd[hit] - g * np.minimum(0, (nd[hit] * g).sum(1))[:, None]
-            t += 0.5 * (bias[hit] - g * (bias[hit] * g).sum(1)[:, None])
-            t += 0.6 * (down - g * (g @ down)[:, None])
+            # Over a shoulder the strand slides off the way its group falls (in front or behind), never
+            # out along the shoulder toward the arm.
+            t += 1.4 * (bias[hit] - g * (bias[hit] * g).sum(1)[:, None])
+            t += 0.35 * (down - g * (g @ down)[:, None])
             t /= np.maximum(np.linalg.norm(t, axis=1, keepdims=True), 1e-9)
             q = X[hit, k - 1] + t * seg[hit, None]
             dq = sdf(q)
@@ -479,7 +534,7 @@ def solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=140, bend=0.3, mar
     # Combed stiffness near the scalp, soft further down so long hair hangs instead of standing out.
     last_pin = N - 1 - np.argmax(pinned[:, ::-1], axis=1)
     k = np.arange(1, N - 1)[None, :] - last_pin[:, None]
-    bend_k = (bend * np.clip(np.exp(-np.maximum(k, 0) / soften), 0.3, 1.0))[..., None] if soften else bend
+    bend_k = (bend * np.clip(np.exp(-np.maximum(k, 0) / soften), 0.1, 1.0))[..., None] if soften else bend
     for it in range(iters):
         F = np.broadcast_to(gravity, X.shape).copy() + forces(X, it / iters)
         if wind is not None:

@@ -11,7 +11,7 @@ At the end of summer Chaewon sails alone onto a golden sea, chasing a sun that w
 - **Who she is:** a K-pop idol in her twenties, on the one free day of her summer. Charming, playful and quietly daring. She smiles before she decides, and she never turns down an invitation from the sea.
 - **Look:** very slim, long-legged, small-faced, with fair skin. Long, straight, dark hair parted near the centre, with see-through bangs that fall to her brows and face-framing strands. Large dark eyes with a soft double lid and aegyo-sal, straight soft brows, full lips. In the manga rendering her face is painted over the ink: fair, warm skin with a soft blush, dark brown irises lit from below with catch-lights, coral gradient lips; her hair is dark brown, each lock its own shade with a gloss ring at the crown, and in the close-ups her irises take the tide's colour.
 - **Outfit:** a very short white floral-lace sundress with spaghetti straps, a fitted V-neck bodice and a flared skirt with a scalloped hem. She is barefoot. After the pendant wakes, its colour runs through the lace from the collar down.
-- **Movement:** an idol's ease. She balances on the bow with one hand on the forestay, sweeps her hair back with both hands, tucks it behind her ear, leans over the water, rests a hand on her hip with her head tilted, lifts her hair to fasten a chain, floats with her toes pointed, and looks back over her shoulder.
+- **Movement:** an idol's ease, always physically sound: a standing knee is locked and the free foot rests on its ball, the chest stays over the hips. She balances on the bow with one long arm on the forestay and the other opened to the wind, sweeps her hair back, reaches a hand toward the sun, walks into the light with her arms opening, rests a hand on her hip with her head tilted, lifts her hair to fasten a chain, floats with her toes pointed, and looks back over her shoulder.
 
 ## Key item: the Trapnest Voyage compass pendant
 
@@ -49,12 +49,12 @@ The tide she chooses colours the pearl's glow, the light that runs through her d
 
 ## Scene by scene
 
-1. **Open sea.** Title: *Trapnest Voyage*. Chaewon stands at the bow of her sloop, her right hand on the forestay, hair streaming as the boat rides the swell over an ink-stroke sea with its bow wave and wake. Panels: her face turned into the wind; one hand sweeping her hair back.
+1. **Open sea.** Title: *Trapnest Voyage*. Chaewon stands at the bow of her sloop, her right hand high on the forestay and her left arm opened to the wind, hair streaming as the boat rides the swell over an ink-stroke sea with its bow wave and wake. Panels: her face turned into the wind; one hand sweeping her hair back.
 2. **Profile.** In profile, hair blowing across her cheek, she sees a light on the horizon.
 3. **Approach.** The boat glides toward a colossal sea arch; the setting sun is caught inside it. Inset: her bare feet bracing on the wet deck.
-4. **Near.** Beneath the arch the water goes still, and a road of light runs from the sun across it. She stands on a causeway of column heads as the wind lifts her hair and skirt.
+4. **Near.** Beneath the arch the water goes still, and a road of light runs from the sun across it. She stands on a causeway of column heads as the wind lifts her hair, and raises a hand toward the light.
 5. **Hand.** *Hold* to reach into the water. Her fingertips break the glowing surface, and the light curls around her hand.
-6. **Through.** Her silhouette stands inside the disc of light, framed by a rosette of radiating basalt columns, and the light swallows her.
+6. **Through.** Her silhouette walks into the disc of light, arms opening, framed by a rosette of radiating basalt columns, and the light swallows her.
 7. **The Pearl Grotto.** A close-up of her eyes as she wakes, then the long hall of basalt columns in golden light, with tide pools on the floor and three pendants turning above a shell altar at the far end.
 8. **Choice.** She waits beside the altar, hand on hip and head tilted. The reader chooses a tide: Lagoon, Jade or Coral.
 9. **Fasten.** *Hold* to fasten the pendant. Her hair swept over one shoulder, she brings the two ends of the chain together at her nape; the clasp closes, the pearl wakes and its colour runs down through the lace. She lets go and rests her fingertips beside the pendant.

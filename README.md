@@ -33,14 +33,14 @@ The production build is written to `dist/`. HMR preserves the current reading po
 | Part | Where | How it is made |
 | --- | --- | --- |
 | Story, heroine, environments, key item | [docs/STORY.md](docs/STORY.md) | Story bible |
-| Chaewon (every rig, pose and close-up) | `scripts/chaewon/` | CC0 MakeHuman body on its full 163-bone skeleton, shaped to her proportions; an SVG-drawn manga face projected into a 4096 atlas with a high-res eye close-up; hair grown as strands with position-based dynamics and animated by bone chains; a cloth-draped lace sundress; poses authored as intent (IK, aim, contrapposto, anatomical hand shapes); the necklace and its clasp; close-up frames placed by Spirit's face landmarks |
+| Chaewon (every rig, pose and close-up) | `scripts/chaewon/` | CC0 MakeHuman body on its full 163-bone skeleton, shaped to her proportions; an SVG-drawn manga face projected into a 4096 atlas with a high-res eye close-up; hair grown as strands with position-based dynamics and animated by bone chains; a cloth-draped lace sundress; poses authored as intent (IK, aim, contrapposto with a locked standing knee and the free foot on its ball, anatomical hand shapes); the necklace and its clasp; close-up frames placed by Spirit's face landmarks |
 | Sea, sloop, arch, grotto and finale | `scripts/env/` | Procedural meshes: a gaff-rigged sloop built around her bow pose, ink-stroke sea and wake curves, hexagonal basalt columns for the sea arch, the causeway, the Pearl Grotto, the rosette, the shell altar and the breaking column (Voronoi pieces) |
 | Trapnest Voyage compass pendant | `scripts/env/pendant.py`, `scripts/item/build_pendant.py` | Eight-point rose, ring, pearl, bail and chain; line-art variants for the story and gold/pearl PBR for the carousel |
 | Narration | `scripts/narration/` | Kokoro TTS (`af_heart`) with word timings for the karaoke text boxes |
 | Soundtrack | `scripts/music/` | Five drones, a bossa loop and a sea-breeze ambience rendered from the GeneralUser GS SoundFont with numpy synthesis and convolution reverb |
 | Yellow palette | `src/data/theme.ts`, `scripts/theme/` | Spirit's reds remapped to sunflower yellow; tide colours in one place |
 | Display lettering | `scripts/lettering/` | Charles Rosie glyph quads and distance fields for "Sail away, stay golden", the collection verse and the tide titles |
-| Logos, loader emblem, social card | `scripts/brand/` | Compass-rose wordmarks, a Chaewon emblem in the loader animation, and an engine render on an ink-splatter card |
+| Logos, loader emblem, social card | `scripts/brand/` | Compass-rose wordmarks, an Art Nouveau loader emblem (Chaewon in the sea arch before the last sun, her sloop behind her), and an engine render on an ink-splatter card |
 
 Every generator is deterministic and writes straight into `public/assets`. Their inputs that are not in this repository (MakeHuman data, Kokoro models, the SoundFont, Chromium for SVG rasterisation) are named in each script's docstring.
 

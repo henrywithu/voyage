@@ -8,3 +8,4 @@ scripts/character/build/
 __pycache__/
 *.pyc
 scripts/chaewon/build/
+public/assets/decoded/dev/

@@ -115,31 +115,32 @@ def modifier(verts, rel, value, neg='decr', pos='incr'):
 
 
 MACRO = dict(gender=0.0, age=0.5 * 22 / 25, muscle=0.38, weight=0.2, height=0.62, proportions=1.0,
-             asian=0.85, caucasian=0.15, cup=0.8, firmness=0.95)
+             asian=0.85, caucasian=0.15, cup=0.62, firmness=0.95)
 
 SIDES = ('l', 'r')
 SHAPE = [
-    # Head: an idol's small face but true to her body (about eight heads tall), a soft V-line oval.
-    ('head/head-oval', 0.45, None, None), ('head/head-age', -0.6, 'decr', 'incr'),
-    ('head/head-scale-horiz', -0.3, 'decr', 'incr'), ('head/head-scale-vert', 0.2, 'decr', 'incr'),
-    ('head/head-scale-depth', 0.0, 'decr', 'incr'), ('head/head-fat', -0.5, 'decr', 'incr'),
+    # Head: an idol's small, youthful face (about eight heads tall): a short soft oval narrowing to a V-line jaw and a
+    # small, defined chin; a small button nose, the mouth close under it; a slim neck.
+    ('head/head-oval', 0.3, None, None), ('head/head-age', -0.9, 'decr', 'incr'),
+    ('head/head-scale-horiz', -0.36, 'decr', 'incr'), ('head/head-scale-vert', -0.15, 'decr', 'incr'),
+    ('head/head-scale-depth', 0.0, 'decr', 'incr'), ('head/head-fat', -0.2, 'decr', 'incr'),
     ('head/head-back-scale-depth', -0.25, 'decr', 'incr'),
-    ('chin/chin-width', -0.4, 'decr', 'incr'), ('chin/chin-height', -0.7, 'decr', 'incr'),
-    ('chin/chin-prominent', 0.15, 'decr', 'incr'), ('chin/chin-bones', -0.3, 'decr', 'incr'),
-    ('chin/chin-prognathism', 0.2, 'decr', 'incr'),
-    ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans-backward', 0.0, 'forward', 'backward'),
-    ('nose/nose-scale-horiz', -0.4, 'decr', 'incr'), ('nose/nose-scale-vert', -0.4, 'decr', 'incr'),
+    ('chin/chin-width', -0.55, 'decr', 'incr'), ('chin/chin-height', -0.5, 'decr', 'incr'),
+    ('chin/chin-prominent', 0.9, 'decr', 'incr'), ('chin/chin-bones', -0.3, 'decr', 'incr'),
+    ('chin/chin-prognathism', 0.6, 'decr', 'incr'),
+    ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans', 0.0, 'forward', 'backward'),
+    ('nose/nose-scale-horiz', -0.5, 'decr', 'incr'), ('nose/nose-scale-vert', -0.65, 'decr', 'incr'),
     ('nose/nose-point-width', -0.45, 'decr', 'incr'), ('nose/nose-nostrils-width', -0.4, 'decr', 'incr'),
-    ('nose/nose-point', 0.3, 'down', 'up'), ('nose/nose-volume', -0.35, 'decr', 'incr'),
-    ('nose/nose-scale-depth', 0.3, 'decr', 'incr'), ('nose/nose-greek', 0.45, 'decr', 'incr'),
+    ('nose/nose-point', 0.55, 'down', 'up'), ('nose/nose-volume', -0.35, 'decr', 'incr'),
+    ('nose/nose-scale-depth', 0.0, 'decr', 'incr'), ('nose/nose-greek', 0.0, 'decr', 'incr'),
     ('nose/nose-trans', 0.15, 'backward', 'forward'),
     ('nose/nose-flaring', -0.4, 'decr', 'incr'),
     ('mouth/mouth-scale-horiz', -0.1, 'decr', 'incr'), ('mouth/mouth-upperlip-volume', 0.35, 'decr', 'incr'),
     ('mouth/mouth-lowerlip-volume', 0.42, 'decr', 'incr'), ('mouth/mouth-cupidsbow', 0.6, 'decr', 'incr'),
-    ('mouth/mouth-angles', 0.35, 'down', 'up'), ('mouth/mouth-scale-depth', -0.2, 'decr', 'incr'),
-    ('mouth/mouth-trans', -0.1, 'backward', 'forward'),
-    ('neck/neck-scale-horiz', -0.35, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
-    ('measure/measure-neck-height', 0.35, 'decr', 'incr'), ('measure/measure-neck-circ', -0.4, 'decr', 'incr'),
+    ('mouth/mouth-angles', 0.35, 'down', 'up'), ('mouth/mouth-scale-depth', -0.25, 'decr', 'incr'),
+    ('mouth/mouth-trans', -0.25, 'backward', 'forward'),
+    ('neck/neck-scale-horiz', -0.65, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
+    ('measure/measure-neck-height', 0.05, 'decr', 'incr'), ('measure/measure-neck-circ', -0.65, 'decr', 'incr'),
     # Torso: narrow shoulders, defined waist, soft hips.
     ('measure/measure-shoulder-dist', -0.35, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
     ('measure/measure-underbust-circ', -0.3, 'decr', 'incr'), ('measure/measure-hips-circ', -0.12, 'decr', 'incr'),
@@ -165,7 +166,10 @@ for s in SIDES:
         (f'eyes/{s}-eye-epicanthus', -0.4, 'in', 'out'), (f'eyes/{s}-eye-bag', -0.6, 'decr', 'incr'),
         (f'eyes/{s}-eye-corner1', 0.15, 'down', 'up'), (f'eyes/{s}-eye-corner2', 0.25, 'down', 'up'),
         (f'eyes/{s}-eye-eyefold-angle', 0.2, 'down', 'up'),
-        (f'cheek/{s}-cheek-volume', 0.05, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.35, 'decr', 'incr'),
+        (f'cheek/{s}-cheek-volume', 0.2, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.35, 'decr', 'incr'),
+        # Small ears that lie close to the head (her long hair covers them).
+        (f'ears/{s}-ear-scale', -0.35, 'decr', 'incr'), (f'ears/{s}-ear-flap', -0.8, 'decr', 'incr'),
+        (f'ears/{s}-ear-wing', -0.6, 'decr', 'incr'),
         (f'armslegs/{s}-hand-scale', -0.3, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
         (f'armslegs/{s}-hand-fingers-length', 0.3, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
         (f'armslegs/{s}-lowerarm-scale-horiz', -0.2, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.15, 'decr', 'incr'),
@@ -176,14 +180,14 @@ for s in SIDES:
 
 # A soft oval face with a small, gently pointed chin (her likeness), and a fuller bust.
 SHAPE += [
-    ('head/head-round', 0.15, None, None), ('head/head-invertedtriangular', 0.35, None, None),
+    ('head/head-round', 0.4, None, None), ('head/head-invertedtriangular', 0.35, None, None),
     ('mouth/mouth-trans', 0.75, 'down', 'up'),
     ('nose/nose-trans', -0.15, 'down', 'up'),  # a short philtrum: nose and mouth close together
     ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.15, 'decr', 'incr'),
 ]
 
 
-EYE_SCALE = 1.22  # her large eyes: the eye region (opening, lids and eyeball) grown past MakeHuman's range
+EYE_SCALE = 1.3  # her large eyes: the eye region (opening, lids and eyeball) grown past MakeHuman's range
 
 
 def enlarge_eyes(verts, faces, groups, scale=EYE_SCALE, r0=0.17, r1=0.42):

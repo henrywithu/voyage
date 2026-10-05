@@ -31,9 +31,9 @@ const light = new THREE.Vector3(num("lx", 0.3), num("ly", 0.4), num("lz", 1)).no
   const asset = await loadGeometry(`assets/geometry/${q.get("mesh")}.bin`);
   let mesh: THREE.Object3D, outline: THREE.Object3D | undefined, skin: SkeletalMesh | undefined;
   if (q.get("static")) {
-    const mat = material("StaticCharacterBaseShader", { ...tex, uColor: new THREE.Vector3(0.945, 0.925, 0.882), uLinesTile: num("tile", 2), uLightDir: light, uThreshold: new THREE.Vector2(0.4, 1.8), uLinesAxis: new THREE.Vector3(1, 0, 0.3).normalize(), uLinesAngle: -0.4 });
+    const mat = material("StaticCharacterBaseShader", { ...tex, uColor: new THREE.Vector3(0.945, 0.925, 0.882), uLinesTile: num("tile", 2), uLightDir: light, uThreshold: new THREE.Vector2(0.4, 1.8), uLinesAxis: new THREE.Vector3(1, 0, 0.3).normalize(), uLinesAngle: -0.4, uBreathe: new THREE.Vector3(-0.2, 0.3, num("breathe", 0)) });
     mesh = new THREE.Mesh(asset.geometry, mat);
-    const inv = material("StaticCharacterBaseShaderInverse", { ...tex, uLineWidth: num("lw", 0.004) });
+    const inv = material("StaticCharacterBaseShaderInverse", { ...tex, uLineWidth: num("lw", 0.004), uBreathe: (mat.uniforms.uBreathe.value as THREE.Vector3).clone() });
     inv.side = THREE.BackSide;
     outline = new THREE.Mesh(asset.geometry, inv);
   } else if (q.get("hand")) {

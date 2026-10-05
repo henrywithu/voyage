@@ -147,26 +147,33 @@ def wind_field(direction, strength=0.0012, gust=0.4, seed=3):
 
 
 def bow_pose(s, t=0.0):
-    """At the bow: her right hand up on the forestay at her side (the stay clear of her face), weight on the
-    right leg, the left foot forward bracing against the swell, chin lifted into the wind."""
+    """At the bow: her right hand high on the forestay, the arm long, leaning out a little into the wind; her
+    weight on the right leg (the knee soft for the swell), the left foot forward on its ball, bracing; her
+    left arm opened out behind her, fingers spread to the wind; chin lifted, eyes on the horizon."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
     sw = math.sin(2 * math.pi * t)
     sw2 = math.sin(2 * math.pi * t - 0.9)
     br = math.sin(2 * math.pi * 2 * t)
-    poses.hips(arm, shift=(-0.024 + 0.006 * sw, 0, -0.008 + 0.003 * sw2), roll=4.5 + 1.2 * sw, yaw=-5 + 1.0 * sw2)
+    poses.hips(arm, shift=(-0.024 + 0.006 * sw, 0, 0), roll=4.5 + 1.2 * sw, yaw=-5 + 1.0 * sw2)
+    poses.stand_on(ctx, 'R', bend=7 + 2 * sw)
     poses.plant_leg(ctx, 'R')
     a = ctx.ankle['L']
-    poses.plant_leg(ctx, 'L', ankle=(a.x + 0.02, a.y - 0.11, a.z + 0.012), knee_dir=(0.25, -1, 0), foot_yaw=10,
-                    foot_pitch=-5)
-    poses.spine(arm, roll=-5 - 1.0 * sw, yaw=9 + 1.5 * sw2, pitch=-4 + 0.8 * br)
-    poses.clavicle(arm, 'R', lift=9)
-    grip = s.ctx.shoulder['R'] + Vector((-0.13, -0.19, 0.31))
-    poses.arm_to(ctx, 'R', grip, elbow_dir=(-1, 0.25, -0.55),
-                 wrist=(Vector((-0.1, -0.35, 1.0)), Vector((0.85, -0.2, 0.0))),
+    poses.plant_leg(ctx, 'L', ankle=(a.x + 0.02, a.y - 0.13, a.z), knee_dir=(0.25, -1, 0), foot_yaw=10,
+                    foot_pitch=-10, on_ball=True)
+    poses.spine(arm, roll=-5 - 1.0 * sw, yaw=9 + 1.5 * sw2, pitch=-2 + 0.8 * br)
+    poses.clavicle(arm, 'R', lift=12)
+    grip = s.ctx.shoulder['R'] + Vector((-0.19, -0.29, 0.36))
+    poses.arm_to(ctx, 'R', grip, elbow_dir=(-1, 0.45, -0.4),
+                 wrist=(Vector((-0.15, -0.45, 1.0)), Vector((0.85, -0.2, 0.0))),
                  hand=dict(curl=0.8, close=0.9, thumb=0.8))
-    poses.relaxed_arm(ctx, 'L', out=0.27 + 0.02 * sw, fwd=0.08, bend=24, hand=dict(curl=0.2, close=0.55, thumb=0.35))
-    poses.head(arm, pitch=-9 + 1.5 * sw2, yaw=16 + 2.0 * math.sin(2 * math.pi * t + 1.7), roll=-4 + 1.0 * sw)
+    pb = arm.pose.bones
+    rig.update()
+    sh = pb['upperarm01.L'].head
+    poses.arm_to(ctx, 'L', sh + Vector((0.36 + 0.015 * sw, 0.13, -0.36)), elbow_dir=(0.35, 0.4, -1),
+                 wrist=(Vector((0.65, 0.35, -0.65)), Vector((0.05, -1, 0.25))))
+    rig.hand_shape(arm, 'L', **DANCER)
+    poses.head(arm, pitch=-11 + 1.5 * sw2, yaw=14 + 2.0 * math.sin(2 * math.pi * t + 1.7), roll=-4 + 1.0 * sw)
 
 
 def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, amp=1.0, wind_dir=(0, 1, 0.1),
@@ -404,9 +411,9 @@ def float_pose(s, t):
     aR, aL = ctx.ankle['R'], ctx.ankle['L']
     lift = Vector((0, 0, 0.6 + 0.015 * sw))
     poses.plant_leg(ctx, 'R', ankle=tuple(aR + lift + Vector((0.01, -0.06 + 0.02 * sw2, 0.03))), knee_dir=(0, -1, 0.1),
-                    foot_pitch=-48)
+                    foot_pitch=-38)
     poses.plant_leg(ctx, 'L', ankle=tuple(aL + lift + Vector((-0.03, -0.1 - 0.02 * sw2, 0.3 + 0.03 * sw))),
-                    knee_dir=(0.15, -1, 0.3), foot_pitch=-58, foot_yaw=6)
+                    knee_dir=(0.15, -1, 0.3), foot_pitch=-45, foot_yaw=6)
     poses.spine(arm, pitch=-7 + 1.5 * sw, roll=-2 * sw2, yaw=-3 * sw)
     pb = arm.pose.bones
     rig.update()
@@ -616,14 +623,20 @@ def write_static_asset(s, rel, mats, H, clip=None, windmask=True):
 
 
 def near_pose(s):
+    """Beneath the arch, before the sun (seen from behind): her weight on the left leg, the right hand lifted
+    toward the light, fingers open; the left hand trailing a little behind her; chin raised to the sun."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
-    poses.contrapposto(ctx, 'R', 0.8)
-    for side, sgn in (('L', 1), ('R', -1)):
-        poses.relaxed_arm(ctx, side, out=0.30, fwd=0.12, bend=24, hand=dict(curl=0.22, close=0.55, thumb=0.25))
-    poses.clavicle(arm, 'L', lift=3)
-    poses.clavicle(arm, 'R', lift=3)
-    poses.head(arm, pitch=-16, yaw=-4, roll=-5)
+    poses.contrapposto(ctx, 'L', 0.8)
+    poses.clavicle(arm, 'R', lift=8)
+    pb = arm.pose.bones
+    rig.update()
+    sh = pb['upperarm01.R'].head
+    poses.arm_to(ctx, 'R', sh + Vector((-0.1, -0.4, 0.26)), elbow_dir=(-1, 0.2, -0.6),
+                 wrist=(Vector((-0.1, -0.85, 0.5)), Vector((0, -1, 0.15))))
+    rig.hand_shape(arm, 'R', **DANCER)
+    poses.relaxed_arm(ctx, 'L', out=0.26, fwd=-0.12, bend=16, hand=dict(curl=0.22, close=0.55, thumb=0.3))
+    poses.head(arm, pitch=-14, yaw=-6, roll=-4)
 
 
 def onsea_pose(s):
@@ -641,17 +654,19 @@ def onsea_pose(s):
 
 
 def target_pose(s):
-    """Stepping into the light: mid-stride, arms a little away from the body."""
+    """Stepping into the light: mid-stride, the back foot up on its toes, arms opening from her sides, palms
+    turned toward the light."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
-    poses.hips(arm, shift=(0.0, -0.06, -0.015), yaw=-6)
+    poses.hips(arm, shift=(0.0, -0.06, 0.0), yaw=-6)
     a, b = ctx.ankle['L'], ctx.ankle['R']
-    poses.plant_leg(ctx, 'L', ankle=(a.x - 0.02, a.y - 0.24, a.z + 0.01), foot_pitch=4)
-    poses.plant_leg(ctx, 'R', ankle=(b.x + 0.02, b.y + 0.14, b.z + 0.07), knee_dir=(0, -1, 0), foot_pitch=-28)
-    poses.spine(arm, yaw=5, pitch=-1)
-    poses.relaxed_arm(ctx, 'L', out=0.34, fwd=0.18, bend=20, hand=dict(curl=0.2, close=0.5, thumb=0.25))
-    poses.relaxed_arm(ctx, 'R', out=0.34, fwd=-0.12, bend=20, hand=dict(curl=0.2, close=0.5, thumb=0.25))
-    poses.head(arm, pitch=-6, yaw=-3)
+    poses.stand_on(ctx, 'L', bend=6, ankle=(a.x - 0.02, a.y - 0.24, a.z))
+    poses.plant_leg(ctx, 'L', ankle=(a.x - 0.02, a.y - 0.24, a.z + 0.005), foot_pitch=3)
+    poses.plant_leg(ctx, 'R', ankle=(b.x + 0.02, b.y + 0.12, b.z), knee_dir=(0, -1, 0), foot_pitch=-34, on_ball=True)
+    poses.spine(arm, yaw=5, pitch=0.5)
+    for side, fwd in (('L', 0.16), ('R', -0.1)):
+        poses.relaxed_arm(ctx, side, out=0.48, fwd=fwd, bend=18, hand=dict(curl=0.16, close=0.4, thumb=0.3))
+    poses.head(arm, pitch=-8, yaw=-3)
 
 
 def grotto_pose(s):
@@ -667,28 +682,30 @@ def grotto_pose(s):
 
 
 def selection_pose(s):
-    """Beside the shell of pendants: weight on her left hip, body turned a little toward the altar, the left
-    hand open toward the pendants as if presenting them, right fingertips resting at her collarbone, head
-    tilted toward the shell."""
+    """Beside the shell of pendants, an idol's ease: weight on her left hip, her right hand on her hip with
+    the elbow out, the left hand open low toward the pendants, her head tilted toward them."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
     poses.contrapposto(ctx, 'L', 1.1)
-    poses.spine(arm, yaw=10, pitch=-1, roll=2)
+    poses.spine(arm, yaw=10, pitch=0.5, roll=2)
     pb = arm.pose.bones
     rig.update()
     sh = pb['upperarm01.L'].head
-    poses.arm_to(ctx, 'L', sh + Vector((0.21, -0.2, -0.43)), elbow_dir=(1, 0.35, -0.5),
-                 wrist=(Vector((0.45, -0.6, -0.3)), Vector((0.1, -0.25, 1))), hand=dict(curl=0.14, close=0.32, thumb=0.35))
-    neck = pb['neck01'].head
-    target = neck + Vector((0.0, -0.13, -0.13))
+    poses.arm_to(ctx, 'L', sh + Vector((0.2, -0.17, -0.45)), elbow_dir=(1, 0.3, -0.45),
+                 wrist=(Vector((0.4, -0.55, -0.45)), Vector((0.1, -0.3, 1))), hand=dict(curl=0.16, close=0.35, thumb=0.35))
+    # Right hand on the hip: the heel of the hand on the crest of the hip, fingers forward and down over the
+    # dress, the elbow out to the side and a little back.
+    hip = pb['upperleg01.R'].head
+    target = hip + Vector((-0.075, 0.01, 0.13))
     for _ in range(3):
-        poses.arm_to(ctx, 'R', target, elbow_dir=(-1, 0.2, -0.8),
-                     wrist=(Vector((0.4, -0.2, 0.75)), Vector((0.2, 1, 0))), hand=dict(curl=0.3, close=0.7, thumb=0.3))
+        poses.arm_to(ctx, 'R', target, elbow_dir=(-1, 0.55, 0.15),
+                     wrist=(Vector((0.25, -0.75, -0.6)), Vector((1, 0.15, 0.1))),
+                     hand=dict(curl=0.2, close=0.75, thumb=0.3))
         d, n = torso_clearance(s, 'R')
         if d >= 0.019:
             break
         target = target + Vector(tuple(n * (0.021 - d)))
-    poses.head(arm, pitch=6, yaw=14, roll=8)
+    poses.head(arm, pitch=5, yaw=16, roll=10)
 
 
 def asset_statics(s, which=('approach', 'near', 'onsea', 'target', 'grotto', 'selection')):

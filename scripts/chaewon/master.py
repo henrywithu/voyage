@@ -96,6 +96,13 @@ def body_part(rest, win):
     fn = np.cross(P[T[:, 1]] - P[T[:, 0]], P[T[:, 2]] - P[T[:, 0]])
     fn /= np.linalg.norm(fn, axis=1, keepdims=True)
     front = (fn[:, 1] < -0.2) & (headw[T].min(1) > 0.5)
+    # The front of the upper neck joins the projection too: the painted face casts the jaw's shadow on it
+    # (face.contour_layer), the line that keeps her chin a chin when seen from the front.
+    neckw = W[:, [names.index(n) for n in ('neck01', 'neck02', 'neck03')]].sum(1)
+    fz = (P[:, 2] - (win['cz'] - win['size'] / 2)) / win['size']
+    fx = (P[:, 0] - win['cx']) / win['size'] + 0.5
+    inwin = (fz > 0.02) & (fx > 0.02) & (fx < 0.98)
+    front |= (fn[:, 1] < -0.35) & ((headw + neckw)[T].min(1) > 0.6) & inwin[T].all(1)
     # Split vertices on the boundary between projected-face and plain-skin triangles.
     key = {}
     newP, newW, uv2, src = [], [], [], []

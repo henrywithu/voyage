@@ -37,7 +37,7 @@ if __name__ == '__main__':
     hf = hair_mod.head_frame(rest)
     hz = hair_mod.ellipsoid_point(hf, 0.0, float(hair_mod.hairline_elev(0.0)))[2]
     hair_y = (0.5 - (hz - win['cz']) / win['size']) * R
-    rgba = face.contour_layer(fmap, R, eye_y, chin_y, hair_y)
+    rgba = face.contour_layer(fmap, R, eye_y, chin_y, hair_y, jaw=face.jaw_line(rest, win, R, lm['mouth']['seam_y']))
     buf = io.BytesIO()
     Image.fromarray((rgba * 255).astype(np.uint8), 'RGBA').save(buf, 'PNG')
     layer = 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()

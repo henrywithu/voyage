@@ -79,17 +79,17 @@ def flower(x, y, r, rng):
         t2 = (tip[0] + np.cos(a + 1.4) * 0.3 * L, tip[1] + np.sin(a + 1.4) * 0.3 * L)
         d = ('M %.1f %.1f C %.1f %.1f %.1f %.1f %.1f %.1f C %.1f %.1f %.1f %.1f %.1f %.1f Z' %
              (x, y, c1[0], c1[1], t1[0], t1[1], tip[0], tip[1], t2[0], t2[1], c2[0], c2[1], x, y))
-        out.append('<path d="%s" fill="#fff" stroke="#000" stroke-width="%.1f" stroke-linejoin="round"/>' % (d, 0.075 * r))
+        out.append('<path d="%s" fill="#fff" stroke="#000" stroke-width="%.1f" stroke-linejoin="round"/>' % (d, 0.05 * r))
         for j in (-1, 0, 1):
             b = a + j * 0.2
             r0, r1 = 0.3 * L, (0.72 if j == 0 else 0.6) * L
             out.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#000" stroke-width="%.1f" stroke-linecap="round"/>' % (
-                x + np.cos(b) * r0, y + np.sin(b) * r0, x + np.cos(b) * r1, y + np.sin(b) * r1, 0.035 * r))
-    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" stroke="#000" stroke-width="%.1f"/>' % (x, y, 0.24 * r, 0.07 * r))
-    for k in range(7):
-        a = 2 * np.pi * k / 7
-        out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#000"/>' % (x + np.cos(a) * 0.12 * r, y + np.sin(a) * 0.12 * r,
-                                                                          0.035 * r))
+                x + np.cos(b) * r0, y + np.sin(b) * r0, x + np.cos(b) * r1, y + np.sin(b) * r1, 0.022 * r))
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" stroke="#000" stroke-width="%.1f"/>' % (x, y, 0.22 * r, 0.045 * r))
+    for k in range(6):
+        a = 2 * np.pi * k / 6
+        out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="#000" stroke-width="%.1f"/>' % (
+            x + np.cos(a) * 0.11 * r, y + np.sin(a) * 0.11 * r, 0.03 * r, 0.018 * r))
     return out
 
 
@@ -103,7 +103,7 @@ def lace_svg(w, h, seed=13):
     for ang in (0, 60, 120):
         out.append('<g transform="rotate(%d %d %d)">' % (ang, w // 2, h // 2))
         for k in range(-w, 2 * w, step):
-            out.append('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="#000" stroke-width="1.1"/>' % (k, -w, k, 2 * w))
+            out.append('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="#000" stroke-width="0.8"/>' % (k, -w, k, 2 * w))
         out.append('</g>')
     # Flowers: big appliqués scattered without overlap (wrapping in u), with leaves in between.
     flowers = []
@@ -116,14 +116,22 @@ def lace_svg(w, h, seed=13):
     for x, y, r in flowers:
         for dx in (-w, 0, w):
             out += flower(x + dx, y, r, np.random.default_rng(int(x * 7 + y)))
-    for _ in range(120):
-        x, y = rng.uniform(0, w), rng.uniform(30, h - 30)
-        if any(min(abs(x - fx), w - abs(x - fx)) ** 2 + (y - fy) ** 2 < (fr * 1.35) ** 2 for fx, fy, fr in flowers):
+    for _ in range(90):
+        x, y = rng.uniform(0, w), rng.uniform(40, h - 40)
+        if any(min(abs(x - fx), w - abs(x - fx)) ** 2 + (y - fy) ** 2 < (fr * 1.6) ** 2 for fx, fy, fr in flowers):
             continue
-        a, L = rng.uniform(0, 360), rng.uniform(16, 26)
+        # A leaf sprig: a fine stem with two or three slender leaves.
+        a, L = rng.uniform(0, 360), rng.uniform(48, 70)
         for dx in (-w, 0, w):
-            out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" transform="rotate(%.1f %.1f %.1f)" fill="#fff" '
-                       'stroke="#000" stroke-width="4"/>' % (x + dx, y, L, L * 0.4, a, x + dx, y))
+            g = ['<g transform="translate(%.1f %.1f) rotate(%.1f)" fill="#fff" stroke="#000" stroke-width="2.4" '
+                 'stroke-linejoin="round" stroke-linecap="round">' % (x + dx, y, a),
+                 '<path d="M 0 0 Q %.1f %.1f %.1f 0" fill="none"/>' % (L * 0.5, -L * 0.12, L)]
+            for t, sg in ((0.35, 1), (0.6, -1), (0.85, 1)):
+                bx, ll = t * L, L * 0.42 * (1.15 - t * 0.5)
+                g.append('<path d="M %.1f 0 Q %.1f %.1f %.1f %.1f Q %.1f %.1f %.1f 0 Z"/>' % (
+                    bx, bx + ll * 0.2, sg * ll * 0.45, bx + ll * 0.75, sg * ll * 0.55, bx + ll * 0.55, sg * ll * 0.05, bx))
+            g.append('</g>')
+            out += g
     out.append('</svg>')
     return '\n'.join(out)
 
