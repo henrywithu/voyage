@@ -186,10 +186,19 @@ def hair_parts(rest, H, P_body_for_cap, names, head_xf=None, cap=True):
     W[:, hb] = 1 - free * np.where(long, 0.75, 0.2)
     W[:, nb] = free * np.where(long, 0.25, 0.2)
     W[:, cb] = free * np.where(long, 0.5, 0.0)
+    # Hair resting on her (down her back, over a shoulder, along her side) moves with the body under it,
+    # not swung from her head on a long lever, which would carry the tips through her as she moves.
+    from scipy.spatial import cKDTree
+    d, j = cKDTree(P_body_for_cap).query(hv)
+    near = np.clip(1 - (d - 0.015) / 0.035, 0, 1) * np.clip((t - 0.15) / 0.2, 0, 1) * (~pinned)
+    Wb = np.asarray(rest['W'], np.float32)[j]
+    if Wb.shape[1] == W.shape[1]:
+        W = W * (1 - near[:, None]) + Wb * near[:, None]
     wind = (t ** 1.3) * (~pinned)
     parts = [Part(hv, hf_, uv, np.tile(atlas.SKIN_WHITE, (len(hv), 1)), W, 'hair', wind=wind)]
+    parts[0].near = near.astype(np.float32)
     if cap:
-        cp, ct = hair_mod.scalp_cap(dict(rest, P=P_body_for_cap), H['hf'])
+        cp, ct = hair_mod.scalp_cap(rest, H['hf'], P_out=P_body_for_cap)
         Wc = np.zeros((len(cp), len(names)), np.float32)
         Wc[:, hb] = 1
         parts.append(Part(cp, ct, np.tile(TRIM_BLACK, (len(cp), 1)), np.tile(atlas.SKIN_WHITE, (len(cp), 1)), Wc, 'cap'))

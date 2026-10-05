@@ -182,7 +182,7 @@ def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, am
     keep = M.KEEP + hr.names
     posedP = s.posed_body(mats_bind)
     hparts = M.hair_parts(s.rest, H, posedP, s.names)
-    hparts[0].W = hr.hair_weights(hparts[0].W, names_x, None)
+    hparts[0].W = hr.hair_weights(hparts[0].W, names_x, near=getattr(hparts[0], 'near', None))
     hparts[1].W = np.c_[hparts[1].W, np.zeros((len(hparts[1].P), len(hr.names)), np.float32)]
     bind_x = np.concatenate([mats_bind, np.array(hr.bind_world)])
     for p in hparts:

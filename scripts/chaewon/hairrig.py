@@ -96,7 +96,7 @@ class HairRig:
                 rm.append(self.rest_world[self.names.index(n)])
         return nn, np.array(pp), np.array(rm)
 
-    def hair_weights(self, W, names_ext, n_strand_verts):
+    def hair_weights(self, W, names_ext, n_strand_verts=None, near=None):
         """Replace weights of free hair vertices with chain weights. W: (V, B) for the ribbon verts
         (hair.RING verts per strand point, strand-major as in hair.ribbons)."""
         X, pinned = self.H['X'], self.H['pinned']
@@ -104,8 +104,10 @@ class HairRig:
         Wn = np.zeros((W.shape[0], len(names_ext)), np.float32)
         Wn[:, :W.shape[1]] = W
         hb = names_ext.index('head')
+        K = hair_mod.RING
         for ch in self.chains:
             idx = [names_ext.index(n) for n in ch['names']]
+            G = ch['guide']
             for i in ch['members']:
                 free = np.flatnonzero(~pinned[i])
                 if not len(free):
@@ -126,8 +128,16 @@ class HairRig:
                     else:
                         w[idx[k]] += u * lead
                     w[hb] += 1 - lead
-                    K = hair_mod.RING
-                    Wn[(i * N + a + j) * K:(i * N + a + j + 1) * K] = w
+                    # A lock that has strayed from its chain's guide (hanging where the rest of the chain
+                    # rises, say) would swing on a long lever and sweep through her: it keeps its body
+                    # weights instead, more so the further it strays.
+                    g = G[k] * (1 - u) + G[min(k + 1, SEGMENTS)] * u
+                    follow = np.clip(1 - (np.linalg.norm(seg[j] - g) - 0.04) / 0.08, 0, 1)
+                    rows = slice((i * N + a + j) * K, (i * N + a + j + 1) * K)
+                    if near is not None:
+                        # Hair lying on her does not flutter.
+                        follow *= 1 - float(near[rows].mean())
+                    Wn[rows] = follow * w[None] + (1 - follow) * Wn[rows]
         return Wn
 
     # ---------------------------------------------------------------- animation

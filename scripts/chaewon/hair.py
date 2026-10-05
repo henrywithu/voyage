@@ -511,8 +511,12 @@ def solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=140, bend=0.3, mar
     return X
 
 
-def scalp_cap(rest, hf, lift=0.0025):
-    """Dark cap over the scalp inside the hairline (fills gaps between locks at the crown)."""
+def scalp_cap(rest, hf, lift=0.0025, P_out=None):
+    """Dark cap over the scalp inside the hairline (fills gaps between locks at the crown).
+
+    The scalp is found on the rest body (hf is the rest head frame); P_out, the posed body in the same
+    vertex order, places it (choosing it on a posed body against the rest head would pick up whatever
+    moved into the head's old place)."""
     P, T = rest['P'], rest['T']
     rel = P - hf['center']
     phi = np.arctan2(rel[:, 0], -rel[:, 1])
@@ -526,6 +530,8 @@ def scalp_cap(rest, hf, lift=0.0025):
     remap = -np.ones(len(P), int)
     remap[used] = np.arange(len(used))
     import dress
+    if P_out is not None:
+        P = np.asarray(P_out)
     N = dress.vertex_normals(P, T)
     return P[used] + N[used] * lift, remap[tri]
 
