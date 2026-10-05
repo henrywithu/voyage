@@ -1,9 +1,10 @@
 """Swap the saint in the loader animation for the Chaewon emblem.
 
 The Lottie keeps its timing, rays and circles. Inside the figure composition
-the line-art layer gets Chaewon's stroked paths (scripts/brand/emblem.py), and
-both silhouette layers (the alpha matte and the dark backing that hides the
-rays) get her outline.
+the line-art layer gets the emblem (scripts/brand/emblem.py): Chaewon's stroked
+paths, a dark backing of her figure and the scenery behind her (the sea arch,
+the sun, the sea and her sloop); both silhouette layers (the alpha matte and the
+dark backing that hides the rays) get the arch's outline. Re-runnable.
 
 Usage: python3 scripts/brand/build_loader.py [--preview out.svg]
 """
@@ -102,23 +103,43 @@ def circle(cx, cy, r):
         cx - k, cy + r, cx - r, cy + k, cx - r, cy, cx - r, cy - k, cx - k, cy - r, cx, cy - r)
 
 
-def line_group():
-    paths = []
-    for d in emblem.STROKE:
-        paths += parse(d)
-    items = [lottie_path(sp, k) for k, sp in enumerate(paths)]
+def stroke_group(paths, name, index):
+    items = []
+    for d in paths:
+        items += [lottie_path(sp, len(items)) for sp in parse(d)]
     items.append({'ty': 'st', 'nm': 'Stroke 1', 'mn': 'ADBE Vector Graphic - Stroke', 'hd': False, 'bm': 0,
                   'c': {'a': 0, 'k': [1, 1, 1, 1], 'ix': 3}, 'o': {'a': 0, 'k': 100, 'ix': 4},
                   'w': {'a': 0, 'k': STROKE_W, 'ix': 5}, 'lc': 2, 'lj': 2})
     items.append(transform())
-    dots = [lottie_path(sp, k) for k, sp in enumerate(sum((parse(circle(*c)) for c in emblem.DOTS), []))]
-    dots.append({'ty': 'fl', 'nm': 'Fill 1', 'mn': 'ADBE Vector Graphic - Fill', 'hd': False, 'bm': 0, 'r': 1,
-                 'c': {'a': 0, 'k': [1, 1, 1, 1], 'ix': 4}, 'o': {'a': 0, 'k': 100, 'ix': 5}})
-    dots.append(transform())
-    return [{'ty': 'gr', 'nm': 'Chaewon lines', 'np': len(items), 'cix': 2, 'bm': 0, 'ix': 1, 'hd': False,
-             'mn': 'ADBE Vector Group', 'it': items},
-            {'ty': 'gr', 'nm': 'Chaewon dots', 'np': len(dots), 'cix': 2, 'bm': 0, 'ix': 2, 'hd': False,
-             'mn': 'ADBE Vector Group', 'it': dots}]
+    return {'ty': 'gr', 'nm': name, 'np': len(items), 'cix': 2, 'bm': 0, 'ix': index, 'hd': False,
+            'mn': 'ADBE Vector Group', 'it': items}
+
+
+def fill_group(paths, name, index, color):
+    items = []
+    for d in paths:
+        items += [lottie_path(sp, len(items)) for sp in parse(d)]
+    items.append({'ty': 'fl', 'nm': 'Fill 1', 'mn': 'ADBE Vector Graphic - Fill', 'hd': False, 'bm': 0, 'r': 1,
+                  'c': {'a': 0, 'k': color, 'ix': 4}, 'o': {'a': 0, 'k': 100, 'ix': 5}})
+    items.append(transform())
+    return {'ty': 'gr', 'nm': name, 'np': len(items), 'cix': 2, 'bm': 0, 'ix': index, 'hd': False,
+            'mn': 'ADBE Vector Group', 'it': items}
+
+
+GROUND = [0.113725490196, 0.113725490196, 0.113725490196, 1]  # the loader's dark ground (the backing layer's fill)
+
+
+def line_group():
+    """Lottie draws the first group on top: her irises, her lines, the dark backing of her figure (which
+    stops the scenery at her outline), then the arch, the sun, the sea and the sloop."""
+    dots = sum((parse(circle(*c)) for c in emblem.DOTS), [])
+    return [fill_group([], 'Chaewon dots', 1, [1, 1, 1, 1]) | {'it': [lottie_path(sp, k) for k, sp in enumerate(dots)] + [
+                {'ty': 'fl', 'nm': 'Fill 1', 'mn': 'ADBE Vector Graphic - Fill', 'hd': False, 'bm': 0, 'r': 1,
+                 'c': {'a': 0, 'k': [1, 1, 1, 1], 'ix': 4}, 'o': {'a': 0, 'k': 100, 'ix': 5}}, transform()],
+                'np': len(dots) + 2},
+            stroke_group(emblem.STROKE, 'Chaewon lines', 2),
+            fill_group(emblem.FILL, 'Chaewon backing', 3, GROUND),
+            stroke_group(emblem.BACK, 'Arch, sun and sea', 4)]
 
 
 def set_silhouette(layer, grow):
@@ -133,17 +154,19 @@ def set_silhouette(layer, grow):
 
 
 def preview_svg():
+    import math
     rays = ''.join('<line x1="200" y1="200" x2="%g" y2="%g" stroke="#fff" stroke-width="2"/>' % (
-        200 + 200 * __import__('math').cos(a / 24 * 6.2832), 200 + 200 * __import__('math').sin(a / 24 * 6.2832))
-        for a in range(24))
+        200 + 200 * math.cos(a / 24 * 6.2832), 200 + 200 * math.sin(a / 24 * 6.2832)) for a in range(24))
+    back = ''.join('<path d="%s"/>' % d for d in emblem.BACK)
+    fills = ''.join('<path d="%s"/>' % d for d in emblem.FILL)
     lines = ''.join('<path d="%s"/>' % d for d in emblem.STROKE)
     dots = ''.join('<circle cx="%g" cy="%g" r="%g"/>' % c for c in emblem.DOTS)
+    g = '<g fill="none" stroke="#fff" stroke-width="%g" stroke-linecap="round" stroke-linejoin="round">' % STROKE_W
     return ('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 400 400">'
             '<rect width="400" height="400" fill="#1d1d1d"/><clipPath id="c"><circle cx="200" cy="200" r="196"/>'
-            '</clipPath><g clip-path="url(#c)">%s<path d="%s" fill="#1d1d1d"/>'
-            '<g fill="none" stroke="#fff" stroke-width="%g" stroke-linecap="round" stroke-linejoin="round">%s</g>'
+            '</clipPath><g clip-path="url(#c)">%s<path d="%s" fill="#1d1d1d"/>%s%s</g><g fill="#1d1d1d">%s</g>%s%s</g>'
             '<g fill="#fff">%s</g></g><circle cx="200" cy="200" r="196" fill="none" stroke="#fff" stroke-width="3"/>'
-            '</svg>') % (rays, emblem.SILHOUETTE, STROKE_W, lines, dots)
+            '</svg>') % (rays, emblem.SILHOUETTE, g, back, fills, g, lines, dots)
 
 
 def main():
@@ -151,13 +174,13 @@ def main():
     comp = next(a for a in d['assets'] if a['id'] == 'comp_0')
     comp['nm'] = 'Chaewon'
     for layer in comp['layers']:
-        if layer['nm'] == 'Saint':
+        layer['nm'] = layer['nm'].replace('Saint', 'Chaewon')  # (re-runnable on an already converted loader)
+        if layer['nm'] == 'Chaewon':
             layer['shapes'] = line_group()
-        elif layer['nm'] == 'Saint mask':
+        elif layer['nm'] == 'Chaewon mask':
             set_silhouette(layer, 1.04)
-        elif layer['nm'] == 'Saint mask 2':
+        elif layer['nm'] == 'Chaewon mask 2':
             set_silhouette(layer, 0.99)
-        layer['nm'] = layer['nm'].replace('Saint', 'Chaewon')
     for layer in d['layers']:
         layer['nm'] = layer['nm'].replace('Saint', 'Chaewon')
     json.dump(d, open(LOADER, 'w'), separators=(',', ':'))
