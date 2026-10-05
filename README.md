@@ -14,7 +14,7 @@ npm run cf:dev
 npm run deploy
 ```
 
-The configured Worker name is `trapnest-voyage`. Attach `voyage.henrywithu.com` as its custom domain in Cloudflare after the first authorized deployment; no DNS or account state is changed by this repository.
+The configured Worker name is `trapnest-voyage`. `wrangler.jsonc` binds the custom domain `voyage.henrywithu.com`, so the first `npm run deploy` (after `npx wrangler login`) creates its DNS record and certificate, provided `henrywithu.com` is a zone in the same Cloudflare account. Logos, favicons and the social card are rebuilt by `scripts/brand/build_logos.mjs`, `capture.mjs` and `build_og.mjs`.
 
 Open the local URL printed by Vite and answer the L.A.S.T. gate. Scroll through the story, hold to reach into the water, choose a tide (Lagoon, Jade or Coral), hold to fasten the pendant, hold to quicken the tide, and use the Collection button to reach the pendant carousel. The audio button mutes or unmutes the experience.
 

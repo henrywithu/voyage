@@ -6,4 +6,9 @@
     "directory": "./dist",
     "not_found_handling": "single-page-application",
   },
+  // Served at https://voyage.henrywithu.com; wrangler creates the DNS record and
+  // certificate on deploy (henrywithu.com must be a zone in the same account).
+  "routes": [{ "pattern": "voyage.henrywithu.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
 }
