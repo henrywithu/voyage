@@ -124,7 +124,7 @@ SHAPE = [
     ('head/head-scale-horiz', -0.3, 'decr', 'incr'), ('head/head-scale-vert', 0.2, 'decr', 'incr'),
     ('head/head-scale-depth', 0.0, 'decr', 'incr'), ('head/head-fat', -0.5, 'decr', 'incr'),
     ('head/head-back-scale-depth', -0.25, 'decr', 'incr'),
-    ('chin/chin-width', -0.4, 'decr', 'incr'), ('chin/chin-height', -0.5, 'decr', 'incr'),
+    ('chin/chin-width', -0.4, 'decr', 'incr'), ('chin/chin-height', -0.7, 'decr', 'incr'),
     ('chin/chin-prominent', 0.15, 'decr', 'incr'), ('chin/chin-bones', -0.3, 'decr', 'incr'),
     ('chin/chin-prognathism', 0.2, 'decr', 'incr'),
     ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans-backward', 0.0, 'forward', 'backward'),

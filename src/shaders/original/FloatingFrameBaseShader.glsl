@@ -188,7 +188,7 @@ void main() {
     color *= maskedLines;
     color *= trim;
     color *= atlas;
-    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), aastep(0.55, trim), vUv), hairMask(vUv) * (1.0 - vBackgroundMask));
+    color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), aastep(0.55, trim), vUv), hairMask(vUv) * (1.0 - vBackgroundMask));
     color = mix(color, vec3(44.0, 44.0, 46.0) / 255.0, vBackgroundMask);
 
     // vec3 backgroundColor = vec3(1.0);

@@ -192,7 +192,7 @@ def design(rest, seed=11):
     # The fringe: clumps of two or three locks across the forehead, a narrow gap at the parting.
     bangs = []
     for c in (-31.0, -25.0, -19.0, -13.5, -8.5, -4.2, 4.2, 8.5, 13.5, 19.0, 25.0, 31.0):
-        for _ in range(4 if abs(c) < 25 else 3):
+        for _ in range(3 if abs(c) < 25 else 2):
             az = c + rng.normal(0, 1.3)
             phi = np.radians(az)
             depth = 26.0 * np.clip(1 - (abs(az) / 40.0) ** 2, 0, 1)
@@ -272,7 +272,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=140, sweep=None):
         if g == 'bangs':
             total = None  # set from the scalp path below: over the brows
             lift = 0.0042 + 0.001 * rng.random()
-            widths[i] = 0.0085 + 0.0035 * rng.random()
+            widths[i] = 0.0075 + 0.003 * rng.random()
         elif g == 'side':
             total = None  # to the cheekbones
             lift = 0.006
@@ -547,7 +547,7 @@ def ribbons(H, cam_up=None):
     # Manga locks: full at the root and drawn to a point. The fringe tapers all along its length, so
     # neighbouring locks touch at the hairline and part toward their tips; long hair holds its width.
     taper_long = np.clip(np.minimum(0.8 + t / 0.12 * 0.2, (1 - t) / 0.4), 0.02, 1.0) ** 0.9
-    taper_bang = np.clip(1 - t, 0.02, 1) ** 0.8
+    taper_bang = np.clip(1 - t, 0.02, 1) ** 1.25  # wisps: full at the hairline, drawn to fine points
     th = np.linspace(0, 2 * np.pi, RING, endpoint=False)
     cs, sn = np.cos(th), np.sin(th)
     V = np.zeros((S, N, RING, 3))

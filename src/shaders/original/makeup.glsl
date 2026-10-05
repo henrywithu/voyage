@@ -31,21 +31,27 @@ vec3 skinContour(vec3 viewNormal, vec3 viewPos) {
 }
 
 // Her hair: locks map into the trim's hair bands (v 0.10-0.30) and the scalp cap into its black row
-// (0.05-0.10). Dark warm brown, lighter where the light falls. Each lock's band is its own shade (the outer
-// layers lighter than those beneath), its edges are drawn darker, a soft gloss ring crosses the crown (u
-// 0.15-0.30 along a strand, hair.py strand_u) and the trim's sheen strokes catch the light inside it.
+// (0.05-0.10). Sleek, glossy dark brown: smoothly lighter where the light falls, each lock its own shade
+// (the band it maps into, the outer layers lighter than those beneath), only a faint seam between locks,
+// a soft gloss ring across the crown (u 0.15-0.30 along a strand, hair.py strand_u) brightest down the
+// middle of each lock, and the trim's sheen strokes catching the light inside it.
 float hairMask(vec2 trimUv) {
     return step(0.05, trimUv.y) * step(trimUv.y, 0.30);
 }
 vec3 hairShade(float lit, float sheen, vec2 trimUv) {
     float lock = step(0.10, trimUv.y);
-    float tone = mix(0.6, mix(0.68, 1.18, clamp(floor((trimUv.y - 0.10) / 0.025) / 7.0, 0.0, 1.0)), lock);
-    vec3 base = mix(vec3(0.085, 0.06, 0.052), vec3(0.27, 0.195, 0.165), lit) * tone;
-    // Each lock is drawn: a darker line along both of its edges (across the band, 0 and 1 are its sides).
+    float band = clamp(floor((trimUv.y - 0.10) / 0.025) / 7.0, 0.0, 1.0);
+    float tone = mix(0.7, mix(0.84, 1.14, band), lock);
+    vec3 base = mix(vec3(0.07, 0.047, 0.04), vec3(0.235, 0.165, 0.138), lit) * tone;
+    // Across the band, 0 and 1 are a lock's two edges and 0.5 its middle.
     float across = fract((trimUv.y - 0.10) / 0.025);
-    float edge = (1.0 - smoothstep(0.05, 0.18, min(across, 1.0 - across))) * lock;
-    base *= 1.0 - 0.55 * edge;
-    float ring = smoothstep(0.15, 0.19, trimUv.x) * (1.0 - smoothstep(0.26, 0.30, trimUv.x)) * lock;
-    base = mix(base, vec3(0.46, 0.36, 0.32), ring * (0.2 + 0.35 * lit) * (1.0 - edge));
-    return mix(base, vec3(0.68, 0.58, 0.54), sheen * (1.0 - edge));
+    float edge = (1.0 - smoothstep(0.0, 0.12, min(across, 1.0 - across))) * lock;
+    float middle = 1.0 - abs(across - 0.5) * 2.0;
+    base *= 1.0 - 0.22 * edge;
+    float u = trimUv.x;
+    float ring = smoothstep(0.11, 0.19, u) * (1.0 - smoothstep(0.25, 0.35, u)) * lock;
+    float core = smoothstep(0.16, 0.2, u) * (1.0 - smoothstep(0.22, 0.27, u)) * lock;
+    base = mix(base, vec3(0.5, 0.4, 0.35), ring * (0.35 + 0.45 * lit) * (0.45 + 0.55 * middle));
+    base = mix(base, vec3(0.74, 0.64, 0.59), core * (0.3 + 0.7 * lit) * middle * 0.6);
+    return mix(base, vec3(0.62, 0.53, 0.49), sheen * 0.5 * (1.0 - edge));
 }

@@ -301,12 +301,14 @@ def to_frame(P_bl, xf):
 
 
 def eye_balls(s):
+    """Each eyeball's sphere (rest, Blender space): fitted to its surface, so the iris caps lie on it rather
+    than floating in front (the mesh is only the front of the eye, so its bounding box sits forward)."""
     EP = s.rest['EP']
     out = {}
     for side, sel in (('L', EP[:, 0] > 0), ('R', EP[:, 0] <= 0)):
         Q = EP[sel]
-        c = (Q.min(0) + Q.max(0)) / 2
-        out[side] = (c, float(np.linalg.norm(Q - c, axis=1).max()))
+        c = sphere_centre(Q)
+        out[side] = (c, float(np.linalg.norm(Q - c, axis=1).mean()))
     return out
 
 
@@ -331,7 +333,7 @@ def iris_caps(s, rings=10, segs=40):
         a = np.cross(d, [0, 0, 1.0])
         a /= np.linalg.norm(a)
         b = np.cross(d, a)
-        alpha = math.asin(min(rw / r, 0.95)) * 1.06
+        alpha = math.asin(min(rw / r, 0.95)) * 0.97  # just inside the painted limbal ring
         P = [c + d * r * 1.004]
         for i in range(1, rings + 1):
             th = alpha * i / rings
@@ -340,6 +342,17 @@ def iris_caps(s, rings=10, segs=40):
                 v = d * math.cos(th) + (a * math.cos(ph) + b * math.sin(ph)) * math.sin(th)
                 P.append(c + v * r * 1.004)
         P = np.array(P)
+        # Seated on the eyeball's real front surface (the cornea bulges out of the sphere), a hair in front.
+        from scipy.interpolate import LinearNDInterpolator, NearestNDInterpolator
+        Q = s.rest['EP'][(s.rest['EP'][:, 0] > 0) == (side == 'L')]
+        front = Q[Q[:, 1] < c[1]]
+        lin = LinearNDInterpolator(front[:, [0, 2]], front[:, 1])
+        near = NearestNDInterpolator(front[:, [0, 2]], front[:, 1])
+        y = lin(P[:, [0, 2]])
+        y = np.where(np.isnan(y), near(P[:, [0, 2]]), y)
+        # 3 mm proud over the cornea (no flicker), easing to 0.5 mm at the rim so it stays under the lids.
+        rho = np.linalg.norm(P[:, [0, 2]] - P[0, [0, 2]], axis=1) / max(rw, 1e-9)
+        P[:, 1] = y - (0.0005 + 0.0025 * np.clip(1 - rho ** 2, 0, 1))
         F = [(0, 1 + j, 1 + (j + 1) % segs) for j in range(segs)]
         for i in range(rings - 1):
             a0, a1 = 1 + i * segs, 1 + (i + 1) * segs
@@ -357,7 +370,7 @@ def iris_caps(s, rings=10, segs=40):
         n += len(P)
     P = np.vstack(Ps)
     W = M.nearest_weights(P, eyesP, eyesW, k=4)
-    return P, np.vstack(Fs), atlas.eye_uv(P, ew), W, np.array(sides), ew, win
+    return P, np.vstack(Fs), atlas.eyeball_uv(P, ew), W, np.array(sides), ew, win
 
 
 def closeup_uv(m, ew, win):
@@ -368,8 +381,20 @@ def closeup_uv(m, ew, win):
     x = (uv2[:, 0] - fu['u0']) / fu['span'] * win['size'] + win['cx'] - win['size'] / 2
     z = (uv2[:, 1] - fu['v0']) / fu['span'] * win['size'] + win['cz'] - win['size'] / 2
     inside = face & (x > ew['x0']) & (x < ew['x1']) & (z > ew['z0']) & (z < ew['z1'])
-    uv2[inside] = atlas.eye_uv(np.c_[x[inside], np.zeros(inside.sum()), z[inside]], ew)
+    pts = np.c_[x, np.zeros(len(x)), z]
+    ball = inside & (np.asarray(m['kind']) == M.PART['eye'])
+    lids = inside & ~ball
+    uv2[lids] = atlas.eye_uv(pts[lids], ew)
+    # The eyeballs sample their own lid-free painting: the lash line and lid shade belong to the lids.
+    uv2[ball] = atlas.eyeball_uv(pts[ball], ew)
     return uv2
+
+
+def sphere_centre(P):
+    """Least-squares centre of the sphere through points P (an eyeball, front and sides)."""
+    A = np.c_[2 * P, np.ones(len(P))]
+    sol = np.linalg.lstsq(A, (P ** 2).sum(1), rcond=None)[0]
+    return sol[:3]
 
 
 def components(P, F):
@@ -553,7 +578,25 @@ def frame_eyes_widen(s):
     }
     arrays = {k_: np.asarray(v, np.float32) for k_, v in arrays.items()}
     F = np.concatenate([Fc, caps_F + nb])
+    # Her eyes turn about their own centres: Spirit's eye bones (and the look-around clip's offsets for
+    # them) sat half an eyeball in front of hers, so as they turned her eyeballs slid in their sockets and
+    # the whites showed past the lids.
+    wm = meshio.world_matrices(bones)
+    local = {}
+    for b_, sel in ((0, eye & left), (1, eye & ~left)):
+        c_ = sphere_centre(P[sel])
+        local[b_] = (np.linalg.inv(wm[bones[b_]['parent']]) @ np.r_[c_, 1.0])[:3]
+        bones[b_]['pos'] = [float(v) for v in local[b_]]
+        print('eye %d pivot moved %.3f' % (b_, np.linalg.norm(c_ - wm[b_][:3, 3])))
     meshio.write(os.path.join(DEC, rel + '.bin.mesh'), arrays, F.astype(np.uint32), bones=bones)
+    ah, aa, _ = meshio.read(os.path.join(SAINT, 'antigravity/test2-animation.bin.mesh'))
+    i = 0
+    while f'offset_{i}' in aa:
+        for b_ in (0, 1):
+            aa[f'offset_{i}'][b_] = local[b_]
+        i += 1
+    meshio.write(os.path.join(DEC, 'antigravity/test2-animation.bin.mesh'), aa, compact=False,
+                 extra={k_: ah[k_] for k_ in ah if k_ not in ('attributes', 'index', 'bones')})
     print(rel, len(arrays['position']), 'verts scale', round(k, 3))
 
 

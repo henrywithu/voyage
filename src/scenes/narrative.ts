@@ -112,9 +112,10 @@ export async function setupNarrative(scene: SceneSection) {
       { uThreshold: 0.78, uSpeed: 1 },
     );
     const group = new THREE.Group();
-    group.scale.setScalar(3.6);
+    // Voyage: her whole head inside the panel (its frame is drawn over anything above it as it slides in).
+    group.scale.setScalar(3.0);
     group.rotation.set(0, -Math.PI / 2 + 0.1, -0.2);
-    group.position.set(0.25, -0.62, -1.05);
+    group.position.set(0.25, -0.86, -1.05);
     scene.group.add(group);
     const geometry = (
       await loadGeometry("assets/geometry/story/wander/saint-pose-3.bin")
@@ -178,6 +179,9 @@ export async function setupNarrative(scene: SceneSection) {
     };
     scene.onResize = (w, h) => {
       const mobile = w / h < 1 || w < 1200;
+      // The narrow layout's panel is wide and short: a smaller bust, so her head stays inside it too.
+      group.scale.setScalar(mobile ? 2.45 : 3.0);
+      group.position.y = mobile ? -0.78 : -0.86;
       scene.uniform("border", "uPadX", mobile ? 0.1 : 0.75);
       scene.uniform("border", "uPadY", 0.375);
       scene.uniform("border", "uSkewCorrection", 0.085);

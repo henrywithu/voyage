@@ -311,6 +311,30 @@ def fasten_pose(s, p):
         rig.update()
 
 
+def torso_clearance(s, side):
+    """(signed distance, outward normal) of the finger joint of `side` that sits deepest in her torso, in
+    the current pose. The dress lies about a centimetre over the skin, so a hand resting on her needs about
+    two centimetres of clearance to stay over it."""
+    from scipy.spatial import cKDTree
+    import dress as dress_mod
+    if not hasattr(s, '_torso'):
+        names = list(s.rest['names'])
+        dom = np.asarray(s.rest['W']).argmax(1)
+        s._torso = np.array([names[k].startswith(('spine', 'breast', 'neck', 'clavicle', 'pectoral')) for k in dom])
+    mats = s.pose_mats()
+    P = s.posed_body(mats)
+    N = dress_mod.vertex_normals(P, s.rest['T'])[s._torso]
+    P = P[s._torso]
+    pb = s.arm.pose.bones
+    rig.update()
+    pts = np.array([np.array(pb[f'finger{f}-{k}.{side}'].tail) for f in range(1, 6) for k in (1, 2, 3)
+                    if f'finger{f}-{k}.{side}' in pb])
+    d, j = cKDTree(P).query(pts)
+    sd = d * np.sign(((pts - P[j]) * N[j]).sum(1))
+    i = int(np.argmin(sd))
+    return float(sd[i]), N[j[i]]
+
+
 def charm_pose(s, t):
     """Afterwards: fingertips resting on the pendant, a slow sway (loop)."""
     ctx, arm = s.ctx, s.arm
@@ -327,13 +351,19 @@ def charm_pose(s, t):
     pend = pb['neck01'].head + Vector((-0.004, -0.13, -0.112))       # on the skin of her upper chest
     tip_target = pend + Vector((-0.017, -0.03, -0.006))   # over the bodice, not under it
     fingers = Vector((0.42, -0.08, 0.9)).normalized()
-    wrist_pos = tip_target - fingers * 0.15 + Vector((0, -0.03, 0))
-    for _ in range(4):
-        poses.arm_to(ctx, 'R', wrist_pos, elbow_dir=(-1, 0.35, -0.8), wrist=(fingers, Vector((0.15, 1, 0.1))))
-        rig.hand_shape(arm, 'R', mcp=(6, 12, 18, 24), pip=(8, 20, 28, 32), dip=(4, 10, 13, 14),
-                       spread=(-6, 0, 8, 16), thumb=(-34, 34, 14, 8, 10))
-        rig.update()
-        wrist_pos = wrist_pos + (tip_target - pb['finger2-3.R'].tail)
+    for _ in range(3):
+        wrist_pos = tip_target - fingers * 0.15 + Vector((0, -0.03, 0))
+        for _ in range(4):
+            poses.arm_to(ctx, 'R', wrist_pos, elbow_dir=(-1, 0.35, -0.8), wrist=(fingers, Vector((0.15, 1, 0.1))))
+            rig.hand_shape(arm, 'R', mcp=(6, 12, 18, 24), pip=(8, 20, 28, 32), dip=(4, 10, 13, 14),
+                           spread=(-6, 0, 8, 16), thumb=(-34, 34, 14, 8, 10))
+            rig.update()
+            wrist_pos = wrist_pos + (tip_target - pb['finger2-3.R'].tail)
+        # The whole hand rests over the dress: lift it off her where any finger sinks in.
+        d, n = torso_clearance(s, 'R')
+        if d >= 0.019:
+            break
+        tip_target = tip_target + Vector(tuple(n * (0.021 - d)))
     poses.relaxed_arm(ctx, 'L', out=0.2 + 0.015 * sw, fwd=0.04, bend=18, hand=dict(curl=0.22, close=0.6, thumb=0.35))
     poses.head(arm, pitch=4 + 2 * sw2, yaw=10 + 3 * sw, roll=7 + 1.5 * sw2)
 
@@ -637,14 +667,28 @@ def grotto_pose(s):
 
 
 def selection_pose(s):
+    """Beside the shell of pendants: weight on her left hip, body turned a little toward the altar, the left
+    hand open toward the pendants as if presenting them, right fingertips resting at her collarbone, head
+    tilted toward the shell."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
-    poses.contrapposto(ctx, 'R', 1.0)
-    poses.relaxed_arm(ctx, 'R', out=0.16, bend=18)
-    hip = s.arm.pose.bones['upperleg01.L'].head
-    poses.arm_to(ctx, 'L', hip + Vector((0.075, 0.0, 0.10)), elbow_dir=(1, 0.3, 0),
-                 wrist=(Vector((-0.6, -0.1, -0.8)), Vector((-1, 0, 0))), hand=dict(curl=0.25, close=0.85, thumb=0.2))
-    poses.head(arm, pitch=4, yaw=-8, roll=-8)
+    poses.contrapposto(ctx, 'L', 1.1)
+    poses.spine(arm, yaw=10, pitch=-1, roll=2)
+    pb = arm.pose.bones
+    rig.update()
+    sh = pb['upperarm01.L'].head
+    poses.arm_to(ctx, 'L', sh + Vector((0.21, -0.2, -0.43)), elbow_dir=(1, 0.35, -0.5),
+                 wrist=(Vector((0.45, -0.6, -0.3)), Vector((0.1, -0.25, 1))), hand=dict(curl=0.14, close=0.32, thumb=0.35))
+    neck = pb['neck01'].head
+    target = neck + Vector((0.0, -0.13, -0.13))
+    for _ in range(3):
+        poses.arm_to(ctx, 'R', target, elbow_dir=(-1, 0.2, -0.8),
+                     wrist=(Vector((0.4, -0.2, 0.75)), Vector((0.2, 1, 0))), hand=dict(curl=0.3, close=0.7, thumb=0.3))
+        d, n = torso_clearance(s, 'R')
+        if d >= 0.019:
+            break
+        target = target + Vector(tuple(n * (0.021 - d)))
+    poses.head(arm, pitch=6, yaw=14, roll=8)
 
 
 def asset_statics(s, which=('approach', 'near', 'onsea', 'target', 'grotto', 'selection')):

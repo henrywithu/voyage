@@ -56,7 +56,8 @@ void main() {
     // Voyage: on her face the shell sits a little behind the skin and draws finer, so it inks her face's
     // outline but not the folds inside it (the wings of her nose, the creases of her smile).
     float face = step(0.555, uv2.y) * step(uv2.x, 0.445);
-    pos += normal * uLineWidth * mix(1.0, 0.65, face);
+    float hair = step(0.10, uv.y) * step(uv.y, 0.30);
+    pos += normal * uLineWidth * mix(1.0, 0.65, face) * mix(1.0, 0.55, hair);
     vec4 viewPos = modelViewMatrix * vec4(pos, 1.0);
     viewPos.xyz += normalize(viewPos.xyz) * 0.02 * face;
 
@@ -70,7 +71,9 @@ void main() {
     float trimAlpha = texture2D(tTrim, vUv).a;
     if (trimAlpha < 0.95) discard;
 
-    vec3 color = vec3(0.0);
+    // Voyage: her hair's outline is a dark brown line, not ink.
+    float hair = step(0.10, vUv.y) * step(vUv.y, 0.30);
+    vec3 color = mix(vec3(0.0), vec3(0.075, 0.05, 0.042), hair);
 
     float alpha = 1.0;
     

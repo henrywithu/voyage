@@ -259,51 +259,57 @@ def eye(e, outer, s=1.0, closeup=False, rng=None):
     opening = np.vstack([up, lo[::-1]])
     out.append('<clipPath id="%sc"><path d="%s"/></clipPath>' % (k, path(opening, close=True)))
     out.append(vgrad(k + 'w', top, bot, [(0, EYE_WHITE_SHADE, 1), (0.42, EYE_WHITE, 1), (1, EYE_WHITE, 1)]))
-    # Close-ups tint the iris in the shader (the scene's colour multiplied over it): paint it in warm greys
-    # with the same light, so the tint keeps its depth.
-    top_c, mid_c, low_c, glow_c = (('#5e5553', '#8e8381', '#d9cfcc', '#f7f1ef') if closeup else
-                                   (IRIS_TOP, IRIS_MID, IRIS_LOW, IRIS_GLOW))
-    out.append(vgrad(k + 'i', icy - ir, icy + ir, [(0, top_c, 1), (0.45, mid_c, 1), (0.85, low_c, 1),
-                                                    (1, low_c, 1)]))
+    out.append(vgrad(k + 'i', icy - ir, icy + ir, [(0, IRIS_TOP, 1), (0.45, IRIS_MID, 1), (0.85, IRIS_LOW, 1),
+                                                    (1, IRIS_LOW, 1)]))
     q = ['<g clip-path="url(#%sc)">' % k]
-    q.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="url(#%sw)"/>' % (
-        cx - W, top - Hh, 2 * W, 3 * Hh, k))
-    q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="url(#%si)"/>' % (icx, icy, ir, k))
-    # Light from below: a glowing crescent in the lower iris.
-    q.append('<path d="M %.1f %.1f A %.1f %.1f 0 0 0 %.1f %.1f A %.1f %.1f 0 0 1 %.1f %.1f Z" fill="%s" '
-             'filter="url(#%sb2)"/>' % (
-                 icx - 0.78 * ir, icy + 0.25 * ir, ir * 0.9, ir * 0.9, icx + 0.78 * ir, icy + 0.25 * ir,
-                 ir * 1.2, ir * 0.7, icx - 0.78 * ir, icy + 0.25 * ir, glow_c, k))
-    # Fibres: fine radial strokes in the lower two thirds.
-    for j in range(22):
-        a = np.pi * (0.08 + 0.84 * j / 21)
-        r0, r1 = ir * 0.48, ir * (0.70 + 0.14 * ((j * 7) % 5) / 4)
-        q.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-width="%.2f" '
-                 'stroke-linecap="round" opacity="%.2f"/>' % (
-                     icx + np.cos(a) * r0, icy + np.sin(a) * r0, icx + np.cos(a) * r1, icy + np.sin(a) * r1,
-                     '#000' if closeup else IRIS_FIBRE, 0.012 * ir * s * 4, 0.45 if closeup else 0.55))
-    # Limbal ring and pupil.
-    q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="#000" stroke-width="%.1f"/>' % (
-        icx, icy, ir * 0.965, 0.07 * ir))
-    q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#000"/>' % (icx, icy + 0.02 * ir, 0.40 * ir,
-                                                                             0.43 * ir))
-    # The lid's shadow over the top of the iris and the white: a dark band with a soft hatched edge.
-    band = np.vstack([up + np.array([0, -0.2 * Hh]), (up + np.c_[np.zeros(len(up)),
-                                                                0.16 * Hh * np.sin(np.linspace(0, np.pi, len(up))) ** 0.6])[::-1]])
-    q.append('<path d="%s" fill="#000"/>' % path(band, close=True))
-    edge = up + np.c_[np.zeros(len(up)), 0.16 * Hh * np.sin(np.linspace(0, np.pi, len(up))) ** 0.6]
-    for j in range(26):
-        t = 0.12 + 0.76 * j / 25
-        p0 = edge[int(t * (len(edge) - 1))]
-        L = (0.07 + 0.05 * ((j * 5) % 3) / 2) * Hh
-        q.append(ribbon(np.vstack([p0 - [0, 0.01 * Hh], p0 + [0, L * 0.5], p0 + [0, L]]), 0.012 * W, 0.002 * W))
-    # Catch-lights: a big soft one upper left, a small one lower right, and a sparkle.
-    q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" transform="rotate(-25 %.1f %.1f)"/>' % (
-        icx - ir * 0.30, icy - ir * 0.18, ir * 0.27, ir * 0.20, icx - ir * 0.30, icy - ir * 0.18))
-    q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.40, icy + ir * 0.38, ir * 0.10))
-    q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.12, icy + ir * 0.58, ir * 0.045))
-    q.append('</g>')
-    out += q
+    if closeup:
+        # In the close-ups the eyeballs sample their own painting (eyeball()); inside the opening only the
+        # rims of the lids sample this: the upper rim reads as the lash line, the lower as a soft waterline.
+        q.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="#000"/>' % (cx - W, top - Hh, 2 * W, Hh + (bot - top) * 0.55))
+        q.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="#f0cbc4"/>' % (
+            cx - W, top + (bot - top) * 0.55, 2 * W, 2 * Hh))
+        q.append('</g>')
+        out += q
+        q = []
+    else:
+        q.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="url(#%sw)"/>' % (
+            cx - W, top - Hh, 2 * W, 3 * Hh, k))
+        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="url(#%si)"/>' % (icx, icy, ir, k))
+        # Light from below: a glowing crescent in the lower iris.
+        q.append('<path d="M %.1f %.1f A %.1f %.1f 0 0 0 %.1f %.1f A %.1f %.1f 0 0 1 %.1f %.1f Z" fill="%s" '
+                 'filter="url(#%sb2)"/>' % (
+                     icx - 0.78 * ir, icy + 0.25 * ir, ir * 0.9, ir * 0.9, icx + 0.78 * ir, icy + 0.25 * ir,
+                     ir * 1.2, ir * 0.7, icx - 0.78 * ir, icy + 0.25 * ir, IRIS_GLOW, k))
+        # Fibres: fine radial strokes in the lower two thirds.
+        for j in range(22):
+            a = np.pi * (0.08 + 0.84 * j / 21)
+            r0, r1 = ir * 0.48, ir * (0.70 + 0.14 * ((j * 7) % 5) / 4)
+            q.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-width="%.2f" '
+                     'stroke-linecap="round" opacity="%.2f"/>' % (
+                         icx + np.cos(a) * r0, icy + np.sin(a) * r0, icx + np.cos(a) * r1, icy + np.sin(a) * r1,
+                         IRIS_FIBRE, 0.012 * ir * s * 4, 0.55))
+        # Limbal ring and pupil.
+        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="#000" stroke-width="%.1f"/>' % (
+            icx, icy, ir * 0.965, 0.07 * ir))
+        q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#000"/>' % (icx, icy + 0.02 * ir, 0.40 * ir,
+                                                                                 0.43 * ir))
+        # The lid's shadow over the top of the iris and the white: a dark band with a soft hatched edge.
+        band = np.vstack([up + np.array([0, -0.2 * Hh]), (up + np.c_[np.zeros(len(up)),
+                                                                    0.16 * Hh * np.sin(np.linspace(0, np.pi, len(up))) ** 0.6])[::-1]])
+        q.append('<path d="%s" fill="#000"/>' % path(band, close=True))
+        edge = up + np.c_[np.zeros(len(up)), 0.16 * Hh * np.sin(np.linspace(0, np.pi, len(up))) ** 0.6]
+        for j in range(26):
+            t = 0.12 + 0.76 * j / 25
+            p0 = edge[int(t * (len(edge) - 1))]
+            L = (0.07 + 0.05 * ((j * 5) % 3) / 2) * Hh
+            q.append(ribbon(np.vstack([p0 - [0, 0.01 * Hh], p0 + [0, L * 0.5], p0 + [0, L]]), 0.012 * W, 0.002 * W))
+        # Catch-lights: a big soft one upper left, a small one lower right, and a sparkle.
+        q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" transform="rotate(-25 %.1f %.1f)"/>' % (
+            icx - ir * 0.30, icy - ir * 0.18, ir * 0.27, ir * 0.20, icx - ir * 0.30, icy - ir * 0.18))
+        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.40, icy + ir * 0.38, ir * 0.10))
+        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.12, icy + ir * 0.58, ir * 0.045))
+        q.append('</g>')
+        out += q
     # --- ink around the opening
     # Upper lash line: fine at the inner corner, full across the lid, a short flick past the corner.
     flick = cubic(up[-1], up[-1] + np.array([outer * 0.05 * W, -0.005 * W]), up[-1] + np.array([outer * 0.10 * W, -0.03 * W]),
@@ -337,6 +343,55 @@ def eye(e, outer, s=1.0, closeup=False, rng=None):
                             ic + np.array([-outer * 0.01 * W, 0.02 * W]), ic + np.array([outer * 0.04 * W, 0.03 * W]), 12),
                       0.008 * W, 0.002 * W, wmid=0.009 * W))
     return out
+
+
+def eyeball(e, outer, s=1.0):
+    """One eyeball for the close-ups, painted without lids (the lids are the mesh's, inked on the skin):
+    the white, a little shaded toward the top, and the iris in warm greys (the scene's colour is multiplied
+    over it) with its glow, fibres, ring, pupil and catch-lights. Painted wide of the opening, so an eye
+    turning in its socket never shows an edge."""
+    g = eye_shape(e, outer)
+    W, Hh = g['W'], g['H']
+    icx, icy, ir = g['iris']
+    k = 'x%d' % int(e['cx'])
+    out = [blur(k + 'b', 0.025 * W),
+           vgrad(k + 'i', icy - ir, icy + ir, [(0, '#5e5553', 1), (0.45, '#8e8381', 1), (0.85, '#d9cfcc', 1), (1, '#d9cfcc', 1)])]
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="url(#%si)"/>' % (icx, icy, ir, k))
+    out.append('<path d="M %.1f %.1f A %.1f %.1f 0 0 0 %.1f %.1f A %.1f %.1f 0 0 1 %.1f %.1f Z" fill="#f7f1ef" '
+               'filter="url(#%sb)"/>' % (icx - 0.78 * ir, icy + 0.25 * ir, ir * 0.9, ir * 0.9, icx + 0.78 * ir,
+                                         icy + 0.25 * ir, ir * 1.2, ir * 0.7, icx - 0.78 * ir, icy + 0.25 * ir, k))
+    for j in range(30):
+        a = 2 * np.pi * j / 30
+        r0, r1 = ir * 0.48, ir * (0.72 + 0.14 * ((j * 7) % 5) / 4)
+        out.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#3a3331" stroke-width="%.2f" '
+                   'stroke-linecap="round" opacity="0.35"/>' % (
+                       icx + np.cos(a) * r0, icy + np.sin(a) * r0, icx + np.cos(a) * r1, icy + np.sin(a) * r1,
+                       0.045 * ir * s))
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="#000" stroke-width="%.1f"/>' % (
+        icx, icy, ir * 0.965, 0.07 * ir))
+    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#000"/>' % (icx, icy + 0.02 * ir, 0.40 * ir, 0.43 * ir))
+    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" transform="rotate(-25 %.1f %.1f)"/>' % (
+        icx - ir * 0.30, icy - ir * 0.18, ir * 0.27, ir * 0.20, icx - ir * 0.30, icy - ir * 0.18))
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.40, icy + ir * 0.38, ir * 0.10))
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.12, icy + ir * 0.58, ir * 0.045))
+    return out
+
+
+def eyeball_svg(lm):
+    """Both eyeballs on the face's canvas (R x R): what the close-ups' eyeballs sample."""
+    R = lm['R']
+    eyes = lm['eyes']
+    mid = (eyes[0]['cx'] + eyes[1]['cx']) / 2
+    g = eye_shape(eyes[0], -1)
+    cy, Hh = g['c'][1], g['H']
+    # The whites: one seamless gradient, a little shaded toward the top, under both eyes.
+    out = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d">' % (R, R, R, R),
+           vgrad('xw', cy - 0.9 * Hh, cy + 0.9 * Hh, [(0, EYE_WHITE_SHADE, 1), (0.42, EYE_WHITE, 1), (1, EYE_WHITE, 1)]),
+           '<rect width="%d" height="%d" fill="url(#xw)"/>' % (R, R)]
+    for e in eyes:
+        out += eyeball(e, -1 if e['cx'] < mid else 1, s=0.85)
+    out.append('</svg>')
+    return '\n'.join(out)
 
 
 def brow(e, b, outer, s=1.0, rng=None):
@@ -480,11 +535,11 @@ def face_svg(lm, size=None, closeup=False, layer_png=None):
     mid = (eyes[0]['cx'] + eyes[1]['cx']) / 2
     W = eyes[1]['x1'] - eyes[0]['x0']
     # Blush on the apples of the cheeks, under the eyes.
-    out.append(blur('bl', 0.07 * W))
+    out.append(blur('bl', 0.09 * W))
     for e in eyes:
         outer = -1 if e['cx'] < mid else 1
-        out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#bl)" opacity="0.5"/>' % (
-            e['cx'] + outer * 0.11 * W, e['cy'] + 0.38 * W, 0.15 * W, 0.07 * W, BLUSH))
+        out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#bl)" opacity="0.34"/>' % (
+            e['cx'] + outer * 0.08 * W, e['cy'] + 0.30 * W, 0.17 * W, 0.075 * W, BLUSH))
     irises = []
     for e, b in zip(eyes, lm['brows']):
         outer = -1 if e['cx'] < mid else 1

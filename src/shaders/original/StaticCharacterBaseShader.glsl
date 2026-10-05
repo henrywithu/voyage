@@ -140,7 +140,7 @@ void main() {
     // Voyage: the hatching on her dress is a dark grey stroke, lighter than the ink of her outline.
     color *= mix(mix(0.66, 1.0, maskedLines), 1.0, vSkinMask);
     color *= atlas;
-    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), aastep(0.55, trim), vUv), hairMask(vUv));
+    color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), aastep(0.55, trim), vUv), hairMask(vUv));
 
     color = max(vec3(18.0 / 255.0), color);
 

@@ -264,6 +264,10 @@
     {
       "path": "assets/audio/interactions/pouring/stop.ogg",
       "reason": "pendant sound effects (scripts/music/sfx.py)"
+    },
+    {
+      "path": "assets/decoded/story/antigravity/test2-animation.bin.mesh",
+      "reason": "Chaewon's eye rig: the look-around clip turns her eyes about her eyeballs' centres"
     }
   ],
   "removed": [

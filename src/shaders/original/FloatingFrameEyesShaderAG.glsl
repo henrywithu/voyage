@@ -184,9 +184,13 @@ void main() {
 
     float gradMask = 1.0 - (vPos.y - 0.95);
     maskedLines += pow(max(gradMask, 0.0), 2.0);
-    // Voyage: her skin stays clean paper in the close-up, a light stipple only where it turns from the light.
     maskedLines += 0.45;
     maskedLines = aastep(0.01, maskedLines);
+    // Voyage: her skin is clean in the close-up - no stipple and no white rim of bounce light (both broke
+    // up her face into specks and a jagged edge); a soft warm shade models it instead.
+    float skinArea = 1.0 - hairMask(vUv);
+    maskedLines = mix(maskedLines, 1.0, skinArea);
+    terminatorbounce *= 1.0 - skinArea;
 
     // compositing;
     vec3 color = vec3(1.0);
@@ -212,7 +216,8 @@ void main() {
     color = mix(color, vec3(1.0), terminatorbounce);
     color *= atlas;
     color *= trim;
-    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), trim, vUv), hairMask(vUv) * step(0.0, vPos.z));
+    color *= mix(vec3(1.0), skinShade(smoothstep(-0.55, 0.35, lighting)), skinArea * (1.0 - shine * 2.0));
+    color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), trim, vUv), hairMask(vUv) * step(0.0, vPos.z));
 
     vec3 backgroundColor = vec3(58.0) / 255.0;
 

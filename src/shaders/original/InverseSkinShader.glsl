@@ -44,7 +44,8 @@ void main() {
     vec4 projectionNormal = projectionMatrix * modelViewMatrix * vec4(vNormal, 0.0);
     
     vec2 screenNormal = normalize(projectionNormal.xy);
-    projectionPos.xy += screenNormal * uDisplacement * projectionPos.w * 0.004 * mix(1.0, 0.65, face);
+    float hair = step(0.10, uv.y) * step(uv.y, 0.30);
+    projectionPos.xy += screenNormal * uDisplacement * projectionPos.w * 0.004 * mix(1.0, 0.65, face) * mix(1.0, 0.55, hair);
 
     gl_Position = projectionPos;
     vWorldY = (modelMatrix * vec4(pos, 1.0)).y;
@@ -64,7 +65,9 @@ void main() {
     if (vChain > 0.25 && vChain < 0.75 && uClasp > 0.5) discard;
     if (vChain > 0.75 && uClasp < 0.5) discard;
 
-    vec3 color = vec3(18.0 / 255.0);
+    // Voyage: her hair's outline is a dark brown line, not ink.
+    float hair = step(0.10, vUv.y) * step(vUv.y, 0.30);
+    vec3 color = mix(vec3(18.0 / 255.0), vec3(0.075, 0.05, 0.042), hair);
 
     gl_FragColor = vec4(color, 1.0);
 }

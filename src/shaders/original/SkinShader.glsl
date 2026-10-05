@@ -174,7 +174,7 @@ void main() {
     color *= mix(min(mix(0.66, 1.0, maskedLines), 1.0), 1.0, skinMask);
     color *= trim;
     color *= atlas;
-    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), trim, vUv), hairMask(vUv));
+    color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), trim, vUv), hairMask(vUv));
 
     // The pendant's pearl wakes in the tide's colour (uv2 in the far corner marks it).
     float pearl = step(0.995, min(vUv2.x, vUv2.y)) * uPearl;

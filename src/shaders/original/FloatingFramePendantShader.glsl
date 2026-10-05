@@ -173,8 +173,11 @@ void main() {
     color = mix(color, mix(uDrinkColor, vec3(1.0), smoothstep(0.75, 0.95, lighting)), pearl);
     value = max(value, pearl);
 
-    // frame outline
-    color *= value;
+    // Voyage: she is shaded softly (skin in a warm shade, the lace a little darker in shadow); only the
+    // backdrop keeps the hard, noisy ink tone, which broke her skin into black specks.
+    float soft = smoothstep(0.2, 0.7, lighting - fresnel * 0.4);
+    vec3 figure = mix(skinShade(max(soft, 0.25)), vec3(mix(0.68, 1.0, soft)), dress);
+    color *= mix(vec3(value), max(figure, vec3(pearl)), 1.0 - vBackground);
     color = mix(color, hairShade(smoothstep(0.35, 0.8, lighting), aastep(0.55, trimData.r), vUv), hairMask(vUv) * (1.0 - vBackground));
     color *= outline;
 

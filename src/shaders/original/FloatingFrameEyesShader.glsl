@@ -155,9 +155,12 @@ void main() {
     float noise = texture2D(tNoise, lineUv * 2.0).r;
     maskedLines += noise* pow(lightMask, 2.0) * 3.0;
     maskedLines += pow(1.0 - (vPos.y * 0.5 + 0.4), 2.0);
-    // Voyage: her skin stays clean paper in the close-up, a light stipple only where it turns from the light.
     maskedLines += 0.45;
     maskedLines = aastep(0.01, maskedLines);
+    // Voyage: her skin is clean in the close-up (the stipple read as specks on her face).
+    float skinArea = 1.0 - hairMask(vUv2);
+    maskedLines = mix(maskedLines, 1.0, skinArea);
+    terminatorbounce *= 1.0 - skinArea;
 
     // compositing;
     vec3 color = vec3(1.0);
@@ -165,7 +168,7 @@ void main() {
     color *= maskedLines;
     color = mix(color, vec3(1.0), terminatorbounce);
     color *= atlas;
-    color = mix(color, hairShade(smoothstep(-0.2, 0.5, lighting), trim, vUv2), hairMask(vUv2));
+    color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), trim, vUv2), hairMask(vUv2));
     color *= mix(vec3(1.0), uColor, vIrisMask);
 
     vec3 backgroundColor = vec3(58.0) / 255.0;

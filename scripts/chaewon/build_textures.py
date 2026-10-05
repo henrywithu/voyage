@@ -42,7 +42,7 @@ if __name__ == '__main__':
     Image.fromarray((rgba * 255).astype(np.uint8), 'RGBA').save(buf, 'PNG')
     layer = 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
     ew = atlas.build(face.face_svg(lm, layer_png=layer), face.face_svg(lm, closeup=True, layer_png=layer), lm, win, OUT,
-                     chromium=CHROMIUM)
+                     chromium=CHROMIUM, eyeball_svg=face.eyeball_svg(lm))
     mid = (lm['eyes'][0]['cx'] + lm['eyes'][1]['cx']) / 2
     iris = [face.iris_geometry(e, -1 if e['cx'] < mid else 1) for e in lm['eyes']]
     json.dump(dict(win=win, eye_window=ew, eyes=[dict(cx=float(e['cx']), cy=float(e['cy']), x0=int(e['x0']), x1=int(e['x1']),
