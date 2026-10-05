@@ -13,8 +13,16 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { lockup, INK } from "./build_logos.mjs";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const require = createRequire(path.join(path.resolve(process.env.PW_DIR || "scripts/character/build/pw"), "x.js"));
+const ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../..",
+);
+const require = createRequire(
+  path.join(
+    path.resolve(process.env.PW_DIR || "scripts/character/build/pw"),
+    "x.js",
+  ),
+);
 const { chromium } = require("playwright");
 const OUT = path.join(ROOT, "public/assets/social/trapnest-voyage-og.jpg");
 const [, , render] = process.argv;
@@ -22,7 +30,11 @@ if (!render) throw new Error("usage: build_og.mjs <render.png>");
 
 const art = fs.readFileSync(render).toString("base64");
 const mark = lockup({ wide: true, mode: "mono", ink: INK, id: "o" });
-const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
+const browser = await chromium.launch(
+  process.env.CHROMIUM_PATH
+    ? { executablePath: process.env.CHROMIUM_PATH }
+    : {},
+);
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 await page.setContent(`<html><body style="margin:0;width:1200px;height:630px;overflow:hidden;position:relative">
   <img src="data:image/png;base64,${art}" style="position:absolute;inset:0;width:1200px;height:630px;object-fit:cover">

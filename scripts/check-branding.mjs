@@ -14,6 +14,9 @@ const index = await requireText("index.html", [
   "https://voyage.henrywithu.com/",
   "trapnest-voyage-og.jpg",
   "trapnest-voyage.svg",
+  "/favicon.ico",
+  "/apple-touch-icon.png",
+  "/site.webmanifest",
 ]);
 if (/Santioni|Notturno|Spirit/i.test(index))
   throw new Error("index.html: legacy public branding remains");
@@ -41,14 +44,18 @@ await requireText("src/scenes/ProductShowcase.ts", [
 await requireText("wrangler.jsonc", [
   '"directory": "./dist"',
   '"not_found_handling": "single-page-application"',
+  '"pattern": "voyage.henrywithu.com", "custom_domain": true',
 ]);
+const manifest = JSON.parse(await read("public/site.webmanifest"));
+if (manifest.name !== "Trapnest Voyage")
+  throw new Error("site.webmanifest: name is not Trapnest Voyage");
 
 const jpg = await readFile(
   new URL("../public/assets/social/trapnest-voyage-og.jpg", import.meta.url),
 );
 let width;
 let height;
-for (let offset = 2; offset + 9 < jpg.length; ) {
+for (let offset = 2; offset + 9 < jpg.length;) {
   if (jpg[offset] !== 0xff) break;
   const marker = jpg[offset + 1];
   const length = jpg.readUInt16BE(offset + 2);
@@ -70,11 +77,17 @@ for (const path of [
   "public/assets/images/trapnest-product-n1.svg",
   "public/assets/images/trapnest-product-n2.svg",
   "public/assets/images/trapnest-product-n3.svg",
+  "public/assets/images/trapnest-voyage-logo-mobile.png",
+  "public/assets/images/trapnest-voyage-emblem.svg",
+  "public/favicon.ico",
+  "public/apple-touch-icon.png",
+  ...manifest.icons.map((icon) => `public${icon.src}`),
 ]) {
   const info = await stat(new URL(`../${path}`, import.meta.url));
-  if (!info.isFile() || info.size < 100) throw new Error(`${path}: invalid asset`);
+  if (!info.isFile() || info.size < 100)
+    throw new Error(`${path}: invalid asset`);
 }
 
 console.log(
-  "Verified Trapnest Voyage metadata, L.A.S.T. gate, footer destination, flask assets, Workers SPA routing and 1200x630 OG image.",
+  "Verified Trapnest Voyage metadata, L.A.S.T. gate, footer destination, flask assets, Workers SPA routing on voyage.henrywithu.com, icons and the 1200x630 OG image.",
 );

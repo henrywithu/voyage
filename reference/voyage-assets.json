@@ -462,6 +462,22 @@
     {
       "path": "assets/images/story/products/cap_label.png",
       "reason": "flask replaces the bottle"
+    },
+    {
+      "path": "assets/favicon/favicon.svg",
+      "reason": "Santioni brand mark, superseded by the Trapnest Voyage logos and favicon"
+    },
+    {
+      "path": "assets/images/footer_logo.svg",
+      "reason": "Santioni brand mark, superseded by the Trapnest Voyage logos and favicon"
+    },
+    {
+      "path": "assets/images/logo.png",
+      "reason": "Santioni brand mark, superseded by the Trapnest Voyage logos and favicon"
+    },
+    {
+      "path": "assets/images/logo_mobile.png",
+      "reason": "Santioni brand mark, superseded by the Trapnest Voyage logos and favicon"
     }
   ]
 }

@@ -12,8 +12,16 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const require = createRequire(path.join(path.resolve(process.env.PW_DIR || "scripts/character/build/pw"), "x.js"));
+const ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../..",
+);
+const require = createRequire(
+  path.join(
+    path.resolve(process.env.PW_DIR || "scripts/character/build/pw"),
+    "x.js",
+  ),
+);
 const opentype = require("opentype.js");
 const { chromium } = require("playwright");
 
@@ -23,8 +31,15 @@ export const SUN = "#f4bd28";
 const IMG = path.join(ROOT, "public/assets/images");
 const FAV = path.join(ROOT, "public/assets/favicon");
 
-const fontBytes = fs.readFileSync(path.join(ROOT, "public/assets/fonts/CharlesRosie.woff"));
-const font = opentype.parse(fontBytes.buffer.slice(fontBytes.byteOffset, fontBytes.byteOffset + fontBytes.length));
+const fontBytes = fs.readFileSync(
+  path.join(ROOT, "public/assets/fonts/CharlesRosie.woff"),
+);
+const font = opentype.parse(
+  fontBytes.buffer.slice(
+    fontBytes.byteOffset,
+    fontBytes.byteOffset + fontBytes.length,
+  ),
+);
 const f = (n) => +n.toFixed(2);
 
 /** Outline a line of text; `width` stretches the tracking so the line spans exactly that width. */
@@ -63,7 +78,14 @@ function column(x, w, top, bottom, capH) {
  * mode "color": ink, paper and sun. mode "mono": one ink, everything else transparent
  * (the header shader recolours it). `ink`, `paper` and `sun` override the colours.
  */
-export function emblem({ mode = "color", ink = INK, paper = PAPER, sun = SUN, id = "e", ring = true } = {}) {
+export function emblem({
+  mode = "color",
+  ink = INK,
+  paper = PAPER,
+  sun = SUN,
+  id = "e",
+  ring = true,
+} = {}) {
   const mono = mode === "mono";
   const R = 50;
   const horizon = 80;
@@ -71,14 +93,20 @@ export function emblem({ mode = "color", ink = INK, paper = PAPER, sun = SUN, id
   // The arch: a mass of hexagonal columns standing in open water, highest over the
   // opening and stepping down to broken stubs at either side.
   const cols = [];
-  for (let x = 23; x < 96; ) {
+  for (let x = 23; x < 96;) {
     const w = 5.4 + random() * 2.4;
     const cx = x + w / 2;
     const top = 23 + 0.03 * (cx - 60) ** 2 + (random() - 0.5) * 8;
     cols.push({ x, w, top });
     x += w + 0.8;
   }
-  for (const [x, w, top] of [[14.5, 5.2, 72], [19.4, 4.6, 66], [97.6, 5.4, 68], [103.4, 4.4, 74]]) cols.push({ x, w, top });
+  for (const [x, w, top] of [
+    [14.5, 5.2, 72],
+    [19.4, 4.6, 66],
+    [97.6, 5.4, 68],
+    [103.4, 4.4, 74],
+  ])
+    cols.push({ x, w, top });
   const parts = cols.map(({ x, w, top }) => column(x, w, top, horizon, 1.9));
   const bodies = parts.map((p) => p.body).join("");
   const caps = parts.map((p) => p.cap).join("");
@@ -92,16 +120,20 @@ export function emblem({ mode = "color", ink = INK, paper = PAPER, sun = SUN, id
       if (y1 - y0 > 5) out.push(`M${f(lx)} ${f(y0)}V${f(y1)}`);
       for (let j = 0; j < 2; j++) {
         const jy = top + 8 + random() * (horizon - top - 12);
-        if (horizon - top > 14) out.push(`M${f(x + w * 0.55)} ${f(jy)}H${f(x + w - 0.6)}`);
+        if (horizon - top > 14)
+          out.push(`M${f(x + w * 0.55)} ${f(jy)}H${f(x + w - 0.6)}`);
       }
       return out.join("");
     })
     .join("");
   // The opening: a round-headed portal down to the waterline.
-  const ox = 60, ow = 14.5, oy = 55;
+  const ox = 60,
+    ow = 14.5,
+    oy = 55;
   const portal = `M${ox - ow} ${horizon}V${oy}A${ow} ${ow} 0 0 1 ${ox + ow} ${oy}V${horizon}Z`;
   // The sun caught in the opening, ringed like the engine's engraved disc.
-  const sunR = 11.5, sunY = 60;
+  const sunR = 11.5,
+    sunY = 60;
   // Sea strokes, leaving a road of light under the sun.
   const sea = [];
   const road = [];
@@ -123,7 +155,10 @@ export function emblem({ mode = "color", ink = INK, paper = PAPER, sun = SUN, id
     }
   }
   const rings = [4.5, 7.5, 10]
-    .map((r) => `M${f(60 - r)} ${sunY}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0`)
+    .map(
+      (r) =>
+        `M${f(60 - r)} ${sunY}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0`,
+    )
     .join("");
   const clip = `<clipPath id="${id}c"><circle cx="60" cy="60" r="${R}"/></clipPath>`;
   const bezel = ring
@@ -171,10 +206,14 @@ const svg = (viewBox, body, label = "Trapnest Voyage") =>
 /** Emblem plus the stacked TRAPNEST / VOYAGE wordmark. */
 export function lockup({ wide, mode, ink, paper, sun, id }) {
   const words = wide
-    ? text("TRAPNEST", 135, 49, 25, { width: 145 }) + text("VOYAGE", 134, 91, 44, { width: 146 })
-    : text("TRAPNEST", 97, 55, 13, { width: 68 }) + text("VOYAGE", 96, 80, 22, { width: 70 });
+    ? text("TRAPNEST", 135, 49, 25, { width: 145 }) +
+      text("VOYAGE", 134, 91, 44, { width: 146 })
+    : text("TRAPNEST", 97, 55, 13, { width: 68 }) +
+      text("VOYAGE", 96, 80, 22, { width: 70 });
   const scale = wide ? 1 : 0.72;
-  const shift = wide ? "" : ` transform="translate(${f(60 - 60 * scale - 16)} ${f(60 - 60 * scale)}) scale(${scale})"`;
+  const shift = wide
+    ? ""
+    : ` transform="translate(${f(60 - 60 * scale - 16)} ${f(60 - 60 * scale)}) scale(${scale})"`;
   return svg(
     wide ? "0 0 286 120" : "0 0 168 120",
     `<g${shift}>${emblem({ mode, ink, paper, sun, id })}</g><path d="${words}" fill="${ink}"/>`,
@@ -239,7 +278,14 @@ async function main() {
   const files = {
     logo: lockup({ wide: true, mode: "mono", ink: "#000", id: "l" }),
     mobile: lockup({ wide: false, mode: "mono", ink: "#000", id: "m" }),
-    footer: lockup({ wide: true, mode: "color", ink: PAPER, paper: INK, sun: SUN, id: "f" }),
+    footer: lockup({
+      wide: true,
+      mode: "color",
+      ink: PAPER,
+      paper: INK,
+      sun: SUN,
+      id: "f",
+    }),
     emblem: svg("-10 -10 140 140", emblem({ id: "e" })),
     favicon: tile(),
     maskable: tile({ maskable: true }),
@@ -250,7 +296,11 @@ async function main() {
   write(path.join(IMG, "trapnest-voyage-emblem.svg"), files.emblem);
   write(path.join(FAV, "trapnest-voyage.svg"), files.favicon);
 
-  const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
+  const browser = await chromium.launch(
+    process.env.CHROMIUM_PATH
+      ? { executablePath: process.env.CHROMIUM_PATH }
+      : {},
+  );
   const page = await browser.newPage();
   const render = async (markup, w, h, transparent = true) => {
     await page.setViewportSize({ width: w, height: h });
@@ -258,21 +308,40 @@ async function main() {
       `<html><body style="margin:0;background:transparent;overflow:hidden">${markup.replace("<svg ", `<svg style="display:block" width="${w}" height="${h}" `)}</body></html>`,
     );
     await page.waitForTimeout(100);
-    return page.screenshot({ clip: { x: 0, y: 0, width: w, height: h }, omitBackground: transparent });
+    return page.screenshot({
+      clip: { x: 0, y: 0, width: w, height: h },
+      omitBackground: transparent,
+    });
   };
   // Header logos are alpha masks for the overlay's LogoShader; 3x their CSS size.
-  write(path.join(IMG, "trapnest-voyage-logo.png"), await render(files.logo, 858, 360));
-  write(path.join(IMG, "trapnest-voyage-logo-mobile.png"), await render(files.mobile, 504, 360));
-  write(path.join(IMG, "trapnest-voyage-emblem.png"), await render(files.emblem, 1024, 1024));
+  write(
+    path.join(IMG, "trapnest-voyage-logo.png"),
+    await render(files.logo, 858, 360),
+  );
+  write(
+    path.join(IMG, "trapnest-voyage-logo-mobile.png"),
+    await render(files.mobile, 504, 360),
+  );
+  write(
+    path.join(IMG, "trapnest-voyage-emblem.png"),
+    await render(files.emblem, 1024, 1024),
+  );
   const sizes = [16, 32, 48];
   const pngs = [];
-  for (const size of sizes) pngs.push({ size, data: await render(files.favicon, size, size) });
+  for (const size of sizes)
+    pngs.push({ size, data: await render(files.favicon, size, size) });
   write(path.join(ROOT, "public/favicon.ico"), ico(pngs));
   write(path.join(FAV, "favicon-32.png"), pngs[1].data);
-  write(path.join(ROOT, "public/apple-touch-icon.png"), await render(tile({ maskable: true }), 180, 180, false));
+  write(
+    path.join(ROOT, "public/apple-touch-icon.png"),
+    await render(tile({ maskable: true }), 180, 180, false),
+  );
   write(path.join(FAV, "icon-192.png"), await render(files.favicon, 192, 192));
   write(path.join(FAV, "icon-512.png"), await render(files.favicon, 512, 512));
-  write(path.join(FAV, "icon-maskable-512.png"), await render(files.maskable, 512, 512, false));
+  write(
+    path.join(FAV, "icon-maskable-512.png"),
+    await render(files.maskable, 512, 512, false),
+  );
   await browser.close();
 }
 
