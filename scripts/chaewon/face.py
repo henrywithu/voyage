@@ -503,7 +503,7 @@ def lips(m, ipd, s=1.0):
     return out
 
 
-JAW_SHADE = np.array([0xee, 0xc2, 0xb8]) / 255.0
+JAW_SHADE = np.array([0xf1, 0xcf, 0xc6]) / 255.0
 
 
 def jaw_line(rest, win, R, mouth_y):

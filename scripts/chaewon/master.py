@@ -102,7 +102,7 @@ def body_part(rest, win):
     fz = (P[:, 2] - (win['cz'] - win['size'] / 2)) / win['size']
     fx = (P[:, 0] - win['cx']) / win['size'] + 0.5
     inwin = (fz > 0.02) & (fx > 0.02) & (fx < 0.98)
-    front |= (fn[:, 1] < -0.35) & ((headw + neckw)[T].min(1) > 0.6) & inwin[T].all(1)
+    front |= (fn[:, 1] < -0.6) & ((headw + neckw)[T].min(1) > 0.6) & inwin[T].all(1)
     # Split vertices on the boundary between projected-face and plain-skin triangles.
     key = {}
     newP, newW, uv2, src = [], [], [], []

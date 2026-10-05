@@ -92,7 +92,11 @@ class Session:
 
     def hair(self, mats, wind=None, key=None, seed=11, arms=False, sweep=None):
         sdf = self.sdf_for(mats, key, arms)
-        return hair_mod.grow(self.rest, sdf, head_xf=self.head_xf(mats), wind=wind, seed=seed, sweep=sweep)
+        # Behind her chest in this pose: the rest pose's +Y turned by the upper spine.
+        sb = self.names.index('spine01')
+        back = (mats[sb] @ np.linalg.inv(self.rest_mats[sb]))[:3, :3] @ np.array([0, 1.0, 0])
+        return hair_mod.grow(self.rest, sdf, head_xf=self.head_xf(mats), wind=wind, seed=seed, sweep=sweep,
+                             back_dir=back)
 
     def assemble(self, mats, H):
         """All parts posed by `mats` plus hair styled for this pose. Returns merged dict in pose space."""
@@ -279,7 +283,7 @@ def clasp_pose(s, clasp):
             rig.hand_shape(arm, side, **PINCH)
             wrist_pos = wrist_pos + (target - Vector(pinch_point(s, side)))
     # Head bowed into the task.
-    poses.head(arm, pitch=11 - 4 * clasp, yaw=-3, roll=-4)
+    poses.head(arm, pitch=7 - 3 * clasp, yaw=-3, roll=-4)
 
 
 def capture_arm(s, side):
@@ -381,9 +385,9 @@ def asset_fasten(s):
     fasten_pose(s, 0.0)
     mats0 = s.pose_mats()
     pinch = {side: pinch_point(s, side) for side in 'LR'}
-    # Her hair gathered over her left shoulder, clear of the clasp at her nape.
-    sweep = np.array(s.arm.pose.bones['upperarm01.L'].head) + np.array([-0.05, -0.13, -0.2])
-    H = s.hair(mats0, key='fasten', arms=True, sweep=sweep)
+    # All her hair brought forward over both shoulders, parted down the back of her head: the nape is bare
+    # for the clasp.
+    H = s.hair(mats0, key='fasten', arms=True, sweep='front')
     parts, info = necklace.build(s, mats0, pinch)
     print('necklace', {k: np.round(v, 3).tolist() if hasattr(v, '__len__') else round(v, 3) for k, v in info.items()})
     m, hr = skinned_with_hair(
@@ -399,32 +403,40 @@ DANCER = dict(mcp=(6, 14, 20, 24), pip=(8, 20, 28, 32), dip=(4, 10, 13, 14), spr
               thumb=(-30, 34, 14, 8, 10))
 
 
+FLOAT_HAND = dict(mcp=(4, 9, 13, 17), pip=(6, 13, 18, 22), dip=(3, 6, 8, 10), spread=(-10, 0, 9, 18),
+                  thumb=(-32, 30, 12, 6, 8))
+
+
 def float_pose(s, t):
-    """Lifted by the tide (loop): weightless, one knee drawn up, toes pointed, arms drifting out
-    as if underwater, chin lifted toward the light."""
+    """Lifted by the tide (loop): weightless as a dancer under water. Her legs hang long with the toes
+    pointed, the left knee softly bent so that foot drifts back; her arms rise out from her sides to about
+    shoulder height, elbows soft, wrists trailing, hands open; chin lifted toward the light."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
     sw = math.sin(2 * math.pi * t)
     sw2 = math.sin(2 * math.pi * t - 1.2)
     sw3 = math.sin(2 * math.pi * 2 * t + 0.4)
-    poses.hips(arm, shift=(0.0, 0.0, 0.6 + 0.015 * sw), roll=2.5 * sw2, pitch=-5 + 1.5 * sw, yaw=3 * sw2)
-    aR, aL = ctx.ankle['R'], ctx.ankle['L']
     lift = Vector((0, 0, 0.6 + 0.015 * sw))
-    poses.plant_leg(ctx, 'R', ankle=tuple(aR + lift + Vector((0.01, -0.06 + 0.02 * sw2, 0.03))), knee_dir=(0, -1, 0.1),
-                    foot_pitch=-38)
-    poses.plant_leg(ctx, 'L', ankle=tuple(aL + lift + Vector((-0.03, -0.1 - 0.02 * sw2, 0.3 + 0.03 * sw))),
-                    knee_dir=(0.15, -1, 0.3), foot_pitch=-45, foot_yaw=6)
-    poses.spine(arm, pitch=-7 + 1.5 * sw, roll=-2 * sw2, yaw=-3 * sw)
+    poses.hips(arm, shift=tuple(lift), roll=2.0 * sw2, pitch=-3 + 1.5 * sw, yaw=3 * sw2)
+    aR, aL = ctx.ankle['R'], ctx.ankle['L']
+    poses.plant_leg(ctx, 'R', ankle=tuple(aR + lift + Vector((0.008, 0.02 + 0.015 * sw2, 0.012))), knee_dir=(0, -1, 0),
+                    foot_pitch=-58)
+    poses.plant_leg(ctx, 'L', ankle=tuple(aL + lift + Vector((-0.015, 0.13 + 0.02 * sw, 0.11 + 0.02 * sw2))),
+                    knee_dir=(0.05, -1, -0.15), foot_pitch=-62, foot_yaw=4)
+    poses.spine(arm, pitch=-6 + 1.5 * sw, roll=-2 * sw2, yaw=-3 * sw)
     pb = arm.pose.bones
     rig.update()
-    for side, sgn, ph in (('L', 1, 0.0), ('R', -1, 0.9)):
+    # A ballet line rather than a T: her left arm rises above her shoulder, the right floats lower and a little
+    # forward, each drifting on its own phase.
+    for side, sgn, ph, up, fwd in (('L', 1, 0.0, 0.08, -0.04), ('R', -1, 0.9, -0.16, -0.13)):
         drift = math.sin(2 * math.pi * t - ph)
+        poses.clavicle(arm, side, lift=4 + 6 * (up > 0) + 2 * drift)
         sh = pb[f'upperarm01.{side}'].head
-        wrist = sh + Vector((sgn * (0.36 + 0.02 * drift), -0.1 - 0.03 * drift, -0.2 + 0.07 * drift))
-        out = Vector((sgn * 0.9, -0.15, -0.25 + 0.2 * drift)).normalized()
-        poses.arm_to(ctx, side, wrist, elbow_dir=(sgn * 0.2, 0.35, -1), wrist=(out, Vector((0, 0.1, -1))))
-        rig.hand_shape(arm, side, **DANCER)
-    poses.head(arm, pitch=-15 + 2 * sw3, yaw=7 * sw, roll=5 * sw2)
+        wrist = sh + Vector((sgn * (0.38 + 0.015 * drift), fwd - 0.02 * drift, up + 0.05 * drift))
+        out = Vector((sgn * 0.92, -0.12, -0.25 + 0.6 * up + 0.14 * drift)).normalized()
+        poses.arm_to(ctx, side, wrist, elbow_dir=(sgn * 0.15, 0.35, -1), wrist=(out, Vector((0, 0.15, -1))))
+        rig.hand_shape(arm, side, **FLOAT_HAND)
+    poses.head(arm, pitch=-14 + 2 * sw3, yaw=6 * sw, roll=5 * sw2)
 
 
 def asset_float(s):
@@ -645,12 +657,12 @@ def onsea_pose(s):
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
     poses.contrapposto(ctx, 'L', 1.1)
-    poses.spine(arm, yaw=34, pitch=-2)
-    poses.relaxed_arm(ctx, 'L', out=0.2, fwd=-0.08, bend=18)
+    poses.spine(arm, yaw=42, pitch=0.5)
+    poses.relaxed_arm(ctx, 'L', out=0.2, fwd=-0.08, bend=18, hand=dict(curl=0.2, close=0.55, thumb=0.3))
     neck = s.arm.pose.bones['neck01'].head
     poses.arm_to(ctx, 'R', neck + Vector((0.03, -0.11, -0.10)), elbow_dir=(-1, 0.2, -0.8),
                  wrist=(Vector((0.4, -0.2, 0.75)), Vector((0.2, 1, 0))), hand=dict(curl=0.3, close=0.8, thumb=0.3))
-    poses.head(arm, pitch=-2, yaw=48, roll=8, neck_share=0.55)
+    poses.head(arm, pitch=-3, yaw=36, roll=7, neck_share=0.55)
 
 
 def target_pose(s):
@@ -713,7 +725,8 @@ def asset_statics(s, which=('approach', 'near', 'onsea', 'target', 'grotto', 'se
     specs = {
         'approach': (lambda: bow_pose(s, 0.0), wind_field((0, 1, 0.15), 0.0011), 'sea/chaewon-approach.bin.mesh', None),
         'near': (lambda: near_pose(s), up_wind, 'sea/chaewon-near.bin.mesh', None),
-        'onsea': (lambda: onsea_pose(s), wind_field((1, 0.6, 0.1), 0.0008), 'sea/chaewon-onsea.bin.mesh', None),
+        # Looking back over her shoulder at the reader: the sea wind streams all her hair behind her.
+        'onsea': (lambda: onsea_pose(s), wind_field((-0.25, 1, 0.2), 0.0011), 'sea/chaewon-onsea.bin.mesh', None),
         'target': (lambda: target_pose(s), wind_field((0, 1, 0.1), 0.0009), 'sea/chaewon-target.bin.mesh', None),
         'grotto': (lambda: grotto_pose(s), None, 'grotto/chaewon-grotto.bin.mesh', 0.66),
         'selection': (lambda: selection_pose(s), None, 'grotto/chaewon-selection.bin.mesh', None),
@@ -722,7 +735,8 @@ def asset_statics(s, which=('approach', 'near', 'onsea', 'target', 'grotto', 'se
         fn, wind, rel, clip = specs[name]
         fn()
         mats = s.pose_mats()
-        H = s.hair(mats, wind=wind, key='static_' + name)
+        H = s.hair(mats, wind=wind, key='static_' + name,
+                   **(dict(sweep='back', arms=True) if name == 'onsea' else {}))
         write_static_asset(s, rel, mats, H, clip=clip)
 
 
