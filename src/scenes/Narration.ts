@@ -11,6 +11,7 @@ import {
 } from "../data/narrative-layouts";
 import { worldHeight, clamp } from "../data/sections";
 import { theme, tides } from "../data/theme";
+import { assetUrl } from "../engine/assetUrl";
 gsap.registerPlugin(CustomEase);
 const textBoxEase = CustomEase.create("source-text-box", "0.45,0.30,0.16,1.00");
 export type NarrationData = Record<
@@ -270,7 +271,7 @@ export class NarrativeBox {
 export async function setupNarration(scenes: SceneSection[]) {
   const [font, data] = await Promise.all([
     FontAtlas.load(),
-    fetch("/assets/data/vo/all_timestamps.json").then((r) =>
+    fetch(assetUrl("assets/data/vo/all_timestamps.json")).then((r) =>
       r.json(),
     ) as Promise<NarrationData>,
   ]);

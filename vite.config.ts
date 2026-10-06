@@ -1,3 +1,5 @@
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
-export default defineConfig({plugins:[react()],server:{port:5173},build:{chunkSizeWarningLimit:1500}});
+import assetVersions from './scripts/asset-versions.mjs';
+// assetVersions: content-hashed ?v= on every /assets URL (see scripts/asset-versions.mjs).
+export default defineConfig({plugins:[react(),assetVersions()],server:{port:5173},build:{chunkSizeWarningLimit:1500}});

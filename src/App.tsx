@@ -16,6 +16,7 @@ import { Editorial, SourceArt, findArt } from "./components/SourceArt";
 import { products } from "./scenes/products";
 import { Soundscape } from "./audio/Soundscape";
 import { roundRobins } from "./audio/catalog";
+import { assetUrl } from "./engine/assetUrl";
 
 export default function App() {
   const stage = useRef<HTMLDivElement>(null),
@@ -206,7 +207,7 @@ export default function App() {
                   <div className="footer-group">
                     <div className="footer-logo">
                       <img
-                        src="/assets/images/trapnest-voyage-logo-footer.svg"
+                        src={assetUrl("assets/images/trapnest-voyage-logo-footer.svg")}
                         alt="Trapnest Voyage"
                       />
                     </div>
@@ -240,8 +241,8 @@ export default function App() {
             <img
               src={
                 viewport.w < 768
-                  ? "/assets/images/trapnest-voyage-logo-mobile.png"
-                  : "/assets/images/trapnest-voyage-logo.png"
+                  ? assetUrl("assets/images/trapnest-voyage-logo-mobile.png")
+                  : assetUrl("assets/images/trapnest-voyage-logo.png")
               }
               alt="Trapnest Voyage"
             />

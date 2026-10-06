@@ -1,12 +1,13 @@
 import * as THREE from 'three';
 import {texture} from './assets';
+import {assetUrl} from './assetUrl';
 export type TimedWord={text:string;start:number;end:number;type:string};
 export interface FontData {chars:{char:string;id:number;width:number;height:number;xoffset:number;yoffset:number;xadvance:number;x:number;y:number}[];info:{size:number};common:{scaleW:number;scaleH:number};kernings:{first:number;second:number;amount:number}[]}
 /** BMFont layout follows the recovered GLTextThread: advances, word wrapping, baseline and line metrics. */
 export class FontAtlas {
  readonly map:THREE.Texture;readonly glyphs:Map<string,FontData['chars'][number]>;
  constructor(readonly data:FontData,readonly name:string){this.glyphs=new Map(data.chars.map(g=>[g.char,g]));this.map=texture(`assets/fonts/${name}.png`,false);this.map.generateMipmaps=false;this.map.minFilter=THREE.LinearFilter;}
- static async load(name='PPNikkeiMaru-Regular'){return new FontAtlas(await fetch(`/assets/fonts/${name}.json`).then(r=>r.json()),name);}
+ static async load(name='PPNikkeiMaru-Regular'){return new FontAtlas(await fetch(assetUrl(`assets/fonts/${name}.json`)).then(r=>r.json()),name);}
  layout(text:string,size:number,width:number,lineHeight=1.7,timings:TimedWord[]=[],align:'left'|'center'|'right'='left'){
   const scale=size/this.data.info.size;const whitespace=/[^\S\u00a0]/;
   type Placed={glyph:FontData['chars'][number];x:number;charIndex:number};type Line={width:number;glyphs:Placed[]};

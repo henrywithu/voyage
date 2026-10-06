@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {assetUrl} from './assetUrl';
 
 export interface PackedAttribute {offset:number;count:number;itemSize:number;type:string;normalized?:boolean}
 // Compact meshes store some attributes in smaller types (see scripts/character/meshio.py).
@@ -14,6 +15,8 @@ export interface DecodedAsset {geometry:THREE.BufferGeometry;header:PackedMesh}
 const geometries=new Map<string,Promise<DecodedAsset>>();
 const textures=new Map<string,THREE.Texture>();
 const textureLoader=new THREE.TextureLoader();
+// Anything else three.js loads from /assets is versioned too (see assetUrl).
+THREE.DefaultLoadingManager.setURLModifier(url=>/^\/?assets\//.test(url)?assetUrl(url):url);
 export const pendingTextures:Promise<void>[]=[];
 export const white=new THREE.DataTexture(new Uint8Array([255,255,255,255]),1,1);white.needsUpdate=true;
 export const black=new THREE.DataTexture(new Uint8Array([0,0,0,255]),1,1);black.needsUpdate=true;
@@ -21,7 +24,7 @@ export function texture(path:string,repeat=true):THREE.Texture{
  path='/'+path.replace(/^\//,'').split('?')[0];
  const key=path+repeat;if(textures.has(key))return textures.get(key)!;
  let done!:()=>void;pendingTextures.push(new Promise(resolve=>done=resolve));
- const tex=textureLoader.load(path,done,undefined,()=>{console.warn('Texture unavailable',path);done();});
+ const tex=textureLoader.load(assetUrl(path),done,undefined,()=>{console.warn('Texture unavailable',path);done();});
  tex.colorSpace=THREE.NoColorSpace;
  // Hydra's image decoder uploads PNGs with premultiplied alpha. The blue-noise
  // atlas stores random alpha, so this also affects the composite's grain/tone.
@@ -33,7 +36,7 @@ export function loadGeometry(path:string):Promise<DecodedAsset>{
  path=path.split('?')[0];if(geometries.has(path))return geometries.get(path)!;
  const task=(async()=>{
   if(path.endsWith('.bin')){
-   const response=await fetch('/'+path.replace('assets/geometry/','assets/decoded/')+'.mesh');
+   const response=await fetch(assetUrl(path.replace('assets/geometry/','assets/decoded/')+'.mesh'));
    if(!response.ok)throw new Error('Missing decoded geometry '+path);
    const data=await response.arrayBuffer();const size=new DataView(data).getUint32(0,true);
    const header:PackedMesh=JSON.parse(new TextDecoder().decode(data.slice(4,size+4)));
@@ -43,7 +46,7 @@ export function loadGeometry(path:string):Promise<DecodedAsset>{
    if(geometry.attributes.position){geometry.computeBoundingBox();geometry.computeBoundingSphere();}
    geometry.userData=header.userData??{};return {geometry,header};
   }
-  const response=await fetch('/'+path);if(!response.ok)throw new Error('Missing geometry '+path);
+  const response=await fetch(assetUrl(path));if(!response.ok)throw new Error('Missing geometry '+path);
   const json=await response.json();let geometry:THREE.BufferGeometry;
   if(json.data?.attributes)geometry=new THREE.BufferGeometryLoader().parse(json);
   else {geometry=new THREE.BufferGeometry();for(const [key,v]of Object.entries(json)){

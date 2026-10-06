@@ -2,8 +2,9 @@ import * as THREE from 'three';
 import {SceneSection} from './SceneSection';
 import {material} from './shaders';
 import {texture} from './assets';
+import {assetUrl} from './assetUrl';
 export async function windLines(scene:SceneSection,path:string|{curves:{position:number[]}[]},params:Record<string,unknown>={},shader='WindLineShader'){
- const curves=typeof path==='string'?(await fetch('/'+path).then(r=>r.json())).data.curves as {position:number[]}[]:path.curves;
+ const curves=typeof path==='string'?(await fetch(assetUrl(path)).then(r=>r.json())).data.curves as {position:number[]}[]:path.curves;
  const position:number[]=[],uv:number[]=[],currpos:number[]=[],nextpos:number[]=[],prevpos:number[]=[],random:number[]=[],index:number[]=[];let counter=0;
  const point=new THREE.Vector3(),prev=new THREE.Vector3(),next=new THREE.Vector3();
  for(const curve of curves){const data=curve.position,n=data.length/3,rand=Math.random();for(let i=0;i<n;i++){

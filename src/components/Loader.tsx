@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import gsap from "gsap";
+import { assetUrl } from "../engine/assetUrl";
 interface Props {
   progress: number;
   error: string;
@@ -25,7 +26,7 @@ export function Loader({ progress, error, ready, onReveal, onExit }: Props) {
       renderer: "svg",
       loop: false,
       autoplay: false,
-      path: "/assets/lottie/loader.json",
+      path: assetUrl("assets/lottie/loader.json"),
     });
     player.setSpeed(0.5);
     const delay = setTimeout(() => player.play(), 200),
@@ -96,7 +97,7 @@ export function Loader({ progress, error, ready, onReveal, onExit }: Props) {
     <div ref={root} className="LoaderView stack">
       <div className="logo">
         <img
-          src="/assets/images/trapnest-voyage-logo-footer.svg"
+          src={assetUrl("assets/images/trapnest-voyage-logo-footer.svg")}
           alt="Trapnest Voyage"
         />
       </div>

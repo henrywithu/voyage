@@ -3,6 +3,7 @@ import type { NarrativeBox } from "../scenes/Narration";
 import { range, clamp, worldHeight } from "../data/sections";
 import { tracks, loopIds, roundRobins, frequencyBands } from "./catalog";
 import { mp3LoopBounds } from "./loopBounds";
+import { assetUrl } from "../engine/assetUrl";
 
 /** Web Audio graph reconstructed from AudioManager, AudioConfig, Story and scene controllers. */
 export class Soundscape {
@@ -124,7 +125,7 @@ export class Soundscape {
     const isVoice = path.startsWith("vo/");
     const extension = isVoice ? "mp3" : this.fileType;
     const result = fetch(
-      "/assets/audio/" + path + "." + extension,
+      assetUrl("assets/audio/" + path + "." + extension),
     )
       .then((r) => {
         if (!r.ok) throw new Error("Missing audio " + path);

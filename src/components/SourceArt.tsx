@@ -1,5 +1,6 @@
 import React from "react";
 import trees from "../data/ui-trees.json";
+import { assetUrl } from "../engine/assetUrl";
 export interface ArtNode {
   _type: string;
   children?: ArtNode[];
@@ -75,7 +76,7 @@ export function SourceArt({ node }: { node?: ArtNode }): React.ReactNode {
     }
     props[key] =
       k === "src" && v.startsWith("assets/")
-        ? "/" + v
+        ? assetUrl(v)
         : typeof v === "string"
           ? rebrand(v)
           : v;
