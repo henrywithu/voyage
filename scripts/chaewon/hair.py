@@ -277,6 +277,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     widths = np.zeros(S)
     lengths = np.zeros(S)
     tone = np.zeros(S)
+    layers = np.zeros(S)
     for i in range(S):
         phi0, el0 = R[i]
         g = groups[i]
@@ -293,6 +294,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         # Each lock's own shade of brown: the outer layers (rooted higher) catch more light than those under them.
         tone[i] = np.clip(0.15 + 0.5 * layer + 0.45 * rng.random() + (0.2 if g in ('bangs', 'side', 'frame') else 0), 0, 1)
         lift = 0.0028 + 0.0032 * layer
+        layers[i] = layer
         if g == 'bangs':
             total = None  # set from the scalp path below: over the brows
             lift = 0.0042 + 0.001 * rng.random()
@@ -381,7 +383,14 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     sd = sdf((hc0[None, None] + ray[:, None] * ts[None, :, None]).reshape(-1, 3)).reshape(len(P0), len(ts))
     out = sd > 0
     t_skin = np.where(out.any(1), ts[np.argmax(out, axis=1)], r)
-    P0 = hc0 + ray * np.maximum(r, t_skin + 0.003)[:, None]
+    # Every scalp point sits on her real skull (the fitted ellipsoid is flatter and wider, which squared off
+    # the top of the head): just over the skin, the outer layers a little further out, with soft volume at
+    # the crown easing away down the sides, so the hair follows the round of the head.
+    el_pin = elev[pinned]
+    crown = np.clip((el_pin - 10.0) / 60.0, 0, 1) ** 0.8
+    off = 0.0032 + 0.0026 * np.repeat(layers, N).reshape(S, N)[pinned] + 0.0035 * crown
+    rad = np.where(out.any(1), t_skin + off, np.maximum(r, t_skin + off))
+    P0 = hc0 + ray * rad[:, None]
     X0[pinned] = P0
     zc = hf['center'][2] if head_xf is None else float((np.asarray(head_xf)[:3, :3] @ hf['center'] + np.asarray(head_xf)[:3, 3])[2])
     long0 = ~np.isin(groups, ('bangs', 'side', 'frame'))

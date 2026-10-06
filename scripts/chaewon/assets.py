@@ -313,10 +313,13 @@ def fasten_pose(s, p):
         wr = a['wr'] * (1 - u) ** 2 + c * 2 * u * (1 - u) + b['wr'] * u ** 2
         ea = (a['el'] - (a['sh'] + a['wr']) / 2).normalized()
         eb = (b['el'] - (b['sh'] + b['wr']) / 2).normalized()
+        # The elbows drop down and out as the hands come forward (never swinging up and out to the side).
+        em = Vector((sgn * 0.45, 0.15, -1.0)).normalized()
+        el = (ea * (1 - u) ** 2 + em * 2 * u * (1 - u) + eb * u ** 2).normalized()
         d = a['dir'].lerp(b['dir'], u).normalized()
         palm = a['palm'].lerp(b['palm'], u).normalized()
         fingers = {n: s.arm.pose.bones[f'{n}.{side}'].rotation_quaternion.copy() for n in rig.FINGER_BONES}
-        poses.arm_to(s.ctx, side, wr, elbow_dir=tuple(ea.lerp(eb, u).normalized()), wrist=(d, palm))
+        poses.arm_to(s.ctx, side, wr, elbow_dir=tuple(el), wrist=(d, palm))
         for n, q in fingers.items():
             s.arm.pose.bones[f'{n}.{side}'].rotation_quaternion = q
         rig.update()
@@ -365,7 +368,7 @@ def charm_pose(s, t):
     for _ in range(3):
         wrist_pos = tip_target - fingers * 0.15 + Vector((0, -0.03, 0))
         for _ in range(4):
-            poses.arm_to(ctx, 'R', wrist_pos, elbow_dir=(-1, 0.35, -0.8), wrist=(fingers, Vector((0.15, 1, 0.1))))
+            poses.arm_to(ctx, 'R', wrist_pos, elbow_dir=(-0.6, 0.3, -1), wrist=(fingers, Vector((0.15, 1, 0.1))))
             rig.hand_shape(arm, 'R', mcp=(6, 12, 18, 24), pip=(8, 20, 28, 32), dip=(4, 10, 13, 14),
                            spread=(-6, 0, 8, 16), thumb=(-34, 34, 14, 8, 10))
             rig.update()
