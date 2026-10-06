@@ -148,15 +148,15 @@ def eye_shape(e, outer):
     # Centred on the mesh opening and as tall as it (so the lids stay on the lids in 3/4 views); a little
     # wider, for the liner past the outer corner.
     c = np.array([(e['x0'] + e['x1']) / 2 + outer * 0.04 * W0, (e['top'].min() + e['bot'].max()) / 2 + 0.058 * W0])
-    W = 1.22 * W0
+    W = 1.06 * W0
     inner = c + np.array([-outer * W / 2, 0.035 * W])
     outer_c = c + np.array([outer * W / 2, -0.035 * W])
-    Hh = H0 / 0.78
+    Hh = H0 / 0.84
     up = cubic(inner, inner + np.array([outer * 0.16 * W, -0.74 * Hh]), outer_c + np.array([-outer * 0.32 * W, -0.70 * Hh]),
                outer_c, 60)
     lo = cubic(inner, inner + np.array([outer * 0.28 * W, 0.40 * Hh]), outer_c + np.array([-outer * 0.26 * W, 0.42 * Hh]),
                outer_c, 60)
-    r = 0.27 * W
+    r = 0.26 * W
     ix = c[0] - outer * 0.015 * W
     k = np.argmin(np.abs(lo[:, 0] - ix))
     iy = lo[k, 1] - 0.93 * r
@@ -185,16 +185,16 @@ BLUSH = '#ffc4c0'
 EYESHADOW = '#f2c7bb'
 EYE_WHITE = '#fdfcff'
 EYE_WHITE_SHADE = '#d8d0de'
-IRIS_TOP = '#4c2c22'
-IRIS_MID = '#64392c'
-IRIS_LOW = '#93604a'
-IRIS_GLOW = '#d39d7c'
-IRIS_FIBRE = '#b98166'
+IRIS_TOP = '#241612'
+IRIS_MID = '#3a241c'
+IRIS_LOW = '#6b4536'
+IRIS_GLOW = '#9c6c55'
+IRIS_FIBRE = '#7d5242'
 TEAR = '#f6b3ad'
-BROW = '#86624f'
-BROW_HAIR = '#5f4134'
-LIP_DEEP = '#e9625e'
-LIP_MID = '#f07d74'
+BROW = '#4f3a31'
+BROW_HAIR = '#3a2a23'
+LIP_DEEP = '#e8705f'
+LIP_MID = '#f08a78'
 LIP_EDGE = '#f7aca2'
 LIP_HI = '#fff1ec'
 NOSE_SHADE = '#f1cdc5'
@@ -444,7 +444,7 @@ def lip_shape(m, ipd):
     seam = m['seam']
     cx = float(seam[:, 0].mean())
     sy = float(np.median(seam[:, 1]))
-    Wm = 0.64 * ipd
+    Wm = 0.56 * ipd
     x0, x1 = cx - Wm / 2, cx + Wm / 2
     # Seam: corners lifted a little, a soft dip at the centre.
     line = np.vstack([cubic((x0, sy - 0.03 * Wm), (x0 + 0.18 * Wm, sy + 0.005 * Wm), (cx - 0.2 * Wm, sy + 0.02 * Wm),

@@ -159,7 +159,7 @@ void main() {
 
     // atlas texture
     float atlas = inkLevel(texture2D(tAtlas, vUv2).r);
-    atlas = aastep(0.55, atlas * trim);
+    atlas = aastep(0.55, atlas) * laceInk(aastep(0.55, trim));
 
     // lighting
     vec3 lightDir = vLightDir;

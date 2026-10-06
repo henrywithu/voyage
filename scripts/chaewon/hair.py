@@ -192,9 +192,10 @@ def design(rest, seed=11):
     # The see-through fringe: wispy clumps of three or four fine locks whose tips gather to a point, the
     # forehead showing between them; a narrow gap at the parting with a single fine wisp either side of it.
     bangs, clump = [], []
-    for ci, c in enumerate((-31.5, -25.0, -18.8, -12.6, -6.6, -2.2, 2.2, 6.6, 12.6, 18.8, 25.0, 31.5)):
-        c = c + rng.normal(0, 0.6)
-        n_l = 1 if abs(c) < 3.5 else (3 if abs(c) > 28 else 4)
+    for ci, c in enumerate((-33.0, -28.5, -24.0, -19.5, -15.0, -10.6, -6.4, -2.4, 2.4, 6.4, 10.6, 15.0, 19.5, 24.0, 28.5,
+                            33.0)):
+        c = c + rng.normal(0, 0.5)
+        n_l = 2 if abs(c) < 3.5 else (5 if abs(c) > 30 else 7)
         for _ in range(n_l):
             az = c + rng.uniform(-2.3, 2.3) * (0.3 if n_l == 1 else 1.0)
             phi = np.radians(az)
@@ -205,13 +206,13 @@ def design(rest, seed=11):
     # Side pieces at the temples, and the face-framing layer behind them.
     side = np.array([(sg * np.radians(az + rng.normal(0, 1.0)), hairline_elev(np.radians(az)) + 3 + 4 * rng.random())
                      for sg in (-1, 1) for az in (36.0, 40.5, 44.5)])
-    frame = np.array([(sg * np.radians(az + rng.normal(0, 1.5)), hairline_elev(np.radians(az)) + 2 + 6 * rng.random())
-                      for sg in (-1, 1) for az in (45.0, 48.0, 51.0, 54.0, 57.0, 60.0, 63.0, 66.0)])
+    frame = np.array([(sg * np.radians(az + rng.normal(0, 1.2)), hairline_elev(np.radians(az)) + 2 + 6 * rng.random())
+                      for sg in (-1, 1) for az in np.linspace(42.0, 68.0, 12)])
     groups = []
     for phi, el in hair:
         a = abs(np.degrees(phi))
         # Hair from the front half of the head (ahead of the ears) falls partly in front of the shoulders.
-        front = a < 105 and rng.random() < 0.8 * np.clip((105 - a) / 45, 0, 1) + 0.1
+        front = a < 120 and rng.random() < 0.95 * np.clip((120 - a) / 40, 0, 1) + 0.05
         groups.append('front' if front else 'back')
     groups += ['bangs'] * len(bangs) + ['side'] * len(side) + ['frame'] * len(frame)
     clumps = np.r_[np.full(len(hair), -1), clump, np.full(len(side) + len(frame), -1)]
@@ -245,9 +246,12 @@ def release_point(phi0, el0, group, rng):
     c = np.clip(np.cos(np.radians(a)) * np.cos(np.radians(el0)) / np.cos(np.radians(el_end)), -1, 1)
     flow = np.degrees(np.arccos(c))
     if group == 'front':
-        # Hair from ahead of the crown falls past the temple, clear of the face, over the ear.
-        az = np.clip(flow, 72 + 0.2 * a, 100) + rng.normal(0, 1.5)
-        return s * np.radians(az), el_end - 20.0 * np.clip(1 - abs(az - 92) / 20, 0, 1)
+        # Hair from ahead of the crown falls past the temple, clear of the face. Each lock leaves the head at
+        # its own place along the side (ordered by where it grows, from the temple to behind the ear, high to
+        # low), so the front hair comes down as a sheet rather than gathering into one cord over the ear.
+        az = 58 + 0.5 * a + rng.normal(0, 2.0)
+        el_r = el_end + 6.0 - 0.22 * np.clip(el0, 0, 90) + rng.normal(0, 2.0)
+        return s * np.radians(az), el_r - 14.0 * np.clip(1 - abs(az - 92) / 14, 0, 1)
     if a < 100:
         # Hair over the ears wraps them and parts below them (in front of the shoulder or behind).
         az = np.clip(flow, 84, 180) + rng.normal(0, 1.5)
@@ -298,23 +302,23 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         if g == 'bangs':
             total = None  # set from the scalp path below: over the brows
             lift = 0.0042 + 0.001 * rng.random()
-            widths[i] = 0.0058 + 0.0026 * rng.random()
+            widths[i] = 0.0075 + 0.003 * rng.random()
         elif g == 'side':
             total = None  # to the cheekbones
             lift = 0.006
             widths[i] = 0.010 + 0.003 * rng.random()
         elif g == 'front':
-            total = 0.48 + rng.normal(0, 0.05)
-            widths[i] = 0.0085 + 0.0045 * rng.random()
+            total = 0.39 + rng.normal(0, 0.03)
+            widths[i] = 0.022 + 0.01 * rng.random()
         elif g == 'frame':
             # Face-framing pieces: from the temples, along the cheeks and on past the jaw to the collarbone.
-            total = 0.30 + 0.06 * rng.random()
+            total = 0.27 + 0.08 * rng.random()
             lift = 0.006
-            widths[i] = 0.010 + 0.004 * rng.random()
+            widths[i] = 0.014 + 0.006 * rng.random()
         elif g == 'back':
             back = 0.5 - 0.5 * np.cos(phi0)
-            total = 0.50 + 0.06 * back + rng.normal(0, 0.04)
-            widths[i] = 0.013 + 0.006 * rng.random()
+            total = 0.40 + 0.05 * back + rng.normal(0, 0.03)
+            widths[i] = 0.024 + 0.01 * rng.random()
         else:
             total = 0.35 + 0.2 * rng.random()
             widths[i] = 0.002 + 0.002 * rng.random()
@@ -323,7 +327,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             # Volume: the long hair stands further off the head the further it runs down from the part (the
             # layers beneath hold it out), so the locks share one smooth dome that widens to below the ears
             # and lets the hair fall clear of them, instead of hugging the skull and stepping off it.
-            lift = lift + 0.003 * np.clip(el_path / 75.0, 0, 1) + 0.012 * np.clip((62 - el_path) / 72.0, 0, 1) ** 1.4
+            lift = lift + 0.003 * np.clip(el_path / 75.0, 0, 1) + 0.016 * np.clip((62 - el_path) / 72.0, 0, 1) ** 1.4
         else:
             lift = lift + 0.0045 * np.clip(el_path / 75.0, 0, 1) ** 1.3
         # Grown out of the scalp: the first few millimetres rise from the skin to the lock's height.
@@ -410,6 +414,10 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     hcx = hf['center'] if head_xf is None else (np.asarray(head_xf)[:3, :3] @ hf['center'] + np.asarray(head_xf)[:3, 3])
 
     long_hair = ~is_bang & ~is_frame & ~is_side
+    # Where each front lock settles across her collarbones (see forces): ordered by its root's azimuth.
+    af = np.abs(np.degrees(R[is_front, 0]))
+    rank = np.argsort(np.argsort(af)) / max(len(af) - 1, 1)
+    front_x = hcx[0] + side_sign[is_front] * (0.06 + 0.09 * rank)
 
     def forces(X, t):
         F = np.zeros_like(X)
@@ -450,6 +458,11 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         spread = np.sin(R[:, 0])[:, None, None] * np.array([1.0, 0, 0])[None, None]
         F[back] += (0.00005 * spread * low)[back]
         F[is_front] += (0.00006 * spread * low)[is_front]
+        # Without hair-hair contact every front lock slides to the low point between neck and shoulder: give
+        # each its own place across the collarbones and chest by where it grows (locks from nearer the part lie
+        # nearer her neck), so the front hair falls as a full, even curtain.
+        lowf = np.clip((hcx[2] - 0.1 - X[..., 2]) / 0.08, 0, 1)
+        # (the placement itself is a positional guide: see guide() below)
         if front_all:
             # Brought forward over both shoulders, the hair parts in front too: no lock hangs down the middle
             # of her chest over the pendant.
@@ -466,6 +479,15 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         np.add.at(acc, cb, Xb)
         cnt = np.bincount(cb, minlength=cb.max() + 1)[:, None, None]
         F[is_bang] += (acc[cb] / cnt[cb] - Xb) * 0.06 * w2[None, :, None]
+        # Volume: from the ears to the shoulders the long hair stands out from her (the layers beneath hold it),
+        # so the silhouette widens around her face and jaw like a real head of hair, not strings down her cheeks.
+        rad = X[..., :2] - hcx[None, None, :2]
+        rad /= np.maximum(np.linalg.norm(rad, axis=2, keepdims=True), 1e-9)
+        dz = hcx[2] - X[..., 2]
+        flare = np.clip((dz - 0.02) / 0.06, 0, 1) * np.clip((0.17 - dz) / 0.06, 0, 1)
+        F[long_hair, :, :2] += (0.0003 * flare[long_hair])[..., None] * rad[long_hair]
+        # Face-framing layers: their ends flick outward at the jaw.
+        F[is_frame, :, 0] += (side_sign[is_frame, None] * 0.00025) * w3[None, :]
         # Side pieces: out over the temples, then down along the cheekbones, tips turning in.
         F[is_side, :, 0] += (side_sign[is_side, None] * 0.0002) * (w2 - 1.6 * w3)[None, :]
         F[is_side, :, 1] += -0.0002 * w2[None, :]
@@ -476,8 +498,46 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
 
     # Wind carries the hair a long way from where it starts (lifted, streaming back): give it time to
     # settle, or the strands stop part-way, folded where the tips have turned and the rest has not.
+    sep_w = np.maximum(widths, 0.006)
+    long_idx = np.flatnonzero(long_hair | is_frame)
+
+    def guide(X):
+        # Hair-hair contact: below the ears, points of different long locks closer than their widths are
+        # pushed apart (each by half the overlap), so the locks lie side by side as a full head of hair
+        # instead of collapsing into a cord wherever they slide off her shoulders.
+        if front_all:
+            # (all of it brought forward to bare the nape: it lies close, gathered over her shoulders)
+            return X
+        S_, N_ = X.shape[:2]
+        sub = X[long_idx]
+        low = sub[..., 2] < hcx[2] - 0.05
+        pts = sub[low]
+        if len(pts) < 2:
+            return X
+        owner = np.broadcast_to(np.arange(len(long_idx))[:, None], low.shape)[low]
+        tree = cKDTree(pts)
+        pairs = tree.query_pairs(0.009, output_type='ndarray')
+        if len(pairs):
+            pairs = pairs[owner[pairs[:, 0]] != owner[pairs[:, 1]]]
+        if len(pairs):
+            a_, b_ = pairs[:, 0], pairs[:, 1]
+            d = pts[a_] - pts[b_]
+            L = np.linalg.norm(d, axis=1, keepdims=True)
+            want = 0.5 * (sep_w[long_idx[owner[a_]]] + sep_w[long_idx[owner[b_]]])[:, None] * 0.3
+            push = np.clip(want - L, 0, None) * 0.5 * d / np.maximum(L, 1e-9)
+            delta = np.zeros_like(pts)
+            np.add.at(delta, a_, push)
+            np.add.at(delta, b_, -push)
+            sub[low] = pts + delta * 0.25
+            X[long_idx] = sub
+        if not (front_all or back_all or sweep is not None):
+            # Each front lock eases toward its own place across her collarbones below the jaw.
+            lowf = np.clip((hcx[2] - 0.08 - X[is_front, :, 2]) / 0.1, 0, 1)
+            X[is_front, :, 0] += 0.05 * (front_x[:, None] - X[is_front, :, 0]) * lowf
+        return X
+
     X = solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=iters if wind is None else max(iters, 480),
-                     wind=wind, soften=4.0)
+                     wind=wind, soften=4.0, guide=guide)
     # Outward direction of the nearest body surface at every point: ribbons lie flat on it.
     Nrm = sdf.gradient(X.reshape(-1, 3)).reshape(X.shape)
     return dict(X=X, groups=groups, widths=widths, lengths=lengths, hf=hf, pinned=pinned, roots=R, N=Nrm, el=elev,
@@ -557,7 +617,7 @@ def drape_start(X, pinned, seg, sdf, slide, margin=0.008, zc=None, back=(0.0, 1.
 
 
 def solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=140, bend=0.3, margin=0.006, damping=0.88,
-                 wind=None, vmax=0.002, soften=None):
+                 wind=None, vmax=0.002, soften=None, guide=None):
     """Stable PBD with per-point pins (the scalp-hugging part keeps its styled shape).
 
     Velocities come only from forces (capped); collision and constraint corrections move
@@ -589,6 +649,9 @@ def solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=140, bend=0.3, mar
                 X[:, k] = np.where(free[:, k:k + 1], want, X[:, k])
         mid = 0.5 * (X[:, :-2] + X[:, 2:])
         X[:, 1:-1] += (bend_k * (mid - X[:, 1:-1])) * free[:, 1:-1, None]
+        if guide is not None:
+            Xg = guide(X.copy())
+            X = np.where(free[..., None], Xg, X)
         flat = X.reshape(-1, 3)
         fm = free.reshape(-1)
         d = sdf(flat)
@@ -640,8 +703,8 @@ def ribbons(H, cam_up=None):
     t = np.linspace(0, 1, N)
     # Manga locks: full at the root and drawn to a point. The fringe tapers all along its length, so
     # neighbouring locks touch at the hairline and part toward their tips; long hair holds its width.
-    taper_long = np.clip(np.minimum(0.8 + t / 0.12 * 0.2, (1 - t) / 0.55), 0.02, 1.0) ** 1.1
-    taper_bang = np.clip(1 - t, 0.02, 1) ** 1.25  # wisps: full at the hairline, drawn to fine points
+    taper_long = np.clip(np.minimum(0.8 + t / 0.12 * 0.2, (1 - t) / 0.3), 0.02, 1.0) ** 1.1
+    taper_bang = np.clip((1 - t) / 0.6, 0.03, 1) ** 1.1  # full over the forehead, drawn to fine points
     th = np.linspace(0, 2 * np.pi, RING, endpoint=False)
     cs, sn = np.cos(th), np.sin(th)
     V = np.zeros((S, N, RING, 3))

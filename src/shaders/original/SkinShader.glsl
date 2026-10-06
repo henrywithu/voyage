@@ -103,7 +103,7 @@ void main() {
     vec4 trimData = texture2D(tTrim, vUv);
     float trim = trimData.r;
     if (trimData.a < 0.3) discard;
-    trim = aastep(0.4, trim);
+    trim = laceInk(aastep(0.4, trim));
 
     float skinMask = step(0.55, vUv2.y);
     vec3 normal = normalize(vNormal);
@@ -171,7 +171,7 @@ void main() {
     color = applyMakeup(color, tAtlas, vUv2, skinLit);
     color *= mix(vec3(1.0), skinContour(vViewNormal, vViewPos), skinMask);
     // Voyage: the hatching on her dress is a dark grey stroke, lighter than the ink of her outline.
-    color *= mix(min(mix(0.84, 1.0, maskedLines), 1.0), 1.0, skinMask);
+    color *= mix(min(mix(0.92, 1.0, maskedLines), 1.0), 1.0, skinMask);
     color *= trim;
     color *= atlas;
     color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), trim, vUv), hairMask(vUv));

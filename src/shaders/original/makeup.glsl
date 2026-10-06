@@ -1,6 +1,11 @@
 // Voyage: Chaewon's painted face and skin. The atlas is a colour painting: ink is near-black (inkLevel maps
 // it below the 0.55 the shaders threshold their line art at) and everything lighter is paint (her skin
 // tone, make-up, dark brown irises), multiplied over her shading here.
+// Voyage: lace on her dress is drawn in the trim texture; its strokes print as a soft grey (white-on-white lace),
+// not the ink of her outline and face.
+float laceInk(float trimInk) {
+    return mix(0.66, 1.0, trimInk);
+}
 float inkLevel(float red) {
     return min(1.0, red * 3.4);
 }
@@ -42,7 +47,7 @@ vec3 hairShade(float lit, float sheen, vec2 trimUv) {
     float lock = step(0.10, trimUv.y);
     float band = clamp(floor((trimUv.y - 0.10) / 0.025) / 7.0, 0.0, 1.0);
     float tone = mix(0.7, mix(0.93, 1.07, band), lock);
-    vec3 base = mix(vec3(0.065, 0.043, 0.037), vec3(0.25, 0.172, 0.14), lit) * tone;
+    vec3 base = mix(vec3(0.05, 0.035, 0.032), vec3(0.2, 0.14, 0.12), lit) * tone;
     // Across the band, 0 and 1 are a lock's two edges and 0.5 its middle.
     float across = fract((trimUv.y - 0.10) / 0.025);
     float edge = (1.0 - smoothstep(0.0, 0.12, min(across, 1.0 - across))) * lock;

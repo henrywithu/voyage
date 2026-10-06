@@ -108,7 +108,7 @@ void main() {
 
     // trim pattern
     float trim = texture2D(tTrim, vUv).r;
-    trim = aastep(0.55, trim);
+    trim = mix(0.66, 1.0, aastep(0.55, trim));  // Voyage: lace strokes in soft grey (see makeup.glsl laceInk)
 
     // lighting
     vec3 lightDir = normalize(uLightDir);

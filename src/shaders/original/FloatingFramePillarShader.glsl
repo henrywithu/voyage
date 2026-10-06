@@ -168,7 +168,7 @@ void main() {
 
     // trim texture
     float trim = texture2D(tTrim, vUv).r;
-    trim = aastep(0.55, trim * atlas);
+    trim = aastep(0.55, atlas) * laceInk(aastep(0.55, trim));
 
     // lighting
     vec3 lightDir = normalize(vec3(-0.9, 0.1, 1.0));

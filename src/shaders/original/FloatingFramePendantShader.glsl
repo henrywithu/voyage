@@ -147,7 +147,7 @@ void main() {
     vec4 trimData = texture2D(tTrim, vUv);
     if (trimData.a + vBackground < 0.2) discard;
     float trim = trimData.r;
-    trim = aastep(0.55, trim * atlas);
+    trim = atlas * laceInk(aastep(0.55, trim));
 
     // lighting
     vec3 lightDir = vLightDir;

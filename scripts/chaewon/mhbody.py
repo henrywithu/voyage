@@ -115,7 +115,7 @@ def modifier(verts, rel, value, neg='decr', pos='incr'):
 
 
 MACRO = dict(gender=0.0, age=0.5 * 22 / 25, muscle=0.38, weight=0.2, height=0.62, proportions=1.0,
-             asian=0.85, caucasian=0.15, cup=0.72, firmness=1.0)
+             asian=0.85, caucasian=0.15, cup=0.55, firmness=0.85)
 
 SIDES = ('l', 'r')
 SHAPE = [
@@ -140,7 +140,7 @@ SHAPE = [
     ('mouth/mouth-angles', 0.35, 'down', 'up'), ('mouth/mouth-scale-depth', -0.6, 'decr', 'incr'),
     ('mouth/mouth-trans', -0.25, 'backward', 'forward'),
     ('neck/neck-scale-horiz', -0.4, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
-    ('measure/measure-neck-height', -0.2, 'decr', 'incr'), ('measure/measure-neck-circ', -0.35, 'decr', 'incr'),
+    ('measure/measure-neck-height', -0.55, 'decr', 'incr'), ('measure/measure-neck-circ', -0.2, 'decr', 'incr'),
     # Torso: narrow shoulders, defined waist, soft hips.
     ('measure/measure-shoulder-dist', -0.05, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
     ('measure/measure-underbust-circ', -0.3, 'decr', 'incr'), ('measure/measure-hips-circ', -0.12, 'decr', 'incr'),
@@ -150,8 +150,8 @@ SHAPE = [
     ('hip/hip-waist', 0.25, 'down', 'up'), ('stomach/stomach-tone', 0.0, 'decr', 'incr'),
     ('buttocks/buttocks-volume', 0.05, 'decr', 'incr'),
     ('bodyshapes/bodyshapes-elvs-fem-neat-hourglass', 0.18, None, None),
-    ('breast/breast-trans', 0.45, 'down', 'up'), ('breast/breast-volume-vert', 0.5, 'down', 'up'),
-    ('breast/breast-point', -0.3, 'decr', 'incr'),
+    ('breast/breast-trans', 0.2, 'down', 'up'), ('breast/breast-volume-vert', 0.15, 'down', 'up'),
+    ('breast/breast-point', 0.0, 'decr', 'incr'),
     # Limbs: long legs, slender arms and calves, small hands and feet.
     ('armslegs/upperlegs-height', 0.35, 'decr', 'incr'), ('armslegs/lowerlegs-height', 0.3, 'decr', 'incr'),
     ('measure/measure-thigh-circ', -0.05, 'decr', 'incr'), ('measure/measure-calf-circ', -0.2, 'decr', 'incr'),
@@ -171,25 +171,42 @@ for s in SIDES:
         # Small ears that lie close to the head (her long hair covers them).
         (f'ears/{s}-ear-scale', -0.35, 'decr', 'incr'), (f'ears/{s}-ear-flap', -0.8, 'decr', 'incr'),
         (f'ears/{s}-ear-wing', -0.6, 'decr', 'incr'),
-        (f'armslegs/{s}-hand-scale', -0.3, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
-        (f'armslegs/{s}-hand-fingers-length', 0.3, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
+        (f'armslegs/{s}-hand-scale', -0.4, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
+        (f'armslegs/{s}-hand-fingers-length', 0.0, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
         (f'armslegs/{s}-lowerarm-scale-horiz', -0.2, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.15, 'decr', 'incr'),
         (f'armslegs/{s}-upperarm-shoulder-muscle', -0.4, 'decr', 'incr'),
         (f'armslegs/{s}-lowerleg-scale-horiz', -0.1, 'decr', 'incr'),
     ]
 
 
-# A soft oval face with a small, gently pointed chin (her likeness), and a full, natural bust that sits high
-# with a soft slope above it (never a cone).
+# A natural bust with a soft slope above it (never a cone or a sphere).
 SHAPE += [
     ('head/head-round', 0.4, None, None), ('head/head-invertedtriangular', 0.6, None, None),
     ('mouth/mouth-trans', 0.75, 'down', 'up'),
     ('nose/nose-trans', -0.15, 'down', 'up'),  # a short philtrum: nose and mouth close together
-    ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.25, 'decr', 'incr'),
+    ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.1, 'decr', 'incr'),
 ]
 
 
-EYE_SCALE = 1.3  # her large eyes: the eye region (opening, lids and eyeball) grown past MakeHuman's range
+# Her head, fitted to her portrait (scripts/chaewon/build/fitface.py measured it against the photo): MakeHuman's
+# young East Asian head, made younger, with a short nose and a small mouth: a slim soft oval narrowing to a gentle
+# V-line - lean cheeks (no puffy volume), a jaw about half the cheeks' width and a small rounded chin; a slim
+# neck. (A fuller jaw with cheek volume read as a fat face.)
+SHAPE = [t for t in SHAPE if not t[0].startswith(('head/', 'chin/', 'forehead/', 'cheek/'))
+         and t[0] not in ('nose/nose-scale-vert', 'mouth/mouth-scale-horiz', 'neck/neck-scale-horiz')]
+SHAPE += [
+    ('head/head-age', -0.9, 'decr', 'incr'), ('head/head-oval', 0.3, None, None),
+    ('head/head-invertedtriangular', 0.3, None, None),
+    ('head/head-fat', -0.3, 'decr', 'incr'), ('head/head-scale-horiz', -0.15, 'decr', 'incr'),
+    ('chin/chin-width', -0.2, 'decr', 'incr'), ('chin/chin-height', 0.05, 'decr', 'incr'),
+    ('cheek/l-cheek-volume', -0.15, 'decr', 'incr'), ('cheek/r-cheek-volume', -0.15, 'decr', 'incr'),
+    ('cheek/l-cheek-bones', -0.2, 'decr', 'incr'), ('cheek/r-cheek-bones', -0.2, 'decr', 'incr'),
+    ('nose/nose-scale-vert', -0.45, 'decr', 'incr'), ('mouth/mouth-scale-horiz', -0.3, 'decr', 'incr'),
+    ('neck/neck-scale-horiz', -0.35, 'decr', 'incr'),
+]
+
+
+EYE_SCALE = 1.15  # her large eyes: the eye region (opening, lids and eyeball) grown past MakeHuman's range
 
 
 def enlarge_eyes(verts, faces, groups, scale=EYE_SCALE, r0=0.17, r1=0.42):
@@ -217,7 +234,7 @@ EXPRESSION = {'mouth-corner-puller': 0.24, 'mouth-parling': 0.14, 'eye-left-slit
               'eyebrows-left-inner-up': 0.12, 'eyebrows-right-inner-up': 0.12}
 
 
-HEAD_SCALE = 0.9  # her small idol's head: scaled about the top of the neck, easing out down the neck
+HEAD_SCALE = 1.0  # her small idol's head: scaled about the top of the neck, easing out down the neck
 
 
 def scale_head(verts, scale=None):
@@ -234,7 +251,7 @@ def scale_head(verts, scale=None):
     return verts
 
 
-CHIN = dict(forward=0.09, down=0.04, radius=0.22)  # decimetres
+CHIN = {}  # (decimetres: dict(forward=, down=, radius=)); her fitted chin needs no sculpting
 
 
 def sculpt_chin(verts, groups_faces, chin=None):

@@ -108,7 +108,7 @@ void main() {
 
     // detail texture
     float atlas = inkLevel(texture2D(tAtlas, vUv2).r);
-    atlas = aastep(0.55, atlas * trim);
+    atlas = aastep(0.55, atlas) * laceInk(aastep(0.55, trim));
 
     // lighting
     float lighting = dot(normal, uLightDir);
@@ -132,13 +132,13 @@ void main() {
     alt = mix(alt, vec3(1.0), vSkinMask);
 
     // Voyage: her dress falls into a soft grey shade (the hatching draws its texture), not solid ink.
-    color = mix(alt * 0.86, alt, terminatormid);
+    color = mix(alt * 0.9, alt, terminatormid);
     color = mix(color, skinShade(skinLit), vSkinMask);
     color = mix(color, vec3(1.0), terminatorhigh);
     color = applyMakeup(color, tAtlas, vUv2, skinLit);
     color *= mix(vec3(1.0), skinContour(vViewNormal, vViewPos), vSkinMask);
     // Voyage: the hatching on her dress is a dark grey stroke, lighter than the ink of her outline.
-    color *= mix(mix(0.84, 1.0, maskedLines), 1.0, vSkinMask);
+    color *= mix(mix(0.92, 1.0, maskedLines), 1.0, vSkinMask);
     color *= atlas;
     color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), aastep(0.55, trim), vUv), hairMask(vUv));
 
