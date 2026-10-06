@@ -158,8 +158,9 @@ void main() {
 
     // Voyage: the pendant's colour runs down through the lace from the collar (uColorScan 0 -> 1).
     float wob = noise * 0.03 + lines * 0.03 + sin(-steppedTime * 0.3 + vPos.x * 8.0 + uColorScan * 6.0) * 0.04;
-    float level = mix(1.66, -0.05, uColorScan);
-    float down = step(level, vPos.y + wob) * (1.0 - skinMask);
+    float level = mix(1.76, -0.05, uColorScan);   // (starting clear of her straps, wobble and all)
+    // (never the chain: its parted links are bound high, where her hands hold them behind her neck)
+    float down = step(level, vPos.y + wob) * (1.0 - skinMask) * (1.0 - step(0.25, vChain));
     drinkMask = mix(drinkMask, down, uScanDown);
 
     color = mix(alt, vec3(1.0), skinMask);

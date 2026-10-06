@@ -289,7 +289,9 @@ def blend_pose(arm, A, B, u):
 
 # A pinch with the other three fingers folded into the palm, so the two hands meet fingertip to fingertip
 # behind her neck and never overlap.
-PINCH = dict(mcp=(6, 58, 66, 72), pip=(10, 84, 88, 88), dip=(8, 46, 48, 46), spread=(-4, 2, 6, 10),
+# Thumb and index finger pinch the chain; the other fingers fall in soft, graceful curves (curled tight, the
+# hand would read as a fist).
+PINCH = dict(mcp=(6, 26, 34, 42), pip=(10, 34, 40, 46), dip=(8, 18, 20, 22), spread=(-4, 2, 8, 14),
              thumb=(-14, 46, 34, 20, 26))
 
 

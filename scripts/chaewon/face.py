@@ -556,13 +556,14 @@ def contour_layer(fm, R, eyes_y, chin_y, hair_y, jaw=None):
         mid, half = (cols.min() + cols.max()) / 2, (cols.max() - cols.min()) / 2
         xs = np.arange(R)
         u = np.clip(np.abs(xs - mid) / max(half, 1), 0, 1)
-        depth = (0.006 + 0.036 * np.sqrt(np.clip(1 - (u / 0.75) ** 2, 0, 1))) * R
+        # (a narrow shadow just under her jaw: a deep one read as a double chin)
+        depth = (0.004 + 0.018 * np.sqrt(np.clip(1 - (u / 0.75) ** 2, 0, 1))) * R
         dy = yy - np.where(ok, jaw, -1e9)[None, :]
         soft = 0.005 * R
         a_jaw = np.clip(dy / (0.004 * R) + 0.5, 0, 1) * np.clip((depth[None, :] - dy) / soft + 0.5, 0, 1)
         a_jaw *= np.clip((dy + 0.5 * soft) / (0.03 * R), 0.75, 1.0)  # a touch deeper right under the jaw
         a_jaw *= np.clip(1 - u / 0.8, 0, 1) ** 0.7  # (fading out toward the jaw's angle, never a hard edge)
-        a_jaw = 0.8 * ndimage.gaussian_filter(a_jaw, 0.004 * R) * mask
+        a_jaw = 0.55 * ndimage.gaussian_filter(a_jaw, 0.004 * R) * mask
     a = np.clip(np.maximum(a_edge, a_hair), 0, 1) * mask
     shade = np.array([0xf3, 0xd2, 0xca]) / 255.0
     rgba = np.zeros((R, R, 4))

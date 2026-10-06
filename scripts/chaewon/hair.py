@@ -9,8 +9,8 @@ as a tapered ribbon. The same solver re-drapes the hair for every pose, with
 the head transform and optional wind.
 
 Groups:
-  back   long hair over the crown and down the back to mid-back
-  front  long hair from the front of the head falling in front of the shoulders
+  back   long hair over the crown and down the back, a little past the shoulder blades
+  front  long hair from the front of the head falling in front of the shoulders to mid-chest
   bangs  airy see-through bangs ending at the brows with an inward curl
   side   short pieces from the temples sweeping to the cheekbones
   frame  face-framing locks hugging the cheeks and falling on to the collarbones
@@ -308,16 +308,16 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             lift = 0.006
             widths[i] = 0.008 + 0.003 * rng.random()
         elif g == 'front':
-            total = 0.39 + rng.normal(0, 0.03)
+            total = 0.335 + rng.normal(0, 0.025)
             widths[i] = 0.022 + 0.01 * rng.random()
         elif g == 'frame':
             # Face-framing pieces: from the temples, along the cheeks and on past the jaw to the collarbone.
-            total = 0.27 + 0.08 * rng.random()
+            total = 0.24 + 0.07 * rng.random()
             lift = 0.006
             widths[i] = 0.014 + 0.006 * rng.random()
         elif g == 'back':
             back = 0.5 - 0.5 * np.cos(phi0)
-            total = 0.40 + 0.05 * back + rng.normal(0, 0.03)
+            total = 0.35 + 0.04 * back + rng.normal(0, 0.025)
             widths[i] = 0.024 + 0.01 * rng.random()
         else:
             total = 0.35 + 0.2 * rng.random()
@@ -339,7 +339,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             total = plen + 0.10 + 0.03 * rng.random()
         elif total is None:
             # The fringe falls from the hairline over the brows, longer toward the sides.
-            total = plen + 0.056 + 0.022 * (abs(phi0) / np.radians(34)) ** 2 + clump_len[clumps[i]] + 0.008 * rng.random()
+            total = plen + 0.066 + 0.022 * (abs(phi0) / np.radians(34)) ** 2 + clump_len[clumps[i]] + 0.008 * rng.random()
         plen = min(plen, total * 0.7)
         seg = total / (N - 1)
         lengths[i] = total
@@ -417,7 +417,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     # Where each front lock settles across her collarbones (see forces): ordered by its root's azimuth.
     af = np.abs(np.degrees(R[is_front, 0]))
     rank = np.argsort(np.argsort(af)) / max(len(af) - 1, 1)
-    front_x = hcx[0] + side_sign[is_front] * (0.06 + 0.09 * rank)
+    front_x = hcx[0] + side_sign[is_front] * (0.05 + 0.06 * rank)
 
     def forces(X, t):
         F = np.zeros_like(X)

@@ -191,15 +191,15 @@ SHAPE += [
 
 # Her head, fitted to her portrait (scripts/chaewon/build/fitface.py measured it against the photo): MakeHuman's
 # young East Asian head, made younger, with a short nose and a small mouth: a slim soft oval narrowing to a gentle
-# V-line - lean cheeks (no puffy volume), a jaw about half the cheeks' width and a small rounded chin; a slim
-# neck. (A fuller jaw with cheek volume read as a fat face.)
+# V-line - lean cheeks (no puffy volume), a jaw about half the cheeks' width and a short, small rounded chin
+# (a youthful lower face); a slim neck. (A fuller jaw with cheek volume read as a fat face.)
 SHAPE = [t for t in SHAPE if not t[0].startswith(('head/', 'chin/', 'forehead/', 'cheek/'))
          and t[0] not in ('nose/nose-scale-vert', 'mouth/mouth-scale-horiz', 'neck/neck-scale-horiz')]
 SHAPE += [
     ('head/head-age', -0.9, 'decr', 'incr'), ('head/head-oval', 0.3, None, None),
     ('head/head-invertedtriangular', 0.3, None, None),
     ('head/head-fat', -0.3, 'decr', 'incr'), ('head/head-scale-horiz', -0.15, 'decr', 'incr'),
-    ('chin/chin-width', -0.2, 'decr', 'incr'), ('chin/chin-height', 0.05, 'decr', 'incr'),
+    ('chin/chin-width', -0.2, 'decr', 'incr'), ('chin/chin-height', -0.3, 'decr', 'incr'),
     ('cheek/l-cheek-volume', -0.15, 'decr', 'incr'), ('cheek/r-cheek-volume', -0.15, 'decr', 'incr'),
     ('cheek/l-cheek-bones', -0.2, 'decr', 'incr'), ('cheek/r-cheek-bones', -0.2, 'decr', 'incr'),
     ('nose/nose-scale-vert', -0.45, 'decr', 'incr'), ('mouth/mouth-scale-horiz', -0.3, 'decr', 'incr'),
