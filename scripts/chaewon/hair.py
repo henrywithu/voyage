@@ -188,7 +188,7 @@ def design(rest, seed=11):
     split so that a good part of it falls in front of the shoulders."""
     rng = np.random.default_rng(seed)
     hf = head_frame(rest)
-    hair = sample_roots(hf, 600, rng, 'all')
+    hair = sample_roots(hf, 760, rng, 'all')
     # The see-through fringe: wispy clumps of three or four fine locks whose tips gather to a point, the
     # forehead showing between them; a narrow gap at the parting with a single fine wisp either side of it.
     bangs, clump = [], []
@@ -304,8 +304,8 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             lift = 0.006
             widths[i] = 0.010 + 0.003 * rng.random()
         elif g == 'front':
-            total = 0.50 + rng.normal(0, 0.03)
-            widths[i] = 0.011 + 0.005 * rng.random()
+            total = 0.48 + rng.normal(0, 0.05)
+            widths[i] = 0.0085 + 0.0045 * rng.random()
         elif g == 'frame':
             # Face-framing pieces: from the temples, along the cheeks and on past the jaw to the collarbone.
             total = 0.30 + 0.06 * rng.random()
@@ -313,8 +313,8 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             widths[i] = 0.010 + 0.004 * rng.random()
         elif g == 'back':
             back = 0.5 - 0.5 * np.cos(phi0)
-            total = 0.50 + 0.06 * back + rng.normal(0, 0.025)
-            widths[i] = 0.016 + 0.007 * rng.random()
+            total = 0.50 + 0.06 * back + rng.normal(0, 0.04)
+            widths[i] = 0.013 + 0.006 * rng.random()
         else:
             total = 0.35 + 0.2 * rng.random()
             widths[i] = 0.002 + 0.002 * rng.random()
@@ -640,7 +640,7 @@ def ribbons(H, cam_up=None):
     t = np.linspace(0, 1, N)
     # Manga locks: full at the root and drawn to a point. The fringe tapers all along its length, so
     # neighbouring locks touch at the hairline and part toward their tips; long hair holds its width.
-    taper_long = np.clip(np.minimum(0.8 + t / 0.12 * 0.2, (1 - t) / 0.4), 0.02, 1.0) ** 0.9
+    taper_long = np.clip(np.minimum(0.8 + t / 0.12 * 0.2, (1 - t) / 0.55), 0.02, 1.0) ** 1.1
     taper_bang = np.clip(1 - t, 0.02, 1) ** 1.25  # wisps: full at the hairline, drawn to fine points
     th = np.linspace(0, 2 * np.pi, RING, endpoint=False)
     cs, sn = np.cos(th), np.sin(th)

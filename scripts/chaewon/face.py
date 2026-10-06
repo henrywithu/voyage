@@ -148,15 +148,15 @@ def eye_shape(e, outer):
     # Centred on the mesh opening and as tall as it (so the lids stay on the lids in 3/4 views); a little
     # wider, for the liner past the outer corner.
     c = np.array([(e['x0'] + e['x1']) / 2 + outer * 0.04 * W0, (e['top'].min() + e['bot'].max()) / 2 + 0.058 * W0])
-    W = 1.15 * W0
+    W = 1.22 * W0
     inner = c + np.array([-outer * W / 2, 0.035 * W])
     outer_c = c + np.array([outer * W / 2, -0.035 * W])
-    Hh = H0 / 0.86
+    Hh = H0 / 0.78
     up = cubic(inner, inner + np.array([outer * 0.16 * W, -0.74 * Hh]), outer_c + np.array([-outer * 0.32 * W, -0.70 * Hh]),
                outer_c, 60)
     lo = cubic(inner, inner + np.array([outer * 0.28 * W, 0.40 * Hh]), outer_c + np.array([-outer * 0.26 * W, 0.42 * Hh]),
                outer_c, 60)
-    r = 0.262 * W
+    r = 0.27 * W
     ix = c[0] - outer * 0.015 * W
     k = np.argmin(np.abs(lo[:, 0] - ix))
     iy = lo[k, 1] - 0.93 * r
@@ -406,7 +406,7 @@ def brow(e, b, outer, s=1.0, rng=None):
     y = top - 0.29 * W
     base = cubic((x_in, y + 0.025 * W), (x_in + outer * 0.35 * W, y - 0.03 * W), (x_out - outer * 0.3 * W, y - 0.04 * W),
                  (x_out, y + 0.045 * W), 40)
-    out = [blur(k, 0.016 * W), ribbon(base, 0.10 * W, 0.02 * W, wmid=0.082 * W, fill=BROW).replace(
+    out = [blur(k, 0.018 * W), ribbon(base, 0.115 * W, 0.024 * W, wmid=0.095 * W, fill=BROW).replace(
         '/>', ' filter="url(#%s)" opacity="0.85"/>' % k)]
     for j in range(45):
         t = rng.uniform(0.1, 1)
@@ -444,7 +444,7 @@ def lip_shape(m, ipd):
     seam = m['seam']
     cx = float(seam[:, 0].mean())
     sy = float(np.median(seam[:, 1]))
-    Wm = 0.6 * ipd
+    Wm = 0.64 * ipd
     x0, x1 = cx - Wm / 2, cx + Wm / 2
     # Seam: corners lifted a little, a soft dip at the centre.
     line = np.vstack([cubic((x0, sy - 0.03 * Wm), (x0 + 0.18 * Wm, sy + 0.005 * Wm), (cx - 0.2 * Wm, sy + 0.02 * Wm),
@@ -555,12 +555,13 @@ def contour_layer(fm, R, eyes_y, chin_y, hair_y, jaw=None):
         mid, half = (cols.min() + cols.max()) / 2, (cols.max() - cols.min()) / 2
         xs = np.arange(R)
         u = np.clip(np.abs(xs - mid) / max(half, 1), 0, 1)
-        depth = (0.012 + 0.042 * np.sqrt(np.clip(1 - (u / 0.75) ** 2, 0, 1))) * R
+        depth = (0.006 + 0.036 * np.sqrt(np.clip(1 - (u / 0.75) ** 2, 0, 1))) * R
         dy = yy - np.where(ok, jaw, -1e9)[None, :]
         soft = 0.005 * R
         a_jaw = np.clip(dy / (0.004 * R) + 0.5, 0, 1) * np.clip((depth[None, :] - dy) / soft + 0.5, 0, 1)
         a_jaw *= np.clip((dy + 0.5 * soft) / (0.03 * R), 0.75, 1.0)  # a touch deeper right under the jaw
-        a_jaw = ndimage.gaussian_filter(a_jaw, 0.0015 * R) * mask
+        a_jaw *= np.clip(1 - u / 0.8, 0, 1) ** 0.7  # (fading out toward the jaw's angle, never a hard edge)
+        a_jaw = 0.8 * ndimage.gaussian_filter(a_jaw, 0.004 * R) * mask
     a = np.clip(np.maximum(a_edge, a_hair), 0, 1) * mask
     shade = np.array([0xf3, 0xd2, 0xca]) / 255.0
     rgba = np.zeros((R, R, 4))

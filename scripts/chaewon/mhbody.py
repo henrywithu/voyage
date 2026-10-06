@@ -115,34 +115,34 @@ def modifier(verts, rel, value, neg='decr', pos='incr'):
 
 
 MACRO = dict(gender=0.0, age=0.5 * 22 / 25, muscle=0.38, weight=0.2, height=0.62, proportions=1.0,
-             asian=0.85, caucasian=0.15, cup=0.62, firmness=0.95)
+             asian=0.85, caucasian=0.15, cup=0.72, firmness=1.0)
 
 SIDES = ('l', 'r')
 SHAPE = [
     # Head: an idol's small, youthful face (about eight heads tall): a short soft oval narrowing to a V-line jaw and a
     # small, defined chin; a small button nose, the mouth close under it; a slim neck.
     ('head/head-oval', 0.3, None, None), ('head/head-age', -0.9, 'decr', 'incr'),
-    ('head/head-scale-horiz', -0.36, 'decr', 'incr'), ('head/head-scale-vert', -0.15, 'decr', 'incr'),
+    ('head/head-scale-horiz', -0.55, 'decr', 'incr'), ('head/head-scale-vert', -0.15, 'decr', 'incr'),
     ('head/head-scale-depth', 0.0, 'decr', 'incr'), ('head/head-fat', -0.2, 'decr', 'incr'),
-    ('head/head-back-scale-depth', -0.25, 'decr', 'incr'),
-    ('chin/chin-width', -0.55, 'decr', 'incr'), ('chin/chin-height', -0.5, 'decr', 'incr'),
+    ('head/head-back-scale-depth', -0.7, 'decr', 'incr'),
+    ('chin/chin-width', -0.85, 'decr', 'incr'), ('chin/chin-height', -0.5, 'decr', 'incr'),
     ('chin/chin-prominent', 0.9, 'decr', 'incr'), ('chin/chin-bones', -0.3, 'decr', 'incr'),
     ('chin/chin-prognathism', 0.6, 'decr', 'incr'),
-    ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans', 0.0, 'forward', 'backward'),
+    ('forehead/forehead-scale-vert', -0.3, 'decr', 'incr'), ('forehead/forehead-trans', -0.5, 'forward', 'backward'),
     ('nose/nose-scale-horiz', -0.5, 'decr', 'incr'), ('nose/nose-scale-vert', -0.65, 'decr', 'incr'),
     ('nose/nose-point-width', -0.45, 'decr', 'incr'), ('nose/nose-nostrils-width', -0.4, 'decr', 'incr'),
     ('nose/nose-point', 0.55, 'down', 'up'), ('nose/nose-volume', -0.35, 'decr', 'incr'),
-    ('nose/nose-scale-depth', 0.0, 'decr', 'incr'), ('nose/nose-greek', 0.0, 'decr', 'incr'),
-    ('nose/nose-trans', 0.15, 'backward', 'forward'),
+    ('nose/nose-scale-depth', 0.6, 'decr', 'incr'), ('nose/nose-greek', 0.0, 'decr', 'incr'),
+    ('nose/nose-trans', 0.4, 'backward', 'forward'),
     ('nose/nose-flaring', -0.4, 'decr', 'incr'),
     ('mouth/mouth-scale-horiz', -0.1, 'decr', 'incr'), ('mouth/mouth-upperlip-volume', 0.35, 'decr', 'incr'),
     ('mouth/mouth-lowerlip-volume', 0.42, 'decr', 'incr'), ('mouth/mouth-cupidsbow', 0.6, 'decr', 'incr'),
-    ('mouth/mouth-angles', 0.35, 'down', 'up'), ('mouth/mouth-scale-depth', -0.25, 'decr', 'incr'),
+    ('mouth/mouth-angles', 0.35, 'down', 'up'), ('mouth/mouth-scale-depth', -0.6, 'decr', 'incr'),
     ('mouth/mouth-trans', -0.25, 'backward', 'forward'),
-    ('neck/neck-scale-horiz', -0.65, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
-    ('measure/measure-neck-height', 0.05, 'decr', 'incr'), ('measure/measure-neck-circ', -0.65, 'decr', 'incr'),
+    ('neck/neck-scale-horiz', -0.4, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
+    ('measure/measure-neck-height', -0.2, 'decr', 'incr'), ('measure/measure-neck-circ', -0.35, 'decr', 'incr'),
     # Torso: narrow shoulders, defined waist, soft hips.
-    ('measure/measure-shoulder-dist', -0.35, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
+    ('measure/measure-shoulder-dist', -0.05, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
     ('measure/measure-underbust-circ', -0.3, 'decr', 'incr'), ('measure/measure-hips-circ', -0.12, 'decr', 'incr'),
     ('measure/measure-napetowaist-dist', -0.15, 'decr', 'incr'), ('measure/measure-frontchest-dist', -0.2, 'decr', 'incr'),
     ('torso/torso-scale-horiz', -0.12, 'decr', 'incr'), ('torso/torso-vshape', -0.3, 'decr', 'incr'),
@@ -150,7 +150,8 @@ SHAPE = [
     ('hip/hip-waist', 0.25, 'down', 'up'), ('stomach/stomach-tone', 0.0, 'decr', 'incr'),
     ('buttocks/buttocks-volume', 0.05, 'decr', 'incr'),
     ('bodyshapes/bodyshapes-elvs-fem-neat-hourglass', 0.18, None, None),
-    ('breast/breast-trans', 0.25, 'down', 'up'), ('breast/breast-volume-vert', 0.3, 'down', 'up'),
+    ('breast/breast-trans', 0.45, 'down', 'up'), ('breast/breast-volume-vert', 0.5, 'down', 'up'),
+    ('breast/breast-point', -0.3, 'decr', 'incr'),
     # Limbs: long legs, slender arms and calves, small hands and feet.
     ('armslegs/upperlegs-height', 0.35, 'decr', 'incr'), ('armslegs/lowerlegs-height', 0.3, 'decr', 'incr'),
     ('measure/measure-thigh-circ', -0.05, 'decr', 'incr'), ('measure/measure-calf-circ', -0.2, 'decr', 'incr'),
@@ -166,7 +167,7 @@ for s in SIDES:
         (f'eyes/{s}-eye-epicanthus', -0.4, 'in', 'out'), (f'eyes/{s}-eye-bag', -0.6, 'decr', 'incr'),
         (f'eyes/{s}-eye-corner1', 0.15, 'down', 'up'), (f'eyes/{s}-eye-corner2', 0.25, 'down', 'up'),
         (f'eyes/{s}-eye-eyefold-angle', 0.2, 'down', 'up'),
-        (f'cheek/{s}-cheek-volume', 0.2, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.35, 'decr', 'incr'),
+        (f'cheek/{s}-cheek-volume', 0.0, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.35, 'decr', 'incr'),
         # Small ears that lie close to the head (her long hair covers them).
         (f'ears/{s}-ear-scale', -0.35, 'decr', 'incr'), (f'ears/{s}-ear-flap', -0.8, 'decr', 'incr'),
         (f'ears/{s}-ear-wing', -0.6, 'decr', 'incr'),
@@ -178,12 +179,13 @@ for s in SIDES:
     ]
 
 
-# A soft oval face with a small, gently pointed chin (her likeness), and a fuller bust.
+# A soft oval face with a small, gently pointed chin (her likeness), and a full, natural bust that sits high
+# with a soft slope above it (never a cone).
 SHAPE += [
-    ('head/head-round', 0.4, None, None), ('head/head-invertedtriangular', 0.35, None, None),
+    ('head/head-round', 0.4, None, None), ('head/head-invertedtriangular', 0.6, None, None),
     ('mouth/mouth-trans', 0.75, 'down', 'up'),
     ('nose/nose-trans', -0.15, 'down', 'up'),  # a short philtrum: nose and mouth close together
-    ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.15, 'decr', 'incr'),
+    ('chin/chin-jaw-drop', -0.2, 'decr', 'incr'), ('breast/breast-dist', -0.25, 'decr', 'incr'),
 ]
 
 
@@ -215,6 +217,45 @@ EXPRESSION = {'mouth-corner-puller': 0.24, 'mouth-parling': 0.14, 'eye-left-slit
               'eyebrows-left-inner-up': 0.12, 'eyebrows-right-inner-up': 0.12}
 
 
+HEAD_SCALE = 0.9  # her small idol's head: scaled about the top of the neck, easing out down the neck
+
+
+def scale_head(verts, scale=None):
+    """Scale the head (and, easing out, the upper neck) uniformly about the head joint."""
+    scale = HEAD_SCALE if scale is None else scale
+    if scale == 1.0:
+        return verts
+    order, parents, heads, tails, xs = skeleton(verts)
+    pivot = heads[order.index('head')]
+    t = np.clip((verts[:, 1] - (pivot[1] - 0.2)) / 0.45, 0, 1)
+    w = t * t * (3 - 2 * t)
+    w *= np.abs(verts[:, 0]) < 1.6  # (never the hands)
+    verts += (verts - pivot) * ((scale - 1) * w)[:, None]
+    return verts
+
+
+CHIN = dict(forward=0.09, down=0.04, radius=0.22)  # decimetres
+
+
+def sculpt_chin(verts, groups_faces, chin=None):
+    """A small, defined chin: the soft tissue of the chin tip moves forward and a little down (a gaussian
+    falloff), so in profile the chin comes out under the lips and the line under it reads clearly."""
+    chin = CHIN if chin is None else chin
+    if not chin:
+        return verts
+    order, parents, heads, tails, xs = skeleton(verts)
+    j = tails[order.index('jaw')]
+    body = groups_faces
+    mid = body[(np.abs(verts[body, 0]) < 0.05) & (verts[body, 1] < j[1] + 0.05) & (verts[body, 1] > j[1] - 0.25)]
+    tip = verts[mid[np.argmax(verts[mid, 2])]].copy()
+    d = np.linalg.norm((verts - tip) * np.array([1.0, 1.3, 1.0]), axis=1)
+    w = np.exp(-(d / chin['radius']) ** 2)
+    w *= verts[:, 2] > tip[2] - 0.5  # (only the front of the face)
+    verts[:, 2] += chin['forward'] * w
+    verts[:, 1] -= chin['down'] * w
+    return verts
+
+
 def build(shape=SHAPE, eye_scale=EYE_SCALE, expr=EXPRESSION, **macro_overrides):
     """Shaped body: (verts, uvs, faces, fuvs, groups) in MakeHuman space."""
     verts, uvs, faces, fuvs, groups = load_obj()
@@ -226,6 +267,9 @@ def build(shape=SHAPE, eye_scale=EYE_SCALE, expr=EXPRESSION, **macro_overrides):
     if expr:
         verts[:] = expression(verts, expr)
     enlarge_eyes(verts, faces, groups, eye_scale)
+    used = np.unique(np.concatenate([np.asarray(f) for f, g in zip(faces, groups) if g == 'body']))
+    sculpt_chin(verts, used)
+    scale_head(verts)
     return verts, uvs, faces, fuvs, groups
 
 
