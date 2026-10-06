@@ -169,8 +169,9 @@ for s in SIDES:
         (f'eyes/{s}-eye-eyefold-angle', 0.2, 'down', 'up'),
         (f'cheek/{s}-cheek-volume', 0.0, 'decr', 'incr'), (f'cheek/{s}-cheek-bones', -0.35, 'decr', 'incr'),
         # Small ears that lie close to the head (her long hair covers them).
-        (f'ears/{s}-ear-scale', -0.35, 'decr', 'incr'), (f'ears/{s}-ear-flap', -0.8, 'decr', 'incr'),
-        (f'ears/{s}-ear-wing', -0.6, 'decr', 'incr'),
+        # (Flat to her head: one that stands out would poke through the hair over it, its ink drawn on the hair.)
+        (f'ears/{s}-ear-scale', -0.8, 'decr', 'incr'), (f'ears/{s}-ear-flap', -1.0, 'decr', 'incr'),
+        (f'ears/{s}-ear-wing', -1.0, 'decr', 'incr'), (f'ears/{s}-ear-scale-depth', -0.8, 'decr', 'incr'),
         (f'armslegs/{s}-hand-scale', -0.4, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
         (f'armslegs/{s}-hand-fingers-length', 0.0, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
         (f'armslegs/{s}-lowerarm-scale-horiz', -0.2, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.15, 'decr', 'incr'),
@@ -203,6 +204,17 @@ SHAPE += [
     ('cheek/l-cheek-bones', -0.2, 'decr', 'incr'), ('cheek/r-cheek-bones', -0.2, 'decr', 'incr'),
     ('nose/nose-scale-vert', -0.45, 'decr', 'incr'), ('mouth/mouth-scale-horiz', -0.3, 'decr', 'incr'),
     ('neck/neck-scale-horiz', -0.35, 'decr', 'incr'),
+]
+# Her profile: a soft, rounded forehead; a straight, slightly raised bridge to a small upturned tip; the lips
+# set back behind the line from the tip of her nose to her chin, and a small chin that comes forward to meet it.
+SHAPE = [t for t in SHAPE if (t[0], t[2]) not in (('mouth/mouth-trans', 'backward'), ('nose/nose-scale-depth', 'decr'),
+                                                  ('nose/nose-greek', 'decr'), ('nose/nose-point', 'down'))]
+SHAPE += [
+    ('chin/chin-prominent', 0.6, 'decr', 'incr'), ('chin/chin-prognathism', 0.3, 'decr', 'incr'),
+    ('mouth/mouth-trans', 0.45, 'backward', 'forward'),
+    ('nose/nose-scale-depth', 0.9, 'decr', 'incr'), ('nose/nose-greek', 0.35, 'decr', 'incr'),
+    ('nose/nose-point', 0.7, 'down', 'up'),
+    ('forehead/forehead-trans', -0.2, 'forward', 'backward'),
 ]
 
 

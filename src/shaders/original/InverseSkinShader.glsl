@@ -45,7 +45,10 @@ void main() {
     
     vec2 screenNormal = normalize(projectionNormal.xy);
     float hair = step(0.10, uv.y) * step(uv.y, 0.30);
-    projectionPos.xy += screenNormal * uDisplacement * projectionPos.w * 0.004 * mix(1.0, 0.65, face) * mix(1.0, 0.55, hair);
+    // Voyage: the jewellery's links are a few millimetres across; a full-width outline round each would
+    // merge them into a black band wherever she is small on screen.
+    float chain = step(0.25, color.r);
+    projectionPos.xy += screenNormal * uDisplacement * projectionPos.w * 0.004 * mix(1.0, 0.65, face) * mix(1.0, 0.55, hair) * mix(1.0, 0.25, chain);
 
     gl_Position = projectionPos;
     vWorldY = (modelMatrix * vec4(pos, 1.0)).y;

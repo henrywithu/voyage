@@ -44,6 +44,25 @@ def weights(ob, names):
     return np.where(s > 0, W / np.maximum(s, 1e-9), 0)
 
 
+def _band(x, a, b, soft):
+    return np.clip((x - a) / soft, 0, 1) * np.clip((b - x) / soft, 0, 1)
+
+
+def flatten_ears(P, W, names, heads, side=0.062, keep=0.35):
+    """Lay her ears flat against her head: whatever stands out past the side of her skull at ear height is
+    drawn in to `keep` of its height. Her hair always covers them, and an ear that stands out pokes through
+    the hair lying over it (its ink then drawn on her hair)."""
+    h = heads[names.index('head')]
+    hw = W[:, names.index('head')]
+    w = (_band(P[:, 2], h[2] - 0.0225, h[2] + 0.0725, 0.01) * _band(P[:, 1], h[1] - 0.034, h[1] + 0.041, 0.008)
+         * np.clip((hw - 0.4) / 0.2, 0, 1))
+    ax = np.abs(P[:, 0])
+    out = np.maximum(ax - side, 0)
+    P = P.copy()
+    P[:, 0] = np.sign(P[:, 0]) * (ax - out * (1 - keep) * w)
+    return P
+
+
 def main(out, subdiv=1):
     bview.reset()
     arm, body, eyes, info = rig.build(subdiv=subdiv)
@@ -55,6 +74,7 @@ def main(out, subdiv=1):
     tails = np.array([list(b.tail_local) for b in arm.data.bones])
     mats = np.array([np.array(b.matrix_local) for b in arm.data.bones])
     parents = np.array([names.index(b.parent.name) if b.parent else -1 for b in arm.data.bones])
+    P = flatten_ears(P, W, names, heads)
     np.savez_compressed(out, P=P, T=T, UV=UV, W=W, EP=EP, ET=ET, EUV=EUV, names=np.array(names),
                         parents=parents, heads=heads, tails=tails, mats=mats, height=info['height'])
     print('rest', P.shape, T.shape, len(names))

@@ -239,12 +239,27 @@ def frame_hood(s, which):
                 backdrop=saint_backdrop(a, F, bg, ('uv', 'uv2', 'colorid')))
 
 
+def ears(s, m, mats):
+    """Mask of the merged mesh's ear vertices: the skin of her head standing out past the side of her
+    skull at ear height (found in the rest pose, where her head is upright and square)."""
+    hb = s.names.index('head')
+    W = np.asarray(m['W'])
+    skin = np.asarray(m['kind']) == M.PART['skin']
+    carry = mats[hb] @ np.linalg.inv(s.rest_mats[hb])
+    Ph = np.c_[np.asarray(m['P']), np.ones(len(m['P']))]
+    R = (Ph @ np.linalg.inv(carry).T)[:, :3]
+    return (skin & (W[:, hb] > 0.5) & (np.abs(R[:, 0]) > 0.062) & (R[:, 2] > 1.495) & (R[:, 2] < 1.59)
+            & (R[:, 1] > -0.075) & (R[:, 1] < 0.0))
+
+
 def frame_profile(s):
     """ProfileScene bust: facing +z in its group (the scene turns it to profile), wind from behind."""
     a, F, face, d = saint('wander/saint-pose-3')
-    fwd = np.array([0.0, 0.16, 1.0])
+    # Her chin lifted a little toward the light (the scene's group tilts her further): more would show the
+    # underside of her jaw and flatten her profile.
+    fwd = np.array([0.0, 0.06, 1.0])
     fwd /= np.linalg.norm(fwd)
-    up = np.array([0.0, 1.0, -0.16])
+    up = np.array([0.0, 1.0, -0.06])
     up -= fwd * up.dot(fwd)
     up /= np.linalg.norm(up)
     right = np.cross(up, fwd)
@@ -254,6 +269,8 @@ def frame_profile(s):
     N = light_face(m, P, N, (0, 0.5, 2.0), face['eyes'], k, amount=0.75)
     y_cut = face['eyes'][1] - 0.4 * k
     keep = (P[m['F']][:, :, 1] > y_cut).any(1)
+    # Her ears lie under her hair here; drop them, or their ink outline shows through the hair.
+    keep &= ~ears(s, m, place.last['mats'])[m['F']].any(1)
     used, Fc = cut(m, P, keep)
     path = os.path.join(DEC, 'wander/saint-pose-3.bin.mesh')
     arrays = {'position': P[used], 'normal': N[used], 'uv': m['uv'][used], 'uv2': m['uv2'][used],
