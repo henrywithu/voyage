@@ -238,8 +238,6 @@ def pinch_point(s, side):
     return np.array((pb[f'finger2-3.{side}'].tail + pb[f'finger1-3.{side}'].tail) / 2)
 
 
-PINCH = dict(mcp=(34, 30, 34, 38), pip=(46, 58, 62, 60), dip=(26, 34, 34, 30), spread=(-4, 0, 6, 13),
-             thumb=(-14, 46, 34, 20, 26))
 OPEN = dict(mcp=(10, 14, 18, 20), pip=(14, 22, 28, 30), dip=(6, 10, 12, 12), spread=(-8, 0, 7, 15),
             thumb=(-34, 30, 12, 8, 10))
 
@@ -258,32 +256,46 @@ def blend_pose(arm, A, B, u):
     rig.update()
 
 
-def clasp_pose(s, clasp):
-    """Both hands at her nape, fingertips pinching the chain ends together (clasp 0 -> 1 closes them)."""
+# A pinch with the other three fingers folded into the palm, so the two hands meet fingertip to fingertip
+# behind her neck and never overlap.
+PINCH = dict(mcp=(6, 58, 66, 72), pip=(10, 84, 88, 88), dip=(8, 46, 48, 46), spread=(-4, 2, 6, 10),
+             thumb=(-14, 46, 34, 20, 26))
+
+
+def nape_point(s):
+    pb = s.arm.pose.bones
+    rig.update()
+    return pb['neck02'].head + Vector((0, 0.062, -0.006))
+
+
+def clasp_pose(s, clasp, gap0=0.026, reach=0.0, bow=9.0):
+    """Both hands behind her neck, fingertips pinching the chain ends (clasp 0 -> 1 closes the gap). reach
+    0 -> 1 takes the hands out to the back-sides of her neck, elbows lower, holding the ends apart (where the
+    fastening begins)."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
     poses.contrapposto(ctx, 'R', 0.55)
-    poses.spine(arm, pitch=-4, yaw=2, roll=-1)
+    poses.spine(arm, pitch=-3, yaw=2, roll=-1)
     for side in ('L', 'R'):
-        poses.clavicle(arm, side, lift=13)
-    pb = arm.pose.bones
-    rig.update()
-    # The clasp sits at the nape; her fingertips meet there from either side, palms toward her neck,
-    # elbows lifted forward so her arms frame her face.
-    nape = pb['neck02'].head + Vector((0, 0.062, -0.006))
+        # Arms raised, the shoulders lift and roll forward (the shoulder blades protract), carrying the elbows
+        # forward of her ears.
+        poses.clavicle(arm, side, lift=15 - 8 * reach, forward=8 - 4 * reach)
+    # Head bowed into the task (more as the hands meet), which also bares the nape.
+    poses.head(arm, pitch=bow, yaw=-3, roll=-4 * (1 - reach))
+    nape = nape_point(s)
     for side, sgn in (('L', 1), ('R', -1)):
-        gap = 0.026 * (1 - clasp) + 0.008
-        target = nape + Vector((sgn * gap, 0.006, 0))
-        fingers = Vector((-sgn * 0.92, 0.18, 0.34)).normalized()
+        gap = gap0 * (1 - clasp) + 0.007
+        target = nape + Vector((sgn * (gap + 0.06 * reach), 0.006 - 0.07 * reach, -0.012 - 0.05 * reach))
+        # Fingers point in toward the nape and a little up; the palms face forward, toward her neck.
+        fingers = Vector((-sgn * 0.95, 0.1 - 0.05 * reach, 0.28 + 0.2 * reach)).normalized()
         wrist_pos = target - fingers * 0.092
+        # Elbows forward and out at about the height of her face (lower and wider while she holds the ends out).
+        elbow = Vector((sgn * (0.35 + 0.1 * reach), -0.3 - 0.35 * reach, 1.0 - 1.75 * reach))
         for _ in range(3):
             # Solve so the pinch (thumb and index tips), not the wrist, lands on the target.
-            poses.arm_to(ctx, side, wrist_pos, elbow_dir=(sgn * 0.75, -1.3, 0.3),
-                         wrist=(fingers, Vector((0, -1, 0.1))))
+            poses.arm_to(ctx, side, wrist_pos, elbow_dir=(0, 0, 0), elbow_at=elbow, wrist=(fingers, Vector((0, -1, 0.1))))
             rig.hand_shape(arm, side, **PINCH)
             wrist_pos = wrist_pos + (target - Vector(pinch_point(s, side)))
-    # Head bowed into the task.
-    poses.head(arm, pitch=7 - 3 * clasp, yaw=-3, roll=-4)
 
 
 def capture_arm(s, side):
@@ -294,35 +306,134 @@ def capture_arm(s, side):
                 palm=rig.palm_normal(s.arm, side))
 
 
-def fasten_pose(s, p):
-    """The hold scrubs this clip: hands close the clasp (p 0 -> 0.72), then let go, slide forward
-    beside her neck and settle into the first frame of the charm loop (-> 1)."""
-    if p <= 0.72:
-        clasp_pose(s, smoothstep(0.0, 0.72, p))
-        return
-    u = smoothstep(0.72, 1.0, p)
-    clasp_pose(s, 1.0)
-    A, IA = capture_pose(s.arm), {x: capture_arm(s, x) for x in 'LR'}
-    charm_pose(s, 0.0)
-    B, IB = capture_pose(s.arm), {x: capture_arm(s, x) for x in 'LR'}
-    blend_pose(s.arm, A, B, u)          # torso, head, clavicles and fingers
-    neck = s.arm.pose.bones['neck01'].head
-    for side, sgn in (('L', 1), ('R', -1)):
-        a, b = IA[side], IB[side]
-        c = neck + Vector((sgn * 0.15, -0.09, 0.03))      # beside the neck, in front of the shoulder
-        wr = a['wr'] * (1 - u) ** 2 + c * 2 * u * (1 - u) + b['wr'] * u ** 2
-        ea = (a['el'] - (a['sh'] + a['wr']) / 2).normalized()
-        eb = (b['el'] - (b['sh'] + b['wr']) / 2).normalized()
-        # The elbows drop down and out as the hands come forward (never swinging up and out to the side).
-        em = Vector((sgn * 0.45, 0.15, -1.0)).normalized()
-        el = (ea * (1 - u) ** 2 + em * 2 * u * (1 - u) + eb * u ** 2).normalized()
-        d = a['dir'].lerp(b['dir'], u).normalized()
-        palm = a['palm'].lerp(b['palm'], u).normalized()
-        fingers = {n: s.arm.pose.bones[f'{n}.{side}'].rotation_quaternion.copy() for n in rig.FINGER_BONES}
-        poses.arm_to(s.ctx, side, wr, elbow_dir=tuple(el), wrist=(d, palm))
-        for n, q in fingers.items():
-            s.arm.pose.bones[f'{n}.{side}'].rotation_quaternion = q
+ARM_BONES = tuple(f'{b}.{x}' for x in 'LR' for b in (
+    ['clavicle', 'shoulder01', 'upperarm01', 'upperarm02', 'lowerarm01', 'lowerarm02', 'wrist'] +
+    [f'metacarpal{i}' for i in range(1, 5)] + rig.FINGER_BONES))
+
+
+def _fasten_keys(s):
+    """The fastening as five keyed moments, each captured as the torso's pose plus, per arm, the wrist
+    position, elbow direction, wrist direction, palm direction and finger rotations:
+      0.00  hands behind her neck holding the chain ends apart, elbows raised, head up
+      0.45  the hands drawing together, head bowing
+      0.72  the clasp closes
+      0.79  let go: the hands open and part
+      0.86  they slide round the sides of her neck
+      0.93  forward over her collarbones, elbows falling to her sides
+      0.97  the left arm lowering in front of her
+      1.00  the first frame of the charm loop (right fingertips on the pendant, left arm at her side)"""
+    if getattr(s, '_fasten_keys', None):
+        return s._fasten_keys
+    keys = []
+
+    def grab(t):
+        pb = s.arm.pose.bones
         rig.update()
+        torso = {pb_.name: (pb_.location.copy(), pb_.rotation_quaternion.copy()) for pb_ in pb if pb_.name not in ARM_BONES}
+        arms = {}
+        for x in 'LR':
+            a = capture_arm(s, x)
+            a['fingers'] = {n: pb[f'{n}.{x}'].rotation_quaternion.copy() for n in rig.FINGER_BONES}
+            a['clav'] = pb[f'clavicle.{x}'].rotation_quaternion.copy()
+            a['eh'] = np.array((a['el'] - a['sh']).normalized())
+            a['pinch'] = np.array(pinch_point(s, x))
+            arms[x] = a
+        keys.append((t, torso, arms))
+
+    # The hold: her hands, holding the ends apart behind her neck, draw together; her shoulders lift a little and
+    # her head bows to bare the nape.
+    clasp_pose(s, 0.0, gap0=0.05, bow=2.0); grab(0.0)
+    clasp_pose(s, 0.45, gap0=0.05, bow=7.0); grab(0.45)
+    clasp_pose(s, 1.0, bow=9.0); grab(0.72)
+    # Let go: the hands open and part behind her neck, then slide round its sides.
+    clasp_pose(s, 0.0, gap0=0.035, bow=4.0)
+    for side in 'LR':
+        rig.hand_pose(s.arm, side, curl=0.18, close=0.5, thumb=0.35)
+    grab(0.79)
+    clasp_pose(s, 0.0, reach=1.0, bow=0.0)
+    for side in 'LR':
+        rig.hand_pose(s.arm, side, curl=0.18, close=0.5, thumb=0.35)
+    grab(0.86)
+    # The hands come forward over her collarbones, elbows falling out to her sides in front of her.
+    rig.reset_pose(s.arm)
+    poses.contrapposto(s.ctx, 'R', 0.55)
+    poses.spine(s.arm, pitch=-2, yaw=2, roll=-1)
+    neck = s.arm.pose.bones['neck01'].head.copy()
+    for side, sgn in (('L', 1), ('R', -1)):
+        poses.clavicle(s.arm, side, lift=3)
+        poses.arm_to(s.ctx, side, neck + Vector((sgn * 0.13, -0.11, -0.08)), elbow_dir=(0, 0, 0),
+                     elbow_at=Vector((sgn * 0.55, -0.35, -0.75)),
+                     wrist=(Vector((-sgn * 0.55, -0.3, 0.75)), Vector((-sgn * 0.3, 1, 0))),
+                     hand=dict(curl=0.22, close=0.55, thumb=0.35))
+    poses.head(s.arm, pitch=-1)
+    grab(0.93)
+    # The left arm lowers in front of her, elbow down and soft, while the right hand settles on the pendant.
+    charm_pose(s, 0.0)
+    poses.relaxed_arm(s.ctx, 'L', out=0.2, fwd=0.3, bend=50, hand=dict(curl=0.22, close=0.6, thumb=0.35))
+    grab(0.97)
+    charm_pose(s, 0.0); grab(1.0)
+    s._fasten_keys = keys
+    return keys
+
+
+def _seg(keys, p):
+    ts = [k[0] for k in keys]
+    i = max(0, min(len(ts) - 2, int(np.searchsorted(ts, p, side='right')) - 1))
+    u = (p - ts[i]) / (ts[i + 1] - ts[i])
+    return i, smoothstep(0.0, 1.0, u)
+
+
+def _catmull(P, i, u):
+    """Catmull-Rom through key values P at segment i (u 0..1): a smooth path through every key."""
+    p0, p1, p2, p3 = P[max(i - 1, 0)], P[i], P[i + 1], P[min(i + 2, len(P) - 1)]
+    u2, u3 = u * u, u * u * u
+    return 0.5 * ((2 * p1) + (-p0 + p2) * u + (2 * p0 - 5 * p1 + 4 * p2 - p3) * u2 + (-p0 + 3 * p1 - 3 * p2 + p3) * u3)
+
+
+def fasten_pose(s, p):
+    """The hold scrubs this clip (0 -> 0.72, the clasp closing at 0.72), then it plays on to 1: every arm is
+    solved by IK on smooth paths through the keyed moments, so the hands travel the way hands do (out and
+    back around her neck, then forward and down in front of her), never swinging through her body."""
+    keys = _fasten_keys(s)
+    i, u = _seg(keys, p)
+    (t0, A, armsA), (t1, B, armsB) = keys[i], keys[i + 1]
+    arm = s.arm
+    rig.reset_pose(arm)
+    for pb in arm.pose.bones:
+        if pb.name in A:
+            pb.location = A[pb.name][0].lerp(B[pb.name][0], u)
+            pb.rotation_quaternion = A[pb.name][1].slerp(B[pb.name][1], u)
+    rig.update()
+    uu = (p - keys[i][0]) / (keys[i + 1][0] - keys[i][0])
+    uu = min(max(uu, 0.0), 1.0)
+    for side in 'LR':
+        arms = [k[2][side] for k in keys]
+        a, b = armsA[side], armsB[side]
+        arm.pose.bones[f'clavicle.{side}'].rotation_quaternion = a['clav'].slerp(b['clav'], u)
+        rig.update()
+        wr = _catmull([np.array(k['wr']) for k in arms], i, smoothstep(0.0, 1.0, uu))
+        # The elbow's own direction from the shoulder, eased between the keys: it travels the way an elbow does.
+        el = a['eh'] * (1 - u) + b['eh'] * u
+        sgn = 1 if side == 'L' else -1
+
+        def turn(va, vb, via):
+            # Blend two directions; opposite ones turn through `via` (never through zero, where they flip).
+            if va.dot(vb) > 0.2:
+                return va.lerp(vb, u).normalized()
+            return (va.lerp(via, 2 * u) if u < 0.5 else via.lerp(vb, 2 * u - 1)).normalized()
+        d = turn(a['dir'], b['dir'], Vector((0, 0, 1)))
+        palm = turn(a['palm'], b['palm'], Vector((-sgn, 0, 0)))   # palms turn in toward each other
+        hold = t1 <= 0.72 + 1e-6
+        pinch = _catmull([k['pinch'] for k in arms], i, smoothstep(0.0, 1.0, uu)) if hold else None
+        for _ in range(3 if hold else 1):
+            poses.arm_to(s.ctx, side, Vector(tuple(wr)), elbow_dir=(0, 0, 0), elbow_at=Vector(tuple(el)),
+                         wrist=(d, palm), keep_dir=True)
+            for n in rig.FINGER_BONES:
+                arm.pose.bones[f'{n}.{side}'].rotation_quaternion = a['fingers'][n].slerp(b['fingers'][n], u)
+            rig.update()
+            if hold:
+                # While she holds the chain, the pinch (not the wrist) follows its path: the ends stay in her fingers.
+                wr = wr + (pinch - np.array(pinch_point(s, side)))
 
 
 def torso_clearance(s, side):
@@ -385,7 +496,9 @@ def charm_pose(s, t):
 def asset_fasten(s):
     """The fastening close-up (scrubbed by the hold) and the charm loop, sharing one skinned mesh."""
     import necklace
-    fasten_pose(s, 0.0)
+    # Bound with her hands behind her neck (the chain's ends at her fingertips there); from the start of the
+    # clip, where she holds the ends out at the sides of her neck, the last centimetres of chain stretch to them.
+    fasten_pose(s, 0.5)
     mats0 = s.pose_mats()
     pinch = {side: pinch_point(s, side) for side in 'LR'}
     # All her hair brought forward over both shoulders, parted down the back of her head: the nape is bare

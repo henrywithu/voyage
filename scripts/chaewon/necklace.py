@@ -111,7 +111,7 @@ def build(s, mats, pinch):
     c0 = n1 + up * 0.006
     # Closed loop, theta = 0 at the nape, pi at the throat.
     th = np.linspace(0, 2 * np.pi, 220, endpoint=False)
-    drop = 0.118 * np.exp(-((th - np.pi) / 0.62) ** 2)
+    drop = 0.088 * np.exp(-((th - np.pi) / 0.62) ** 2)  # (the pendant rests on her breastbone, above the neckline)
     sides = -0.012 * np.sin(th) ** 2
     rad = 0.066 + 0.012 * np.sin(th) ** 2 + 0.03 * np.exp(-((th - np.pi) / 0.7) ** 2)
     X0 = c0 + (np.cos(th)[:, None] * back + np.sin(th)[:, None] * left) * rad[:, None] + up * (sides - drop)[:, None]

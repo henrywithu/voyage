@@ -98,26 +98,31 @@ def plant_leg(ctx, side, ankle=None, knee_dir=(0, -1, 0.0), foot_yaw=0.0, foot_p
     rig.aim(arm, f'foot.{side}', d)
 
 
-def arm_to(ctx, side, hand_pos, elbow_dir, wrist=None, hand=None):
-    """Arm IK to a hand (wrist) position, the elbow bending toward elbow_dir; then wrist and hand shape."""
+def arm_to(ctx, side, hand_pos, elbow_dir, wrist=None, hand=None, elbow_at=None, keep_dir=False):
+    """Arm IK to a hand (wrist) position, the elbow bending toward elbow_dir (or toward the point elbow_at,
+    given relative to the shoulder: robust for a tightly folded arm); then wrist and hand shape."""
     arm = ctx.arm
     sh = arm.pose.bones[f'upperarm01.{side}'].head
     pole = sh + Vector(elbow_dir) * 0.4 + (Vector(hand_pos) - sh) * 0.5
+    if elbow_at is not None:
+        pole = sh + Vector(elbow_at)
     rig.two_bone_ik(arm, f'upperarm01.{side}', f'lowerarm01.{side}', Vector(hand_pos), pole,
                     twist_bones=(f'upperarm02.{side}', f'lowerarm02.{side}'))
     if wrist is not None:
         wrist_dir, palm_toward = wrist
         rig.aim(arm, f'wrist.{side}', Vector(wrist_dir))
         if palm_toward is not None:
-            face_palm(arm, side, Vector(palm_toward))
+            face_palm(arm, side, Vector(palm_toward), keep_dir=keep_dir)
     if hand is not None:
         rig.hand_pose(arm, side, **hand)
 
 
-def face_palm(arm, side, toward):
-    """Spin the wrist about its own axis (and the forearm twist bone a little) so the palm faces `toward`."""
+def face_palm(arm, side, toward, keep_dir=False):
+    """Spin the wrist about its own axis (and the forearm twist bone a little) so the palm faces `toward`.
+    keep_dir: the forearm's twist swings a bent wrist; aim the wrist back along its direction afterwards."""
     n = rig.palm_normal(arm, side)
     y = rig.bone_dir(arm, f'wrist.{side}')
+    y0 = y.copy()
     t = toward - y * toward.dot(y)
     if t.length < 1e-6:
         return
@@ -128,6 +133,8 @@ def face_palm(arm, side, toward):
     sgn = 1 if nn.cross(t).dot(y) > 0 else -1
     # Split the twist between the forearm twist bone and the wrist (anatomically the radius rolls).
     rig.rotate_world(arm, f'lowerarm02.{side}', rig.bone_dir(arm, f'lowerarm02.{side}'), sgn * ang * 0.5)
+    if keep_dir:
+        rig.aim(arm, f'wrist.{side}', y0)
     y = rig.bone_dir(arm, f'wrist.{side}')
     n = rig.palm_normal(arm, side)
     nn = n - y * n.dot(y)
