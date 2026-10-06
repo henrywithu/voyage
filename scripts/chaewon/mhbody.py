@@ -215,6 +215,9 @@ SHAPE += [
     ('nose/nose-scale-depth', 0.9, 'decr', 'incr'), ('nose/nose-greek', 0.35, 'decr', 'incr'),
     ('nose/nose-point', 0.7, 'down', 'up'),
     ('forehead/forehead-trans', -0.2, 'forward', 'backward'),
+    # A clean line from her chin to her throat (no softness under the jaw, which read as a full face in
+    # profile), and a head a little shallower front to back.
+    ('neck/neck-double', -0.8, 'decr', 'incr'), ('head/head-scale-depth', -0.25, 'decr', 'incr'),
 ]
 
 

@@ -86,6 +86,28 @@ class Part:
         self.wind = np.zeros(n) if wind is None else wind
 
 
+def tuck_under(body, dress, depth=0.005, reach=0.022, edge=0.02):
+    """Body skin covered by the dress drawn in a few millimetres (rest space, in place): the dress lies only
+    millimetres over her, and where a pose swells her chest or armpit the skin would show through it. Full
+    depth well inside the dress, easing to nothing toward its edges (the neckline, the armholes, the hem),
+    so no step shows where skin meets dress."""
+    from scipy.spatial import cKDTree
+    Pd, Fd = np.asarray(dress.P, float), np.asarray(dress.F)
+    Nd = vertex_normals(Pd, Fd)
+    # The dress's open edges: vertices on edges used by a single triangle.
+    E = np.sort(np.vstack([Fd[:, [0, 1]], Fd[:, [1, 2]], Fd[:, [2, 0]]]), axis=1)
+    u, c = np.unique(E, axis=0, return_counts=True)
+    rim = np.unique(u[c == 1])
+    d_rim, _ = cKDTree(Pd[rim]).query(Pd)
+    P = np.asarray(body.P, float)
+    Nb = vertex_normals(P, np.asarray(body.F))
+    d, j = cKDTree(Pd).query(P)
+    under = ((P - Pd[j]) * Nd[j]).sum(1) < 0.002          # beneath the dress surface
+    w = under * np.clip(1 - (d - 0.006) / reach, 0, 1) * np.clip((d_rim[j] - 0.004) / edge, 0, 1)
+    body.P = P - Nb * (depth * w)[:, None]
+    return int((w > 0).sum())
+
+
 def body_part(rest, win):
     P, T = rest['P'], rest['T']
     names = list(rest['names'])

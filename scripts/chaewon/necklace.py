@@ -89,7 +89,188 @@ def _part(mesh, W, uv2, red, bones):
     return p
 
 
-def build(s, mats, pinch):
+def _smoothstep(a, b, x):
+    u = min(max((x - a) / (b - a), 0.0), 1.0)
+    return u * u * (3 - 2 * u)
+
+
+class Rope:
+    """The parted chain held by its two ends, as she puts it on: a rope pinned at her finger pinches, under
+    gravity, lying on her (the posed body's distance field), simulated through the fastening clip. As the
+    clasp nears it settles on to the closed chain's own path, so the two coincide when the clasp closes
+    and the runtime swaps one for the other. A row of bones (chain00 ...) follows the rope; the open chain's
+    links and the pendant (on the middle bone, at the bail) are skinned to them. After the clasp (and in
+    clips flagged clasp=True) the bones stay where the clasp closed, carried by her neck. A last bone,
+    chain_pendant, carries the pendant (see pendant_frame)."""
+
+    def __init__(self, s, pose_fn, pinch_fn, clasp_at, sdf, frames, t_bind, n=81, bones=29, settle=0.5):
+        self.s, self.pose_fn, self.pinch_fn, self.sdf, self.t_bind_req = s, pose_fn, pinch_fn, sdf, t_bind
+        self.clasp_at, self.frames, self.n, self.K, self.settle = clasp_at, frames, n, bones, settle
+        self.names = ['chain%02d' % k for k in range(bones)] + ['chain_pendant']
+        self.nk = s.names.index('neck01')
+
+    def _field(self, X, A):
+        """Distance and outward direction of the body (and dress) at points X posed by chest transform A (the
+        field is the bind pose's: the chest and dress move with the upper spine)."""
+        Ai = np.linalg.inv(A)
+        Xb = X @ Ai[:3, :3].T + Ai[:3, 3]
+        return self.sdf(Xb), self.sdf.gradient(Xb) @ A[:3, :3].T
+
+    def simulate(self, closed_at, length, t_bind, M_bind, chest_bind):
+        """closed_at(u): the closed chain's path (bind pose) at u in [0, 1] from the nape round her left
+        side to the throat (u = 0.5) and back; length: the chain's length; t_bind: the clip time of the
+        bind pose. Fills self.paths {t: (n, 3)} and self.necks {t: 4x4}."""
+        s, n = self.s, self.n
+        self.M_bind = M_bind
+        cb = s.names.index('spine01')
+        self.chest = {}
+        seg = length / (n - 1)
+        u = np.linspace(0, 1, n)
+        ts = sorted(set([f / (self.frames - 1) for f in range(self.frames) if f / (self.frames - 1) <= self.clasp_at + 1e-9]
+                        + [self.clasp_at, t_bind]))
+        g = np.array([0, 0, -0.0005])
+        margin = 0.0055
+        X = Xp = None
+        pins0 = None
+        self.paths, self.necks = {}, {}
+        for t in ts:
+            self.pose_fn(s, t)
+            mats = s.pose_mats()
+            A = mats[cb] @ np.linalg.inv(chest_bind)
+            self.chest[t] = A
+            pins = np.array(self.pinch_fn(s, 'L')), np.array(self.pinch_fn(s, 'R'))
+            if X is None:
+                X = pins[0][None] * (1 - u[:, None]) + pins[1][None] * u[:, None]
+                # (start well in front of her, so it falls on to the front of her dress: started between her
+                # skin and the fabric it would stay there)
+                fwd = A[:3, :3] @ np.array([0, -1.0, 0])
+                X = X + fwd * 0.14 * np.sin(np.pi * u)[:, None]
+                Xp = X.copy()
+                pins0, steps = pins, 500
+            else:
+                steps = 90
+            for k in range(steps):
+                a = (k + 1) / steps
+                pl = pins0[0] * (1 - a) + pins[0] * a
+                pr = pins0[1] * (1 - a) + pins[1] * a
+                V = (X - Xp) * 0.9
+                Xp = X.copy()
+                X = X + V + g
+                for _ in range(6):
+                    for par in (0, 1):
+                        i = np.arange(par, n - 1, 2)
+                        d = X[i + 1] - X[i]
+                        L = np.linalg.norm(d, axis=1, keepdims=True)
+                        c = (L - seg) / np.maximum(L, 1e-9) * d * 0.5
+                        X[i] += c
+                        X[i + 1] -= c
+                    X[0], X[-1] = pl, pr
+                    dist, grad = self._field(X, A)
+                    m = dist < margin
+                    m[0] = m[-1] = False
+                    if m.any():
+                        X[m] += grad[m] * (margin - dist[m])[:, None]
+            pins0 = pins
+            # Settling on to the closed chain's path as the clasp nears (carried by her neck).
+            C = np.array([closed_at(v) for v in u])
+            Mt = mats[self.nk] @ np.linalg.inv(self.M_bind)
+            C = C @ Mt[:3, :3].T + Mt[:3, 3]
+            b = _smoothstep(self.settle, self.clasp_at, t)
+            self.paths[t] = X * (1 - b) + C * b
+            self.necks[t] = mats[self.nk].copy()
+        self.t_bind = t_bind
+        self.bind = self.frames_of(self.paths[t_bind], self.necks[t_bind][:3, 3], self.chest[t_bind])
+        self.clasp = self.frames_of(self.paths[self.clasp_at], self.necks[self.clasp_at][:3, 3], self.chest[self.clasp_at])
+
+    def frames_of(self, path, neck, A):
+        """World matrices of the bones along a path: x along the chain (from the left end to the right), z
+        out from her (the surface normal where it lies on her, else horizontally away from her neck at
+        `neck`), y = z x x."""
+        n, K = len(path), self.K
+        out = []
+        for k in range(K):
+            f = k / (K - 1) * (n - 1)
+            i = min(int(f), n - 2)
+            w = f - i
+            p = path[i] * (1 - w) + path[i + 1] * w
+            x = path[min(i + 1, n - 1)] - path[max(i - 1, 0)] if 0 < k < K - 1 else path[i + 1] - path[i]
+            x /= max(np.linalg.norm(x), 1e-9)
+            o = p - neck
+            o[2] = 0
+            o /= max(np.linalg.norm(o), 1e-9)
+            dist, gr = self._field(p[None], A)
+            dist, gr = float(dist[0]), gr[0]
+            # (at the base of her neck, where the chain closes, it faces straight out from her neck: the field
+            # is the chest's, and the neck moves on it)
+            c = np.clip(1 - (dist - 0.004) / 0.02, 0, 1) * np.clip((neck[2] - p[2] - 0.05) / 0.04, 0, 1)
+            z = o * (1 - c) + gr * c
+            z = z - x * np.dot(z, x)
+            z /= max(np.linalg.norm(z), 1e-9)
+            # (x always runs the same way along the chain, so neighbouring bones never flip against each
+            # other: a flip folds the links between them)
+            y = np.cross(z, x)
+            Mx = np.eye(4)
+            Mx[:3, 0], Mx[:3, 1], Mx[:3, 2], Mx[:3, 3] = x, y, z, p
+            out.append(Mx)
+        out.append(self.pendant_frame(path, neck, A))
+        return np.array(out)
+
+    def pendant_frame(self, path, neck, A):
+        """The pendant's own frame (origin at its centre): it hangs from the middle of the chain under
+        gravity, its face turned out from her (between straight out from her neck and the surface it lies
+        on), held clear of her body and dress."""
+        n = len(path)
+        bail = path[n // 2]
+        up = np.array([0.0, 0.0, 1.0])
+        o = bail - neck
+        o[2] = 0
+        o /= max(np.linalg.norm(o), 1e-9)
+        below = bail - up * 0.02
+        g = self._field(below[None], A)[1][0]
+        z = 0.5 * o + 0.5 * g
+        z = z - up * np.dot(z, up) * 0.6           # (mostly upright: it hangs, it does not lie flat)
+        z /= max(np.linalg.norm(z), 1e-9)
+        y = up - z * np.dot(up, z)
+        y /= max(np.linalg.norm(y), 1e-9)
+        x = np.cross(y, z)
+        ring_r = pend.R_RING * PENDANT_SCALE
+        c = bail - y * (ring_r + 0.004)
+        a = np.linspace(0, 2 * np.pi, 16, endpoint=False)
+        for _ in range(12):
+            rim = c + (np.cos(a)[:, None] * x + np.sin(a)[:, None] * y) * ring_r
+            d = self._field(np.vstack([c[None], rim]), A)[0].min()
+            if d >= 0.0045:
+                break
+            c = c + z * (0.0045 - d + 0.0005)
+        Mx = np.eye(4)
+        Mx[:3, 0], Mx[:3, 1], Mx[:3, 2], Mx[:3, 3] = x, y, z, c
+        return Mx
+
+    def frame(self, t, kw, mats):
+        """{bone name: world matrix} at clip time t (kw: the clip's options; mats: its pose)."""
+        if kw.get('clasp') or t > self.clasp_at + 1e-6:
+            carry = mats[self.nk] @ np.linalg.inv(self.necks[self.clasp_at])
+            F = np.einsum('ij,kjl->kil', carry, self.clasp)
+        else:
+            key = min(self.paths, key=lambda v: abs(v - t))
+            F = self.frames_of(self.paths[key], self.necks[key][:3, 3], self.chest[key])
+        return dict(zip(self.names, F))
+
+    def weights(self, P, path):
+        """Each point skinned to the two bones either side of its place along the rope."""
+        from scipy.spatial import cKDTree
+        n, K = len(path), self.K
+        _, j = cKDTree(path).query(P)
+        f = j / (n - 1) * (K - 1)
+        i = np.clip(np.floor(f).astype(int), 0, K - 2)
+        w = f - i
+        Wx = np.zeros((len(P), K + 1), np.float32)
+        Wx[np.arange(len(P)), i] = 1 - w
+        Wx[np.arange(len(P)), i + 1] += w
+        return Wx
+
+
+def build(s, mats, pinch, rope=None):
     """s: assets.Session; mats: bind pose bone matrices; pinch: {'L': xyz, 'R': xyz} finger pinch points."""
     names = s.names
     Pb = s.posed_body(mats)
@@ -141,11 +322,36 @@ def build(s, mats, pinch):
     Pc, _, _, _, _ = closed.arrays()
     Wc = M.nearest_weights(Pc, Pb, s.rest['W'], k=6, mask=body_mask)
 
+    if rope is not None:
+        # ---- open chain: the rope's path in the bind pose (simulated through the clip, see Rope)
+        Xc = np.vstack([X, X[:1]])
+        thc = np.r_[th, 2 * np.pi]
+        closed_at = lambda v: np.array([np.interp(2 * np.pi * v, thc, Xc[:, k]) for k in range(3)])
+        rope.simulate(closed_at, L, rope.t_bind_req, mats[names.index('neck01')], mats[names.index('spine01')])
+        rp = rope.paths[rope.t_bind]
+        pts, _ = _resample(rp, LINK)
+        pts = np.vstack([pts, rp[-1:]])
+        zb = rope.bind[:, :3, 2]
+        hint = zb[np.clip(np.round(np.linspace(0, 1, len(pts)) * (rope.K - 1)).astype(int), 0, rope.K - 1)]
+        open_mesh = _links(pts, hint)
+        for end, dvec, ring in ((rp[0], rp[0] - rp[3], False), (rp[-1], rp[-1] - rp[-4], True)):
+            dvec = dvec / max(np.linalg.norm(dvec), 1e-9)
+            if not ring:
+                ax = np.cross(dvec, up)
+                Pq, Fq, Nq = pend.torus(end, ax / max(np.linalg.norm(ax), 1e-9), 0.0032, 0.0011, nu=16, nv=6)
+                rel = Pq - end
+                Pq = end + rel + dvec * (rel @ dvec)[:, None] * 0.7
+            else:
+                Pq, Fq, Nq = pend.torus(end, up, 0.0026, 0.0008, nu=14, nv=5)
+            open_mesh.add(Pq, Fq, N=Nq)
+        Po, _, _, _, _ = open_mesh.arrays()
+        Wo = np.zeros((len(Po), len(names)), np.float32)
+        Wo_x = rope.weights(Po, rp)
     # ---- open chain: two strands from the bail to the fingers
-    open_mesh = mk.Mesh()
+    open_mesh = open_mesh if rope is not None else mk.Mesh()
     open_W = []
     cut = 0.42                         # radians either side of the nape where the chain is parted
-    for side, sgn in (('L', 1), ('R', -1)):
+    for side, sgn in ((('L', 1), ('R', -1)) if rope is None else ()):
         if sgn > 0:
             idx = [i for i in range(i_bail, -1, -1) if th[i] >= cut]
         else:
@@ -182,8 +388,13 @@ def build(s, mats, pinch):
             Pq, Fq, Nq = pend.torus(end, up, 0.0026, 0.0008, nu=14, nv=5)
         open_mesh.add(Pq, Fq, N=Nq)
         open_W.append(np.tile(Wh[0], (len(Pq), 1)))
-    Po, _, _, _, _ = open_mesh.arrays()
-    Wo = np.vstack(open_W)
+    if rope is None:
+        Po, _, _, _, _ = open_mesh.arrays()
+        Wo = np.vstack(open_W)
+    else:
+        # The pendant rides on its own bone (Rope.pendant_frame): hanging from the middle of the chain.
+        Fp = rope.bind[rope.K]
+        centre, Rm = Fp[:3, 3], Fp[:3, :3]
 
     # ---- pendant
     pm = mk.Mesh()
@@ -210,9 +421,17 @@ def build(s, mats, pinch):
         _part(gold, Wp, skin_uv2, 0.0, names),
         _part(pearl, Wpe, np.array([0.999, 0.999]), 0.0, names),
     ]
+    if rope is not None:
+        # The open chain and the pendant ride on the rope's bones alone (their rest is where they are bound).
+        parts[1].Wx = Wo_x
+        for p in parts[2:]:
+            p.W = np.zeros_like(p.W)
+            p.Wx = np.zeros((len(p.P), rope.K + 1), np.float32)
+            p.Wx[:, rope.K] = 1
     # Back to rest space for skinning.
     from assets import inverse_skin
     for p in parts:
-        p.P = inverse_skin(p.P, p.W, mats, s.rest_mats)
+        if getattr(p, 'Wx', None) is None:
+            p.P = inverse_skin(p.P, p.W, mats, s.rest_mats)
     info = dict(bail=bail, centre=centre, length=L)
     return parts, info

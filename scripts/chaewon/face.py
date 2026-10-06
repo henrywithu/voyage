@@ -332,8 +332,9 @@ def eye(e, outer, s=1.0, closeup=False, rng=None):
     tt = np.linspace(0, 1, len(crease))
     crease = crease + np.c_[outer * 0.02 * W * tt, -(0.12 + 0.16 * tt) * Hh]
     out.append(ribbon(smooth(crease, 3), 0.002 * W, 0.004 * W, wmid=0.011 * W))
-    # Lower lid: a fine line under the outer two thirds, a few tiny lashes.
-    out.append(ribbon(part(lo, 0.32, 1.0) + np.array([0, 0.01 * W]), 0.002 * W, 0.008 * W, wmid=0.011 * W))
+    # Lower lid: a fine line the whole length (a hair at the inner corner, fuller toward the outer), a few
+    # tiny lashes.
+    out.append(ribbon(part(lo, 0.04, 1.0) + np.array([0, 0.01 * W]), 0.0015 * W, 0.008 * W, wmid=0.008 * W))
     for j in range(3):
         i = int((0.66 + 0.1 * j) * (len(lo) - 1))
         p0 = lo[i] + np.array([0, 0.018 * W])

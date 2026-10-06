@@ -192,20 +192,20 @@ def design(rest, seed=11):
     # The see-through fringe: wispy clumps of three or four fine locks whose tips gather to a point, the
     # forehead showing between them; a narrow gap at the parting with a single fine wisp either side of it.
     bangs, clump = [], []
-    for ci, c in enumerate((-33.0, -28.5, -24.0, -19.5, -15.0, -10.6, -6.4, -2.4, 2.4, 6.4, 10.6, 15.0, 19.5, 24.0, 28.5,
-                            33.0)):
-        c = c + rng.normal(0, 0.5)
-        n_l = 2 if abs(c) < 3.5 else (5 if abs(c) > 30 else 7)
+    centres = np.r_[-np.linspace(2.2, 35.0, 13)[::-1], np.linspace(2.2, 35.0, 13)]
+    for ci, c in enumerate(centres):
+        c = c + rng.normal(0, 0.35)
+        n_l = 4 if abs(c) < 3.5 else (6 if abs(c) > 31 else 9)
         for _ in range(n_l):
-            az = c + rng.uniform(-2.3, 2.3) * (0.3 if n_l == 1 else 1.0)
+            az = c + rng.uniform(-1.6, 1.6)
             phi = np.radians(az)
             depth = 26.0 * np.clip(1 - (abs(az) / 40.0) ** 2, 0, 1)
             bangs.append((phi, hairline_elev(phi) + 3.0 + depth * rng.uniform(0.15, 0.75)))
             clump.append(ci)
     bangs = np.array(bangs)
     # Side pieces at the temples, and the face-framing layer behind them.
-    side = np.array([(sg * np.radians(az + rng.normal(0, 1.0)), hairline_elev(np.radians(az)) + 3 + 4 * rng.random())
-                     for sg in (-1, 1) for az in (36.0, 40.5, 44.5)])
+    side = np.array([(sg * np.radians(az + rng.normal(0, 0.8)), hairline_elev(np.radians(az)) + 3 + 4 * rng.random())
+                     for sg in (-1, 1) for az in np.linspace(36.0, 46.0, 7)])
     frame = np.array([(sg * np.radians(az + rng.normal(0, 1.2)), hairline_elev(np.radians(az)) + 2 + 6 * rng.random())
                       for sg in (-1, 1) for az in np.linspace(42.0, 68.0, 12)])
     groups = []
@@ -302,11 +302,11 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         if g == 'bangs':
             total = None  # set from the scalp path below: over the brows
             lift = 0.0042 + 0.001 * rng.random()
-            widths[i] = 0.0075 + 0.003 * rng.random()
+            widths[i] = 0.0058 + 0.0022 * rng.random()
         elif g == 'side':
             total = None  # to the cheekbones
             lift = 0.006
-            widths[i] = 0.010 + 0.003 * rng.random()
+            widths[i] = 0.008 + 0.003 * rng.random()
         elif g == 'front':
             total = 0.39 + rng.normal(0, 0.03)
             widths[i] = 0.022 + 0.01 * rng.random()
@@ -327,7 +327,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             # Volume: the long hair stands further off the head the further it runs down from the part (the
             # layers beneath hold it out), so the locks share one smooth dome that widens to below the ears
             # and lets the hair fall clear of them, instead of hugging the skull and stepping off it.
-            lift = lift + 0.003 * np.clip(el_path / 75.0, 0, 1) + 0.016 * np.clip((62 - el_path) / 72.0, 0, 1) ** 1.4
+            lift = lift + 0.003 * np.clip(el_path / 75.0, 0, 1) + 0.010 * np.clip((62 - el_path) / 72.0, 0, 1) ** 1.4
         else:
             lift = lift + 0.0045 * np.clip(el_path / 75.0, 0, 1) ** 1.3
         # Grown out of the scalp: the first few millimetres rise from the skin to the lock's height.
@@ -336,10 +336,10 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         path = scalp_path(hf, phi0, el0, phi1, el1, 40, lift)
         plen = np.linalg.norm(np.diff(path, axis=0), axis=1).sum()
         if total is None and g == 'side':
-            total = plen + 0.075 + 0.02 * rng.random()
+            total = plen + 0.10 + 0.03 * rng.random()
         elif total is None:
             # The fringe falls from the hairline over the brows, longer toward the sides.
-            total = plen + 0.048 + 0.02 * (abs(phi0) / np.radians(34)) ** 2 + clump_len[clumps[i]] + 0.006 * rng.random()
+            total = plen + 0.056 + 0.022 * (abs(phi0) / np.radians(34)) ** 2 + clump_len[clumps[i]] + 0.008 * rng.random()
         plen = min(plen, total * 0.7)
         seg = total / (N - 1)
         lengths[i] = total
@@ -478,22 +478,23 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         acc = np.zeros((cb.max() + 1,) + Xb.shape[1:])
         np.add.at(acc, cb, Xb)
         cnt = np.bincount(cb, minlength=cb.max() + 1)[:, None, None]
-        F[is_bang] += (acc[cb] / cnt[cb] - Xb) * 0.06 * w2[None, :, None]
+        F[is_bang] += (acc[cb] / cnt[cb] - Xb) * 0.035 * w2[None, :, None]
         # Volume: from the ears to the shoulders the long hair stands out from her (the layers beneath hold it),
         # so the silhouette widens around her face and jaw like a real head of hair, not strings down her cheeks.
         rad = X[..., :2] - hcx[None, None, :2]
         rad /= np.maximum(np.linalg.norm(rad, axis=2, keepdims=True), 1e-9)
         dz = hcx[2] - X[..., 2]
         flare = np.clip((dz - 0.02) / 0.06, 0, 1) * np.clip((0.17 - dz) / 0.06, 0, 1)
-        F[long_hair, :, :2] += (0.0003 * flare[long_hair])[..., None] * rad[long_hair]
+        F[long_hair, :, :2] += (0.00012 * flare[long_hair])[..., None] * rad[long_hair]
         # Face-framing layers: their ends flick outward at the jaw.
         F[is_frame, :, 0] += (side_sign[is_frame, None] * 0.00025) * w3[None, :]
         # Side pieces: out over the temples, then down along the cheekbones, tips turning in.
-        F[is_side, :, 0] += (side_sign[is_side, None] * 0.0002) * (w2 - 1.6 * w3)[None, :]
+        F[is_side, :, 0] += (side_sign[is_side, None] * 0.0002) * (w2 - 2.4 * w3)[None, :]
         F[is_side, :, 1] += -0.0002 * w2[None, :]
         # Face-framing layer: drawn in against the cheeks around their middle, then hanging straight.
-        F[is_frame, :, 0] += (-side_sign[is_frame, None] * 0.00012) * bump[None, :]
-        F[is_frame, :, 1] += -0.00015 * bump[None, :]
+        # (in over the edge of her cheeks, as her hair frames her face and makes it small)
+        F[is_frame, :, 0] += (-side_sign[is_frame, None] * 0.0002) * bump[None, :]
+        F[is_frame, :, 1] += -0.0002 * bump[None, :]
         return F
 
     # Wind carries the hair a long way from where it starts (lifted, streaming back): give it time to

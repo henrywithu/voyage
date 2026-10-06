@@ -75,6 +75,9 @@ def main(out, subdiv=1):
     mats = np.array([np.array(b.matrix_local) for b in arm.data.bones])
     parents = np.array([names.index(b.parent.name) if b.parent else -1 for b in arm.data.bones])
     P = flatten_ears(P, W, names, heads)
+    # The eye openings drawn in to the painted almonds (lids.py; renders the face map, so last).
+    import lids
+    P = lids.fit(dict(P=P, T=T, W=W, EP=EP, ET=ET, names=np.array(names), heads=heads))
     np.savez_compressed(out, P=P, T=T, UV=UV, W=W, EP=EP, ET=ET, EUV=EUV, names=np.array(names),
                         parents=parents, heads=heads, tails=tails, mats=mats, height=info['height'])
     print('rest', P.shape, T.shape, len(names))
