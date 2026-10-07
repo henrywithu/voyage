@@ -115,7 +115,7 @@ def modifier(verts, rel, value, neg='decr', pos='incr'):
 
 
 MACRO = dict(gender=0.0, age=0.5 * 22 / 25, muscle=0.38, weight=0.2, height=0.62, proportions=1.0,
-             asian=0.85, caucasian=0.15, cup=0.55, firmness=0.85)
+             asian=0.85, caucasian=0.15, cup=0.8, firmness=0.7)
 
 SIDES = ('l', 'r')
 SHAPE = [
@@ -141,22 +141,24 @@ SHAPE = [
     ('mouth/mouth-trans', -0.25, 'backward', 'forward'),
     ('neck/neck-scale-horiz', -0.4, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
     ('measure/measure-neck-height', -0.55, 'decr', 'incr'), ('measure/measure-neck-circ', -0.2, 'decr', 'incr'),
-    # Torso: narrow shoulders, defined waist, soft hips.
-    ('measure/measure-shoulder-dist', -0.05, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
-    ('measure/measure-underbust-circ', -0.3, 'decr', 'incr'), ('measure/measure-hips-circ', -0.12, 'decr', 'incr'),
+    # Torso: narrow, softly sloping shoulders, defined waist, rounded hips (an hourglass, not a boy's frame).
+    ('measure/measure-shoulder-dist', -0.7, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
+    ('measure/measure-underbust-circ', -0.3, 'decr', 'incr'), ('measure/measure-hips-circ', 0.1, 'decr', 'incr'),
     ('measure/measure-napetowaist-dist', -0.15, 'decr', 'incr'), ('measure/measure-frontchest-dist', -0.2, 'decr', 'incr'),
     ('torso/torso-scale-horiz', -0.12, 'decr', 'incr'), ('torso/torso-vshape', -0.3, 'decr', 'incr'),
     ('torso/torso-muscle-dorsi', -0.5, 'decr', 'incr'), ('torso/torso-muscle-pectoral', -0.5, 'decr', 'incr'),
     ('hip/hip-waist', 0.25, 'down', 'up'), ('stomach/stomach-tone', 0.0, 'decr', 'incr'),
-    ('buttocks/buttocks-volume', 0.05, 'decr', 'incr'),
+    ('buttocks/buttocks-volume', 0.2, 'decr', 'incr'),
     ('bodyshapes/bodyshapes-elvs-fem-neat-hourglass', 0.18, None, None),
-    ('breast/breast-trans', 0.2, 'down', 'up'), ('breast/breast-volume-vert', 0.15, 'down', 'up'),
-    ('breast/breast-point', 0.0, 'decr', 'incr'),
-    # Limbs: long legs, slender arms and calves, small hands and feet.
+    # A full, natural bust: rounded below, a soft slope above, never pointed.
+    ('breast/breast-trans', 0.2, 'down', 'up'), ('breast/breast-volume-vert', 0.3, 'down', 'up'),
+    ('breast/breast-point', -0.4, 'decr', 'incr'),
+    # Limbs: long, slender but shapely legs (soft thighs, a curve of calf, fine knees and ankles), slender
+    # arms, small hands and feet.
     ('armslegs/upperlegs-height', 0.35, 'decr', 'incr'), ('armslegs/lowerlegs-height', 0.3, 'decr', 'incr'),
-    ('measure/measure-thigh-circ', -0.05, 'decr', 'incr'), ('measure/measure-calf-circ', -0.2, 'decr', 'incr'),
-    ('measure/measure-knee-circ', -0.3, 'decr', 'incr'), ('measure/measure-ankle-circ', -0.35, 'decr', 'incr'),
-    ('measure/measure-upperarm-circ', -0.4, 'decr', 'incr'), ('measure/measure-wrist-circ', -0.35, 'decr', 'incr'),
+    ('measure/measure-thigh-circ', 0.2, 'decr', 'incr'), ('measure/measure-calf-circ', 0.0, 'decr', 'incr'),
+    ('measure/measure-knee-circ', -0.2, 'decr', 'incr'), ('measure/measure-ankle-circ', -0.35, 'decr', 'incr'),
+    ('measure/measure-upperarm-circ', -0.3, 'decr', 'incr'), ('measure/measure-wrist-circ', -0.35, 'decr', 'incr'),
     ('measure/measure-upperarm-length', -0.1, 'decr', 'incr'), ('measure/measure-lowerarm-length', -0.05, 'decr', 'incr'),
 ]
 for s in SIDES:
@@ -175,7 +177,7 @@ for s in SIDES:
         (f'armslegs/{s}-hand-scale', -0.4, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
         (f'armslegs/{s}-hand-fingers-length', 0.0, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
         (f'armslegs/{s}-lowerarm-scale-horiz', -0.2, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.15, 'decr', 'incr'),
-        (f'armslegs/{s}-upperarm-shoulder-muscle', -0.4, 'decr', 'incr'),
+        (f'armslegs/{s}-upperarm-shoulder-muscle', -0.8, 'decr', 'incr'),
         (f'armslegs/{s}-lowerleg-scale-horiz', -0.1, 'decr', 'incr'),
     ]
 
@@ -219,9 +221,15 @@ SHAPE += [
     # profile), and a head a little shallower front to back.
     ('neck/neck-double', -0.8, 'decr', 'incr'), ('head/head-scale-depth', -0.25, 'decr', 'incr'),
 ]
+# Her midface, measured on her portrait (in eye spacings below the eyes): the nose tip at about 0.7 and the
+# mouth at about 1.1. MakeHuman's young head puts them much higher (0.53 and 0.87), which read as a doll's
+# face rather than hers.
+SHAPE = [t for t in SHAPE if t[0] not in ('nose/nose-scale-vert', 'nose/nose-trans', 'mouth/mouth-trans') or t[2] in ('backward',)]
+SHAPE += [('nose/nose-scale-vert', 0.5, 'decr', 'incr'), ('nose/nose-trans', -0.9, 'down', 'up'),
+          ('mouth/mouth-trans', -0.1, 'down', 'up')]
 
 
-EYE_SCALE = 1.15  # her large eyes: the eye region (opening, lids and eyeball) grown past MakeHuman's range
+EYE_SCALE = 1.07  # her eyes: the eye region (opening, lids and eyeball) grown a little past MakeHuman's range
 
 
 def enlarge_eyes(verts, faces, groups, scale=EYE_SCALE, r0=0.17, r1=0.42):
