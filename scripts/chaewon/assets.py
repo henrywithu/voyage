@@ -162,33 +162,42 @@ def wind_field(direction, strength=0.0012, gust=0.4, seed=3):
 
 
 def bow_pose(s, t=0.0):
-    """At the bow: her right hand high on the forestay, the arm long, leaning out a little into the wind; her
-    weight on the right leg (the knee soft for the swell), the left foot forward on its ball, bracing; her
-    left arm opened out behind her, fingers spread to the wind; chin lifted, eyes on the horizon."""
+    """At the bow (loop): her right hand high on the forestay, the arm long, leaning out a little into the
+    wind; her weight on the right leg (the knee soft for the swell), the left foot forward on its ball; her
+    left arm floating out behind her, elbow soft, the hand trailing in the wind and rising and falling with it
+    like a dancer's; chin lifted, eyes on the horizon. The swell moves all of her: the weight rocks between
+    her feet, she breathes, the free arm drifts, and her head follows the horizon a moment after her body."""
     ctx, arm = s.ctx, s.arm
     rig.reset_pose(arm)
-    sw = math.sin(2 * math.pi * t)
-    sw2 = math.sin(2 * math.pi * t - 0.9)
-    br = math.sin(2 * math.pi * 2 * t)
-    poses.hips(arm, shift=(-0.024 + 0.006 * sw, 0, 0), roll=4.5 + 1.2 * sw, yaw=-5 + 1.0 * sw2)
-    poses.stand_on(ctx, 'R', bend=7 + 2 * sw)
+    w = 2 * math.pi * t
+    sw = math.sin(w)                      # the swell (one per loop)
+    sw2 = math.sin(w - 0.9)               # the body answering it
+    sw3 = math.sin(w - 1.8)               # the head and free arm, last
+    br = math.sin(2 * w)                  # breath (twice per loop)
+    poses.hips(arm, shift=(-0.026 + 0.012 * sw, 0, 0.004 * br), roll=4.5 + 2.4 * sw, yaw=-5 + 2.5 * sw2)
+    poses.stand_on(ctx, 'R', bend=7 + 4 * sw)
     poses.plant_leg(ctx, 'R')
     a = ctx.ankle['L']
     poses.plant_leg(ctx, 'L', ankle=(a.x + 0.02, a.y - 0.13, a.z), knee_dir=(0.25, -1, 0), foot_yaw=10,
-                    foot_pitch=-10, on_ball=True)
-    poses.spine(arm, roll=-5 - 1.0 * sw, yaw=9 + 1.5 * sw2, pitch=-2 + 0.8 * br)
-    poses.clavicle(arm, 'R', lift=12)
+                    foot_pitch=-10 - 4 * sw, on_ball=True)
+    poses.spine(arm, roll=-5 - 2.2 * sw2, yaw=9 + 3.0 * sw2, pitch=-3 + 1.6 * br)
+    poses.clavicle(arm, 'R', lift=12 + 2 * sw)
     grip = s.ctx.shoulder['R'] + Vector((-0.19, -0.29, 0.36))
     poses.arm_to(ctx, 'R', grip, elbow_dir=(-1, 0.45, -0.4),
                  wrist=(Vector((-0.15, -0.45, 1.0)), Vector((0.85, -0.2, 0.0))),
                  hand=dict(curl=0.8, close=0.9, thumb=0.8))
     pb = arm.pose.bones
     rig.update()
+    # The free arm: out and back, lower than her shoulder, the elbow soft and the wrist trailing; it floats
+    # up and back on the swell and settles again, the hand following the forearm a beat later.
+    poses.clavicle(arm, 'L', lift=3 + 3 * sw3, forward=-3)
     sh = pb['upperarm01.L'].head
-    poses.arm_to(ctx, 'L', sh + Vector((0.36 + 0.015 * sw, 0.13, -0.36)), elbow_dir=(0.35, 0.4, -1),
-                 wrist=(Vector((0.65, 0.35, -0.65)), Vector((0.05, -1, 0.25))))
+    wrist = sh + Vector((0.30 + 0.025 * sw3, 0.20 + 0.03 * sw3, -0.30 + 0.06 * sw3))
+    trail = Vector((0.55, 0.55 + 0.15 * math.sin(w - 2.6), -0.45 + 0.25 * math.sin(w - 2.6))).normalized()
+    poses.arm_to(ctx, 'L', wrist, elbow_dir=(0.2, 0.55, -1),
+                 wrist=(trail, Vector((0.1, -0.6, 0.8))))
     rig.hand_shape(arm, 'L', **DANCER)
-    poses.head(arm, pitch=-11 + 1.5 * sw2, yaw=14 + 2.0 * math.sin(2 * math.pi * t + 1.7), roll=-4 + 1.0 * sw)
+    poses.head(arm, pitch=-10 + 2.5 * sw3, yaw=14 + 5.0 * math.sin(w + 1.7), roll=-4 + 2.0 * sw3)
 
 
 def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, amp=1.0, wind_dir=(0, 1, 0.1),
@@ -535,8 +544,9 @@ def charm_pose(s, t):
     pb = arm.pose.bones
     rig.update()
     # Index fingertip resting on the right of the pendant; the hand lies along her chest, palm in.
-    pend = pb['neck01'].head + Vector((-0.004, -0.13, -0.112))       # on the skin of her upper chest
-    tip_target = pend + Vector((-0.017, -0.03, -0.006))   # over the bodice, not under it
+    # (where the pendant hangs on the closed chain in this pose, measured on the built clip)
+    pend = pb['neck01'].head + Vector((-0.011, -0.110, -0.096))
+    tip_target = pend + Vector((-0.017, -0.012, -0.004))  # the fingertip at the pendant's edge, just in front
     fingers = Vector((0.42, -0.08, 0.9)).normalized()
     for _ in range(3):
         wrist_pos = tip_target - fingers * 0.15 + Vector((0, -0.03, 0))
