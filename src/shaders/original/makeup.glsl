@@ -35,28 +35,37 @@ vec3 skinContour(vec3 viewNormal, vec3 viewPos) {
     return mix(vec3(1.0), vec3(0.62, 0.42, 0.4), line);
 }
 
-// Her hair: locks map into the trim's hair bands (v 0.10-0.30) and the scalp cap into its black row
-// (0.05-0.10). Sleek, glossy dark brown: smoothly lighter where the light falls, each lock its own shade
-// (the band it maps into, the outer layers lighter than those beneath), only a faint seam between locks,
-// a soft gloss ring across the crown (u 0.15-0.30 along a strand, hair.py strand_u) brightest down the
-// middle of each lock, and the trim's sheen strokes catching the light inside it.
+// Her hair: locks and the hair shell beneath them (hair.py scalp_cap) map into the trim's hair bands
+// (v 0.10-0.30). Sleek, glossy dark warm brown, shaded as one mass (their normals are the mass's,
+// master.merge): smoothly lighter where the light falls, each lock only a touch its own shade (the band it
+// maps into), a faint seam between locks, a soft gloss ring across the crown (u 0.15-0.30 along a strand,
+// hair.py strand_u) brightest down the middle of each lock, and the trim's sheen strokes catching the light
+// inside it.
 float hairMask(vec2 trimUv) {
     return step(0.05, trimUv.y) * step(trimUv.y, 0.30);
 }
 vec3 hairShade(float lit, float sheen, vec2 trimUv) {
     float lock = step(0.10, trimUv.y);
     float band = clamp(floor((trimUv.y - 0.10) / 0.025) / 7.0, 0.0, 1.0);
-    float tone = mix(0.7, mix(0.93, 1.07, band), lock);
-    vec3 base = mix(vec3(0.05, 0.035, 0.032), vec3(0.2, 0.14, 0.12), lit) * tone;
+    // (the top band is her fringe: fine see-through locks, lighter where the light and her skin show through)
+    float fringe = step(0.99, band) * lock;
+    // Voyage: one smooth, glossy mass rather than a patchwork of locks: only a slight shade from lock to
+    // lock, the scalp beneath nearly as deep as the hair over it, and a soft line between locks.
+    float tone = mix(0.9, mix(0.975, 1.025, band), lock) + 0.12 * fringe;
+    // (her deep, warm brown: a dark cocoa in shadow, never black, a soft chestnut where the light falls)
+    vec3 base = mix(vec3(0.088, 0.062, 0.062), vec3(0.335, 0.255, 0.24), lit) * tone;
     // Across the band, 0 and 1 are a lock's two edges and 0.5 its middle.
     float across = fract((trimUv.y - 0.10) / 0.025);
-    float edge = (1.0 - smoothstep(0.0, 0.12, min(across, 1.0 - across))) * lock;
-    float middle = 1.0 - abs(across - 0.5) * 2.0;
-    base *= 1.0 - 0.07 * edge;
+    float edge = (1.0 - smoothstep(0.0, 0.1, min(across, 1.0 - across))) * lock;
+    base *= 1.0 - 0.04 * edge * (1.0 - fringe);
+    // The gloss: a soft ring across the crown where the light falls (hair.py strand_u lays it at the same
+    // height on every lock, so it reads as one halo across them).
     float u = trimUv.x;
-    float ring = smoothstep(0.11, 0.19, u) * (1.0 - smoothstep(0.25, 0.35, u)) * lock;
-    float core = smoothstep(0.16, 0.2, u) * (1.0 - smoothstep(0.22, 0.27, u)) * lock;
-    base = mix(base, vec3(0.46, 0.37, 0.32), ring * (0.3 + 0.4 * lit) * (0.45 + 0.55 * middle));
-    base = mix(base, vec3(0.66, 0.57, 0.52), core * (0.25 + 0.6 * lit) * middle * 0.45);
-    return mix(base, vec3(0.58, 0.5, 0.46), sheen * 0.38 * (1.0 - edge));
+    float ring = smoothstep(0.08, 0.2, u) * (1.0 - smoothstep(0.24, 0.4, u)) * lock;
+    float core = smoothstep(0.15, 0.2, u) * (1.0 - smoothstep(0.22, 0.29, u)) * lock;
+    // (subtle: the ring lies where each lock crosses the crown, so seen from above it falls in patches, and a
+    // strong one left the hair between them looking like a dark crease)
+    base = mix(base, vec3(0.45, 0.36, 0.34), ring * (0.2 + 0.45 * lit) * 0.3);
+    base = mix(base, vec3(0.6, 0.5, 0.47), core * (0.15 + 0.5 * lit) * 0.15);
+    return mix(base, vec3(0.52, 0.43, 0.41), sheen * 0.08 * (1.0 - edge));
 }

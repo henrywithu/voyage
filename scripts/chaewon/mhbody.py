@@ -115,7 +115,7 @@ def modifier(verts, rel, value, neg='decr', pos='incr'):
 
 
 MACRO = dict(gender=0.0, age=0.5 * 22 / 25, muscle=0.38, weight=0.2, height=0.62, proportions=1.0,
-             asian=0.85, caucasian=0.15, cup=0.8, firmness=0.7)
+             asian=0.85, caucasian=0.15, cup=0.8, firmness=0.82)
 
 SIDES = ('l', 'r')
 SHAPE = [
@@ -142,7 +142,7 @@ SHAPE = [
     ('neck/neck-scale-horiz', -0.4, 'decr', 'incr'), ('neck/neck-scale-depth', -0.25, 'decr', 'incr'),
     ('measure/measure-neck-height', -0.55, 'decr', 'incr'), ('measure/measure-neck-circ', -0.2, 'decr', 'incr'),
     # Torso: narrow, softly sloping shoulders, defined waist, rounded hips (an hourglass, not a boy's frame).
-    ('measure/measure-shoulder-dist', -0.7, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
+    ('measure/measure-shoulder-dist', -1.0, 'decr', 'incr'), ('measure/measure-waist-circ', -0.55, 'decr', 'incr'),
     ('measure/measure-underbust-circ', -0.3, 'decr', 'incr'), ('measure/measure-hips-circ', 0.1, 'decr', 'incr'),
     ('measure/measure-napetowaist-dist', -0.15, 'decr', 'incr'), ('measure/measure-frontchest-dist', -0.2, 'decr', 'incr'),
     ('torso/torso-scale-horiz', -0.12, 'decr', 'incr'), ('torso/torso-vshape', -0.3, 'decr', 'incr'),
@@ -158,7 +158,7 @@ SHAPE = [
     ('armslegs/upperlegs-height', 0.35, 'decr', 'incr'), ('armslegs/lowerlegs-height', 0.3, 'decr', 'incr'),
     ('measure/measure-thigh-circ', 0.2, 'decr', 'incr'), ('measure/measure-calf-circ', 0.0, 'decr', 'incr'),
     ('measure/measure-knee-circ', -0.2, 'decr', 'incr'), ('measure/measure-ankle-circ', -0.35, 'decr', 'incr'),
-    ('measure/measure-upperarm-circ', -0.3, 'decr', 'incr'), ('measure/measure-wrist-circ', -0.35, 'decr', 'incr'),
+    ('measure/measure-upperarm-circ', -0.6, 'decr', 'incr'), ('measure/measure-wrist-circ', -0.35, 'decr', 'incr'),
     ('measure/measure-upperarm-length', -0.1, 'decr', 'incr'), ('measure/measure-lowerarm-length', -0.05, 'decr', 'incr'),
 ]
 for s in SIDES:
@@ -176,7 +176,7 @@ for s in SIDES:
         (f'ears/{s}-ear-wing', -1.0, 'decr', 'incr'), (f'ears/{s}-ear-scale-depth', -0.8, 'decr', 'incr'),
         (f'armslegs/{s}-hand-scale', -0.4, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
         (f'armslegs/{s}-hand-fingers-length', 0.0, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
-        (f'armslegs/{s}-lowerarm-scale-horiz', -0.2, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.15, 'decr', 'incr'),
+        (f'armslegs/{s}-lowerarm-scale-horiz', -0.25, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.35, 'decr', 'incr'),
         (f'armslegs/{s}-upperarm-shoulder-muscle', -0.8, 'decr', 'incr'),
         (f'armslegs/{s}-lowerleg-scale-horiz', -0.1, 'decr', 'incr'),
     ]
@@ -229,6 +229,32 @@ SHAPE += [('nose/nose-scale-vert', 0.5, 'decr', 'incr'), ('nose/nose-trans', -0.
           ('mouth/mouth-trans', -0.1, 'down', 'up')]
 
 
+# Fitted on her portrait with build/faceoverlay.py (the portrait levelled and scaled on her eyes over the bare
+# head at her angle, turned 25 degrees as she is; in iris spacings below the eye line her nose tip is at 0.74
+# and her chin at 1.72): a soft, short nose with a rounded tip that does not project far, full, youthful
+# cheeks, and a small chin.
+def _set(shape, name, neg, value):
+    out, done = [], False
+    for t in shape:
+        if t[0] == name and t[2] == neg:
+            out.append((name, value, t[2], t[3]))
+            done = True
+        else:
+            out.append(t)
+    if not done:
+        out.append((name, value, neg, {'down': 'up', 'decr': 'incr', 'in': 'out', 'backward': 'forward'}[neg]))
+    return out
+
+
+for _m in [('chin/chin-height', 'decr', -0.5), ('mouth/mouth-trans', 'down', 0.05), ('head/head-scale-vert', 'decr', -0.12),
+           ('nose/nose-scale-depth', 'decr', 0.35), ('nose/nose-trans', 'backward', 0.1), ('nose/nose-greek', 'decr', 0.0),
+           ('nose/nose-point', 'down', 0.3), ('nose/nose-point-width', 'decr', -0.1), ('nose/nose-volume', 'decr', -0.15),
+           ('nose/nose-trans', 'down', -0.9),
+           ('cheek/l-cheek-volume', 'decr', 0.35), ('cheek/r-cheek-volume', 'decr', 0.35),
+           ('cheek/l-cheek-bones', 'decr', 0.0), ('cheek/r-cheek-bones', 'decr', 0.0)]:
+    SHAPE = _set(SHAPE, *_m)
+
+
 EYE_SCALE = 1.07  # her eyes: the eye region (opening, lids and eyeball) grown a little past MakeHuman's range
 
 
@@ -253,7 +279,9 @@ def enlarge_eyes(verts, faces, groups, scale=EYE_SCALE, r0=0.17, r1=0.42):
 
 # Her resting expression: a gentle smile, lips just parted, the lower lids lifted a little (the soft,
 # smiling eyes of the aegyo-sal) - never the blank stare of a neutral base mesh.
-EXPRESSION = {'mouth-corner-puller': 0.24, 'mouth-parling': 0.14, 'eye-left-slit': 0.13, 'eye-right-slit': 0.13,
+# (her lips just meet: the soft parting is painted, face.lips; parted in the mesh, the inside of the mouth showed
+# through as a pale line)
+EXPRESSION = {'mouth-corner-puller': 0.24, 'eye-left-slit': 0.13, 'eye-right-slit': 0.13,
               'eyebrows-left-inner-up': 0.12, 'eyebrows-right-inner-up': 0.12}
 
 
@@ -275,6 +303,25 @@ def scale_head(verts, scale=None):
 
 
 CHIN = {}  # (decimetres: dict(forward=, down=, radius=)); her fitted chin needs no sculpting
+
+SHOULDER_IN = 0.11  # decimetres per side: her narrow shoulders (about 5.6 eye spacings across, as in her portrait)
+
+
+def narrow_shoulders(verts, d=None):
+    """Narrower shoulders past what the measure targets reach: each arm (and, easing out, the shoulder and
+    the outer collarbone) slides in toward her centre line, its skin weights blending the move across the
+    shoulder so nothing creases; the skeleton, fitted to the mesh afterwards, follows."""
+    d = SHOULDER_IN if d is None else d
+    if not d:
+        return verts
+    order, parents, heads, tails, xs = skeleton(verts)
+    W = weights(order, len(verts))
+    arm = [i for i, n in enumerate(order) if n.startswith(('upperarm', 'lowerarm', 'wrist', 'metacarpal', 'finger'))]
+    sh = [i for i, n in enumerate(order) if n.startswith('shoulder01')]
+    cl = [i for i, n in enumerate(order) if n.startswith('clavicle')]
+    w = np.clip(W[:, arm].sum(1) + 0.8 * W[:, sh].sum(1) + 0.35 * W[:, cl].sum(1), 0, 1)
+    verts[:, 0] -= np.sign(verts[:, 0]) * d * w
+    return verts
 
 
 def sculpt_chin(verts, groups_faces, chin=None):
@@ -310,6 +357,7 @@ def build(shape=SHAPE, eye_scale=EYE_SCALE, expr=EXPRESSION, **macro_overrides):
     used = np.unique(np.concatenate([np.asarray(f) for f, g in zip(faces, groups) if g == 'body']))
     sculpt_chin(verts, used)
     scale_head(verts)
+    narrow_shoulders(verts)
     return verts, uvs, faces, fuvs, groups
 
 

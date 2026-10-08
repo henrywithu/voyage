@@ -45,6 +45,8 @@ void main() {
     
     vec2 screenNormal = normalize(projectionNormal.xy);
     float hair = step(0.10, uv.y) * step(uv.y, 0.30);
+    // (her fringe, the top hair band: a finer line still)
+    hair += 0.6 * step(0.275, uv.y) * step(uv.y, 0.30);
     // Voyage: the jewellery's links are a few millimetres across; a full-width outline round each would
     // merge them into a black band wherever she is small on screen.
     float chain = step(0.25, color.r);
@@ -70,7 +72,7 @@ void main() {
 
     // Voyage: her hair's outline is a dark brown line, not ink.
     float hair = step(0.10, vUv.y) * step(vUv.y, 0.30);
-    vec3 color = mix(vec3(18.0 / 255.0), vec3(0.075, 0.05, 0.042), hair);
+    vec3 color = mix(vec3(18.0 / 255.0), vec3(0.06, 0.042, 0.04), hair);
 
     gl_FragColor = vec4(color, 1.0);
 }

@@ -24,6 +24,10 @@ if __name__ == '__main__':
     fm = os.path.join(BUILD, 'facemap.png')
     win = facemap.render(rest, fm)
     lm = face.landmarks(face.load_map(fm))
+    pre = os.path.join(BUILD, 'eyes_prefit.json')
+    if os.path.exists(pre):
+        # The almonds lids.py fitted her lids to (from MakeHuman's openings, before they were drawn in).
+        lm['eyes'] = [{k: (np.array(v) if isinstance(v, list) else v) for k, v in e.items()} for e in json.load(open(pre))]
     lm['nose_y'] = face.nose_tip_px(rest, win, lm['R'])
     # Contour shading and the fringe's shadow on the forehead, painted from the feature map's silhouette.
     import base64

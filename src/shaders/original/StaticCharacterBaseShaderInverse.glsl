@@ -57,6 +57,8 @@ void main() {
     // outline but not the folds inside it (the wings of her nose, the creases of her smile).
     float face = step(0.555, uv2.y) * step(uv2.x, 0.445);
     float hair = step(0.10, uv.y) * step(uv.y, 0.30);
+    // (her fringe, the top hair band: a finer line still)
+    hair += 0.6 * step(0.275, uv.y) * step(uv.y, 0.30);
     pos += normal * uLineWidth * mix(1.0, 0.65, face) * mix(1.0, 0.55, hair);
     vec4 viewPos = modelViewMatrix * vec4(pos, 1.0);
     viewPos.xyz += normalize(viewPos.xyz) * 0.02 * face;
@@ -73,7 +75,7 @@ void main() {
 
     // Voyage: her hair's outline is a dark brown line, not ink.
     float hair = step(0.10, vUv.y) * step(vUv.y, 0.30);
-    vec3 color = mix(vec3(0.0), vec3(0.075, 0.05, 0.042), hair);
+    vec3 color = mix(vec3(0.0), vec3(0.06, 0.042, 0.04), hair);
 
     float alpha = 1.0;
     

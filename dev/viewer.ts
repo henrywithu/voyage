@@ -9,7 +9,7 @@ import { SkeletalMesh } from "../src/engine/SkeletalMesh";
 const q = new URLSearchParams(location.search);
 const num = (k: string, d: number) => (q.has(k) ? Number(q.get(k)) : d);
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-renderer.setPixelRatio(1);
+renderer.setPixelRatio(num("dpr", 1));
 renderer.setSize(innerWidth, innerHeight);
 renderer.setClearColor(new THREE.Color(q.get("bg") ?? "#f4f2ec"));
 document.body.appendChild(renderer.domElement);

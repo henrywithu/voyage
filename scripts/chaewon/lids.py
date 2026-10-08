@@ -61,6 +61,11 @@ def fit(rest, reach=0.35, clearance=0.0006):
     finally:
         os.remove(path)
     R = lm['R']
+    # The painting (build_textures.py) draws the same almonds: it reads the openings they were made from,
+    # not the drawn-in ones (which would give smaller almonds, inside the lids).
+    import json
+    json.dump([{k: (np.asarray(v).tolist() if hasattr(v, '__len__') else float(v)) for k, v in e.items()} for e in lm['eyes']],
+              open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build', 'eyes_prefit.json'), 'w'))
     to_px = lambda Q: np.c_[(0.5 + (Q[:, 0] - win['cx']) / win['size']) * R,
                             (0.5 - (Q[:, 2] - win['cz']) / win['size']) * R]
     from_px = lambda q: np.c_[(q[:, 0] / R - 0.5) * win['size'] + win['cx'], win['cz'] - (q[:, 1] / R - 0.5) * win['size']]

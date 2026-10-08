@@ -11,6 +11,7 @@ Per-vertex attributes written for the shaders:
   windmask  how much a vertex sways in the wind shaders (hair tips, skirt hem)
 """
 import math
+import os
 
 import numpy as np
 from scipy.spatial import cKDTree
@@ -23,6 +24,8 @@ TRIM_WHITE = (0.5, 0.025)
 TRIM_BLACK = (0.5, 0.075)
 HAIR_V = (0.10, 0.30)
 HAIR_BANDS = 8
+CAP_BAND = 2  # the hair shell's shade band (master.hair_parts)
+MASS_SHADE = 0.85  # how far the outer faces of her locks take the hair mass's normal (merge)
 PART = dict(skin=0, eye=1, dress=2, strap=3, hair=4, cap=5)
 
 # Reduced skeleton for skinned exports: everything else folds into its nearest kept ancestor.
@@ -108,6 +111,38 @@ def tuck_under(body, dress, depth=0.005, reach=0.022, edge=0.02):
     return int((w > 0).sum())
 
 
+def mouth_gap_uv(mc, win):
+    """Atlas uv of the parted gap between her painted lips: the darkest paint on the midline near the mouth."""
+    from PIL import Image
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../public/assets/images/story/chaewon/atlas.png')
+    im = np.asarray(Image.open(path).convert('RGB')).astype(float) / 255
+    best, uv = 9.0, atlas.SKIN_WHITE
+    for dz in np.arange(-0.012, 0.012, 0.0004):
+        q = np.asarray(mc, float) + np.array([0, 0, dz])
+        u = atlas.face_uv(q[None], win)[0]
+        x, y = int(np.clip(u[0] * im.shape[1], 0, im.shape[1] - 1)), int(np.clip((1 - u[1]) * im.shape[0], 0, im.shape[0] - 1))
+        lum = im[y, x] @ np.array([0.3, 0.55, 0.15])
+        if lum < best:
+            best, uv = lum, tuple(u)
+    return uv
+
+
+def _face_components(T, mask):
+    """Connected-component label of every face, joining faces in mask that share an edge (-1 outside it)."""
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+    E = np.sort(np.vstack([T[:, [0, 1]], T[:, [1, 2]], T[:, [2, 0]]]), axis=1).astype(np.int64)
+    fid = np.tile(np.arange(len(T)), 3)
+    key = E[:, 0] * (int(T.max()) + 1) + E[:, 1]
+    o = np.argsort(key)
+    same = key[o][1:] == key[o][:-1]
+    a, b = fid[o][:-1][same], fid[o][1:][same]
+    ok = mask[a] & mask[b]
+    G = coo_matrix((np.ones(ok.sum()), (a[ok], b[ok])), shape=(len(T), len(T)))
+    lab = connected_components(G, directed=False)[1]
+    return np.where(mask, lab, -1)
+
+
 def body_part(rest, win):
     P, T = rest['P'], rest['T']
     names = list(rest['names'])
@@ -125,20 +160,42 @@ def body_part(rest, win):
     fx = (P[:, 0] - win['cx']) / win['size'] + 0.5
     inwin = (fz > 0.02) & (fx > 0.02) & (fx < 0.98)
     front |= (fn[:, 1] < -0.6) & ((headw + neckw)[T].min(1) > 0.6) & inwin[T].all(1)
+    heads = rest['heads']
+    mc = np.mean([heads[i] for i, n in enumerate(names) if n.startswith('oris')], 0)
+    C = P[T].mean(1)
+    # The underside of her nose (the tip, its wings and the nostrils, seen from below) samples the painting
+    # too: as plain skin it took the full outline, which drew a hard dark ring inside each nostril.
+    above = (P[:, 2] > mc[2] + 0.008) & (P[:, 2] < mc[2] + 0.06) & (np.abs(P[:, 0] - mc[0]) < 0.02)
+    nt = P[above][np.argmin(P[above][:, 1])]   # the tip of her nose
+    front |= ((np.abs(C[:, 0] - nt[0]) < 0.024) & (C[:, 2] > nt[2] - 0.022) & (C[:, 2] < nt[2] + 0.006)
+              & (C[:, 1] > nt[1] - 0.002) & (C[:, 1] < nt[1] + 0.03) & inwin[T].all(1))
+    # The insides of her lips and mouth (seen where they part) sample the painting too: the parted gap is
+    # painted there (as plain skin they showed as a white line between her lips).
+    mouth = (np.abs(P[:, 0] - mc[0]) < 0.026) & (np.abs(P[:, 2] - mc[2]) < 0.008) & (np.abs(P[:, 1] - mc[1]) < 0.03)
+    inner = mouth[T].all(1) & inwin[T].all(1) & ~front
+    # (all of them take the colour of the parted gap: projected, the inside of the lower lip lands below the
+    # painted lip and read as a white line of skin between her lips)
+    # The cavity behind them too (seen through the seam from above, its floor showed as a pale strip): every
+    # unprojected face joined to the seam's faces without crossing the projected face.
+    region = inner | (~front & (np.abs(C[:, 0] - mc[0]) < 0.05) & (C[:, 1] > mc[1] - 0.02)
+                      & (np.abs(C[:, 2] - mc[2]) < 0.06))
+    lab = _face_components(T, region)
+    inner = np.isin(lab, lab[inner]) & region
+    gap_uv = mouth_gap_uv(mc, win)
     # Split vertices on the boundary between projected-face and plain-skin triangles.
     key = {}
     newP, newW, uv2, src = [], [], [], []
     Fn = np.zeros_like(T)
     fuv = atlas.face_uv(P, win)
     for t in range(len(T)):
-        cat = int(front[t])
+        cat = 2 if inner[t] else int(front[t])
         for k in range(3):
             v = T[t, k]
             kk = (v, cat)
             if kk not in key:
                 key[kk] = len(src)
                 src.append(v)
-                uv2.append(fuv[v] if cat else atlas.SKIN_WHITE)
+                uv2.append(fuv[v] if cat == 1 else (gap_uv if cat == 2 else atlas.SKIN_WHITE))
             Fn[t, k] = key[kk]
     src = np.array(src)
     uv = np.tile(TRIM_WHITE, (len(src), 1))
@@ -232,11 +289,22 @@ def hair_parts(rest, H, P_body_for_cap, names, head_xf=None, cap=True):
     wind = (t ** 1.3) * (~pinned)
     parts = [Part(hv, hf_, uv, np.tile(atlas.SKIN_WHITE, (len(hv), 1)), W, 'hair', wind=wind)]
     parts[0].near = near.astype(np.float32)
+    # Shaded as one mass (merge): the outer faces of every lock take the normal of the hair's smooth outer
+    # surface, out from her head (and below it, out from its axis); only their undersides keep their own.
+    # (With each lock's own lens-shaped normals the edges of every lock turned from the light, and the
+    # crown read as a crazing of dark seams.)
+    parts[0].mass_center = np.asarray(H.get('hc', H['hf']['center']), float)
+    parts[0].mass_outer = (np.arange(len(hv)) % K) != 3
     if cap:
-        cp, ct = hair_mod.scalp_cap(rest, H['hf'], P_out=P_body_for_cap)
+        cp, ct, cu = hair_mod.scalp_cap(rest, H['hf'], P_out=P_body_for_cap)
         Wc = np.zeros((len(cp), len(names)), np.float32)
         Wc[:, hb] = 1
-        parts.append(Part(cp, ct, np.tile(TRIM_BLACK, (len(cp), 1)), np.tile(atlas.SKIN_WHITE, (len(cp), 1)), Wc, 'cap'))
+        # Shaded as hair (a middle shade, down the middle of its band, with the gloss ring where the locks
+        # carry it): between the locks the shell reads as more hair.
+        cuv = np.c_[cu * 0.999, np.full(len(cp), HAIR_V[0] + (CAP_BAND + 0.5) * (HAIR_V[1] - HAIR_V[0]) / HAIR_BANDS)]
+        parts.append(Part(cp, ct, cuv, np.tile(atlas.SKIN_WHITE, (len(cp), 1)), Wc, 'cap'))
+        parts[-1].mass_center = parts[0].mass_center
+        parts[-1].mass_outer = np.ones(len(cp), bool)
     return parts
 
 
@@ -253,6 +321,14 @@ def merge(parts, topo=None, forward=(0, -1, 0)):
     fwd = np.asarray(forward, float)
     for p in parts:
         n = part_normals(p, topo)
+        if getattr(p, 'mass_center', None) is not None:
+            q = p.P - p.mass_center
+            q[:, 2] = np.maximum(q[:, 2], 0.0)
+            m = q / np.maximum(np.linalg.norm(q, axis=1, keepdims=True), 1e-9)
+            # (their undersides only part way, so the inside of the hair still reads a little deeper)
+            k = np.where(p.mass_outer, MASS_SHADE, 0.6 * MASS_SHADE)[:, None]
+            n = n * (1 - k) + m * k
+            n /= np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-9)
         n = n * (1 - p.soft[:, None]) + fwd[None] * p.soft[:, None]
         N.append(n / np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-9))
         P.append(p.P)

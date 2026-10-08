@@ -129,6 +129,8 @@ class Session:
         hparts = M.hair_parts(self.rest, H, posedP, self.names)
         for p in hparts:
             p.P = inverse_skin(p.P, p.W, mats, self.rest_mats)
+            if getattr(p, 'mass_center', None) is not None:
+                p.mass_center = np.asarray(H['hf']['center'], float)   # (back on the rest head)
         return M.merge(self.base_parts + hparts, topo=(self.rest['P'], self.rest['T']))
 
 
@@ -234,6 +236,8 @@ def skinned_with_hair(s, mats_bind, H, mesh_path, anim_path, pose_fn, frames, am
     pad = len(hr.names) + nx
     for p in hparts:
         p.P = inverse_skin(p.P, p.W, bind_x, rest_x)
+        if getattr(p, 'mass_center', None) is not None:
+            p.mass_center = np.asarray(H['hf']['center'], float)   # (back on the rest head)
     base = []
     for p in s.base_parts:
         q = M.Part(p.P, p.F, p.uv, p.uv2, np.c_[p.W, np.zeros((len(p.P), pad), np.float32)], 'skin',
