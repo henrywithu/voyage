@@ -67,5 +67,5 @@ vec3 hairShade(float lit, float sheen, vec2 trimUv) {
     // strong one left the hair between them looking like a dark crease)
     base = mix(base, vec3(0.45, 0.36, 0.34), ring * (0.2 + 0.45 * lit) * 0.3);
     base = mix(base, vec3(0.6, 0.5, 0.47), core * (0.15 + 0.5 * lit) * 0.15);
-    return mix(base, vec3(0.52, 0.43, 0.41), sheen * 0.08 * (1.0 - edge));
+    return mix(base, vec3(0.52, 0.43, 0.41), sheen * 0.12 * (1.0 - edge));
 }

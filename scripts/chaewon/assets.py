@@ -590,7 +590,7 @@ def asset_fasten(s):
         os.path.join(DEC, 'grotto/chaewon-fasten-anim.bin.mesh'), fasten_pose, 61, amp=0.35, inclusive=True,
         extra_parts=parts, rigs=[rope],
         more_anims=[(os.path.join(DEC, 'grotto/chaewon-charm-anim.bin.mesh'), charm_pose, 100,
-                     dict(amp=0.8, cycles=(1, 2), clasp=True))])
+                     dict(amp=0.55, cycles=(1, 2), clasp=True))])
     print('fasten', len(m['P']), 'verts')
 
 

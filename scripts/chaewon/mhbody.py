@@ -164,7 +164,7 @@ SHAPE = [
 for s in SIDES:
     SHAPE += [
         (f'eyes/{s}-eye-scale', 1.0, 'decr', 'incr'), (f'eyes/{s}-eye-height1', 0.55, 'decr', 'incr'),
-        (f'eyes/{s}-eye-height2', 0.0, 'decr', 'incr'), (f'eyes/{s}-eye-height3', 0.35, 'decr', 'incr'),
+        (f'eyes/{s}-eye-height2', 0.5, 'decr', 'incr'), (f'eyes/{s}-eye-height3', 0.35, 'decr', 'incr'),
         (f'eyes/{s}-eye-push1', -0.3, 'in', 'out'), (f'eyes/{s}-eye-push2', -0.3, 'in', 'out'),
         (f'eyes/{s}-eye-epicanthus', -0.4, 'in', 'out'), (f'eyes/{s}-eye-bag', -0.6, 'decr', 'incr'),
         (f'eyes/{s}-eye-corner1', 0.15, 'down', 'up'), (f'eyes/{s}-eye-corner2', 0.25, 'down', 'up'),

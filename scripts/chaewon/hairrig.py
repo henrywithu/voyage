@@ -73,9 +73,14 @@ class HairRig:
             G = np.mean(pts, 0)
             mats = [_frame(G[k], G[k + 1]) for k in range(SEGMENTS)]
             names = [f'hair{c:02d}_{k}' for k in range(SEGMENTS)]
+            # One wave travelling round her head rather than every chain on its own beat: neighbouring
+            # chains sway nearly together (out of step, the locks of one parted from the next and her
+            # shoulder showed through a tear in her hair), each a little its own.
+            az = float(np.arctan2(np.sin(phi[members]).mean(), np.cos(phi[members]).mean()))
             self.chains.append(dict(id=c, members=members, guide=G, names=names, bind=mats,
-                                    phase=rng.uniform(0, 2 * np.pi), phase2=rng.uniform(0, 2 * np.pi),
-                                    amp=rng.uniform(0.8, 1.2)))
+                                    phase=1.0 * az + rng.uniform(-0.25, 0.25),
+                                    phase2=2.0 * az + rng.uniform(-0.25, 0.25),   # (whole turns round her head: no seam behind it)
+                                    amp=rng.uniform(0.9, 1.1)))
             for k, n in enumerate(names):
                 self.names.append(n)
                 self.bind_world.append(mats[k])
