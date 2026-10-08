@@ -396,10 +396,11 @@ def eyeball(e, outer, s=1.0):
     out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="#000" stroke-width="%.1f"/>' % (
         icx, icy, ir * 0.965, 0.07 * ir))
     out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#000"/>' % (icx, icy + 0.02 * ir, 0.40 * ir, 0.43 * ir))
-    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" transform="rotate(-25 %.1f %.1f)"/>' % (
-        icx - ir * 0.30, icy - ir * 0.18, ir * 0.27, ir * 0.20, icx - ir * 0.30, icy - ir * 0.18))
-    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.40, icy + ir * 0.38, ir * 0.10))
-    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.12, icy + ir * 0.58, ir * 0.045))
+    # Catch-lights as on her painted eyes: one crisp light upper left, a faint small one lower right.
+    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" transform="rotate(-20 %.1f %.1f)"/>' % (
+        icx - ir * 0.30, icy - ir * 0.22, ir * 0.2, ir * 0.16, icx - ir * 0.30, icy - ir * 0.22))
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" opacity="0.7" filter="url(#%sb)"/>' % (
+        icx + ir * 0.36, icy + ir * 0.40, ir * 0.075, k))
     return out
 
 

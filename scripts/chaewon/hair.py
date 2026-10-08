@@ -932,6 +932,18 @@ def ribbons(H, cam_up=None):
     fn = np.cross(V[F[:, 1]] - V[F[:, 0]], V[F[:, 2]] - V[F[:, 0]])
     if np.sum(np.einsum('ij,ij->i', fn, V[F].mean(1) - axis[F].mean(1))) < 0:
         F = F[:, ::-1]
+    # Caps over both ends of every lock: open, a lock's root (along her parting) and tip showed its inside,
+    # which draws as ink, as short black ticks across the hair.
+    caps = []
+    for k, out in ((0, -1.0), (N - 1, 1.0)):
+        ring = base[:, k, :]
+        tri = np.concatenate([ring[:, [0, 1, 2]], ring[:, [0, 2, 3]]])
+        cn = np.cross(V[tri[:, 1]] - V[tri[:, 0]], V[tri[:, 2]] - V[tri[:, 0]])
+        tg = np.tile(X[:, min(k + 1, N - 1)] - X[:, max(k - 1, 0)], (2, 1)) * out
+        flip = np.einsum('ij,ij->i', cn, tg) < 0
+        tri[flip] = tri[flip][:, ::-1]
+        caps.append(tri)
+    F = np.concatenate([F] + caps)
     UV = np.stack(np.broadcast_arrays(np.tile(t[None, :, None], (S, 1, RING)),
                                       np.tile(0.5 - 0.5 * cs[None, None, :], (S, N, 1))), -1).reshape(-1, 2)
     G = np.repeat(np.array([GROUP_IDS[g] for g in H['groups']]), N * RING)
