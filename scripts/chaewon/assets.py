@@ -511,20 +511,26 @@ def fasten_pose(s, p):
                 wr = wr + (pinch - np.array(pinch_point(s, side)))
 
 
-def torso_clearance(s, side):
-    """(signed distance, outward normal) of the finger joint of `side` that sits deepest in her torso, in
-    the current pose. The dress lies about a centimetre over the skin, so a hand resting on her needs about
-    two centimetres of clearance to stay over it."""
+TORSO = ('spine', 'breast', 'neck', 'clavicle', 'pectoral')
+HIPS = ('pelvis', 'root', 'spine01', 'spine02', 'upperleg01', 'upperleg02')
+
+
+def torso_clearance(s, side, parts=TORSO):
+    """(signed distance, outward normal) of the finger joint of `side` that sits deepest in her torso (or the
+    body `parts` given), in the current pose. The dress lies about a centimetre over the skin, so a hand
+    resting on her needs about two centimetres of clearance to stay over it."""
     from scipy.spatial import cKDTree
     import dress as dress_mod
-    if not hasattr(s, '_torso'):
+    key = '_clear_' + '_'.join(parts)
+    if not hasattr(s, key):
         names = list(s.rest['names'])
         dom = np.asarray(s.rest['W']).argmax(1)
-        s._torso = np.array([names[k].startswith(('spine', 'breast', 'neck', 'clavicle', 'pectoral')) for k in dom])
+        setattr(s, key, np.array([names[k].startswith(parts) for k in dom]))
+    sel = getattr(s, key)
     mats = s.pose_mats()
     P = s.posed_body(mats)
-    N = dress_mod.vertex_normals(P, s.rest['T'])[s._torso]
-    P = P[s._torso]
+    N = dress_mod.vertex_normals(P, s.rest['T'])[sel]
+    P = P[sel]
     pb = s.arm.pose.bones
     rig.update()
     pts = np.array([np.array(pb[f'finger{f}-{k}.{side}'].tail) for f in range(1, 6) for k in (1, 2, 3)
@@ -906,14 +912,16 @@ def selection_pose(s):
     # dress, the elbow out to the side and a little back.
     hip = pb['upperleg01.R'].head
     target = hip + Vector((-0.075, 0.01, 0.13))
-    for _ in range(3):
+    # (resting on her hip: the finger joints about 1.3 cm off the skin of her hip, so the fingers lie on the
+    # dress over it, neither hovering beside her nor sunk into her)
+    for _ in range(5):
         poses.arm_to(ctx, 'R', target, elbow_dir=(-1, 0.55, 0.15),
                      wrist=(Vector((0.25, -0.75, -0.6)), Vector((1, 0.15, 0.1))),
-                     hand=dict(curl=0.2, close=0.75, thumb=0.3))
-        d, n = torso_clearance(s, 'R')
-        if d >= 0.019:
+                     hand=dict(curl=0.22, close=0.75, thumb=0.3))
+        d, n = torso_clearance(s, 'R', parts=HIPS)
+        if 0.011 <= d <= 0.015:
             break
-        target = target + Vector(tuple(n * (0.021 - d)))
+        target = target + Vector(tuple(n * (0.013 - d)))
     poses.head(arm, pitch=5, yaw=16, roll=10)
 
 

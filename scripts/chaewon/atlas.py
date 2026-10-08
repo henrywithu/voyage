@@ -65,7 +65,7 @@ def eyeball_uv(P, ew):
     return eye_uv(P, ew, EYEBALL_UV)
 
 
-SKIN_RGB = (255, 241, 235)  # face.SKIN: body skin samples SKIN_WHITE, which must match the painted face
+SKIN_RGB = (254, 237, 229)  # face.SKIN: body skin samples SKIN_WHITE, which must match the painted face
 
 
 def build(face_svg, closeup_svg, lm, win, out_png, chromium=None, eyeball_svg=None):

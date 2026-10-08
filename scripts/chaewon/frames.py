@@ -407,6 +407,28 @@ def closeup_uv(m, ew, win):
     return uv2
 
 
+def split_closeup(m, used, Fc, uv_close):
+    """Faces of a close-up whose corners sample two atlas regions (the high-res eye crop and the face
+    painting, along the crop's edge) would interpolate their uvs across the atlas and print a jagged streak:
+    every face samples one region. Faces with any corner outside the crop take the face painting; the
+    vertices they share with faces inside it are duplicated. Returns (used, Fc, uv2) for the close-up."""
+    uv_face = np.asarray(m['uv2'], float)
+    moved = np.any(np.abs(uv_close - uv_face) > 1e-9, axis=1)      # (vertices remapped into the crop)
+    tri_close = moved[used][Fc].all(1)
+    # A copy of every vertex used by a face-painting face that was remapped: those faces use the copy.
+    need = np.unique(Fc[~tri_close][moved[used][Fc[~tri_close]]])
+    remap = -np.ones(len(used), int)
+    remap[need] = len(used) + np.arange(len(need))
+    Fc2 = Fc.copy()
+    sel = ~tri_close
+    Fs = Fc2[sel]
+    Fs = np.where(remap[Fs] >= 0, remap[Fs], Fs)
+    Fc2[sel] = Fs
+    used2 = np.r_[used, used[need]]
+    uv2 = np.r_[uv_close[used], uv_face[used[need]]]
+    return used2, Fc2, uv2
+
+
 def sphere_centre(P):
     """Least-squares centre of the sphere through points P (an eyeball, front and sides)."""
     A = np.c_[2 * P, np.ones(len(P))]
@@ -470,7 +492,7 @@ def frame_eyes_cathedral(s):
     inside = np.all((P > lo - pad) & (P < hi + pad), axis=1)
     keep_v = inside & np.isin(m['kind'], [M.PART['skin'], M.PART['eye'], M.PART['hair'], M.PART['cap']])
     used, Fc = cut(m, P, keep_v[m['F']].all(1))
-    uv_atlas = closeup_uv(m, ew, win)
+    used, Fc, uv_used = split_closeup(m, used, Fc, closeup_uv(m, ew, win))
     hairish = np.isin(m['kind'], [M.PART['hair'], M.PART['cap']])
     uv_trim = np.where(hairish[:, None], m['uv'], np.array(M.TRIM_WHITE)[None])
     # Iris caps, posed rigidly with the head and placed like the rest.
@@ -483,7 +505,7 @@ def frame_eyes_cathedral(s):
     nb = len(used)
     pos = np.concatenate([P[used], capP, bP])
     nor = np.concatenate([N[used], capN, bN])
-    uv = np.concatenate([uv_atlas[used], caps_uv, battrs['uv']])
+    uv = np.concatenate([uv_used, caps_uv, battrs['uv']])
     uv2 = np.concatenate([uv_trim[used], np.tile(M.TRIM_WHITE, (len(capP), 1)), battrs['uv2']])
     col = np.concatenate([np.zeros(nb), np.ones(len(capP)), np.zeros(len(bP))])[:, None]
     F = np.concatenate([Fc, caps_F + nb, bF + nb + len(capP)])
@@ -545,11 +567,14 @@ def frame_eyes_widen(s):
     face_v = ((si == 2) & (a['skinWeight'] > 0.5)).any(1)
     lo, hi = a['position'][face_v].min(0), a['position'][face_v].max(0)
     pad = 0.15 * (hi - lo)
-    inside = np.all((P > lo - pad) & (P < hi + pad), axis=1) & (P[:, 2] > 0.05)
+    # (well below the frame's lower edge: cut across her lips, the cut's jagged edge showed inside the frame)
+    lo_pad = pad.copy()
+    lo_pad[1] = 0.6 * (hi - lo)[1]
+    inside = np.all((P > lo - lo_pad) & (P < hi + pad), axis=1) & (P[:, 2] > 0.05)
     kinds = [M.PART['skin'], M.PART['eye'], M.PART['hair'], M.PART['cap']]
     keep_v = inside & np.isin(m['kind'], kinds)
     used, Fc = cut(m, P, keep_v[m['F']].all(1))
-    uv_atlas = closeup_uv(m, ew, win)
+    used, Fc, uv_used = split_closeup(m, used, Fc, closeup_uv(m, ew, win))
     hairish = np.isin(m['kind'], [M.PART['hair'], M.PART['cap']])
     uv_trim = np.where(hairish[:, None], m['uv'], np.array(M.TRIM_WHITE)[None])
     # Morph: body vertices come first in the merged mesh (in rest-topology order via the part's src).
@@ -587,7 +612,7 @@ def frame_eyes_widen(s):
     arrays = {
         'position': np.concatenate([P[used], capP]), 'normal': np.concatenate([N[used], capN]),
         'uv': np.concatenate([uv_trim[used], np.tile(M.TRIM_WHITE, (len(capP), 1))]),
-        'uv2': np.concatenate([uv_atlas[used], caps_uv]),
+        'uv2': np.concatenate([uv_used, caps_uv]),
         'color': np.concatenate([color[used], capC]),
         'openeyes': np.concatenate([openeyes[used], np.zeros((len(capP), 3))]),
         'eyemasks': np.zeros((nb + len(capP), 3)),

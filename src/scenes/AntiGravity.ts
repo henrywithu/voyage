@@ -44,7 +44,7 @@ export async function setupAntiGravity(section: SceneSection) {
       tTrim: texture("assets/images/story/chaewon/trim.png"),
       tLines: texture("assets/images/story/lines.jpg"),
       tNoise: texture("assets/images/story/perlin.png"),
-      uColor: new THREE.Vector3(241 / 255, 236 / 255, 225 / 255),
+      uColor: new THREE.Vector3(247 / 255, 244 / 255, 238 / 255),
       uDrinkColor: new THREE.Color(99 / 255, 196 / 255, 244 / 255),
       uLinesTile: 2.25,
       uLightDir: new THREE.Vector3(0.1, 0.25, 0.9).normalize(),

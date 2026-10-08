@@ -149,14 +149,15 @@ def eye_shape(e, outer):
     # wider, for the liner past the outer corner.
     c = np.array([(e['x0'] + e['x1']) / 2 + outer * 0.04 * W0, (e['top'].min() + e['bot'].max()) / 2 + 0.058 * W0])
     W = 1.06 * W0
-    inner = c + np.array([-outer * W / 2, 0.035 * W])
-    outer_c = c + np.array([outer * W / 2, -0.035 * W])
+    # (her eyes tilt gently up toward the outer corner)
+    inner = c + np.array([-outer * W / 2, 0.045 * W])
+    outer_c = c + np.array([outer * W / 2, -0.045 * W])
     # (a long, soft almond as hers: the opening about 0.38 of its width tall, so the lids cover the top of the
     # iris and touch its bottom; the upper lid arches gently, highest a little inward of centre)
     Hh = H0 / 0.84 * 0.84
     up = cubic(inner, inner + np.array([outer * 0.16 * W, -0.66 * Hh]), outer_c + np.array([-outer * 0.34 * W, -0.62 * Hh]),
                outer_c, 60)
-    lo = cubic(inner, inner + np.array([outer * 0.28 * W, 0.40 * Hh]), outer_c + np.array([-outer * 0.26 * W, 0.42 * Hh]),
+    lo = cubic(inner, inner + np.array([outer * 0.26 * W, 0.44 * Hh]), outer_c + np.array([-outer * 0.24 * W, 0.47 * Hh]),
                outer_c, 60)
     r = 0.235 * W
     ix = c[0] - outer * 0.015 * W
@@ -181,29 +182,38 @@ def hatch(P0, P1, n, w, s=1.0):
 # everything lighter is paint, multiplied over her skin by the shaders (src/shaders/original/makeup.glsl),
 # so paint can be as dark as her brown irises.
 
-SKIN = '#fff1eb'          # her skin (the paper of the face)
+SKIN = '#feede5'          # her skin (the paper of the face): fair and a little warm
 SHADE = '#f3d2ca'         # soft contour shading
 BLUSH = '#ffc4c0'
-EYESHADOW = '#f2c7bb'
-EYE_WHITE = '#fdfcff'
-EYE_WHITE_SHADE = '#d8d0de'
-IRIS_TOP = '#1d1416'
-IRIS_MID = '#2a1d1d'
-IRIS_LOW = '#4a3430'
-IRIS_GLOW = '#5c4038'
-IRIS_FIBRE = '#7d5242'
-TEAR = '#f6b3ad'
-BROW = '#6a4536'
-BROW_HAIR = '#4a3026'
-LIP_DEEP = '#e07565'
+EYESHADOW = '#f4c8b8'
+EYESHADOW_DEEP = '#e8ad9c'
+EYE_WHITE = '#fbfafc'
+EYE_WHITE_SHADE = '#d6cfd8'
+# (her irises are a deep brown-black; the darkest paint is kept above the atlas's ink level, red 0.16)
+IRIS_TOP = '#2e2427'
+IRIS_MID = '#35282a'
+IRIS_LOW = '#4b3935'
+IRIS_GLOW = '#664b42'
+IRIS_FIBRE = '#7b5a50'
+PUPIL = '#140e10'
+LID_SHADOW = '#33282b'
+CREASE = '#b88a7e'
+LOWER_LASH = '#8d6a60'
+LOWER_RIM = '#efc2ba'
+TEAR = '#f4b2aa'
+BROW = '#7a5544'
+BROW_HAIR = '#553a2f'
+LIP_DEEP = '#e47d6b'
 LIP_SEAM = '#8f3a33'   # (the seam and parted gap: deep coral, not ink)
 LIP_GAP = '#4a1c19'
-LIP_MID = '#f09c88'
-LIP_EDGE = '#f5b8a9'
+LIP_MID = '#f1a08c'
+LIP_EDGE = '#f6bdae'
 LIP_HI = '#fff1ec'
+TEETH = '#f4e7e3'
 NOSE_SHADE = '#ebbcb2'
 NOSE_DEEP = '#d99b91'
 NOSE_LINE = '#a8675d'
+NOSTRIL = '#b67d75'
 
 
 def blur(k, std, pad=1.0):
@@ -231,9 +241,10 @@ def rgrad(k, cx, cy, r, stops, fx=None, fy=None):
 def eye(e, outer, s=1.0, closeup=False, rng=None):
     """One eye, painted and inked. `outer` is +1 if the outer corner is toward +x in the image.
 
-    A soft, warm gaze: brown irises lit from below with a glowing crescent, a dark band of lid shadow over
-    their top, two catch-lights and a sparkle; a full lash line with a short flick; a fine crease; the
-    smiling fullness of the aegyo-sal under the eye; a touch of warm eyeshadow above."""
+    A soft, natural K-beauty eye, as hers: a large, deep brown-black iris with one crisp catch-light (and a
+    faint second), the upper lid's soft shadow over its top; a fine lash line with short, dense lashes that
+    fan out toward the outer corner (no winged flick); a soft brown double-eyelid crease; the light,
+    smiling fullness of the aegyo-sal under the eye; a touch of peach shadow on the lid."""
     rng = rng or np.random.default_rng(3)
     g = eye_shape(e, outer)
     W, Hh, up, lo = g['W'], g['H'], g['up'], g['lo']
@@ -246,27 +257,33 @@ def eye(e, outer, s=1.0, closeup=False, rng=None):
     # --- paint around the eye
     out.append(blur(k + 'b1', 0.07 * W))
     out.append(blur(k + 'b2', 0.025 * W))
-    # Eyeshadow: warm, deepest at the lash line and toward the outer corner.
-    shadow = np.vstack([part(up, 0.05, 1.0) + np.array([0, 0.05 * Hh]),
-                        (part(up, 0.05, 1.0) + np.c_[np.linspace(0, outer * 0.06 * W, len(part(up, 0.05, 1.0))),
-                                                    -np.linspace(0.30, 0.45, len(part(up, 0.05, 1.0))) * Hh])[::-1]])
-    out.append('<path d="%s" fill="%s" filter="url(#%sb1)" opacity="0.95"/>' % (path(shadow, close=True), EYESHADOW, k))
-    # Aegyo-sal: the little roll under the eye catches the light; a soft shade beneath it.
-    ag = part(lo, 0.12, 0.88)
-    roll = np.vstack([ag + np.array([0, 0.06 * Hh]), (ag + np.array([0, 0.34 * Hh]))[::-1]])
-    out.append('<path d="%s" fill="#fff6f1" filter="url(#%sb2)" opacity="0.45"/>' % (path(roll, close=True), k))
-    out.append(ribbon(smooth(part(lo, 0.18, 0.82) + np.array([0, 0.40 * Hh]), 3), 0.02 * W, 0.02 * W, wmid=0.06 * W,
-                      fill=SHADE).replace('/>', ' filter="url(#%sb2)"/>' % k))
+    out.append(blur(k + 'b3', 0.012 * W))
+    # Eyeshadow: soft peach over the lid, deepest along the lash line and toward the outer corner.
+    lid = part(up, 0.04, 1.0)
+    n_l = len(lid)
+    shadow = np.vstack([lid + np.array([0, 0.04 * Hh]),
+                        (lid + np.c_[np.linspace(0, outer * 0.05 * W, n_l), -np.linspace(0.34, 0.5, n_l) * Hh])[::-1]])
+    out.append('<path d="%s" fill="%s" filter="url(#%sb1)" opacity="0.85"/>' % (path(shadow, close=True), EYESHADOW, k))
+    deep = part(up, 0.5, 1.0)
+    out.append(ribbon(deep + np.array([0, -0.05 * Hh]), 0.01 * W, 0.04 * W, wmid=0.07 * W, fill=EYESHADOW_DEEP).replace(
+        '/>', ' filter="url(#%sb2)" opacity="0.55"/>' % k))
+    # Aegyo-sal: the little roll right under the lower lid catches the light; only the faintest shade below it.
+    ag = part(lo, 0.1, 0.92)
+    roll = np.vstack([ag + np.array([0, 0.05 * Hh]), (ag + np.array([0, 0.30 * Hh]))[::-1]])
+    out.append('<path d="%s" fill="#fff8f4" filter="url(#%sb2)" opacity="0.6"/>' % (path(roll, close=True), k))
+    out.append(ribbon(smooth(part(lo, 0.22, 0.8) + np.array([0, 0.36 * Hh]), 3), 0.01 * W, 0.01 * W, wmid=0.035 * W,
+                      fill=SHADE).replace('/>', ' filter="url(#%sb2)" opacity="0.4"/>' % k))
+    # The lower rim: a soft rosy line where the waterline shows.
+    out.append(ribbon(part(lo, 0.06, 0.97) + np.array([0, 0.006 * W]), 0.004 * W, 0.006 * W, wmid=0.012 * W,
+                      fill=LOWER_RIM).replace('/>', ' filter="url(#%sb3)" opacity="0.9"/>' % k))
     # Tear duct.
     ic = g['inner']
     out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#%sb2)"/>' % (
-        ic[0] + outer * 0.03 * W, ic[1] + 0.01 * W, 0.035 * W, 0.03 * W, TEAR, k))
+        ic[0] + outer * 0.03 * W, ic[1] + 0.01 * W, 0.035 * W, 0.028 * W, TEAR, k))
     # --- inside the opening
     opening = np.vstack([up, lo[::-1]])
     out.append('<clipPath id="%sc"><path d="%s"/></clipPath>' % (k, path(opening, close=True)))
-    out.append(vgrad(k + 'w', top, bot, [(0, EYE_WHITE_SHADE, 1), (0.42, EYE_WHITE, 1), (1, EYE_WHITE, 1)]))
-    out.append(vgrad(k + 'i', icy - ir, icy + ir, [(0, IRIS_TOP, 1), (0.45, IRIS_MID, 1), (0.85, IRIS_LOW, 1),
-                                                    (1, IRIS_LOW, 1)]))
+    out.append(vgrad(k + 'w', top, bot, [(0, EYE_WHITE_SHADE, 1), (0.45, EYE_WHITE, 1), (1, EYE_WHITE, 1)]))
     q = ['<g clip-path="url(#%sc)">' % k]
     if closeup:
         # In the close-ups the eyeballs sample their own painting (eyeball()); inside the opening only the
@@ -280,75 +297,77 @@ def eye(e, outer, s=1.0, closeup=False, rng=None):
     else:
         q.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" fill="url(#%sw)"/>' % (
             cx - W, top - Hh, 2 * W, 3 * Hh, k))
-        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="url(#%si)"/>' % (icx, icy, ir, k))
-        # Light from below: a glowing crescent in the lower iris.
+        # The whites a touch greyer toward both corners (the eyeball turns away there).
+        for cn in (g['inner'], g['outer']):
+            q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#%sb2)" opacity="0.6"/>' % (
+                cn[0], cn[1], 0.12 * W, 0.2 * W, EYE_WHITE_SHADE, k))
+        # The iris: deep brown-black, a warmer ring between the pupil and the dark limbal edge.
+        q.append(rgrad(k + 'ir', icx, icy, ir, [(0, IRIS_TOP, 1), (0.42, IRIS_TOP, 1), (0.62, IRIS_MID, 1),
+                                                (0.84, IRIS_LOW, 1), (0.95, IRIS_TOP, 1), (1, IRIS_TOP, 1)]))
+        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="url(#%sir)"/>' % (icx, icy, ir, k))
+        # Light from below: a soft glow in the lower iris.
         q.append('<path d="M %.1f %.1f A %.1f %.1f 0 0 0 %.1f %.1f A %.1f %.1f 0 0 1 %.1f %.1f Z" fill="%s" '
-                 'filter="url(#%sb2)"/>' % (
-                     icx - 0.78 * ir, icy + 0.25 * ir, ir * 0.9, ir * 0.9, icx + 0.78 * ir, icy + 0.25 * ir,
-                     ir * 1.2, ir * 0.7, icx - 0.78 * ir, icy + 0.25 * ir, IRIS_GLOW, k))
-        # Fibres: fine radial strokes in the lower two thirds.
-        for j in range(22):
-            a = np.pi * (0.08 + 0.84 * j / 21)
-            r0, r1 = ir * 0.48, ir * (0.70 + 0.14 * ((j * 7) % 5) / 4)
+                 'filter="url(#%sb2)" opacity="0.75"/>' % (
+                     icx - 0.74 * ir, icy + 0.28 * ir, ir * 0.86, ir * 0.86, icx + 0.74 * ir, icy + 0.28 * ir,
+                     ir * 1.2, ir * 0.62, icx - 0.74 * ir, icy + 0.28 * ir, IRIS_GLOW, k))
+        # Fibres: a few fine radial strokes, barely there.
+        for j in range(28):
+            a = np.pi * (0.04 + 0.92 * j / 27)
+            r0, r1 = ir * 0.46, ir * (0.72 + 0.12 * ((j * 7) % 5) / 4)
             q.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="%s" stroke-width="%.2f" '
-                     'stroke-linecap="round" opacity="%.2f"/>' % (
+                     'stroke-linecap="round" opacity="0.32"/>' % (
                          icx + np.cos(a) * r0, icy + np.sin(a) * r0, icx + np.cos(a) * r1, icy + np.sin(a) * r1,
-                         IRIS_FIBRE, 0.012 * ir * s * 4, 0.55))
-        # Limbal ring and pupil.
-        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="#000" stroke-width="%.1f"/>' % (
-            icx, icy, ir * 0.965, 0.07 * ir))
-        q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#000"/>' % (icx, icy + 0.02 * ir, 0.40 * ir,
-                                                                                 0.43 * ir))
-        # The lid's shadow over the top of the iris and the white: a dark band with a soft hatched edge.
-        band = np.vstack([up + np.array([0, -0.2 * Hh]), (up + np.c_[np.zeros(len(up)),
-                                                                    0.16 * Hh * np.sin(np.linspace(0, np.pi, len(up))) ** 0.6])[::-1]])
-        q.append('<path d="%s" fill="#000"/>' % path(band, close=True))
-        edge = up + np.c_[np.zeros(len(up)), 0.16 * Hh * np.sin(np.linspace(0, np.pi, len(up))) ** 0.6]
-        for j in range(26):
-            t = 0.12 + 0.76 * j / 25
-            p0 = edge[int(t * (len(edge) - 1))]
-            L = (0.07 + 0.05 * ((j * 5) % 3) / 2) * Hh
-            q.append(ribbon(np.vstack([p0 - [0, 0.01 * Hh], p0 + [0, L * 0.5], p0 + [0, L]]), 0.012 * W, 0.002 * W))
-        # Catch-lights: a big soft one upper left, a small one lower right, and a sparkle.
-        q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" transform="rotate(-25 %.1f %.1f)"/>' % (
-            icx - ir * 0.30, icy - ir * 0.20, ir * 0.19, ir * 0.14, icx - ir * 0.30, icy - ir * 0.20))
-        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.40, icy + ir * 0.38, ir * 0.07))
-        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff"/>' % (icx + ir * 0.12, icy + ir * 0.58, ir * 0.045))
+                         IRIS_FIBRE, 0.035 * ir))
+        # Pupil.
+        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" filter="url(#%sb3)"/>' % (icx, icy + 0.02 * ir, 0.42 * ir, PUPIL, k))
+        # The upper lid's soft shadow over the top of the eye (paint, not ink), darkest along the lid.
+        sh = np.vstack([up + np.array([0, -0.2 * Hh]),
+                        (up + np.c_[np.zeros(len(up)), 0.30 * Hh * np.sin(np.linspace(0, np.pi, len(up))) ** 0.5])[::-1]])
+        q.append(vgrad(k + 'ls', top, top + 0.42 * Hh, [(0, LID_SHADOW, 0.95), (0.55, LID_SHADOW, 0.55), (1, LID_SHADOW, 0)]))
+        q.append('<path d="%s" fill="url(#%sls)" filter="url(#%sb3)"/>' % (path(sh, close=True), k, k))
+        # Catch-lights: one crisp light upper left, a faint small one lower right.
+        q.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" transform="rotate(-20 %.1f %.1f)"/>' % (
+            icx - ir * 0.30, icy - ir * 0.24, ir * 0.17, ir * 0.14, icx - ir * 0.30, icy - ir * 0.24))
+        q.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" opacity="0.7" filter="url(#%sb3)"/>' % (
+            icx + ir * 0.36, icy + ir * 0.40, ir * 0.07, k))
         q.append('</g>')
         out += q
     # --- ink around the opening
-    # Upper lash line: fine at the inner corner, full across the lid, a short flick past the corner.
-    flick = cubic(up[-1], up[-1] + np.array([outer * 0.035 * W, -0.004 * W]), up[-1] + np.array([outer * 0.065 * W, -0.018 * W]),
-                  up[-1] + np.array([outer * 0.085 * W, -0.032 * W]), 14)
-    lash = np.vstack([part(up, 0.04, 1.0), flick[1:]]) + np.array([0, -0.010 * W])
-    out.append(ribbon(lash, 0.014 * W, 0.004 * W, wmid=0.05 * W))
-    # Lashes: a few clumps along the outer half, sweeping out and up.
+    # Upper lash line: a hair at the inner corner, fuller across the lid, tapering out just past the outer
+    # corner along the lid's own curve (no winged flick).
+    tail = cubic(up[-1], up[-1] + np.array([outer * 0.02 * W, 0.002 * W]), up[-1] + np.array([outer * 0.035 * W, -0.004 * W]),
+                 up[-1] + np.array([outer * 0.045 * W, -0.01 * W]), 10)
+    lash = np.vstack([part(up, 0.03, 1.0), tail[1:]]) + np.array([0, -0.008 * W])
+    out.append(ribbon(lash, 0.006 * W, 0.002 * W, wmid=0.036 * W))
+    # Lashes: short and dense, close to the line, fanning out toward the outer corner.
     n = len(up)
-    for j in range(8):
-        t = 0.42 + 0.07 * j
+    for j in range(30):
+        t = 0.12 + 0.86 * j / 29 + rng.uniform(-0.008, 0.008)
         i = min(int(t * (n - 1)), n - 1)
-        p0 = up[i] + np.array([0, -0.035 * W])
-        d = np.array([outer * (0.2 + 0.17 * j), -1.0])
+        p0 = up[i] + np.array([0, -0.014 * W])
+        d = np.array([outer * (0.15 + 0.85 * t ** 1.6), -1.0])
         d /= np.linalg.norm(d)
-        L = (0.035 + 0.008 * j) * W
-        out.append(ribbon(np.vstack([p0, p0 + d * L * 0.5 + np.array([outer * 0.01 * W, 0]), p0 + d * L]),
-                          0.018 * W, 0.002 * W))
-    # Double eyelid: a fine crease above the lid, nearer the lid at the inner end.
-    crease = part(up, 0.22, 0.95).copy()
+        L = (0.022 + 0.026 * t) * W * rng.uniform(0.85, 1.1)
+        bend = np.array([outer * 0.012 * W * t, 0.004 * W])
+        out.append(ribbon(np.vstack([p0, p0 + d * L * 0.55 + bend * 0.5, p0 + d * L + bend]), 0.008 * W, 0.0008 * W))
+    # Double eyelid: a soft brown crease above the lid, nearer the lid at the inner end.
+    crease = part(up, 0.2, 0.95).copy()
     tt = np.linspace(0, 1, len(crease))
-    crease = crease + np.c_[outer * 0.02 * W * tt, -(0.12 + 0.16 * tt) * Hh]
-    out.append(ribbon(smooth(crease, 3), 0.002 * W, 0.004 * W, wmid=0.011 * W))
-    # Lower lid: a fine line the whole length (a hair at the inner corner, fuller toward the outer), a few
-    # tiny lashes.
-    out.append(ribbon(part(lo, 0.04, 1.0) + np.array([0, 0.01 * W]), 0.0015 * W, 0.008 * W, wmid=0.008 * W))
-    for j in range(3):
-        i = int((0.66 + 0.1 * j) * (len(lo) - 1))
-        p0 = lo[i] + np.array([0, 0.018 * W])
-        out.append(ribbon(np.vstack([p0, p0 + np.array([outer * 0.012 * W, 0.035 * W])]), 0.007 * W, 0.001 * W))
-    # Inner corner: the lids meet in a small notch.
-    out.append(ribbon(cubic(ic + np.array([outer * 0.05 * W, -0.035 * W]), ic + np.array([-outer * 0.01 * W, -0.01 * W]),
-                            ic + np.array([-outer * 0.01 * W, 0.02 * W]), ic + np.array([outer * 0.04 * W, 0.03 * W]), 12),
-                      0.008 * W, 0.002 * W, wmid=0.009 * W))
+    crease = crease + np.c_[outer * 0.015 * W * tt, -(0.17 + 0.12 * tt) * Hh]
+    out.append(ribbon(smooth(crease, 3), 0.003 * W, 0.005 * W, wmid=0.012 * W, fill=CREASE).replace(
+        '/>', ' filter="url(#%sb3)" opacity="0.95"/>' % k))
+    # Lower lash line: a soft brown line along the outer two thirds, a few tiny lashes at the outer corner.
+    out.append(ribbon(part(lo, 0.3, 1.0) + np.array([0, 0.012 * W]), 0.001 * W, 0.006 * W, wmid=0.006 * W,
+                      fill=LOWER_LASH).replace('/>', ' opacity="0.8"/>'))
+    for j in range(5):
+        i = int((0.6 + 0.08 * j) * (len(lo) - 1))
+        p0 = lo[i] + np.array([0, 0.016 * W])
+        out.append(ribbon(np.vstack([p0, p0 + np.array([outer * 0.01 * W, 0.024 * W])]), 0.005 * W, 0.0008 * W,
+                          fill=LOWER_LASH).replace('/>', ' opacity="0.8"/>'))
+    # Inner corner: the lids meet in a small soft notch.
+    out.append(ribbon(cubic(ic + np.array([outer * 0.05 * W, -0.03 * W]), ic + np.array([-outer * 0.01 * W, -0.01 * W]),
+                            ic + np.array([-outer * 0.01 * W, 0.016 * W]), ic + np.array([outer * 0.04 * W, 0.024 * W]), 12),
+                      0.006 * W, 0.001 * W, wmid=0.007 * W, fill=LOWER_LASH))
     return out
 
 
@@ -402,64 +421,83 @@ def eyeball_svg(lm):
 
 
 def brow(e, b, outer, s=1.0, rng=None):
-    """Soft, straight brows: a feathered brown body with a few fine hair strokes (mostly seen through the fringe)."""
+    """Her brows: soft, straight and full, a warm brown, a gentle arch two thirds of the way out; the inner
+    end soft and light, the body feathered with fine hairs that rise at the inner end and lie flat toward
+    the tail (mostly seen through the fringe)."""
     rng = rng or np.random.default_rng(5)
     g = eye_shape(e, outer)
     W = g['W']
     k = 'b%d' % int(e['cx'])
     top = g['up'][:, 1].min()
-    x_in = g['inner'][0] - outer * 0.02 * W
-    x_out = g['outer'][0] + outer * 0.12 * W
-    y = top - 0.29 * W
-    base = cubic((x_in, y + 0.025 * W), (x_in + outer * 0.35 * W, y - 0.03 * W), (x_out - outer * 0.3 * W, y - 0.04 * W),
-                 (x_out, y + 0.045 * W), 40)
-    out = [blur(k, 0.02 * W), ribbon(base, 0.08 * W, 0.018 * W, wmid=0.066 * W, fill=BROW).replace(
-        '/>', ' filter="url(#%s)" opacity="0.66"/>' % k)]
-    for j in range(45):
-        t = rng.uniform(0.1, 1)
-        p = base[int(t * 39)]
-        a = np.radians(18 - 14 * t)
+    x_in = g['inner'][0] - outer * 0.03 * W
+    x_out = g['outer'][0] + outer * 0.13 * W
+    y = top - 0.30 * W
+    base = cubic((x_in, y + 0.03 * W), (x_in + outer * 0.38 * W, y - 0.025 * W), (x_out - outer * 0.32 * W, y - 0.045 * W),
+                 (x_out, y + 0.04 * W), 48)
+    xa, xb = sorted((x_in, x_out))
+    gid = k + 'g'
+    # Lighter at the inner end, full through the body, thinning to the tail.
+    stops = [(0, 0.3), (0.22, 0.75), (0.75, 0.8), (1, 0.55)] if outer > 0 else [(0, 0.55), (0.25, 0.8), (0.78, 0.75), (1, 0.3)]
+    st = ''.join('<stop offset="%.2f" stop-color="%s" stop-opacity="%.2f"/>' % (o, BROW, a) for o, a in stops)
+    out = [blur(k, 0.022 * W), blur(k + 'h', 0.004 * W),
+           '<linearGradient id="%s" gradientUnits="userSpaceOnUse" x1="%.1f" y1="0" x2="%.1f" y2="0">%s</linearGradient>' % (
+               gid, xa, xb, st),
+           ribbon(base, 0.1 * W, 0.022 * W, wmid=0.085 * W, fill='url(#%s)' % gid).replace('/>', ' filter="url(#%s)"/>' % k)]
+    for j in range(70):
+        t = rng.uniform(0.0, 1.0)
+        p = base[int(t * 47)]
+        a = np.radians(68 * (1 - t) ** 2 + 10)          # (upright at the inner end, flat toward the tail)
         d = np.array([outer * np.cos(a), -np.sin(a)])
-        L = (0.05 + 0.03 * rng.random()) * W
-        p0 = p + np.array([0, rng.uniform(-0.4, 0.4) * 0.05 * W * (1 - 0.5 * t)])
-        out.append(ribbon(np.vstack([p0, p0 + d * L * 0.5, p0 + d * L]), 0.005 * W, 0.0012 * W, fill=BROW_HAIR))
+        L = (0.045 + 0.03 * rng.random()) * W * (1.0 - 0.35 * t)
+        half = (0.04 * (1 - 0.6 * t)) * W
+        p0 = p + np.array([0, rng.uniform(-0.5, 0.5) * half + 0.3 * half])
+        out.append(ribbon(np.vstack([p0, p0 + d * L * 0.5, p0 + d * L]), 0.0055 * W, 0.0008 * W, fill=BROW_HAIR).replace(
+            '/>', ' filter="url(#%sh)" opacity="%.2f"/>' % (k, 0.35 + 0.4 * min(1.0, 0.2 + t))))
     return out
 
 
-def nose(cx, y, w, s=1.0):
-    """A small soft button nose: only a faint shade down the shadow side of the bridge (a long drawn bridge
-    read as a long, high nose), a round rosy tip with a soft highlight, the wings of the nose either side of
-    it, the shadow under the tip and two soft nostrils."""
-    out = [blur('nb', 0.07 * w), blur('nb2', 0.03 * w)]
-    out.append('<path d="%s" fill="%s" filter="url(#nb)" opacity="0.6"/>' % (path(np.array([
-        (cx + 0.10 * w, y - 0.62 * w), (cx + 0.22 * w, y - 0.35 * w), (cx + 0.30 * w, y - 0.05 * w),
-        (cx + 0.12 * w, y + 0.02 * w), (cx + 0.12 * w, y - 0.4 * w)]), close=True), NOSE_SHADE))
-    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#nb)" opacity="0.22"/>' % (
-        cx, y - 0.02 * w, 0.2 * w, 0.13 * w, BLUSH))
-    # The wings: a soft crescent of shade around each side of the tip.
-    for sgn in (-1, 1):
-        wing = cubic((cx + sgn * 0.20 * w, y - 0.14 * w), (cx + sgn * 0.33 * w, y - 0.08 * w),
-                     (cx + sgn * 0.33 * w, y + 0.07 * w), (cx + sgn * 0.20 * w, y + 0.11 * w), 14)
-        out.append(ribbon(wing, 0.012 * w, 0.01 * w, wmid=0.05 * w, fill=NOSE_SHADE).replace(
-            '/>', ' filter="url(#nb2)" opacity="%.2f"/>' % (0.9 if sgn > 0 else 0.6)))
-    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fffaf7" filter="url(#nb2)"/>' % (
-        cx - 0.03 * w, y - 0.08 * w, 0.09 * w, 0.065 * w))
-    # (the one drawn line of the nose: a fine warm stroke under the tip on its shadow side, not ink, which
-    # with the nostrils read as a snout from below)
-    out.append(ribbon(cubic((cx + 0.17 * w, y + 0.03 * w), (cx + 0.18 * w, y + 0.09 * w), (cx + 0.10 * w, y + 0.12 * w),
-                            (cx + 0.02 * w, y + 0.115 * w), 14), 0.006 * w, 0.004 * w, wmid=0.02 * w, fill=NOSE_LINE))
-    for sgn in (-1, 1):
-        x = cx + sgn * 0.115 * w
-        out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#nb2)" opacity="0.8" '
-                   'transform="rotate(%.1f %.1f %.1f)"/>' % (x, y + 0.08 * w, 0.055 * w, 0.024 * w, NOSE_DEEP,
-                                                             -sgn * 12, x, y + 0.08 * w))
-    # The soft round of the tip: a shade under it, and a faint light down the lower bridge.
-    out.append('<path d="%s" fill="%s" filter="url(#nb2)" opacity="0.75"/>' % (path(cubic(
-        (cx - 0.18 * w, y + 0.06 * w), (cx - 0.09 * w, y + 0.14 * w), (cx + 0.09 * w, y + 0.14 * w),
-        (cx + 0.18 * w, y + 0.06 * w), 16)), NOSE_SHADE))
+def nose(cx, y, ipd, s=1.0):
+    """Her nose: small and soft with a rounded tip, as in her portrait about half an iris spacing across the
+    wings. A faint shade down the shadow side of the bridge, a rosy, rounded tip lit from above, the wings
+    either side of it drawn in soft crescents of shade where they meet the cheeks, the soft shadow under the
+    tip and two warm, soft nostrils (no ink)."""
+    w = 0.5 * ipd             # across the wings
+    out = [blur('nb', 0.12 * w), blur('nb2', 0.05 * w), blur('nb3', 0.025 * w)]
+    # The bridge: a faint shade down its shadow side, a fainter one down the other, a soft light between.
+    for sgn, op in ((1, 0.7), (-1, 0.3)):
+        out.append('<path d="%s" fill="%s" filter="url(#nb)" opacity="%.2f"/>' % (path(np.array([
+            (cx + sgn * 0.12 * w, y - 1.25 * w), (cx + sgn * 0.2 * w, y - 0.8 * w), (cx + sgn * 0.3 * w, y - 0.3 * w),
+            (cx + sgn * 0.22 * w, y - 0.12 * w), (cx + sgn * 0.12 * w, y - 0.5 * w)]), close=True), NOSE_SHADE, op))
     out.append('<path d="%s" fill="#fffaf7" filter="url(#nb)" opacity="0.6"/>' % path(np.array([
-        (cx - 0.03 * w, y - 0.62 * w), (cx + 0.02 * w, y - 0.62 * w), (cx + 0.01 * w, y - 0.22 * w),
-        (cx - 0.04 * w, y - 0.22 * w)]), close=True))
+        (cx - 0.04 * w, y - 1.1 * w), (cx + 0.03 * w, y - 1.1 * w), (cx + 0.03 * w, y - 0.3 * w),
+        (cx - 0.05 * w, y - 0.3 * w)]), close=True))
+    # The tip: a soft rosy round.
+    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#nb2)" opacity="0.3"/>' % (
+        cx, y - 0.02 * w, 0.26 * w, 0.2 * w, BLUSH))
+    # The wings: soft crescents of shade round each side of the tip, deeper on the shadow side.
+    for sgn in (-1, 1):
+        wing = cubic((cx + sgn * 0.26 * w, y - 0.2 * w), (cx + sgn * 0.46 * w, y - 0.12 * w),
+                     (cx + sgn * 0.47 * w, y + 0.1 * w), (cx + sgn * 0.3 * w, y + 0.17 * w), 16)
+        out.append(ribbon(wing, 0.015 * w, 0.012 * w, wmid=0.075 * w, fill=NOSE_SHADE).replace(
+            '/>', ' filter="url(#nb2)" opacity="%.2f"/>' % (0.95 if sgn > 0 else 0.7)))
+        out.append(ribbon(part(wing, 0.15, 0.85), 0.004 * w, 0.004 * w, wmid=0.016 * w, fill=NOSE_DEEP).replace(
+            '/>', ' filter="url(#nb3)" opacity="%.2f"/>' % (0.7 if sgn > 0 else 0.45)))
+    # Light on the round of the tip.
+    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fffaf7" filter="url(#nb2)" opacity="0.95"/>' % (
+        cx - 0.03 * w, y - 0.07 * w, 0.11 * w, 0.08 * w))
+    # Under the tip: a soft shade, a fine warm line on its shadow side.
+    out.append('<path d="%s" fill="%s" filter="url(#nb2)" opacity="0.8"/>' % (path(cubic(
+        (cx - 0.22 * w, y + 0.07 * w), (cx - 0.1 * w, y + 0.17 * w), (cx + 0.1 * w, y + 0.17 * w),
+        (cx + 0.22 * w, y + 0.07 * w), 16)), NOSE_SHADE))
+    out.append(ribbon(cubic((cx + 0.2 * w, y + 0.05 * w), (cx + 0.2 * w, y + 0.11 * w), (cx + 0.11 * w, y + 0.14 * w),
+                            (cx + 0.03 * w, y + 0.135 * w), 14), 0.004 * w, 0.003 * w, wmid=0.016 * w,
+                      fill=NOSE_LINE).replace('/>', ' filter="url(#nb3)" opacity="0.75"/>'))
+    # Nostrils: two soft warm ovals tilted in toward the tip.
+    for sgn in (-1, 1):
+        x = cx + sgn * 0.15 * w
+        out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#nb3)" opacity="%.2f" '
+                   'transform="rotate(%.1f %.1f %.1f)"/>' % (x, y + 0.1 * w, 0.08 * w, 0.034 * w, NOSTRIL,
+                                                             1.0 if sgn > 0 else 0.85, -sgn * 18, x, y + 0.1 * w))
     return out
 
 
@@ -468,61 +506,83 @@ def lip_shape(m, ipd):
     seam = m['seam']
     cx = float(seam[:, 0].mean())
     sy = float(np.median(seam[:, 1]))
-    Wm = 0.70 * ipd   # (her mouth: about 0.65 iris spacings across, measured on her portrait)
+    Wm = 0.70 * ipd   # (her mouth: about 0.70 iris spacings across, measured on her portrait)
     x0, x1 = cx - Wm / 2, cx + Wm / 2
-    # Seam: corners lifted a little, a soft dip at the centre.
-    line = np.vstack([cubic((x0, sy - 0.03 * Wm), (x0 + 0.18 * Wm, sy + 0.005 * Wm), (cx - 0.2 * Wm, sy + 0.02 * Wm),
-                            (cx, sy + 0.012 * Wm), 24),
-                      cubic((cx, sy + 0.012 * Wm), (cx + 0.2 * Wm, sy + 0.02 * Wm), (x1 - 0.18 * Wm, sy + 0.005 * Wm),
-                            (x1, sy - 0.03 * Wm), 24)[1:]])
-    top = sy - 0.18 * Wm
-    bow = np.vstack([cubic((cx - 0.40 * Wm, sy - 0.05 * Wm), (cx - 0.28 * Wm, top + 0.02 * Wm), (cx - 0.16 * Wm, top),
-                           (cx - 0.07 * Wm, top), 16),
-                     cubic((cx - 0.07 * Wm, top), (cx - 0.03 * Wm, top), (cx - 0.02 * Wm, top + 0.04 * Wm), (cx, top + 0.04 * Wm), 8)[1:],
-                     cubic((cx, top + 0.04 * Wm), (cx + 0.02 * Wm, top + 0.04 * Wm), (cx + 0.03 * Wm, top), (cx + 0.07 * Wm, top), 8)[1:],
-                     cubic((cx + 0.07 * Wm, top), (cx + 0.16 * Wm, top), (cx + 0.28 * Wm, top + 0.02 * Wm),
-                           (cx + 0.40 * Wm, sy - 0.05 * Wm), 16)[1:]])
-    bot = sy + 0.32 * Wm
-    lower = cubic((cx - 0.38 * Wm, sy + 0.04 * Wm), (cx - 0.26 * Wm, bot + 0.01 * Wm), (cx + 0.26 * Wm, bot + 0.01 * Wm),
-                  (cx + 0.38 * Wm, sy + 0.04 * Wm), 30)
+    # Seam: the corners a little up, a soft dip at the centre.
+    line = np.vstack([cubic((x0, sy - 0.025 * Wm), (x0 + 0.18 * Wm, sy + 0.006 * Wm), (cx - 0.2 * Wm, sy + 0.02 * Wm),
+                            (cx, sy + 0.014 * Wm), 24),
+                      cubic((cx, sy + 0.014 * Wm), (cx + 0.2 * Wm, sy + 0.02 * Wm), (x1 - 0.18 * Wm, sy + 0.006 * Wm),
+                            (x1, sy - 0.025 * Wm), 24)[1:]])
+    # Upper lip: a soft, wide cupid's bow (her lips are full and smooth rather than sharply peaked): the peaks
+    # well out from the centre, a shallow dip between them.
+    top = sy - 0.16 * Wm
+    bow = np.vstack([cubic((cx - 0.43 * Wm, sy - 0.035 * Wm), (cx - 0.32 * Wm, top + 0.03 * Wm), (cx - 0.2 * Wm, top + 0.002 * Wm),
+                           (cx - 0.11 * Wm, top), 16),
+                     cubic((cx - 0.11 * Wm, top), (cx - 0.06 * Wm, top - 0.001 * Wm), (cx - 0.03 * Wm, top + 0.014 * Wm), (cx, top + 0.016 * Wm), 8)[1:],
+                     cubic((cx, top + 0.016 * Wm), (cx + 0.03 * Wm, top + 0.014 * Wm), (cx + 0.06 * Wm, top - 0.001 * Wm), (cx + 0.11 * Wm, top), 8)[1:],
+                     cubic((cx + 0.11 * Wm, top), (cx + 0.2 * Wm, top + 0.002 * Wm), (cx + 0.32 * Wm, top + 0.03 * Wm),
+                           (cx + 0.43 * Wm, sy - 0.035 * Wm), 16)[1:]])
+    bot = sy + 0.285 * Wm
+    lower = cubic((cx - 0.40 * Wm, sy + 0.03 * Wm), (cx - 0.28 * Wm, bot + 0.012 * Wm), (cx + 0.28 * Wm, bot + 0.012 * Wm),
+                  (cx + 0.40 * Wm, sy + 0.03 * Wm), 30)
     return dict(cx=cx, sy=sy, Wm=Wm, x0=x0, x1=x1, line=line, bow=bow, top=top, bot=bot, lower=lower)
 
 
 def lips(m, ipd, s=1.0):
-    """Full gradient lips (deepest at the centre, fading to the edges), just parted, with a gloss on the
-    lower lip; ink only for the seam, the parted gap and the corners."""
+    """Full, soft coral-peach lips, deepest at the centre and fading to the edges, just parted with a hint
+    of her teeth, a gloss on the lower lip; the seam a soft deep coral that thins out toward the corners,
+    the corners soft points of shade."""
     L = lip_shape(m, ipd)
     cx, sy, Wm, x0, x1, line = L['cx'], L['sy'], L['Wm'], L['x0'], L['x1'], L['line']
-    c0 = np.array([x0 - 0.01 * Wm, sy - 0.03 * Wm])
-    c1 = np.array([x1 + 0.01 * Wm, sy - 0.03 * Wm])
+    c0 = np.array([x0 + 0.01 * Wm, sy - 0.025 * Wm])
+    c1 = np.array([x1 - 0.01 * Wm, sy - 0.025 * Wm])
     # (each lip reaches a little past the seam under the other: blurred, two shapes that only met at the
     # seam faded out along it and left a pale line, which the insides of her lips show in a three-quarter view)
     over = np.array([0, 0.045 * Wm])
     upper = np.vstack([c0, L['bow'], c1, (line + over)[::-1]])
     lower = np.vstack([line - over, c1, L['lower'][::-1], c0])
-    out = [blur('lb', 0.019 * Wm), blur('lb2', 0.05 * Wm),
-           rgrad('lg', cx, sy, 0.5 * Wm, [(0, LIP_DEEP, 1), (0.55, LIP_MID, 1), (1, LIP_EDGE, 1)]),
-           rgrad('lg2', cx, sy + 0.05 * Wm, 0.45 * Wm, [(0, LIP_DEEP, 1), (0.5, LIP_MID, 1), (1, LIP_EDGE, 1)])]
+    out = [blur('lb', 0.017 * Wm), blur('lb2', 0.05 * Wm), blur('lb3', 0.008 * Wm),
+           rgrad('lg', cx, sy, 0.52 * Wm, [(0, LIP_DEEP, 1), (0.5, LIP_MID, 1), (1, LIP_EDGE, 1)]),
+           rgrad('lg2', cx, sy + 0.04 * Wm, 0.46 * Wm, [(0, LIP_DEEP, 1), (0.45, LIP_MID, 1), (1, LIP_EDGE, 1)])]
     out.append('<path d="%s" fill="url(#lg)" filter="url(#lb)"/>' % path(upper, close=True))
     out.append('<path d="%s" fill="url(#lg2)" filter="url(#lb)"/>' % path(lower, close=True))
+    # The upper lip's lower half a little deeper (it turns into the mouth), and a soft line of light along
+    # its top edge (the vermilion border).
+    inner_up = np.vstack([line + np.array([0, -0.07 * Wm]), (line + np.array([0, 0.01 * Wm]))[::-1]])
+    out.append('<path d="%s" fill="%s" filter="url(#lb2)" opacity="0.35"/>' % (path(inner_up, close=True), LIP_DEEP))
+    out.append(ribbon(part(L['bow'], 0.12, 0.88) + np.array([0, -0.006 * Wm]), 0.002 * Wm, 0.002 * Wm, wmid=0.01 * Wm,
+                      fill='#fff3ef').replace('/>', ' filter="url(#lb3)" opacity="0.65"/>'))
     # Gloss on the lower lip, a small light on the upper.
+    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#lb)" opacity="0.6"/>' % (
+        cx - 0.04 * Wm, (sy + L['bot']) / 2 + 0.02 * Wm, 0.11 * Wm, 0.03 * Wm, LIP_HI))
     out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#lb)" opacity="0.55"/>' % (
-        cx - 0.03 * Wm, (sy + L['bot']) / 2 + 0.015 * Wm, 0.10 * Wm, 0.028 * Wm, LIP_HI))
-    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#lb)" opacity="0.7"/>' % (
-        cx - 0.12 * Wm, L['top'] + 0.07 * Wm, 0.06 * Wm, 0.02 * Wm, LIP_HI))
+        cx - 0.13 * Wm, L['top'] + 0.07 * Wm, 0.055 * Wm, 0.018 * Wm, LIP_HI))
     # Soft shade under the lower lip.
-    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#lb2)"/>' % (
-        cx, L['bot'] + 0.08 * Wm, 0.2 * Wm, 0.05 * Wm, SHADE))
-    # Seam with a narrow parted gap at the centre.
-    out.append(ribbon(line, 0.006 * Wm, 0.006 * Wm, wmid=0.022 * Wm, fill=LIP_SEAM))
-    gap = np.vstack([cubic((cx - 0.15 * Wm, sy + 0.008 * Wm), (cx - 0.05 * Wm, sy - 0.012 * Wm), (cx + 0.05 * Wm, sy - 0.012 * Wm),
-                           (cx + 0.15 * Wm, sy + 0.008 * Wm), 16),
-                     cubic((cx + 0.15 * Wm, sy + 0.008 * Wm), (cx + 0.05 * Wm, sy + 0.035 * Wm), (cx - 0.05 * Wm, sy + 0.035 * Wm),
-                           (cx - 0.15 * Wm, sy + 0.008 * Wm), 16)[1:]])
-    out.append('<path d="%s" fill="%s"/>' % (path(gap, close=True), LIP_GAP))
+    out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#lb2)" opacity="0.8"/>' % (
+        cx, L['bot'] + 0.07 * Wm, 0.2 * Wm, 0.045 * Wm, SHADE))
+    # The seam: deep coral, full at the centre where her lips part, thinning out toward the corners and
+    # fading before them.
+    lx = line[:, 0]
+    gid = 'lsg'
+    out.append('<linearGradient id="%s" gradientUnits="userSpaceOnUse" x1="%.1f" y1="0" x2="%.1f" y2="0">%s</linearGradient>' % (
+        gid, x0, x1, ''.join('<stop offset="%.2f" stop-color="%s" stop-opacity="%.2f"/>' % (o, LIP_SEAM, a)
+                             for o, a in ((0, 0.0), (0.05, 0.55), (0.25, 0.9), (0.5, 1.0), (0.75, 0.9), (0.95, 0.55), (1, 0.0)))))
+    out.append(ribbon(line, 0.002 * Wm, 0.002 * Wm, wmid=0.02 * Wm, fill='url(#%s)' % gid).replace('/>', ' filter="url(#lb3)"/>'))
+    # Parted at the centre: a dark gap with the edge of her upper teeth just showing in it.
+    gap = np.vstack([cubic((cx - 0.23 * Wm, sy + 0.008 * Wm), (cx - 0.08 * Wm, sy - 0.012 * Wm), (cx + 0.08 * Wm, sy - 0.012 * Wm),
+                           (cx + 0.23 * Wm, sy + 0.008 * Wm), 18),
+                     cubic((cx + 0.23 * Wm, sy + 0.008 * Wm), (cx + 0.08 * Wm, sy + 0.034 * Wm), (cx - 0.08 * Wm, sy + 0.034 * Wm),
+                           (cx - 0.23 * Wm, sy + 0.008 * Wm), 18)[1:]])
+    out.append('<path d="%s" fill="%s" filter="url(#lb3)"/>' % (path(gap, close=True), LIP_GAP))
+    teeth = np.vstack([cubic((cx - 0.15 * Wm, sy + 0.003 * Wm), (cx - 0.05 * Wm, sy - 0.008 * Wm), (cx + 0.05 * Wm, sy - 0.008 * Wm),
+                             (cx + 0.15 * Wm, sy + 0.003 * Wm), 12),
+                       cubic((cx + 0.15 * Wm, sy + 0.003 * Wm), (cx + 0.05 * Wm, sy + 0.013 * Wm), (cx - 0.05 * Wm, sy + 0.013 * Wm),
+                             (cx - 0.15 * Wm, sy + 0.003 * Wm), 12)[1:]])
+    out.append('<path d="%s" fill="%s" filter="url(#lb3)" opacity="0.8"/>' % (path(teeth, close=True), TEETH))
+    # Corners: soft little points of shade.
     for sgn, x in ((-1, x0), (1, x1)):
-        out.append(ribbon(np.vstack([(x - sgn * 0.015 * Wm, sy - 0.03 * Wm), (x + sgn * 0.02 * Wm, sy - 0.01 * Wm)]),
-                          0.008 * Wm, 0.002 * Wm, fill=LIP_SEAM))
+        out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" filter="url(#lb3)" opacity="0.6"/>' % (
+            x - sgn * 0.02 * Wm, sy - 0.022 * Wm, 0.03 * Wm, 0.01 * Wm, LIP_SEAM))
     return out
 
 
@@ -623,7 +683,7 @@ def face_svg(lm, size=None, closeup=False, layer_png=None):
     m = lm['mouth']
     eye_y = (eyes[0]['cy'] + eyes[1]['cy']) / 2
     nose_y = lm.get('nose_y', eye_y + 0.62 * (m['seam_y'] - eye_y))
-    out += nose(mid, nose_y, 0.32 * W, s=s)
+    out += nose(mid, nose_y, ipd, s=s)
     out += lips(m, ipd, s=s)
     out.append('</svg>')
     return '\n'.join(out)

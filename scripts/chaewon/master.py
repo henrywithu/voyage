@@ -143,6 +143,47 @@ def _face_components(T, mask):
     return np.where(mask, lab, -1)
 
 
+def hidden_from_front(P, T, sel, res=0.0002, eps=0.0008):
+    """Faces (of those in sel) that the mesh itself hides in a front view (orthographic along +y, her front
+    is -y): a depth buffer over the faces' footprint, each face tested at its centroid."""
+    F = T[sel]
+    lo = P[F].reshape(-1, 3).min(0) - 0.002
+    hi = P[F].reshape(-1, 3).max(0) + 0.002
+    # Everything that could stand in front of them: faces overlapping their footprint, at any depth.
+    Pt = P[T]
+    over = (Pt[..., 0].max(1) > lo[0]) & (Pt[..., 0].min(1) < hi[0]) & (Pt[..., 2].max(1) > lo[2]) & (Pt[..., 2].min(1) < hi[2])
+    nx, nz = int(np.ceil((hi[0] - lo[0]) / res)) + 1, int(np.ceil((hi[2] - lo[2]) / res)) + 1
+    depth = np.full((nz, nx), np.inf)
+    for tri in Pt[over]:
+        u = (tri[:, 0] - lo[0]) / res
+        v = (tri[:, 2] - lo[2]) / res
+        x0, x1 = int(np.floor(u.min())), int(np.ceil(u.max()))
+        y0, y1 = int(np.floor(v.min())), int(np.ceil(v.max()))
+        x0, y0, x1, y1 = max(x0, 0), max(y0, 0), min(x1, nx - 1), min(y1, nz - 1)
+        if x1 < x0 or y1 < y0:
+            continue
+        gx, gy = np.meshgrid(np.arange(x0, x1 + 1), np.arange(y0, y1 + 1))
+        d = (u[1] - u[0]) * (v[2] - v[0]) - (u[2] - u[0]) * (v[1] - v[0])
+        if abs(d) < 1e-12:
+            continue
+        a = ((u[1] - gx) * (v[2] - gy) - (u[2] - gx) * (v[1] - gy)) / d
+        b = ((u[2] - gx) * (v[0] - gy) - (u[0] - gx) * (v[2] - gy)) / d
+        c = 1 - a - b
+        inside = (a >= -1e-6) & (b >= -1e-6) & (c >= -1e-6)
+        if not inside.any():
+            continue
+        z = a * tri[0, 1] + b * tri[1, 1] + c * tri[2, 1]
+        cur = depth[gy[inside], gx[inside]]
+        depth[gy[inside], gx[inside]] = np.minimum(cur, z[inside])
+    C = P[T].mean(1)
+    out = np.zeros(len(T), bool)
+    k = np.flatnonzero(sel)
+    px = np.clip(np.round((C[k, 0] - lo[0]) / res).astype(int), 0, nx - 1)
+    pz = np.clip(np.round((C[k, 2] - lo[2]) / res).astype(int), 0, nz - 1)
+    out[k] = C[k, 1] > depth[pz, px] + eps
+    return out
+
+
 def body_part(rest, win):
     P, T = rest['P'], rest['T']
     names = list(rest['names'])
@@ -169,18 +210,18 @@ def body_part(rest, win):
     nt = P[above][np.argmin(P[above][:, 1])]   # the tip of her nose
     front |= ((np.abs(C[:, 0] - nt[0]) < 0.024) & (C[:, 2] > nt[2] - 0.022) & (C[:, 2] < nt[2] + 0.006)
               & (C[:, 1] > nt[1] - 0.002) & (C[:, 1] < nt[1] + 0.03) & inwin[T].all(1))
-    # The insides of her lips and mouth (seen where they part) sample the painting too: the parted gap is
-    # painted there (as plain skin they showed as a white line between her lips).
-    mouth = (np.abs(P[:, 0] - mc[0]) < 0.026) & (np.abs(P[:, 2] - mc[2]) < 0.008) & (np.abs(P[:, 1] - mc[1]) < 0.03)
-    inner = mouth[T].all(1) & inwin[T].all(1) & ~front
-    # (all of them take the colour of the parted gap: projected, the inside of the lower lip lands below the
-    # painted lip and read as a white line of skin between her lips)
-    # The cavity behind them too (seen through the seam from above, its floor showed as a pale strip): every
-    # unprojected face joined to the seam's faces without crossing the projected face.
-    region = inner | (~front & (np.abs(C[:, 0] - mc[0]) < 0.05) & (C[:, 1] > mc[1] - 0.02)
-                      & (np.abs(C[:, 2] - mc[2]) < 0.06))
+    # The insides of her lips and her mouth take the colour of the parted gap: every face in the mouth that
+    # the closed lips hide from the front (the projection would lay skin-white paint on them, and they show
+    # where her lips part in a three-quarter view: the insides of the lips as a pale line between them, the
+    # back of the mouth as a white band through the parting).
+    box = (np.abs(C[:, 0] - mc[0]) < 0.035) & (np.abs(C[:, 2] - mc[2]) < 0.02) & (C[:, 1] > mc[1] - 0.02) & (C[:, 1] < mc[1] + 0.12)
+    # (and the faces at the parting itself that turn up or down, away from the front). Only those joined to
+    # the parting: the jaw hides the sides and back of her neck from the front too.
+    lips_v = (np.abs(P[:, 0] - mc[0]) < 0.026) & (np.abs(P[:, 2] - mc[2]) < 0.008) & (np.abs(P[:, 1] - mc[1]) < 0.03)
+    seed = lips_v[T].all(1) & ~front & inwin[T].all(1)
+    region = seed | (box & hidden_from_front(P, T, box))
     lab = _face_components(T, region)
-    inner = np.isin(lab, lab[inner]) & region
+    inner = np.isin(lab, lab[seed]) & region
     gap_uv = mouth_gap_uv(mc, win)
     # Split vertices on the boundary between projected-face and plain-skin triangles.
     key = {}

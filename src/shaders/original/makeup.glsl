@@ -1,10 +1,10 @@
 // Voyage: Chaewon's painted face and skin. The atlas is a colour painting: ink is near-black (inkLevel maps
 // it below the 0.55 the shaders threshold their line art at) and everything lighter is paint (her skin
 // tone, make-up, dark brown irises), multiplied over her shading here.
-// Voyage: lace on her dress is drawn in the trim texture; its strokes print as a soft grey (white-on-white lace),
-// not the ink of her outline and face.
+// Voyage: lace on her dress is drawn in the trim texture; its strokes print as a pale grey (white-on-white
+// lace, tone on tone as in her portrait), not the ink of her outline and face.
 float laceInk(float trimInk) {
-    return mix(0.66, 1.0, trimInk);
+    return mix(0.8, 1.0, trimInk);
 }
 float inkLevel(float red) {
     return min(1.0, red * 3.4);
@@ -58,6 +58,16 @@ vec3 hairShade(float lit, float sheen, vec2 trimUv) {
     float across = fract((trimUv.y - 0.10) / 0.025);
     float edge = (1.0 - smoothstep(0.0, 0.1, min(across, 1.0 - across))) * lock;
     base *= 1.0 - 0.04 * edge * (1.0 - fringe);
+    // Strands: each lock is a few finer strands along its length, each a touch its own shade with a fine
+    // darker line between them; they fade out where they would be finer than a couple of pixels (so a
+    // distant head of hair stays one smooth mass instead of shimmering).
+    float k = across * 5.0;
+    float fw = max(fwidth(k), 1e-4);
+    float vis = (1.0 - smoothstep(0.2, 0.45, fw)) * lock;
+    float slot = floor(k);
+    float rnd = fract(sin(slot * 12.9898 + band * 78.233 + floor(trimUv.y * 400.0) * 3.17) * 43758.5453);
+    float seam = 1.0 - smoothstep(0.0, 0.18, min(fract(k), 1.0 - fract(k)));
+    base *= 1.0 + vis * ((rnd - 0.5) * 0.14 - 0.09 * seam);
     // The gloss: a soft ring across the crown where the light falls (hair.py strand_u lays it at the same
     // height on every lock, so it reads as one halo across them).
     float u = trimUv.x;

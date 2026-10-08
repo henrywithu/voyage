@@ -174,8 +174,9 @@ for s in SIDES:
         # (Flat to her head: one that stands out would poke through the hair over it, its ink drawn on the hair.)
         (f'ears/{s}-ear-scale', -0.8, 'decr', 'incr'), (f'ears/{s}-ear-flap', -1.0, 'decr', 'incr'),
         (f'ears/{s}-ear-wing', -1.0, 'decr', 'incr'), (f'ears/{s}-ear-scale-depth', -0.8, 'decr', 'incr'),
-        (f'armslegs/{s}-hand-scale', -0.4, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.45, 'decr', 'incr'),
-        (f'armslegs/{s}-hand-fingers-length', 0.0, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
+        # (small, slender hands with long fine fingers)
+        (f'armslegs/{s}-hand-scale', -0.45, 'decr', 'incr'), (f'armslegs/{s}-hand-fingers-diameter', -0.85, 'decr', 'incr'),
+        (f'armslegs/{s}-hand-fingers-length', 0.35, 'decr', 'incr'), (f'armslegs/{s}-foot-scale', -0.25, 'decr', 'incr'),
         (f'armslegs/{s}-lowerarm-scale-horiz', -0.25, 'decr', 'incr'), (f'armslegs/{s}-upperarm-scale-horiz', -0.35, 'decr', 'incr'),
         (f'armslegs/{s}-upperarm-shoulder-muscle', -0.8, 'decr', 'incr'),
         (f'armslegs/{s}-lowerleg-scale-horiz', -0.1, 'decr', 'incr'),

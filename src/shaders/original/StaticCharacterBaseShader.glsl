@@ -113,7 +113,7 @@ void main() {
     // lighting
     float lighting = dot(normal, uLightDir);
     float lightMask = max(0.0, lighting);
-    float terminatormid = aastep(uThreshold.x, lighting + lines * 0.45);
+    float terminatormid = aastep(uThreshold.x, lighting + lines * 0.3);
     // Voyage: her skin keeps to the light (a soft shadow only where it turns well away).
     float skinLit = skinLight(lighting, uThreshold.x - 0.4);
     float terminatorhigh = aastep(uThreshold.y, lighting + lines * 0.1);
@@ -132,13 +132,13 @@ void main() {
     alt = mix(alt, vec3(1.0), vSkinMask);
 
     // Voyage: her dress falls into a soft grey shade (the hatching draws its texture), not solid ink.
-    color = mix(alt * 0.9, alt, terminatormid);
+    color = mix(alt * 0.93, alt, terminatormid);
     color = mix(color, skinShade(skinLit), vSkinMask);
     color = mix(color, vec3(1.0), terminatorhigh);
     color = applyMakeup(color, tAtlas, vUv2, skinLit);
     color *= mix(vec3(1.0), skinContour(vViewNormal, vViewPos), vSkinMask);
-    // Voyage: the hatching on her dress is a dark grey stroke, lighter than the ink of her outline.
-    color *= mix(mix(0.92, 1.0, maskedLines), 1.0, vSkinMask);
+    // Voyage: the hatching on her dress is a faint grey stroke (white lace), far lighter than the ink of her outline.
+    color *= mix(mix(0.95, 1.0, maskedLines), 1.0, vSkinMask);
     color *= atlas;
     color = mix(color, hairShade(smoothstep(-0.45, 0.85, lighting), aastep(0.55, trim), vUv), hairMask(vUv));
 

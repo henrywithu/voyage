@@ -53,7 +53,7 @@ export async function setupNarrative(scene: SceneSection) {
       "SkinShader",
       {
         ...characterTextures,
-        uColor: new THREE.Vector3(0.94510, 0.92549, 0.88235),
+        uColor: new THREE.Vector3(0.969, 0.957, 0.933),
         uLinesTile: 1.25,
         uLightDir: new THREE.Vector3(0.1, 0.1, 0.5).normalize(),
         uAxis: new THREE.Vector3(1, 0, 2.5),
@@ -132,7 +132,7 @@ export async function setupNarrative(scene: SceneSection) {
       uBreathe: new THREE.Vector3(-0.2, 0.3, 1),
       uWindAxisAngle: new THREE.Vector4(0, 1, 0, 0),
       uWindParams: new THREE.Vector3(0, 1, 1),
-      uColor: new THREE.Vector3(0.94510, 0.92549, 0.88235),
+      uColor: new THREE.Vector3(0.969, 0.957, 0.933),
       // Chaewon straightens over the source's 2.5-second entrance tween.
       uBend: -0.4,
     };

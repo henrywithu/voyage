@@ -349,7 +349,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             widths[i] = 0.0055 + 0.002 * rng.random()
         elif g == 'front':
             # (layered: hair grown nearer her face is shorter)
-            total = 0.30 + 0.045 * np.clip(abs(np.degrees(phi0)) / 120, 0, 1) + 0.03 * layer + rng.normal(0, 0.012)
+            total = 0.30 + 0.045 * np.clip(abs(np.degrees(phi0)) / 120, 0, 1) + 0.03 * layer + rng.normal(0, 0.018)
             widths[i] = 0.022 + 0.01 * rng.random()
         elif g == 'frame':
             # Face-framing pieces: from the temples, along the cheeks and on past the jaw to the collarbone.
@@ -358,7 +358,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             widths[i] = 0.012 + 0.005 * rng.random()
         elif g == 'back':
             back = 0.5 - 0.5 * np.cos(phi0)
-            total = 0.35 + 0.04 * back + rng.normal(0, 0.014)
+            total = 0.35 + 0.04 * back + rng.normal(0, 0.02)
             widths[i] = 0.024 + 0.01 * rng.random()
         else:
             total = 0.35 + 0.2 * rng.random()
@@ -561,7 +561,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         act = np.zeros((ct.max() + 1,) + Xt.shape[1:])
         np.add.at(act, ct, Xt)
         cnt_t = np.maximum(np.bincount(ct, minlength=ct.max() + 1), 1)[:, None, None]
-        F[has_tip] += (act[ct] / cnt_t[ct] - Xt) * 0.02 * tip_ramp[None, :, None]
+        F[has_tip] += (act[ct] / cnt_t[ct] - Xt) * 0.035 * tip_ramp[None, :, None]
         # Volume: from the ears to the shoulders the long hair stands out from her (the layers beneath hold it),
         # so the silhouette widens around her face and jaw like a real head of hair, not strings down her cheeks.
         rad = X[..., :2] - hcx[None, None, :2]
@@ -624,10 +624,54 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
 
     X = solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=iters if wind is None else max(iters, 480),
                      wind=wind, soften=4.0, guide=guide)
+    X = waves(X, pinned, groups, tip_clump, hcx, sdf, seed)
     # Outward direction of the nearest body surface at every point: ribbons lie flat on it.
     Nrm = sdf.gradient(X.reshape(-1, 3)).reshape(X.shape)
     return dict(X=X, groups=groups, widths=widths, lengths=lengths, hf=hf, hc=hcx, pinned=pinned, roots=R, N=Nrm, el=elev,
                 tone=tone)
+
+
+WAVE_AMP = 0.0065      # her long hair's soft waves: amplitude (m) ...
+WAVE_LEN = 0.13        # ... and wavelength along the strand (m)
+
+
+def waves(X, pinned, groups, tip_clump, hc, sdf, seed, margin=0.006):
+    """Her long hair's soft S-waves: the free part of every long lock swings gently from side to side (and a
+    little in and out) along its length, growing from nothing just below where it leaves her head; the locks
+    of each clump of ends wave together, so the waves read as soft, wavy locks rather than noise."""
+    rng = np.random.default_rng(seed + 31)
+    S, N, _ = X.shape
+    X = X.copy()
+    ncl = int(tip_clump.max()) + 1 if (tip_clump >= 0).any() else 0
+    ph = rng.uniform(0, 2 * np.pi, max(ncl, 1))
+    lam = WAVE_LEN * rng.uniform(0.9, 1.12, max(ncl, 1))
+    for i in np.flatnonzero(tip_clump >= 0):
+        free = np.flatnonzero(~pinned[i])
+        if len(free) < 3:
+            continue
+        k0 = max(free[0] - 1, 0)
+        P = X[i]
+        seglen = np.r_[0, np.cumsum(np.linalg.norm(np.diff(P[k0:], axis=0), axis=1))]
+        tg = np.gradient(P[k0:], axis=0)
+        tg /= np.maximum(np.linalg.norm(tg, axis=1, keepdims=True), 1e-9)
+        rad = P[k0:] - hc
+        rad[:, 2] = 0
+        rad /= np.maximum(np.linalg.norm(rad, axis=1, keepdims=True), 1e-9)
+        lat = np.cross(tg, rad)
+        lat /= np.maximum(np.linalg.norm(lat, axis=1, keepdims=True), 1e-9)
+        c = tip_clump[i]
+        # (straight and sleek near her head, waving softly from about her chin down)
+        a = WAVE_AMP * np.clip((seglen - 0.06) / 0.14, 0, 1) ** 1.5
+        th = 2 * np.pi * seglen / lam[c] + ph[c] + rng.normal(0, 0.25)
+        X[i, k0:] = P[k0:] + (a * np.sin(th))[:, None] * lat + (0.35 * a * np.cos(th))[:, None] * rad
+    # (never into her)
+    flat = X.reshape(-1, 3)
+    fm = ~pinned.reshape(-1)
+    d = sdf(flat)
+    hit = (d < margin) & fm
+    if hit.any():
+        flat[hit] += sdf.gradient(flat[hit]) * (margin - d[hit])[:, None]
+    return flat.reshape(S, N, 3)
 
 
 def tip_clumps(X0, groups, seed, size=5):
@@ -778,7 +822,7 @@ def crown_volume(el):
     return np.clip((np.asarray(el, float) - 10.0) / 60.0, 0, 1) ** 0.8
 
 
-CROWN_LIFT = 0.0026  # the hair's extra lift at the top of her head (metres)
+CROWN_LIFT = 0.0018  # the hair's extra lift at the top of her head (metres)
 
 
 def scalp_cap(rest, hf, P_out=None):
@@ -845,7 +889,7 @@ def ribbons(H, cam_up=None):
     # Manga locks: full at the root and drawn to a point. The fringe tapers all along its length, so
     # neighbouring locks touch at the hairline and part toward their tips; long hair holds its width.
     # (each grows from a fine point at its root, so a root lying on the hair beneath shows no blunt end)
-    taper_long = np.clip(np.minimum(0.3 + t / 0.1 * 0.7, (1 - t) / 0.22), 0.04, 1.0) ** 1.3  # (soft, even ends)
+    taper_long = np.clip(np.minimum(0.3 + t / 0.1 * 0.7, (1 - t) / 0.32), 0.03, 1.0) ** 1.4  # (soft, wispy ends)
     # (full over the forehead and drawn to fine points; from a fine point at the root too, so no blunt end
     # shows where the fringe meets the hair behind it)
     taper_bang = np.clip(np.minimum(0.2 + t / 0.08 * 0.8, (1 - t) / 0.6), 0.03, 1) ** 1.1

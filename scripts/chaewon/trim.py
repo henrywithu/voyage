@@ -1,4 +1,4 @@
-"""Chaewon's trim texture: Spirit-style lace bands (from the v1 trim) and new manga hair strands.
+"""Chaewon's trim texture: an all-over lace field, the v1 trim's scalloped bands, and manga hair strands.
 
 Hair bands (v 0.10-0.30, 8 sub-bands; u runs root -> tip): solid ink strands
 with soft separations toward the tips, tapered ends, and a glossy sheen: broken
@@ -93,46 +93,109 @@ def flower(x, y, r, rng):
     return out
 
 
-def lace_svg(w, h, seed=13):
-    """The lace field (tiles in u): a fine hexagonal net with large flower appliqués and small leaves."""
+def leaf(x, y, a, L, w=0.36):
+    """A slender lace leaf: outline and midrib, from (x, y) pointing along angle a (radians)."""
+    c, s_ = np.cos(a), np.sin(a)
+    def P(u, v):
+        return x + c * u - s_ * v, y + s_ * u + c * v
+    tip = P(L, 0)
+    l1, l2 = P(0.35 * L, w * L), P(0.75 * L, 0.6 * w * L)
+    r1, r2 = P(0.35 * L, -w * L), P(0.75 * L, -0.6 * w * L)
+    d = 'M %.1f %.1f C %.1f %.1f %.1f %.1f %.1f %.1f C %.1f %.1f %.1f %.1f %.1f %.1f Z' % (
+        x, y, *l1, *l2, *tip, *r2, *r1, x, y)
+    m0, m1 = P(0.1 * L, 0), P(0.85 * L, 0)
+    return ['<path d="%s" fill="#fff" stroke="#000" stroke-width="2.0" stroke-linejoin="round"/>' % d,
+            '<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#000" stroke-width="1.1" stroke-linecap="round"/>' % (*m0, *m1)]
+
+
+def bloom(x, y, r, rng):
+    """A lace flower: six scalloped petals (each outlined, with a few fine veins), a ringed centre."""
+    out = []
+    rot = rng.uniform(0, 2 * np.pi)
+    n = 6
+    for k in range(n):
+        a = rot + 2 * np.pi * k / n + rng.normal(0, 0.05)
+        L = r * rng.uniform(0.9, 1.05)
+        half = np.pi / n * 0.95
+        # Petal: from the centre out to a scalloped rim (two small lobes).
+        p0 = (x + np.cos(a - half) * 0.28 * r, y + np.sin(a - half) * 0.28 * r)
+        p3 = (x + np.cos(a + half) * 0.28 * r, y + np.sin(a + half) * 0.28 * r)
+        e1 = (x + np.cos(a - half * 0.95) * L, y + np.sin(a - half * 0.95) * L)
+        e2 = (x + np.cos(a) * L * 1.04, y + np.sin(a) * L * 1.04)
+        e3 = (x + np.cos(a + half * 0.95) * L, y + np.sin(a + half * 0.95) * L)
+        mid1 = (x + np.cos(a - half * 0.5) * L * 1.12, y + np.sin(a - half * 0.5) * L * 1.12)
+        mid2 = (x + np.cos(a + half * 0.5) * L * 1.12, y + np.sin(a + half * 0.5) * L * 1.12)
+        d = ('M %.1f %.1f L %.1f %.1f Q %.1f %.1f %.1f %.1f Q %.1f %.1f %.1f %.1f L %.1f %.1f Z' %
+             (*p0, *e1, *mid1, *e2, *mid2, *e3, *p3))
+        out.append('<path d="%s" fill="#fff" stroke="#000" stroke-width="%.1f" stroke-linejoin="round"/>' % (d, 0.055 * r))
+        for j in (-1, 0, 1):
+            b = a + j * half * 0.45
+            r0, r1 = 0.36 * r, (0.8 if j == 0 else 0.68) * L
+            out.append('<line x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" stroke="#000" stroke-width="%.1f" stroke-linecap="round"/>' % (
+                x + np.cos(b) * r0, y + np.sin(b) * r0, x + np.cos(b) * r1, y + np.sin(b) * r1, 0.028 * r))
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#fff" stroke="#000" stroke-width="%.1f"/>' % (x, y, 0.26 * r, 0.05 * r))
+    out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="none" stroke="#000" stroke-width="%.1f"/>' % (x, y, 0.13 * r, 0.035 * r))
+    return out
+
+
+def spray(x, y, r, rng):
+    """A lace spray: a flower with a curving stem, leaves along it and a bud at its end."""
+    out = []
+    a = rng.uniform(0, 2 * np.pi)
+    for side in (-1, 1):
+        # A stem curling out from the flower, leaves on alternate sides, a bud at the tip.
+        b = a + (0 if side > 0 else np.pi) + rng.normal(0, 0.3)
+        L = r * rng.uniform(1.9, 2.4)
+        bend = side * r * rng.uniform(0.5, 0.9)
+        p0 = np.array([x + np.cos(b) * 0.9 * r, y + np.sin(b) * 0.9 * r])
+        p2 = p0 + np.array([np.cos(b), np.sin(b)]) * L
+        nrm = np.array([-np.sin(b), np.cos(b)])
+        p1 = (p0 + p2) / 2 + nrm * bend
+        out.append('<path d="M %.1f %.1f Q %.1f %.1f %.1f %.1f" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>' % (
+            *p0, *p1, *p2))
+        for t, sg in ((0.3, 1), (0.55, -1), (0.8, 1)):
+            q = (1 - t) ** 2 * p0 + 2 * (1 - t) * t * p1 + t ** 2 * p2
+            dq = 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1)
+            ang = np.arctan2(dq[1], dq[0]) + sg * 0.75
+            out += leaf(q[0], q[1], ang, r * rng.uniform(0.55, 0.75))
+        out.append('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="#fff" stroke="#000" stroke-width="1.8" '
+                   'transform="rotate(%.1f %.1f %.1f)"/>' % (*p2, 0.22 * r, 0.14 * r, np.degrees(b), *p2))
+    out += bloom(x, y, r, rng)
+    return out
+
+
+def lace_svg(w, h, seed=13, squash=1.0):
+    """The lace field (tiles in u): a fine tulle net with an all-over pattern of lace sprays (flowers on curving
+    stems with leaves and buds), tone on tone. Drawn in fabric space and squashed by `squash` in v, so on the
+    dress (whose uvs stretch v by 1/squash) the flowers are round."""
     rng = np.random.default_rng(seed)
+    H = h / squash
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d">' % (w, h, w, h),
-           '<rect width="%d" height="%d" fill="#fff"/>' % (w, h)]
-    # Net: three families of fine lines (a hexagonal tulle) - reads as a light tone between the flowers.
-    step = 22
+           '<rect width="%d" height="%d" fill="#fff"/>' % (w, h),
+           '<g transform="scale(1 %.4f)">' % squash]
+    # Tulle: a fine hexagonal net (reads as a faint grain between the sprays).
+    step = 12
     for ang in (0, 60, 120):
-        out.append('<g transform="rotate(%d %d %d)">' % (ang, w // 2, h // 2))
-        for k in range(-w, 2 * w, step):
-            out.append('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="#000" stroke-width="0.8"/>' % (k, -w, k, 2 * w))
+        out.append('<g transform="rotate(%d %d %d)">' % (ang, w // 2, int(H // 2)))
+        for k in range(-2 * w, 3 * w, step):
+            out.append('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="#000" stroke-width="0.7"/>' % (k, -2 * w, k, 3 * w))
         out.append('</g>')
-    # Flowers: big appliqués scattered without overlap (wrapping in u), with leaves in between.
-    flowers = []
-    for _ in range(4000):
-        if len(flowers) >= 46:
-            break
-        x, y, r = rng.uniform(0, w), rng.uniform(50, h - 50), rng.uniform(38, 58)
-        if all(min(abs(x - fx), w - abs(x - fx)) ** 2 + (y - fy) ** 2 > ((r + fr) * 1.05) ** 2 for fx, fy, fr in flowers):
-            flowers.append((x, y, r))
-    for x, y, r in flowers:
-        for dx in (-w, 0, w):
-            out += flower(x + dx, y, r, np.random.default_rng(int(x * 7 + y)))
-    for _ in range(90):
-        x, y = rng.uniform(0, w), rng.uniform(40, h - 40)
-        if any(min(abs(x - fx), w - abs(x - fx)) ** 2 + (y - fy) ** 2 < (fr * 1.6) ** 2 for fx, fy, fr in flowers):
-            continue
-        # A leaf sprig: a fine stem with two or three slender leaves.
-        a, L = rng.uniform(0, 360), rng.uniform(48, 70)
-        for dx in (-w, 0, w):
-            g = ['<g transform="translate(%.1f %.1f) rotate(%.1f)" fill="#fff" stroke="#000" stroke-width="2.4" '
-                 'stroke-linejoin="round" stroke-linecap="round">' % (x + dx, y, a),
-                 '<path d="M 0 0 Q %.1f %.1f %.1f 0" fill="none"/>' % (L * 0.5, -L * 0.12, L)]
-            for t, sg in ((0.35, 1), (0.6, -1), (0.85, 1)):
-                bx, ll = t * L, L * 0.42 * (1.15 - t * 0.5)
-                g.append('<path d="M %.1f 0 Q %.1f %.1f %.1f %.1f Q %.1f %.1f %.1f 0 Z"/>' % (
-                    bx, bx + ll * 0.2, sg * ll * 0.45, bx + ll * 0.75, sg * ll * 0.55, bx + ll * 0.55, sg * ll * 0.05, bx))
-            g.append('</g>')
-            out += g
-    out.append('</svg>')
+    # Sprays on a jittered, staggered grid (wrapping in u).
+    sx, sy_ = 170, 150
+    cols = w // sx
+    rows = int(H // sy_) + 1
+    for j in range(rows):
+        for i in range(cols):
+            x = (i + 0.5 * (j % 2)) * (w / cols) + rng.normal(0, 14)
+            y = (j + 0.5) * sy_ + rng.normal(0, 12)
+            r = rng.uniform(24, 32)
+            sub = np.random.default_rng(int(1000 * j + i))
+            motif = spray(0, 0, r, sub)
+            for dx in (-w, 0, w):
+                out.append('<g transform="translate(%.1f %.1f)">' % (x + dx, y))
+                out += motif
+                out.append('</g>')
+    out.append('</g></svg>')
     return '\n'.join(out)
 
 
@@ -147,7 +210,8 @@ def build(src, out, seed=7):
     # The allover lace (v 0.46-0.94), redrawn: proportioned for the dress's arc-length uvs.
     y0, y1 = vrow(0.94), vrow(0.46)
     tmp = out + '.lace.png'
-    svg2png(lace_svg(T, y1 - y0), tmp, T, y1 - y0)
+    # (the dress's uvs stretch the field 1.62 times in v: dress.LACE_V spans its height, the tile LACE_TILE in u)
+    svg2png(lace_svg(T, y1 - y0, squash=1 / 1.62), tmp, T, y1 - y0)
     lace = np.asarray(Image.open(tmp).convert('L'))
     os.remove(tmp)
     img[y0:y1, :, :3] = lace[..., None]
