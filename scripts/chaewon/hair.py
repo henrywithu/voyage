@@ -643,7 +643,7 @@ def tip_clumps(X0, groups, seed, size=5):
             if len(idx) < 2:
                 continue
             k = max(1, len(idx) // size)
-            _, lab = kmeans2(tips[idx], k, minit='++', seed=np.random.default_rng(seed + 7 + nxt))
+            _, lab = kmeans2(tips[idx], k, minit='++', rng=np.random.default_rng(seed + 7 + nxt))
             out[idx] = nxt + lab
             nxt += k
     return out
