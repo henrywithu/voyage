@@ -518,7 +518,8 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         # ... and from the jaw down it keeps leaning the way it will pass them.
         lean = np.clip((hcx[2] - 0.05 - X[..., 2]) / 0.12, 0, 1) * np.clip((X[..., 2] - hcx[2] + 0.36) / 0.08, 0, 1)
         # (only while it is still over her: clear of the shoulder it hangs straight again)
-        lean = lean * np.clip(1 - (sdf(flat).reshape(X.shape[:2]) - 0.02) / 0.03, 0, 1)
+        d_body = sdf(flat).reshape(X.shape[:2])
+        lean = lean * np.clip(1 - (d_body - 0.02) / 0.03, 0, 1)
         F[long_hair] += (np.where(is_front, -0.35, 1.0)[long_hair, None, None] * 0.0005) * lean[long_hair][..., None] * bk
         F[back] += (bk * 0.0006)[None, None] * near[back]
         # Without hair-hair contact the strands would gather in the groove of the neck: spread them
@@ -571,8 +572,10 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         flare = np.clip((dz - 0.07) / 0.08, 0, 1) * np.clip((0.30 - dz) / 0.08, 0, 1)
         F[long_hair, :, :2] += (0.0001 * flare[long_hair])[..., None] * rad[long_hair]
         # The ends flick softly outward, as her layered ends do.
+        # (only ends hanging free: an end lying on her shoulder would stick out sideways from it)
         tip = np.clip((np.linspace(0, 1, N) - 0.8) / 0.2, 0, 1) ** 2
-        F[long_hair, :, :2] += (0.00018 * tip)[None, :, None] * rad[long_hair]
+        hang = np.clip((d_body - 0.015) / 0.02, 0, 1)
+        F[long_hair, :, :2] += (0.00018 * tip[None, :] * hang[long_hair])[..., None] * rad[long_hair]
         # Face-framing layers: their ends flick outward at the jaw.
         F[is_frame, :, 0] += (side_sign[is_frame, None] * 0.00025) * w3[None, :]
         # Side pieces: out over the temples and down to the cheekbones, the tips turning out (curtain bangs).
@@ -587,7 +590,35 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     sep_w = np.maximum(widths, 0.006)
     long_idx = np.flatnonzero(long_hair | is_frame)
 
+    # Her face shows: the long hair and the face-framing layers frame it from just outside (in her portrait
+    # the hair falls past her temples and behind her cheekbones, the whole of her cheeks showing). Her face's
+    # half-width at each height, in her head's own frame, for the guide below.
+    Pr = np.asarray(rest['P'], float) - hf['center']
+    near_face = (np.abs(Pr[:, 0]) < 0.12) & (Pr[:, 1] < -0.015)
+    face_z = np.arange(0.0, -0.161, -0.01)
+    face_w = np.array([np.abs(Pr[near_face & (np.abs(Pr[:, 2] - z) < 0.006), 0]).max(initial=0.0) for z in face_z])
+    framed = np.flatnonzero(long_hair | is_frame)
+    # (each lock a little its own distance out, so the hair's edge along her face is soft and uneven)
+    clear_jit = np.random.default_rng(seed + 41).uniform(0.0, 0.006, len(framed))[:, None]
+
+    def clear_face(X):
+        L = (X[framed] - hcx) @ hR                        # (her head's frame: x her left, -y her front, z up)
+        # From her cheekbones down, the lock's edge, not its centre line, lies a little outside her face (a
+        # lock is a ribbon about as wide as her eye, lying across the side of her face); at her temples the
+        # hair lies on her head as it is.
+        z = L[..., 2]
+        below = np.clip((-0.035 - z) / 0.03, 0, 1)
+        w = np.interp(z, face_z[::-1], face_w[::-1], left=0.0, right=0.0) + FACE_CLEAR \
+            + below * (0.5 * widths[framed][:, None] + clear_jit)
+        inside = (z < 0.0) & (z > -0.16) & (L[..., 1] < -0.012) & (np.abs(L[..., 0]) < w)
+        if inside.any():
+            sgn = np.broadcast_to(side_sign[framed][:, None], inside.shape)
+            L[..., 0] = np.where(inside, sgn * w, L[..., 0])
+            X[framed] = hcx + L @ hR.T
+        return X
+
     def guide(X):
+        X = clear_face(X)
         # Hair-hair contact: below the ears, points of different long locks closer than their widths are
         # pushed apart (each by half the overlap), so the locks lie side by side as a full head of hair
         # instead of collapsing into a cord wherever they slide off her shoulders.
@@ -631,6 +662,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
                 tone=tone)
 
 
+FACE_CLEAR = 0.002     # how far outside the edge of her face the framing locks' edges lie (m)
 WAVE_AMP = 0.0065      # her long hair's soft waves: amplitude (m) ...
 WAVE_LEN = 0.13        # ... and wavelength along the strand (m)
 
@@ -782,7 +814,9 @@ def solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=140, bend=0.3, mar
     # Combed stiffness near the scalp, soft further down so long hair hangs instead of standing out.
     last_pin = N - 1 - np.argmax(pinned[:, ::-1], axis=1)
     k = np.arange(1, N - 1)[None, :] - last_pin[:, None]
-    bend_k = (bend * np.clip(np.exp(-np.maximum(k, 0) / soften), 0.1, 1.0))[..., None] if soften else bend
+    # (never quite limp: a lock keeps a little stiffness all the way to its end, so it drapes over her
+    # shoulder in a curve rather than folding round it in a hook)
+    bend_k = (bend * np.clip(np.exp(-np.maximum(k, 0) / soften), 0.18, 1.0))[..., None] if soften else bend
     for it in range(iters):
         F = np.broadcast_to(gravity, X.shape).copy() + forces(X, it / iters)
         if wind is not None:

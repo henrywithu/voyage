@@ -131,8 +131,10 @@ void main() {
     vec3 alt = uColor;
     alt = mix(alt, vec3(1.0), vSkinMask);
 
-    // Voyage: her dress falls into a soft grey shade (the hatching draws its texture), not solid ink.
-    color = mix(alt * 0.93, alt, terminatormid);
+    // Voyage: her dress falls into a soft grey shade, a smooth gradient with only a hint of the line texture
+    // (a hatched terminator striped the white lace like a striped fabric).
+    float dressLit = smoothstep(uThreshold.x - 0.3, uThreshold.x + 0.2, lighting + lines * 0.06);
+    color = mix(alt * 0.93, alt, dressLit);
     color = mix(color, skinShade(skinLit), vSkinMask);
     color = mix(color, vec3(1.0), terminatorhigh);
     color = applyMakeup(color, tAtlas, vUv2, skinLit);
