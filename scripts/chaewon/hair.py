@@ -349,7 +349,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             widths[i] = 0.0055 + 0.002 * rng.random()
         elif g == 'front':
             # (layered: hair grown nearer her face is shorter)
-            total = 0.30 + 0.045 * np.clip(abs(np.degrees(phi0)) / 120, 0, 1) + 0.03 * layer + rng.normal(0, 0.018)
+            total = 0.38 + 0.045 * np.clip(abs(np.degrees(phi0)) / 120, 0, 1) + 0.03 * layer + rng.normal(0, 0.018)
             widths[i] = 0.022 + 0.01 * rng.random()
         elif g == 'frame':
             # Face-framing pieces: from the temples, along the cheeks and on past the jaw to the collarbone.
@@ -358,7 +358,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             widths[i] = 0.012 + 0.005 * rng.random()
         elif g == 'back':
             back = 0.5 - 0.5 * np.cos(phi0)
-            total = 0.35 + 0.04 * back + rng.normal(0, 0.02)
+            total = 0.41 + 0.04 * back + rng.normal(0, 0.02)
             widths[i] = 0.024 + 0.01 * rng.random()
         else:
             total = 0.35 + 0.2 * rng.random()
@@ -680,6 +680,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     X = solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=iters if wind is None else max(iters, 480),
                      wind=wind, soften=4.0, guide=guide)
     X = waves(X, pinned, groups, tip_clump, hcx, sdf, seed)
+    X = curl_ends(X, pinned, groups, tip_clump, hcx, sdf, seed)
     # (the waves sway the locks from side to side: those beside her face are set back outside it)
     X = clear_face(X)
     # Outward direction of the nearest body surface at every point: ribbons lie flat on it.
@@ -692,6 +693,8 @@ FACE_CLEAR = 0.002     # how far outside the edge of her face the framing locks'
 FACE_VIEW = 15.0       # ... seen from up to this many degrees to either side
 WAVE_AMP = 0.0085      # her long hair's soft waves: amplitude (m) ...
 WAVE_LEN = 0.13        # ... and wavelength along the strand (m)
+CURL = 0.3             # how far her ends turn out (a blend toward outward at the very tip) ...
+CURL_REACH = 0.3       # ... over this last share of each lock
 
 
 def waves(X, pinned, groups, tip_clump, hc, sdf, seed, margin=0.006):
@@ -724,6 +727,48 @@ def waves(X, pinned, groups, tip_clump, hc, sdf, seed, margin=0.006):
         th = 2 * np.pi * seglen / lam[c] + ph[c] + rng.normal(0, 0.25)
         X[i, k0:] = P[k0:] + (a * np.sin(th))[:, None] * lat + (0.35 * a * np.cos(th))[:, None] * rad
     # (never into her)
+    flat = X.reshape(-1, 3)
+    fm = ~pinned.reshape(-1)
+    d = sdf(flat)
+    hit = (d < margin) & fm
+    if hit.any():
+        flat[hit] += sdf.gradient(flat[hit]) * (margin - d[hit])[:, None]
+    return flat.reshape(S, N, 3)
+
+
+def curl_ends(X, pinned, groups, tip_clump, hc, sdf, seed, margin=0.006):
+    """Her layered ends: the last stretch of every long lock (and face-framing layer) turns softly off her,
+    and a little to the side she is on, more toward the tip, as her styled ends lift off her chest and back (hanging dead straight to a cut line they read as a wig). Each clump of ends turns by its
+    own amount, so the ends lie in soft layers. Lengths are kept: the lock is rebuilt segment by segment."""
+    rng = np.random.default_rng(seed + 37)
+    S, N, _ = X.shape
+    X = X.copy()
+    ncl = int(tip_clump.max()) + 1 if (tip_clump >= 0).any() else 1
+    amt = rng.uniform(0.6, 1.15, max(ncl, 1))
+    k0 = int(round(N * (1 - CURL_REACH)))
+    t = np.clip((np.arange(N) - k0) / max(N - 1 - k0, 1), 0, 1) ** 1.6
+    for i in np.flatnonzero(np.isin(groups, ('front', 'back', 'frame'))):
+        if pinned[i, k0:].any():
+            continue
+        P = X[i]
+        a = CURL * (amt[tip_clump[i]] if tip_clump[i] >= 0 else 0.8)
+        seg = np.linalg.norm(np.diff(P, axis=0), axis=1)
+        out = P[k0:] - hc
+        out[:, 2] = 0
+        out /= np.maximum(np.linalg.norm(out, axis=1, keepdims=True), 1e-9)
+        nb = sdf.gradient(P[k0:])
+        d_out = 0.45 * out + nb
+        d_out /= np.maximum(np.linalg.norm(d_out, axis=1, keepdims=True), 1e-9)
+        # (not where the end lies on top of her, over a shoulder: there off her is up, and it stood up in a flap)
+        flat_on = np.clip((nb[:, 2] - 0.25) / 0.35, 0, 1)
+        Q = P.copy()
+        for j, k in enumerate(range(k0, N - 1)):
+            d = P[k + 1] - P[k]
+            d /= max(np.linalg.norm(d), 1e-9)
+            w = a * t[k + 1] * (1 - flat_on[min(j + 1, len(flat_on) - 1)])
+            d = (1 - w) * d + w * d_out[min(j + 1, len(d_out) - 1)]
+            Q[k + 1] = Q[k] + d / max(np.linalg.norm(d), 1e-9) * seg[k]
+        X[i] = Q
     flat = X.reshape(-1, 3)
     fm = ~pinned.reshape(-1)
     d = sdf(flat)
