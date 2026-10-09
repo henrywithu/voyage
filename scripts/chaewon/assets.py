@@ -63,10 +63,17 @@ class Session:
         return M.skin(self.rest['P'], self.rest['W'], mats, self.rest_mats)
 
     def sdf_for(self, mats, key=None, arms=False, dense=False):
+        # (cached by key, but only for the same body in the same pose: a pose changed under a cached key left the
+        # hair colliding with where the body used to be, her fringe hanging through her forehead)
+        import hashlib
+        stamp = hashlib.sha1(np.round(np.asarray(mats, float), 5).tobytes() + np.round(self.rest['P'], 5).tobytes()
+                             + bytes([arms, dense])).hexdigest()
         if key:
             path = os.path.join(BUILD, f'sdf_{key}.pkl')
             if os.path.exists(path):
-                return pickle.load(open(path, 'rb'))
+                cached = pickle.load(open(path, 'rb'))
+                if isinstance(cached, tuple) and cached[0] == stamp:
+                    return cached[1]
         P = self.posed_body(mats)
         N = M.vertex_normals(P, self.rest['T'])
         lab = dress_mod.labels(self.names, self.rest['W'])
@@ -94,7 +101,7 @@ class Session:
             Nd = np.vstack([Nd] + [fn] * len(samples))
         sdf = hair_mod.SDF(np.vstack([P[k], Pd]), np.vstack([N[k], Nd]), lo, hi, step=0.004 if dense else 0.006)
         if key:
-            pickle.dump(sdf, open(os.path.join(BUILD, f'sdf_{key}.pkl'), 'wb'))
+            pickle.dump((stamp, sdf), open(os.path.join(BUILD, f'sdf_{key}.pkl'), 'wb'))
         return sdf
 
     def head_xf(self, mats):

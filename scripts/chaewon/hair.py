@@ -677,8 +677,15 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
             X[is_front, :, 0] += 0.05 * (front_x[:, None] - X[is_front, :, 0]) * lowf
         return X
 
+    # Her fringe and side pieces are styled: a breeze stirs them but never lifts them off her forehead or lays
+    # them across her eyes (they took the full wind, and in a breeze from in front her fringe was blown away).
+    if wind is not None:
+        w_share = np.where(np.isin(groups, ('bangs', 'side')), 0.25, 1.0)[:, None, None]
+        wind_g = lambda X_, it, f=wind: f(X_, it) * w_share
+    else:
+        wind_g = None
     X = solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=iters if wind is None else max(iters, 480),
-                     wind=wind, soften=4.0, guide=guide)
+                     wind=wind_g, soften=4.0, guide=guide)
     X = waves(X, pinned, groups, tip_clump, hcx, sdf, seed)
     X = curl_ends(X, pinned, groups, tip_clump, hcx, sdf, seed)
     # (the waves sway the locks from side to side: those beside her face are set back outside it)

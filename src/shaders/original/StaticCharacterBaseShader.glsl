@@ -147,7 +147,9 @@ void main() {
     color = max(vec3(18.0 / 255.0), color);
 
     if (!gl_FrontFacing) {
-        color = vec3(0.0);
+        // (the inside of a lock of hair, which is a thin flattened tube, is its own dark shade, not black:
+        // seen through its thin edges, black read as soot-black blotches across her hair)
+        color = mix(vec3(0.0), hairShade(0.0, 0.0, vUv), hairMask(vUv));
     }
 
     float alpha = 1.0;
