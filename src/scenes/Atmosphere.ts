@@ -2,19 +2,21 @@ import * as THREE from "three";
 import { SceneSection } from "../engine/SceneSection";
 import { material, ensureAttributes } from "../engine/shaders";
 import { texture } from "../engine/assets";
+import { theme } from "../data/theme";
 
 /**
  * Voyage's atmosphere kit: the life around the story's set pieces, drawn in the
  * same ink and paper as everything else. Seabirds over the open water, specks of
- * light in the air, glints on the sea, the sun's halo and shafts of light in the
- * grotto. Every helper adds its mesh to a section (so it is clipped to the
- * section and disposed with it) and is deterministic for a given seed.
+ * light in the air, glints on the sea, the sun's halo, shafts of light in the
+ * grotto and printed skies. Every helper adds its mesh to a section (so it is
+ * clipped to the section and disposed with it) and is deterministic for a given seed.
  */
 export const INK = new THREE.Color(18 / 255, 18 / 255, 18 / 255);
 export const PAPER = new THREE.Color(243 / 255, 241 / 255, 233 / 255);
-export const SUN = new THREE.Color(244 / 255, 189 / 255, 40 / 255);
-/** The amber of the sun caught in the arch (theme.amber). */
-export const AMBER = new THREE.Color(184 / 255, 130 / 255, 15 / 255);
+// The shaders take colours as authored (sRGB): undo the Color constructor's conversion.
+export const SUN = new THREE.Color(theme.sun).convertLinearToSRGB();
+/** The amber of the sun caught in the arch. */
+export const AMBER = new THREE.Color(theme.amber).convertLinearToSRGB();
 /** Pale gold: light itself, on a yellow ground. */
 export const LIGHT = new THREE.Color(1, 0.95, 0.78);
 
@@ -25,10 +27,9 @@ const rng = (seed: number) => () => {
   t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
-const transparent = (mat: THREE.RawShaderMaterial, depthTest = true) => {
+const transparent = (mat: THREE.RawShaderMaterial) => {
   mat.transparent = true;
   mat.depthWrite = false;
-  mat.depthTest = depthTest;
   return mat;
 };
 
