@@ -342,7 +342,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         if g == 'bangs':
             total = None  # set from the scalp path below: over the brows
             lift = 0.0042 + 0.001 * rng.random()
-            widths[i] = 0.0045 + 0.0015 * rng.random()
+            widths[i] = 0.006 + 0.002 * rng.random()
         elif g == 'side':
             total = None  # to the cheekbones
             lift = 0.006
@@ -381,7 +381,8 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         elif total is None:
             # The fringe falls from the hairline over the brows, longer toward the sides.
             # (curtain bangs: to her brows at the centre, longer toward the sides, into the framing layers)
-            total = plen + 0.062 + 0.036 * (abs(phi0) / np.radians(34)) ** 2 + clump_len[clumps[i]] + 0.008 * rng.random()
+            # (to her brows at the centre, not over her eyes: there the fringe read as spikes across them)
+            total = plen + 0.05 + 0.048 * (abs(phi0) / np.radians(34)) ** 2 + clump_len[clumps[i]] + 0.008 * rng.random()
         plen = min(plen, total * 0.7)
         seg = total / (N - 1)
         lengths[i] = total
@@ -569,8 +570,9 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         rad /= np.maximum(np.linalg.norm(rad, axis=2, keepdims=True), 1e-9)
         dz = hcx[2] - X[..., 2]
         # (a soft A-line: close at the crown and temples, widening from the jaw to the shoulders)
-        flare = np.clip((dz - 0.07) / 0.08, 0, 1) * np.clip((0.30 - dz) / 0.08, 0, 1)
-        F[long_hair, :, :2] += (0.0001 * flare[long_hair])[..., None] * rad[long_hair]
+        # (from her cheekbones, so the outline runs on smoothly from the crown with no waist at the temples)
+        flare = np.clip((dz - 0.03) / 0.1, 0, 1) * np.clip((0.30 - dz) / 0.08, 0, 1)
+        F[long_hair, :, :2] += (0.0002 * flare[long_hair])[..., None] * rad[long_hair]
         # The ends flick softly outward, as her layered ends do.
         # (only ends hanging free: an end lying on her shoulder would stick out sideways from it)
         tip = np.clip((np.linspace(0, 1, N) - 0.8) / 0.2, 0, 1) ** 2
@@ -678,6 +680,8 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     X = solve_pinned(X0, seg, pinned, sdf, gravity, forces, iters=iters if wind is None else max(iters, 480),
                      wind=wind, soften=4.0, guide=guide)
     X = waves(X, pinned, groups, tip_clump, hcx, sdf, seed)
+    # (the waves sway the locks from side to side: those beside her face are set back outside it)
+    X = clear_face(X)
     # Outward direction of the nearest body surface at every point: ribbons lie flat on it.
     Nrm = sdf.gradient(X.reshape(-1, 3)).reshape(X.shape)
     return dict(X=X, groups=groups, widths=widths, lengths=lengths, hf=hf, hc=hcx, pinned=pinned, roots=R, N=Nrm, el=elev,
@@ -686,7 +690,7 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
 
 FACE_CLEAR = 0.002     # how far outside the edge of her face the framing locks' edges lie (m) ...
 FACE_VIEW = 15.0       # ... seen from up to this many degrees to either side
-WAVE_AMP = 0.0065      # her long hair's soft waves: amplitude (m) ...
+WAVE_AMP = 0.0085      # her long hair's soft waves: amplitude (m) ...
 WAVE_LEN = 0.13        # ... and wavelength along the strand (m)
 
 

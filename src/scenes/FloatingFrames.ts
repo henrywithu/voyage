@@ -158,14 +158,16 @@ const layouts: Record<string, (w: number, h: number) => FrameParams[]> = {
         frameWidth: m ? 0.45 : 0.63,
         frameHeight: m ? 0.25 : 0.33,
         frameZ: 0.1,
-        zOffset: -0.3,
+        // (just behind the frame: further back, perspective drew her off centre toward the middle of the screen)
+        zOffset: -0.05,
         horizontalAlign: "right",
         verticalAlign: "bottom",
         padx: m ? 0 : 0.5,
-        pady: m ? 4 : 3.25,
-        meshOffsetY: -1.68 * (m ? 0.85 : 1.15),
+        pady: m ? 4 : 2.45,
+        // A portrait close-up: from her eyes down to the pendant, her fingertips resting by it.
+        meshOffsetY: -1.56 * (m ? 1.0 : 1.2),
         meshRotationY: -0.35,
-        meshScale: m ? 0.85 : 1.15,
+        meshScale: m ? 1.0 : 1.2,
       },
     ];
   },
@@ -298,8 +300,10 @@ export async function setupFloatingFrames(section: SceneSection) {
             : section.height * 0.5 - p.pady - p.frameHeight;
       f.window.position.set(x, y, p.frameZ);
       if (f.backdrop) {
-        f.backdrop.position.set(x, y, p.frameZ - 0.9);
-        f.backdrop.scale.set(p.frameWidth * 2.6, p.frameHeight * 2.6, 1);
+        // (close behind the frame and well past its edges: further back, perspective drew it in toward the
+        // middle of the screen and a frame near a corner lost its outer borders, which the backdrop draws)
+        f.backdrop.position.set(x, y, p.frameZ - 0.3);
+        f.backdrop.scale.set(p.frameWidth * 4, p.frameHeight * 4, 1);
       }
       f.mesh.position.set(x, y + (p.meshOffsetY ?? 0), p.frameZ + p.zOffset);
       f.baseY = f.mesh.position.y;

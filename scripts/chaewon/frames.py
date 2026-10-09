@@ -212,6 +212,10 @@ def sweep_pose(s, yaw, pitch, sides='R'):
 
 # ---------------------------------------------------------------- frames
 
+HOOD_TILT = (4.0, 12.0)  # degrees her face tips down toward the reader in the two sea panels (the first is
+                         # already a three-quarter profile from above; more showed mostly her forehead)
+
+
 def frame_hood(s, which):
     rel = 'wander/saint-hood' if which == 1 else 'wander/saint-hood-2'
     a, F, face, d = saint(rel)
@@ -222,6 +226,12 @@ def frame_hood(s, which):
         fwd /= np.linalg.norm(fwd)
         up = up - fwd * up.dot(fwd)
         up /= np.linalg.norm(up)
+    # Her face tipped down toward the reader (the panels looked up at her from below, under her jaw and nose,
+    # which widened her face), and the second panel a little further off, her whole face and hair inside it.
+    a_ = np.radians(HOOD_TILT[which - 1])
+    fwd, up = np.cos(a_) * fwd - np.sin(a_) * up, np.sin(a_) * fwd + np.cos(a_) * up
+    if which == 2:
+        d = d * 0.86
     target = (face['eyes'], d, np.stack([np.cross(up, fwd), up, fwd], 1))
     if which == 1:
         fn = lambda s_, y, p: gaze_pose(s_, y, p - 4)

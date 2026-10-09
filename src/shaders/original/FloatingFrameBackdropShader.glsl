@@ -94,12 +94,13 @@ void main() {
 
     if (sdf > 0.005) discard;
 
-    // Paper-yellow behind her, falling into ink-hatched shadow toward the bottom.
+    // Cream paper behind her (a panel of its own against the scene's yellow), falling into ink-hatched
+    // shadow along the bottom of the frame (which spans the middle half of this plane: see FloatingFrames).
     vec2 lineUv = vUv.yx * vec2(6.0, 10.0);
     lineUv.x -= steppedTime;
     float lines = texture2D(tLines, lineUv).r * 2.0 - 1.0;
     vec3 nearBlack = vec3(18.0 / 255.0);
-    vec3 color = mix(uColor1, nearBlack, aastep(0.1, (0.3 - vUv.y) * 2.4 + lines * 0.6));
+    vec3 color = mix(uColor2, nearBlack, aastep(0.1, (0.29 - vUv.y) * 20.0 + lines * 0.5));
     // frame outline
     color *= outline;
 

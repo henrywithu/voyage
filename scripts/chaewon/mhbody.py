@@ -254,6 +254,12 @@ for _m in [('chin/chin-height', 'decr', -0.5), ('mouth/mouth-trans', 'down', 0.0
            ('cheek/l-cheek-volume', 'decr', 0.35), ('cheek/r-cheek-volume', 'decr', 0.35),
            ('cheek/l-cheek-bones', 'decr', 0.0), ('cheek/r-cheek-bones', 'decr', 0.0)]:
     SHAPE = _set(SHAPE, *_m)
+# Slimmer: her face is a slim oval (seen three-quarters and from below in the close-ups, fuller cheeks and a
+# wider jaw read as a round, heavy face): lean cheeks, a narrower jaw and a slightly narrower head.
+for _m in [('cheek/l-cheek-volume', 'decr', -0.2), ('cheek/r-cheek-volume', 'decr', -0.2),
+           ('cheek/l-cheek-bones', 'decr', -0.15), ('cheek/r-cheek-bones', 'decr', -0.15),
+           ('head/head-fat', 'decr', -0.6), ('head/head-scale-horiz', 'decr', -0.3)]:
+    SHAPE = _set(SHAPE, *_m)
 
 
 EYE_SCALE = 1.07  # her eyes: the eye region (opening, lids and eyeball) grown a little past MakeHuman's range
@@ -286,7 +292,7 @@ EXPRESSION = {'mouth-corner-puller': 0.24, 'eye-left-slit': 0.13, 'eye-right-sli
               'eyebrows-left-inner-up': 0.12, 'eyebrows-right-inner-up': 0.12}
 
 
-HEAD_SCALE = 1.0  # her small idol's head: scaled about the top of the neck, easing out down the neck
+HEAD_SCALE = 0.95  # her small idol's head (about eight heads tall): scaled about the top of the neck, easing out down the neck
 
 
 def scale_head(verts, scale=None):
