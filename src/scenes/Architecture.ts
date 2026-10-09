@@ -6,6 +6,13 @@ import { outline } from "../engine/outline";
 import { range, worldHeight } from "../data/sections";
 import { SourceText } from "../engine/SourceText";
 import { tideColor } from "../data/theme";
+import {
+  addLightShafts,
+  addMotes,
+  addSunHalo,
+  LIGHT,
+  PAPER,
+} from "./Atmosphere";
 
 /** Recovered TargetScene, TransitionScene and CathedralScene scene graph and responsive rules. */
 export async function setupArchitecture(section: SceneSection) {
@@ -66,6 +73,43 @@ export async function setupArchitecture(section: SceneSection) {
       );
       if (name.startsWith("bottle")) outlines.push(inverse);
     }
+    // Golden light falls through openings high in the vault, in shafts down the aisle to the
+    // tide pools before the altar; motes drift through it, and the pendants glow on their shell.
+    const shafts = addLightShafts(section, root, {
+      count: 2,
+      width: 0.15,
+      alpha: 0.3,
+      dots: 0.75,
+      dotSize: 5,
+      seed: 4,
+    });
+    shafts.position.set(0.3, 1.2, -17.5);
+    shafts.rotation.z = -0.26;
+    shafts.scale.set(6.5, 15, 1);
+    addSunHalo(section, root, [0, -5.25, -21.9], {
+      radius: 0.75,
+      extent: 4,
+      rays: 48,
+      rayLength: [1.5, 2.2],
+      rayWidth: 0.1,
+      rayColor: LIGHT,
+      rayAlpha: 0.9,
+      rings: 0,
+      glow: 3.6,
+      glowColor: LIGHT,
+      dotSize: 4,
+      seed: 2,
+    });
+    addMotes(section, root, {
+      count: 80,
+      min: [-3, -6.1, -20.5],
+      max: [3, 2.5, -8],
+      velocity: [0.04, -0.05, 0],
+      size: [0.025, 0.06],
+      wobble: 0.1,
+      color: PAPER,
+      seed: 12,
+    });
     // The three pendants turn slowly above the shell, each at its own pace.
     const pendants = ["bottle1", "bottle2", "bottle3"].map((name) =>
       section.mesh(name),
