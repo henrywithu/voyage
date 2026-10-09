@@ -596,7 +596,17 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
     Pr = np.asarray(rest['P'], float) - hf['center']
     near_face = (np.abs(Pr[:, 0]) < 0.12) & (Pr[:, 1] < -0.015)
     face_z = np.arange(0.0, -0.161, -0.01)
-    face_w = np.array([np.abs(Pr[near_face & (np.abs(Pr[:, 2] - z) < 0.006), 0]).max(initial=0.0) for z in face_z])
+    # Seen from up to FACE_VIEW to either side (the reader's pointer moves the camera; the close-ups sit off
+    # centre), a lock in front of her cheek's edge would slide across it: for each view angle, the outer edge
+    # of her face's outline at each height (x her left, -y her front; viewed from her side s at angle a, a point
+    # projects outward by s*x*cos(a) + y*sin(a)).
+    view_a = np.radians(np.linspace(0.0, FACE_VIEW, 4))
+    face_u = np.zeros((2, len(view_a), len(face_z)))
+    for k, z in enumerate(face_z):
+        q = Pr[near_face & (np.abs(Pr[:, 2] - z) < 0.006)]
+        if len(q):
+            for si, s_ in enumerate((-1.0, 1.0)):
+                face_u[si, :, k] = (s_ * q[:, 0][None] * np.cos(view_a)[:, None] + q[:, 1][None] * np.sin(view_a)[:, None]).max(1)
     framed = np.flatnonzero(long_hair | is_frame)
     # (each lock a little its own distance out, so the hair's edge along her face is soft and uneven)
     clear_jit = np.random.default_rng(seed + 41).uniform(0.0, 0.006, len(framed))[:, None]
@@ -605,15 +615,27 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
         L = (X[framed] - hcx) @ hR                        # (her head's frame: x her left, -y her front, z up)
         # From her cheekbones down, the lock's edge, not its centre line, lies a little outside her face (a
         # lock is a ribbon about as wide as her eye, lying across the side of her face); at her temples the
-        # hair lies on her head as it is.
+        # hair lies on her head as it is. A lock in the way is moved out, and back toward her ear for the
+        # side views, as the hair falls behind her cheekbones in her portrait.
         z = L[..., 2]
         below = np.clip((-0.035 - z) / 0.03, 0, 1)
-        w = np.interp(z, face_z[::-1], face_w[::-1], left=0.0, right=0.0) + FACE_CLEAR \
-            + below * (0.5 * widths[framed][:, None] + clear_jit)
-        inside = (z < 0.0) & (z > -0.16) & (L[..., 1] < -0.012) & (np.abs(L[..., 0]) < w)
-        if inside.any():
-            sgn = np.broadcast_to(side_sign[framed][:, None], inside.shape)
-            L[..., 0] = np.where(inside, sgn * w, L[..., 0])
+        margin = FACE_CLEAR + below * (0.5 * widths[framed][:, None] + clear_jit)
+        band = (z < 0.0) & (z > -0.16)
+        sgn = np.broadcast_to(side_sign[framed][:, None], z.shape)
+        si = (sgn > 0).astype(int)
+        moved = False
+        for ai, a in enumerate(view_a):
+            ca, sa = np.cos(a), np.sin(a)
+            edge = np.where(si == 1, np.interp(z, face_z[::-1], face_u[1, ai, ::-1], left=-1.0, right=-1.0),
+                            np.interp(z, face_z[::-1], face_u[0, ai, ::-1], left=-1.0, right=-1.0))
+            v = edge + margin - (sgn * L[..., 0] * ca + L[..., 1] * sa)
+            inside = band & (L[..., 1] < -0.012) & (v > 0)
+            if inside.any():
+                v = np.where(inside, v, 0.0)
+                L[..., 0] += sgn * v * ca
+                L[..., 1] += v * sa
+                moved = True
+        if moved:
             X[framed] = hcx + L @ hR.T
         return X
 
@@ -662,7 +684,8 @@ def grow(rest, sdf, head_xf=None, wind=None, seed=11, iters=450, sweep=None, bac
                 tone=tone)
 
 
-FACE_CLEAR = 0.002     # how far outside the edge of her face the framing locks' edges lie (m)
+FACE_CLEAR = 0.002     # how far outside the edge of her face the framing locks' edges lie (m) ...
+FACE_VIEW = 15.0       # ... seen from up to this many degrees to either side
 WAVE_AMP = 0.0065      # her long hair's soft waves: amplitude (m) ...
 WAVE_LEN = 0.13        # ... and wavelength along the strand (m)
 
