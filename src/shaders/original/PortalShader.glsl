@@ -12,6 +12,10 @@ uniform float uLinesTile;
 uniform float uStep;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
+uniform vec3 uCoreColor;
+uniform float uCore;
+uniform float uDotSize;
+uniform float uDPR;
 
 #!VARYINGS
 varying vec2 vUv;
@@ -97,7 +101,21 @@ void main() {
     value += pow(n2, 5.0) * 0.5;
     value += smoothstep(0.65, 1.0, nuv.x);
     value = aastep(0.35 + uStep + fluid.z * 0.1, value);
-    vec3 color = mix(uColor2, uColor1, value - fluid.z * 0.2);
+    // Voyage: the sun glows from within. Toward the centre the amber gives way to a pale
+    // gold core through a halftone screen, the way print renders a gradient (uCore 0: the
+    // flat source disc).
+    vec3 light = uColor1;
+    if (uCore > 0.0) {
+        float radius = length(vUv2 - 0.5) * 2.0;
+        float tone = (1.0 - smoothstep(0.05, 0.92, radius)) * uCore;
+        vec2 cellUv = mat2(0.7071, -0.7071, 0.7071, 0.7071) * gl_FragCoord.xy / (uDotSize * uDPR);
+        float d = length(fract(cellUv) - 0.5);
+        float r = 0.72 * sqrt(clamp(tone, 0.0, 1.0));
+        float dw = fwidth(d);
+        float dots = (1.0 - smoothstep(r - dw, r + dw, d)) * smoothstep(0.0, 0.04, tone);
+        light = mix(uColor1, uCoreColor, dots);
+    }
+    vec3 color = mix(uColor2, light, value - fluid.z * 0.2);
 
     color = mix(color, color * 0.86, step(0.9, sin(fluid.z * 4.0)));
 

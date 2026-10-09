@@ -8,6 +8,14 @@ import { windLines } from "../engine/WindLines";
 import { SkeletalMesh } from "../engine/SkeletalMesh";
 import { SourceText } from "../engine/SourceText";
 import { worldHeight, range, clamp } from "../data/sections";
+import {
+  addGulls,
+  addSunHalo,
+  INK,
+  PAPER,
+  SUN,
+  type GullOptions,
+} from "./Atmosphere";
 
 export const characterTextures = {
   tAtlas: texture("assets/images/story/chaewon/atlas.png"),
@@ -69,8 +77,51 @@ export async function setupNarrative(scene: SceneSection) {
     // The sea does not ride the swell: a twin of the character group without the bob.
     const seaGroup = new THREE.Group();
     scene.group.add(seaGroup);
-    await addSea(scene, seaGroup, "assets/geometry/story/sea/wander-sea-curves.json");
+    // A golden sea: the dusk light lies on the water ahead of her bow, off to the left.
+    await addSea(scene, seaGroup, "assets/geometry/story/sea/wander-sea-curves.json", {
+      uRoad: new THREE.Vector3(-0.3, 0.15, 1),
+    });
+    // Seabirds: pale against the dusk sky over the title and inside the panel, ink against
+    // the sea fog around the sail. `y` places each flock in screens from the section's top.
+    const flocks: (GullOptions & { y: number })[] = [
+      {
+        y: 0.14,
+        color: PAPER,
+        center: [0.4, 0, -9],
+        box: [8, 0.35, 1.2],
+        drift: [0.3, 0.015, 0],
+        span: 0.34,
+        count: 4,
+        seed: 7,
+      },
+      {
+        y: 1.3,
+        color: PAPER,
+        center: [-1.2, 0, -13],
+        box: [7, 0.3, 1.5],
+        drift: [0.22, 0, 0],
+        span: 0.3,
+        count: 4,
+        seed: 3,
+      },
+      {
+        y: 2.05,
+        color: INK,
+        center: [1.8, 0, -10],
+        box: [6.5, 0.45, 1.5],
+        drift: [-0.24, 0.01, 0],
+        span: 0.28,
+        count: 4,
+        seed: 11,
+      },
+    ];
+    const gulls = flocks.map((flock) => ({
+      y: flock.y,
+      mesh: addGulls(scene, scene.group, flock),
+    }));
     scene.onResize = (w, h) => {
+      for (const { y, mesh } of gulls)
+        mesh.position.y = scene.height * 0.5 - worldHeight * y;
       wind.position.y = -scene.height * 0.5;
       title.position.y = scene.height * 0.5 - worldHeight * 0.5;
       characterGroup.position.y = 0.6 - scene.height * 0.5;
@@ -160,6 +211,42 @@ export async function setupNarrative(scene: SceneSection) {
       hairMaterial,
       group,
     );
+    // What she sees: far off on the horizon at her eye level, the light. A fine horizon and
+    // the far sea on the backdrop behind her, and the sun's glint just ahead of her gaze.
+    const horizon = scene.addMesh(
+      new THREE.PlaneGeometry(1, 1),
+      material("HorizonShader", {
+        tNoise: texture("assets/images/story/perlin.png"),
+        uInk: INK.clone(),
+        uGold: SUN.clone(),
+        uHorizon: 0.67,
+        uDepth: 0.32,
+        uRows: 13,
+        uSunX: 0.215,
+        uRoad: 1,
+        uAspect: 1,
+      }),
+    );
+    horizon.material.transparent = true;
+    horizon.material.depthWrite = false;
+    horizon.position.set(0, 0, -4.5);
+    horizon.scale.set(4, 4, 1);
+    addSunHalo(scene, scene.group, [-1.12, 0.68, -4.45], {
+      radius: 0.072,
+      extent: 6,
+      disc: 1,
+      discColor: SUN,
+      rays: 28,
+      rayLength: [1.6, 4],
+      rayWidth: 0.12,
+      rayColor: INK,
+      rings: 1,
+      ringColor: SUN,
+      glow: 2.6,
+      glowColor: SUN,
+      dotSize: 3,
+      seed: 9,
+    });
     scene.uniform("border", "uTransition", 0);
     let entered = false;
     scene.animate = (frame) => {
@@ -227,7 +314,38 @@ export async function setupNarrative(scene: SceneSection) {
       0.0025,
       "assets/geometry/story/sea/boat-furled.bin",
     );
-    await addSea(scene, boatGroup, "assets/geometry/story/sea/approach-sea-curves.json");
+    // The sea runs on ahead to the arch, and the sun lays a road of gold across it.
+    const { surface } = await addSea(
+      scene,
+      boatGroup,
+      "assets/geometry/story/sea/approach-sea-curves.json",
+      { uFog: new THREE.Vector2(8, 42), uSpacing: 0.5 },
+    );
+    // The last sun of summer, caught in the arch: it glows from a gold core, its light rings
+    // the opening, and gulls wheel over the basalt in the dusk.
+    const portal = scene.mesh("portal");
+    sunCore(portal);
+    addSunHalo(scene, root, [portal.position.x, portal.position.y, portal.position.z - 0.6], {
+      radius: 2.55,
+      extent: 2.2,
+      rayAlpha: 0,
+      rings: 2,
+      ringColor: PAPER,
+      ringAlpha: 0.85,
+      glow: 1.45,
+      glowColor: SUN,
+      dotSize: 4,
+      seed: 5,
+    });
+    addGulls(scene, root, {
+      center: [10, 11.5, -46],
+      box: [9, 1.8, 3],
+      drift: [-0.6, 0.04, 0],
+      span: 1.45,
+      color: PAPER,
+      count: 6,
+      seed: 21,
+    });
     const wind = await windLines(
       scene,
       "assets/geometry/story/approach/portal-wind-curves.json",
@@ -257,12 +375,17 @@ export async function setupNarrative(scene: SceneSection) {
       scene.uniform("border", "uPadX", range(w, 1600, 393, 0.18, 0.08));
       scene.uniform("border", "uPadY", range(w, 1600, 393, 0.18, 0.08));
       scene.mesh("background").scale.y = mobile ? 142 : 140;
+      // The road's bearing from the eye (the camera sits on the z axis, five units out).
+      root.updateMatrixWorld(true);
+      const sun = portal.getWorldPosition(new THREE.Vector3());
+      surface.material.uniforms.uRoad.value.set(sun.x / (5 - sun.z), 0.05, 1);
       wind.position.y = -scene.height * 0.5 + 0.6;
     };
   }
   if (scene.name === "NearScene") {
     // The arch light is wider than the panel: keep it out of the Approach panel above.
     scene.mesh("portal").material.uniforms.uClipSection = { value: 1 };
+    sunCore(scene.mesh("portal"));
     const root = new THREE.Group();
     const group = new THREE.Group();
     for (const name of [
@@ -337,6 +460,14 @@ export async function setupNarrative(scene: SceneSection) {
   }
 }
 
+/** The sun in the arch glows from within: a gold core screened into its amber disc. */
+function sunCore(portal: THREE.Mesh<THREE.BufferGeometry, THREE.RawShaderMaterial>) {
+  const u = portal.material.uniforms;
+  u.uCore.value = 1;
+  u.uCoreColor.value = SUN.clone();
+  u.uDotSize.value = 4;
+}
+
 const boatParams = () => ({
   tLines: characterTextures.tLines,
   tNoise: characterTextures.tNoise,
@@ -369,7 +500,8 @@ export async function addBoat(
   return boat;
 }
 
-/** The sea in the boat's space: a depth mask on the waterline and ink crests. */
+/** The sea in the boat's space: a depth mask on the waterline, the inked surface (`params`
+ * override its OpenSeaShader uniforms), crests and the wake. */
 export async function addSea(
   scene: SceneSection,
   parent: THREE.Object3D,
@@ -385,11 +517,37 @@ export async function addSea(
   occluder.rotation.x = -Math.PI / 2;
   occluder.position.y = -0.8;
   occluder.renderOrder = -1;
+  // The water itself: ink ripples on the swell, crowding into the hull's reflection and
+  // dissolving into the sea fog. Just above the occluder, so the hull still hides what lies
+  // behind it.
+  const surface = scene.addMesh(
+    new THREE.PlaneGeometry(160, 160),
+    material("OpenSeaShader", {
+      tNoise: texture("assets/images/story/perlin.png"),
+      uInk: INK.clone(),
+      uGlintColor: SUN.clone(),
+      // Centre (x, z) and half-extents of the hull's waterline in the boat's space.
+      uHull: new THREE.Vector4(-0.15, -2.1, 2.0, 5.2),
+      uFog: new THREE.Vector2(6.5, 12.5),
+      uSpacing: 0.34,
+      uDensity: 1,
+      uSwell: 0.35,
+      uGlints: 1,
+      // Bearing (tangent), half-width and strength of the road of light; off by default.
+      uRoad: new THREE.Vector3(0, 0.15, 0),
+      uAlpha: 1,
+      ...params,
+    }),
+    parent,
+  );
+  surface.material.transparent = true;
+  surface.material.depthWrite = false;
+  surface.rotation.x = -Math.PI / 2;
+  surface.position.y = -0.797;
   const sea = await windLines(scene, crests, {
     uThreshold: 0.3,
     uSpeed: 0.6,
     uTile: 3,
-    ...params,
   });
   parent.add(sea);
   const wake = await windLines(
@@ -398,5 +556,5 @@ export async function addSea(
     { uThreshold: 0.42, uSpeed: 2.2, uTile: 2.5 },
   );
   parent.add(wake);
-  return { occluder, sea, wake };
+  return { occluder, surface, sea, wake };
 }
