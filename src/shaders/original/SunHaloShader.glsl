@@ -69,7 +69,9 @@ void main() {
         float tone = 1.0 - smoothstep(1.0, uGlow, r);
         tone = tone * tone;
         float dots = halftone(tone, uDotSize * uDPR);
-        outColor = mix(outColor, vec4(uGlowColor, 1.0), dots * uGlowAlpha * step(1.0, r));
+        // Around a disc the glow starts at its rim; without one it fills the centre too.
+        float outside = uDisc > 0.0 ? step(1.0, r) : 1.0;
+        outColor = mix(outColor, vec4(uGlowColor, 1.0), dots * uGlowAlpha * outside);
     }
 
     // Rings of light, broken into strokes.

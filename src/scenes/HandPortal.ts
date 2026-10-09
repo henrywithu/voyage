@@ -7,6 +7,7 @@ import { WiggleBoneSpring } from "../engine/WiggleBoneSpring";
 import { cnoise2d } from "../engine/noise";
 import { isMobileDevice } from "../engine/device";
 import { clamp, range, worldHeight } from "../data/sections";
+import { addMotes, addSunHalo, LIGHT } from "./Atmosphere";
 /** Original arm skeleton, portal information pass and 256-square finite difference water solver. */
 export async function setupHand(section: SceneSection) {
   const pivot = section.layers.pivotGroup,
@@ -118,6 +119,32 @@ export async function setupHand(section: SceneSection) {
   );
   water.material.transparent = false;
   water.position.z = isMobileDevice ? -0.25 : 0;
+  // The glowing water: the sun in the arch lies on it as a halftone glow at the top of the
+  // view, and glints flash across it. Both ride on the water plane (drawn at z -0.5 in it).
+  const waterLight = new THREE.Group();
+  section.group.add(waterLight);
+  addSunHalo(section, waterLight, [1.6, 1.05, -0.45], {
+    radius: 0.45,
+    extent: 4.5,
+    rayAlpha: 0,
+    rings: 0,
+    glow: 3.6,
+    glowColor: LIGHT,
+    dotSize: 5,
+    seed: 13,
+  });
+  addMotes(section, waterLight, {
+    count: 46,
+    mode: "glint",
+    shape: "star",
+    min: [-3.4, -1.7, -0.44],
+    max: [3.4, 1.7, -0.44],
+    size: [0.025, 0.06],
+    period: 1.1,
+    color: LIGHT,
+    seed: 33,
+  });
+  section.updates.push(() => waterLight.position.copy(water.position));
   const inversePass = fragmentMaterial("InverseHandPass.fs", {
     ...water.material.uniforms,
     tDiffuse: { value: inverseColorRT.texture },

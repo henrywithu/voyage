@@ -33,6 +33,25 @@ export async function setupArchitecture(section: SceneSection) {
       0.005,
       root,
     );
+    // The light swallows her: fine rays burst from behind her across the disc.
+    const portal = section.mesh("portal");
+    addSunHalo(
+      section,
+      section.group,
+      [portal.position.x, portal.position.y, portal.position.z + 0.05],
+      {
+        radius: portal.scale.x,
+        extent: 1.2,
+        rays: 72,
+        rayLength: [0.2, 0.9],
+        rayWidth: 0.2,
+        rayColor: LIGHT,
+        rayAlpha: 0.85,
+        rings: 0,
+        glowAlpha: 0,
+        seed: 15,
+      },
+    );
     section.onResize = (w, h) => {
       root.scale.setScalar(w / h < 1 ? 0.6 : 1);
       const cutout = range(w / h, 0.591, 2, 0.18, 0.5, false);

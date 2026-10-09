@@ -10,6 +10,7 @@ import { SourceText } from "../engine/SourceText";
 import { worldHeight, range, clamp } from "../data/sections";
 import {
   addGulls,
+  addMotes,
   addSunHalo,
   INK,
   PAPER,
@@ -437,6 +438,19 @@ export async function setupNarrative(scene: SceneSection) {
       "StaticCharacterBaseShaderInverse",
       0.02,
     );
+    // Dust drifts in the light before the disc, pale against the sun (drawn after the disc,
+    // which is itself transparent).
+    const dust = addMotes(scene, group, {
+      count: 60,
+      min: [-5, -3.4, -19.5],
+      max: [5, 6.5, -12],
+      velocity: [0.1, 0.04, 0],
+      size: [0.03, 0.075],
+      wobble: 0.14,
+      color: PAPER,
+      seed: 29,
+    });
+    dust.renderOrder = scene.mesh("portal").renderOrder + 0.5;
     const wind = await windLines(
       scene,
       "assets/geometry/story/profile/outward-curves.json",
