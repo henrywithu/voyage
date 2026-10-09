@@ -47,6 +47,17 @@ The tide she chooses colours the pearl's glow, the light that runs through her d
 | Crumbling pillars | Basalt columns breaking apart into the sky |
 | Colosseum | Standing on the sea at golden hour, fragments of the grotto drifting overhead |
 
+## Atmosphere
+
+The life around the set pieces, drawn in the same ink, paper and yellow (`src/scenes/Atmosphere.ts`):
+
+- **Open sea:** the water is inked under her sloop, broken ripple strokes riding the swell, crowding into the hull's reflection and dissolving into the sea fog, with a road of gold ahead of her bow. Gulls cross the dusk sky, pale over the dark and ink against the fog.
+- **Profile:** the horizon at her eye level, the far sea below it, and the glint of the sun just ahead of her gaze.
+- **The arch:** the sun glows from a gold core, a halftone ring of light rims the opening, a road of gold runs to it across the sea, and gulls wheel over the basalt. Beneath it dust drifts in the light; the glowing water carries the sun and its glints; and as she walks into the disc, rays of light burst from behind her.
+- **The Pearl Grotto:** shafts of light fall from the vault to the tide pools, the pendants glow on their shell, and motes drift in the golden air. The vault deepens to ochre overhead, and as she fastens the clasp a glow gathers behind her and takes the tide's colour when the pearl wakes.
+- **Lift:** bubbles in the tide's colour and specks of light rise around her and quicken while the reader holds.
+- **Breaking and the sea:** the columns open onto a golden sky, light pouring in from above; on the sea the last sun sits low in the arch, clouds drift along the horizon, gulls cross the water and the road of light sparkles.
+
 ## Scene by scene
 
 1. **Open sea.** Title: *Trapnest Voyage*. Chaewon stands at the bow of her sloop, her right hand high on the forestay and her left arm opened to the wind, hair streaming as the boat rides the swell over an ink-stroke sea with its bow wave and wake. Panels: her face turned into the wind; one hand sweeping her hair back.
