@@ -123,7 +123,7 @@ export async function setupHand(section: SceneSection) {
   // view, and glints flash across it. Both ride on the water plane (drawn at z -0.5 in it).
   const waterLight = new THREE.Group();
   section.group.add(waterLight);
-  addSunHalo(section, waterLight, [1.6, 1.05, -0.45], {
+  const sunOnWater = addSunHalo(section, waterLight, [1.6, 1.05, -0.45], {
     radius: 0.45,
     extent: 4.5,
     rayAlpha: 0,
@@ -144,7 +144,11 @@ export async function setupHand(section: SceneSection) {
     color: LIGHT,
     seed: 33,
   });
-  section.updates.push(() => waterLight.position.copy(water.position));
+  section.updates.push((frame) => {
+    waterLight.position.copy(water.position);
+    // Up toward the top right of the view, however wide it is.
+    sunOnWater.position.x = ((worldHeight * frame.width) / frame.height) * 0.26;
+  });
   const inversePass = fragmentMaterial("InverseHandPass.fs", {
     ...water.material.uniforms,
     tDiffuse: { value: inverseColorRT.texture },
