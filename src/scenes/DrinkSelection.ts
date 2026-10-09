@@ -6,6 +6,14 @@ import { CurveParticles } from "../engine/CurveParticles";
 import { windLines } from "../engine/WindLines";
 import { range } from "../data/sections";
 import layoutJson from "../data/scene-layouts.json";
+import {
+  addLightShafts,
+  addMotes,
+  addSunHalo,
+  LIGHT,
+  PAPER,
+  skyTone,
+} from "./Atmosphere";
 const fullTurn = Math.PI * 2;
 function nextRotation(current: number) {
   const delta = ((current % fullTurn) + fullTurn) % fullTurn,
@@ -83,6 +91,47 @@ export async function setupDrinkSelection(section: SceneSection) {
     0.008,
     section.group,
   );
+  // The grotto's light gathers on the shell altar: the vault deepens to ochre overhead, a shaft
+  // falls on the pendants, they glow in a halftone halo, and motes drift about them.
+  skyTone(section, "background", {
+    shadeAmount: 0.55,
+    shadeRange: [0.4, 0.78],
+    dotSize: 5,
+  });
+  const shaft = addLightShafts(section, section.group, {
+    count: 1,
+    width: 0.2,
+    alpha: 0.26,
+    dots: 0.7,
+    seed: 8,
+  });
+  shaft.position.set(0.55, 2.6, -6.5);
+  shaft.rotation.z = -0.22;
+  shaft.scale.set(4.5, 7, 1);
+  addSunHalo(section, section.group, [-0.11, 0.72, -5.1], {
+    radius: 0.42,
+    extent: 4.5,
+    rays: 44,
+    rayLength: [1.6, 2.4],
+    rayWidth: 0.1,
+    rayColor: LIGHT,
+    rayAlpha: 0.9,
+    rings: 0,
+    glow: 3.9,
+    glowColor: LIGHT,
+    dotSize: 4,
+    seed: 6,
+  });
+  addMotes(section, section.group, {
+    count: 45,
+    min: [-2.6, -0.9, -6],
+    max: [2.6, 3.2, -2.6],
+    velocity: [0.03, 0.05, 0],
+    size: [0.012, 0.03],
+    wobble: 0.06,
+    color: PAPER,
+    seed: 19,
+  });
   const curves = (radius: number) => ({
     curves: [
       {

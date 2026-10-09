@@ -6,6 +6,7 @@ import { loadGeometry, texture } from "../engine/assets";
 import { outline } from "../engine/outline";
 import { range, worldHeight } from "../data/sections";
 import { tideColor } from "../data/theme";
+import { addMotes, LIGHT, PAPER, skyTone } from "./Atmosphere";
 
 /**
  * The fastening (Voyage's replacement for Spirit's pour and drink).
@@ -54,6 +55,28 @@ export async function setupDrinkPour(section: SceneSection) {
   }
   for (const name of ["glass", "glass_front", "glassshadow", "armshadow"])
     if (section.layers[name]) section.layers[name].visible = false;
+  // The grotto's air around her: the vault deepens overhead, a glow gathers behind her as she
+  // fastens the clasp and wakes with the pearl, taking its tide; motes drift in the light.
+  const sky = skyTone(section, "background", {
+    light: LIGHT,
+    glowRadius: [0.03, 0.105],
+    glow: 0.55,
+    shadeAmount: 0.5,
+    shadeRange: [0.86, 1.0],
+    dotSize: 5,
+  })!;
+  const skyUniforms = sky.material.uniforms;
+  const glowColor = new THREE.Color();
+  addMotes(section, root, {
+    count: 70,
+    min: [-4.5, -9, -1.6],
+    max: [4.5, 6, 0.4],
+    velocity: [0.02, 0.06, 0],
+    size: [0.012, 0.03],
+    wobble: 0.06,
+    color: PAPER,
+    seed: 23,
+  });
   const common = {
     tAtlas: texture("assets/images/story/chaewon/atlas.png"),
     tTrim: texture("assets/images/story/chaewon/trim.png"),
@@ -164,6 +187,12 @@ export async function setupDrinkPour(section: SceneSection) {
     const color = tideColor(frame.selected);
     for (const u of [closeUniforms, figureUniforms])
       u.uDrinkColor.value.set(color).convertLinearToSRGB();
+    // The glow behind her brightens as the clasp nears and takes the tide when the pearl wakes.
+    skyUniforms.uGlow.value = 0.55 + 0.25 * Math.min(p / CLASP, 1) + 0.35 * fx.pearl;
+    skyUniforms.uLight.value.copy(LIGHT).lerp(
+      glowColor.set(color).convertLinearToSRGB(),
+      0.55 * fx.pearl,
+    );
     // Below, the colour runs down through her dress as she comes into view.
     const scrollTop = (frame.scroll / frame.height) * worldHeight;
     figureUniforms.uColorScan.value = range(
@@ -194,5 +223,12 @@ export async function setupDrinkPour(section: SceneSection) {
       -0.6,
     );
     characterRoot.position.y = mobile ? -8.65 : -8.75;
+    const plane = section.mesh("background");
+    skyUniforms.uGlowCenter.value.set(
+      0.5 + (closeRoot.position.x - plane.position.x) / plane.scale.x,
+      0.5 +
+        (section.height / 2 - worldHeight / 2 - plane.position.y) /
+          plane.scale.y,
+    );
   };
 }
