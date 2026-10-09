@@ -7,11 +7,16 @@ import { range, worldHeight } from "../data/sections";
 import { SourceText } from "../engine/SourceText";
 import { tideColor } from "../data/theme";
 import {
+  addGulls,
   addLightShafts,
   addMotes,
   addSunHalo,
+  AMBER,
+  INK,
   LIGHT,
   PAPER,
+  skyTone,
+  SUN,
 } from "./Atmosphere";
 
 /** Recovered TargetScene, TransitionScene and CathedralScene scene graph and responsive rules. */
@@ -157,6 +162,30 @@ export async function setupArchitecture(section: SceneSection) {
     );
     wind.position.set(-0.25, 0, -1.9);
     root.add(wind);
+    // The grotto breaks open onto the sky: light pours in from above, clouds show through, and
+    // chips of basalt float up from the cracks.
+    skyTone(section, "background", {
+      light: LIGHT,
+      glowCenter: [0.58, 0.82],
+      glowRadius: [0.12, 0.42],
+      glow: 0.85,
+      shadeAmount: 0.45,
+      shadeRange: [0.62, 0.95],
+      clouds: 1,
+      cloudColor: PAPER,
+      cloudBand: [0.3, 0.5, 12, 0.003],
+      dotSize: 5,
+    });
+    addMotes(section, root, {
+      count: 40,
+      min: [-2.6, -3.2, -3.2],
+      max: [3.2, 3.2, -0.6],
+      velocity: [0.04, 0.16, 0],
+      size: [0.012, 0.035],
+      wobble: 0.07,
+      color: INK,
+      seed: 37,
+    });
     const mouse = [new THREE.Vector3(), new THREE.Vector3()],
       position = new THREE.Vector3();
     section.animate = (frame) => {
@@ -242,6 +271,66 @@ export async function setupArchitecture(section: SceneSection) {
     );
     wind.position.y = -3.5;
     wind.renderOrder = 1000;
+    // Golden hour on the open sea: the last sun sits low in the arch on the horizon, pale in a
+    // halftone glow that lights the sky around it; the sky deepens to ochre overhead, clouds
+    // drift along the horizon, gulls cross the water, and the road of light sparkles.
+    const SEA = -4.133;
+    addSunHalo(section, root, [-9.5, SEA + 0.62, -31.6], {
+      radius: 0.95,
+      extent: 5.5,
+      disc: 1,
+      discColor: AMBER,
+      core: 1,
+      coreColor: SUN,
+      rays: 70,
+      rayLength: [1.35, 3.6],
+      rayWidth: 0.14,
+      rayColor: PAPER,
+      rings: 2,
+      ringColor: PAPER,
+      ringAlpha: 0.8,
+      glow: 2.4,
+      glowColor: LIGHT,
+      dotSize: 5,
+      seed: 3,
+    });
+    skyTone(section, "background", {
+      light: LIGHT,
+      glowCenter: [0.4475, 0.41],
+      glowRadius: [0.055, 0.26],
+      glow: 0.9,
+      shadeAmount: 0.6,
+      shadeRange: [0.6, 0.86],
+      clouds: 1,
+      cloudColor: PAPER,
+      cloudBand: [0.43, 0.62, 8, 0.002],
+      dotSize: 5,
+    });
+    addGulls(section, root, {
+      center: [-2.5, 1.2, -20],
+      box: [10, 0.9, 3],
+      drift: [0.32, 0.01, 0],
+      span: 0.5,
+      color: INK,
+      count: 5,
+      seed: 31,
+    });
+    // Sparkles on the road of light: a box laid along the road from the arch toward her.
+    const sparkles = addMotes(section, root, {
+      count: 26,
+      mode: "glint",
+      shape: "star",
+      min: [-1.6, SEA + 0.03, -14.5],
+      max: [1.6, SEA + 0.03, 14.5],
+      size: [0.07, 0.15],
+      period: 1.3,
+      spread: 1.8,
+      color: PAPER,
+      outline: 0.22,
+      seed: 17,
+    });
+    sparkles.position.set(-5.8, 0, -17);
+    sparkles.rotation.y = Math.atan2(7.4, 28);
     const capturedTitle = section.mesh("title");
     capturedTitle.visible = false;
     const title = (await SourceText.create("ColosseumScene", {

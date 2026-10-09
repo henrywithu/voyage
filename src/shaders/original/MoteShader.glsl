@@ -16,6 +16,8 @@ uniform float uPeriod;
 uniform float uFrameRate;
 uniform float uAlpha;
 uniform float uSpread;
+uniform float uClock;
+uniform float uClockOn;
 uniform float uDiscardTop;
 uniform float uDiscardBottom;
 
@@ -38,7 +40,9 @@ float hash(vec3 p) {
 }
 
 void main() {
-    float t = floor(time * uFrameRate) / uFrameRate;
+    // uClockOn: the scene drives the motes' clock (to quicken them without a jump).
+    float now = uClockOn > 0.5 ? uClock : time;
+    float t = floor(now * uFrameRate) / uFrameRate;
     vec3 size3 = uBoxMax - uBoxMin;
     vec3 p;
     float scale;
@@ -86,10 +90,16 @@ void main() {
     if (uDiscardBottom - ndcHeight > 0.0 || uDiscardTop - ndcHeight < 0.0) discard;
     if (vFade < 0.02) discard;
     vec2 q = abs(vUv);
-    // uShape 0: a round speck; 1: a four-point sparkle (an astroid, concave sides).
-    float d = uShape < 0.5 ? length(q) : pow(pow(q.x, 0.5) + pow(q.y, 0.5), 2.0);
+    // uShape 0: a round speck; 1: a four-point sparkle (an astroid, concave sides);
+    // 2: a bubble, a thin ring with a fleck of light inside its rim.
+    float d = uShape > 0.5 && uShape < 1.5 ? pow(pow(q.x, 0.5) + pow(q.y, 0.5), 2.0) : length(q);
     float w = fwidth(d) * 1.2;
     float body = 1.0 - smoothstep(1.0 - w, 1.0, d);
+    if (uShape > 1.5) {
+        float ring = body * smoothstep(0.78 - w, 0.78, d);
+        float fleck = 1.0 - smoothstep(0.16 - w, 0.16 + w, length(vUv - vec2(-0.38, 0.38)));
+        body = max(ring, fleck);
+    }
     if (body < 0.01) discard;
     // An ink rim keeps a pale speck legible against pale paper.
     float rim = uOutline > 0.0 ? smoothstep(1.0 - uOutline - w, 1.0 - uOutline, d) : 0.0;

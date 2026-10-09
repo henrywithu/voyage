@@ -64,17 +64,20 @@ void main() {
         color = mix(color, uLight, screenDots(glow * 1.15, cell, 0.785));
     }
 
-    // Clouds: a band of soft-edged shapes, pale fill and an ink rim.
+    // Clouds: puffs on a flat base along a band, pale fill and an ink rim. The noise is
+    // low in contrast (mostly 0.55..0.85): stretch it before cutting the shapes out.
     if (uClouds > 0.0) {
-        vec2 cuv = vec2(vUv.x * uCloudBand.z + t * uCloudBand.w, vUv.y * uCloudBand.z * 0.5);
-        float n = texture2D(tMap, cuv).r * 0.65 + texture2D(tMap, cuv * 2.3 + 0.37).r * 0.35;
-        float band = smoothstep(uCloudBand.x, mix(uCloudBand.x, uCloudBand.y, 0.35), vUv.y)
-                   * (1.0 - smoothstep(mix(uCloudBand.x, uCloudBand.y, 0.55), uCloudBand.y, vUv.y));
-        float value = n * band;
-        float threshold = 0.42;
+        vec2 cuv = vec2(vUv.x * uCloudBand.z + t * uCloudBand.w, vUv.y * uCloudBand.z * 0.45);
+        float n = texture2D(tMap, cuv).r * 0.85 + texture2D(tMap, cuv * 2.7 + 0.37).r * 0.15;
+        // Not clamped above: a saturated noise would cut flat tops along the band's envelope.
+        n = max((n - 0.56) / 0.26, 0.0);
+        float y = (vUv.y - uCloudBand.x) / (uCloudBand.y - uCloudBand.x);
+        float envelope = smoothstep(0.0, 0.1, y) * (1.0 - smoothstep(0.3, 1.0, y));
+        float value = n * envelope;
+        float threshold = 0.6;
         float fw = fwidth(value);
         float fill = smoothstep(threshold - fw, threshold + fw, value) * uClouds;
-        float rim = fill * (1.0 - smoothstep(threshold + 0.02 - fw, threshold + 0.02 + fw, value));
+        float rim = fill * (1.0 - smoothstep(threshold + 0.035 - fw, threshold + 0.035 + fw, value));
         color = mix(color, uCloudColor, fill);
         color = mix(color, uInk, rim);
     }

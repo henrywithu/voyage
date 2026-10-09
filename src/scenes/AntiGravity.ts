@@ -8,6 +8,7 @@ import { CurveParticles } from "../engine/CurveParticles";
 import { windLines } from "../engine/WindLines";
 import { worldHeight } from "../data/sections";
 import { tideColor } from "../data/theme";
+import { addMotes, PAPER } from "./Atmosphere";
 gsap.registerPlugin(CustomEase);
 const speedUpEase = CustomEase.create("source-speed-up", "0.52,0.02,0.02,1");
 const reveal = new WeakMap<SceneSection, () => void>();
@@ -153,12 +154,41 @@ export async function setupAntiGravity(section: SceneSection) {
       ease: "power4.out",
     });
   });
+  // The tide that lifts her: bubbles in its colour and specks of light rise around her, and
+  // quicken with the spiral when the reader holds.
+  const bubbles = addMotes(section, root, {
+    count: 46,
+    shape: "bubble",
+    min: [-3.2, -4.6, -3.2],
+    max: [3.2, 2.6, 0.6],
+    velocity: [0, 0.32, 0],
+    size: [0.025, 0.075],
+    wobble: 0.12,
+    seed: 41,
+  });
+  const specks = addMotes(section, root, {
+    count: 60,
+    min: [-3.4, -4.6, -3.6],
+    max: [3.4, 2.6, 0.4],
+    velocity: [0, 0.2, 0],
+    size: [0.008, 0.02],
+    wobble: 0.08,
+    color: PAPER,
+    seed: 43,
+  });
+  const tideClock = { value: 0 };
+  for (const motes of [bubbles, specks]) {
+    motes.material.uniforms.uClockOn.value = 1;
+    motes.material.uniforms.uClock = tideClock;
+  }
   section.animate = (frame) => {
     const t = frame.time,
       dt = frame.delta * 60;
     flavor
       .set(tideColor(frame.selected))
       .convertLinearToSRGB();
+    bubbles.material.uniforms.uColor.value.copy(flavor);
+    tideClock.value += frame.delta * (0.6 + 0.4 * speed.wind);
     drawn.setColor(flavor);
     leaves.setHeld(frame.pressed);
     drawn.setHeld(frame.pressed);

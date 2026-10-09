@@ -2,6 +2,8 @@
 
 #!UNIFORMS
 uniform vec3 uDiscColor;
+uniform vec3 uCoreColor;
+uniform float uCore;
 uniform vec3 uRayColor;
 uniform vec3 uRingColor;
 uniform vec3 uGlowColor;
@@ -102,10 +104,14 @@ void main() {
         outColor = mix(outColor, vec4(uRayColor, 1.0), ray * uRayAlpha);
     }
 
-    // The disc itself, where the scene has none of its own.
+    // The disc itself, where the scene has none of its own, glowing from a halftone core
+    // like the arch's sun (uCore).
     if (uDisc > 0.0) {
         float disc = 1.0 - smoothstep(1.0 - pw, 1.0 + pw, r);
-        outColor = mix(outColor, vec4(uDiscColor, 1.0), disc * uDisc);
+        vec3 discColor = uDiscColor;
+        if (uCore > 0.0)
+            discColor = mix(uDiscColor, uCoreColor, halftone((1.0 - smoothstep(0.05, 0.92, r)) * uCore * 1.3, uDotSize * uDPR));
+        outColor = mix(outColor, vec4(discColor, 1.0), disc * uDisc);
     }
 
     // The layers above are composited premultiplied; the material blends straight alpha.

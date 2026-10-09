@@ -13,6 +13,8 @@ import { texture } from "../engine/assets";
 export const INK = new THREE.Color(18 / 255, 18 / 255, 18 / 255);
 export const PAPER = new THREE.Color(243 / 255, 241 / 255, 233 / 255);
 export const SUN = new THREE.Color(244 / 255, 189 / 255, 40 / 255);
+/** The amber of the sun caught in the arch (theme.amber). */
+export const AMBER = new THREE.Color(184 / 255, 130 / 255, 15 / 255);
 /** Pale gold: light itself, on a yellow ground. */
 export const LIGHT = new THREE.Color(1, 0.95, 0.78);
 
@@ -137,7 +139,7 @@ export interface MoteOptions {
   max: Vec3;
   /** 'drift' floats through the box; 'glint' flashes at random places in it. */
   mode?: "drift" | "glint";
-  shape?: "dot" | "star";
+  shape?: "dot" | "star" | "bubble";
   velocity?: Vec3;
   /** Radius range in the parent's units. */
   size?: [number, number];
@@ -203,7 +205,7 @@ export function addMotes(
         uSize: new THREE.Vector2(...size),
         uWobble: wobble,
         uMode: mode === "glint" ? 1 : 0,
-        uShape: shape === "star" ? 1 : 0,
+        uShape: { dot: 0, star: 1, bubble: 2 }[shape],
         uOutline: outline,
         uPeriod: period,
         uSpread: spread,
@@ -225,6 +227,9 @@ export interface SunOptions {
   /** Draw the disc too (1), or only the light around a disc the scene already has (0). */
   disc?: number;
   discColor?: THREE.Color;
+  /** A halftone core of this colour in the disc (strength 0..1). */
+  core?: number;
+  coreColor?: THREE.Color;
   rays?: number;
   rayAlpha?: number;
   /** Where rays start (sun radii) and how long they grow. */
@@ -256,6 +261,8 @@ export function addSunHalo(
     extent = 4,
     disc = 0,
     discColor = SUN,
+    core = 0,
+    coreColor = SUN,
     rays = 90,
     rayAlpha = 1,
     rayLength = [1.25, 2],
@@ -276,6 +283,8 @@ export function addSunHalo(
     transparent(
       material("SunHaloShader", {
         uDiscColor: discColor.clone(),
+        uCore: core,
+        uCoreColor: coreColor.clone(),
         uRayColor: rayColor.clone(),
         uRingColor: ringColor.clone(),
         uGlowColor: glowColor.clone(),
